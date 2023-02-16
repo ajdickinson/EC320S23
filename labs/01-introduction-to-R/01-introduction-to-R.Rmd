@@ -1,0 +1,303 @@
+---
+title: "**Introduction to R**"
+author: | 
+        | **Modifications:** Giorgi Nikolaishvili
+        | **Original Authors:** Kyle Raze, Youssef Ait Benasser, & Saurabh Gupta
+        | EC 320: Introduction to Econometrics
+        | University of Oregon
+date: "Spring 2022"
+output: 
+  html_document:
+    theme: flatly  
+    includes:
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+      
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F, message = F, cache = T)
+```
+
+## Labs vs. Lectures
+
+**Lectures:** learning new econometric concepts, math, research design, etc. 
+
+**Labs:** gathering tools to apply the above concepts to real data.
+
+## A Little Bit About Me
+
+Full name: Giorgi Nikolaishvili -- you can either refer to me as Gio ("G" pronounced as in "great" or "Google"), or George.
+
+Tbilisi, Georgia -> Washington, D.C. -> Tbilisi, Georgia -> Kyiv, Ukraine -> Boston, MA -> Eugene, OR.
+
+Like Emmett, I'm also a 3rd-year Economics PhD Candidate.
+
+Research areas: macroeconomics & time series econometrics. 
+
+I study how the banking and financial sectors evolve over time using statistical modeling.
+
+I use R to work with data, and Julia to construct statistical algorithms.
+
+This quarter I started learning C and C++ from scratch -- so we're in the same boat in terms of learning new languages!
+
+## What is R? 
+
+- R is a programming language and environment for statistical computing and graphics. 
+
+- R provides a wide variety of statistical and graphical techniques, and is highly extensible. 
+
+- R is *not* a general-purpose programming language.
+
+- R is free and open-source.
+
+- R is used mainly by statisticians, both in the private sector (data scientists) and academia.
+
+- R is used extensively within the economics profession due to its ease-of-use, flexibility, and reproducibility.
+
+## What is RStudio?
+
+RStudio is an IDE (Integrated Development Environment) for R. 
+
+R is the language and RStudio helps us interact with R. 
+
+Basically, if R is the engine, chassis, wheels, etc. of a car, then RStudio is its dashboard containing various buttons and monitors that, while "unneccessary", can make the driving experience easier and more effective.
+
+You can still program in R without RStudio, but RStudio is useless without R. 
+
+## Installation
+
+Having R and RStudio on your laptop will allow you to work on problem sets and explore the functionality of R outside the lab. 
+
+It is important that you **install R before you install R Studio.**
+
+### Install R
+
+In your web browser, go to [r-project.org](https://www.r-project.org) and then click [download R](https://cran.r-project.org/mirrors.html). 
+At this point, you'll be directed to a page with a list of institutions that host the Comprehensive R Archive Network (CRAN). 
+The idea is to pick an institution near you. Scroll down to USA and click the link for either [UC Berkeley](https://cran.cnr.berkeley.edu) or [OSU](https://ftp.osuosl.org/pub/cran/).
+
+**Windows Instructions:** 
+If you have a Windows machine, click `Download R for Windows` then `install R for the first time` then `Download R 4.1.3 for Windows`. 
+To complete installation, run the `.exe` file you downloaded.
+
+**Mac Instructions:** If you have a Mac, click `Download R for (Mac) OS X` then `R-4.1.3.pkg` under "latest release." 
+To complete installation, run the `.pkg` file you downloaded.
+
+**Linux Instructions:** If you run a Linux distro, note that installation instructions vary by distro. 
+That said, you probably know what you're doing.
+
+### Install RStudio
+
+- In your web browser, go to [rstudio.com/products/rstudio/](https://rstudio.com/products/rstudio/), scroll down to R Studio Desktop, and then click [Download RStudio Desktop](https://rstudio.com/products/rstudio/download/) under "Open Source Edition."
+Scroll down to "All Installers" and click the link that corresponds with your operating system. 
+- To complete installation, run the installer you downloaded.
+
+## R Basics
+
+In this section we learn the absolute basic elements of R.
+
+### R as a Calculator 
+
+Addition:
+
+```{r} 
+2+2
+```
+
+Subtraction:
+
+```{r} 
+2-2
+```
+
+Multiplication:
+
+```{r} 
+2*2
+```
+
+Division:
+
+```{r} 
+2/2
+```
+
+Exponentiation:
+
+```{r} 
+2^2
+```
+
+(Natural) logarithms:
+
+```{r} 
+log(2)
+```
+
+### Variables
+
+It is often useful to store information into objects/variables.
+```{r}
+a <- 2
+b <- 3
+c <- a * b + a^b - log(b)/a
+```
+
+The operator `<-` is referred to as the assignment operator.
+
+Let's print variable `c` to see what it looks like:
+
+```{r}
+print(c) 
+```
+
+There exist many different classes of objects.
+Let's see what class object `c` belongs to:
+```{r}
+class(c)
+```
+
+We can also create objects of class "character" (essentially text):
+```{r}
+sometext <- "Hello World" 
+class(sometext) 
+```
+
+There are many other object classes -- we will run into new ones throughout the quarter.
+A nice reference for the universe of standard object classes (data types) can be found [here](https://www.tutorialspoint.com/r/r_data_types.htm). 
+
+### Functions
+
+Functions take objects as inputs, and generate outputs that can be stored as new objects.
+
+We've already run into one function -- `class`.
+
+The `class` function takes any object as an input, and generates its class as an output.
+
+Another great example of a function is `c`, which takes multiple inputs (of comparable dimensions) and combines them into a single vector:
+```{r}
+testvec <- c(a,b,c)
+print(testvec)
+```
+
+We may now access the values of objects `a`, `b`, and `c` as elements of `testvec`:
+```{r}
+testvec[2]
+```
+
+We may also create out own functions:
+```{r}
+add <- function(arg1, arg2){
+  arg1 + arg2
+}
+add(1,2)
+```
+
+### Packages
+
+R functions come in packages. 
+
+Each package contains a library of specialized functions.
+
+Think of a package as a toolbox, and its functions as the actual tools -- a package simply keeps functions neatly grouped, organized, and labeled.
+
+When you open a fresh R session in RStudio, a number of packages come pre-loaded. 
+These include packages with common math and statistics functions and are known collectively as "base R." 
+
+Base R is wonderful, but non-default packages offer a great deal of flexibility and functionality. 
+
+**Install a package:** `install.packages("package.name.here")`
+
+- Replace `package.name.here` with the name of the package you want to install.
+- Make sure the name of the package is in quotes.
+- You only have to install a package once.
+
+**Load a package:** `library(package.name.here)`
+
+- To use functions from a non-base package, you need to load the package at the beginning of each new R session.
+- Quotes around the package name are no longer needed.
+
+#### **`pacman`**
+
+We will often need to load several packages in a single session. One way to do this is to execute `library(package.1)`, then `library(package.2)`, then `library(package.3)`, and so forth. A less cumbersome way to load multiple packages is to use the `p_load` function from the `pacman` package. 
+
+- Use the instructions above to **install `pacman`**.
+- Load the `pacman` package with `library(pacman)`.
+- When you want to load additional packages, you can then execute `p_load(package.1, package.2, package.3)`.
+- **Added bonus:** `p_load` first checks to see if the packages are installed. If they aren't, then it will install them for you.
+
+```{r}
+library(pacman)
+p_load(ggplot2, pracma)
+```
+
+We have now loaded (and possibly installed) two packages called `ggplot2` and `pracma`. 
+The former provides plotting capabilities, and the latter allows for easy random number generation.
+We will use both of these packages below.
+
+### R Scripts vs. The Console
+
+To produce reproducible R code, it is best to use scripts. 
+Open a new R script file with the `.R` extension by clicking `File` then `New File` then `R Script`. 
+We will write our first script to generate a scatter plot using `ggplot2`.
+
+- To execute *one line of your script*, click the line you want to run and then click `Run` at the upper-right corner of your R script. A quicker alternative is to click the line you want to run and then use the keyboard shortcut `Ctrl` `Enter`. 
+- To execute *the entire script*, click `Source` at the upper-right corner of your R script or use the keyboard shortcut `Ctrl` `Alt` `R`.
+
+**Aside:** It is useful to leave comments in your code to explain to your future self what your code is doing and why. You can leave a comment by typing a hash `#`:
+
+```{r}
+# This is a comment. R will ignore it.
+```
+
+### Data Frames
+
+A data frame is a class of object often used to construct and store datasets. 
+
+Let's starting by creating two variables, `var1` and `var2` that each contain 10 random numbers between 0 and 1.
+
+```{r}
+# Create `var1` and `var2`
+var1 <- rand(10, 1)
+var2 <- rand(10, 1)
+```
+
+Now if we would like to store `var1` and `var2` into a single table, we may create a data frame:
+
+```{r}
+# Create data frame containing `var1` and `var2`
+df   <- data.frame(var1, var2)
+
+# Print data frame
+print(df)
+```
+
+### Plotting with `ggplot2`
+
+To visualize relationships between variables stored in a data frame, you can make a scatter plot.
+
+```{r}
+# Plot `var2` on `var1`
+ggplot(data = df, aes(x = var1, y = var2)) + 
+  geom_point()
+```
+
+Now let's do the same thing using more data:
+
+```{r}
+
+# Create `var1` and `var2`
+var1 <- rand(1000, 1)
+var2 <- rand(1000, 1)
+
+# Create data frame containing `var1` and `var2`
+df   <- data.frame(var1, var2)
+
+# Plot `var2` on `var1`
+ggplot(data = df, aes(x = var1, y = var2)) + 
+  geom_point()
+```
+
