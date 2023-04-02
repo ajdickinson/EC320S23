@@ -1,12 +1,39 @@
-# Introduction to Econometrics
+# EC 320, Spring 2023
 
-This repository contains materials for EC320: Introduction to Econometrics at the University of Oregon, Spring 2023 as instructed by Andrew Dickinson.
+Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/).
 
-This course introduces statistical techniques that economists use to test economic theories and to estimate the relationships between economic variables. Econometrics combines economics, mathematics, and statistics with data to analyze and measure economic phenomena. In this class, we will focus our attention on regression analysis--the workhorse of applied econometrics. Using calculus and introductory statistics, we  will cultivate a working understanding of the theory underpinning regression analysis, emphasizing the assumptions we must make to interpret causality from correlation. 
+## Schedule
 
-Statistial programming is fundemental to practicing applied econometrics. Thus we will teach the statistical programming language `R` to apply insights from theory and learn how to work with data. 
+**Lecture** Monday and Wednesday, 2:00p–3:20p (PST), [101 Knight Library](https://map.uoregon.edu/08a3b9892)
+
+**Lab** Wednesday, 4:00p–5:20p (Pacific), [220 Chapman](https://map.uoregon.edu/cd63d45ec)
+
+**Office hours**
+
+- **Andrew Dickinson** Tuesdays and Thursdays, 4:00p–5:00p,  [Zoom](https://uoregon.zoom.us/j/6669213025)
+- **Colleen O'Briant** Fridays, TBD, (zoom link to be added)
 
 
-[syllabus](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)  
+## Syllabus
 
-https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf
+[**Syllabus**](https://ajdickinson.github.io/EC320S22/syllabus/syllabus.pdf)
+
+## Books
+
+### Required books
+
+- [Introduction to Econometrics, 5th ed.](http://smile.amazon.com/Introduction-Econometrics-Christopher-Dougherty/dp/0199676828/) 
+- [Mastering 'Metrics](https://www.amazon.com/Mastering-Metrics-Path-Cause-Effect/dp/0691152845/)
+
+### Suggested books
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+## Lecture notes
+
+[**000 - Introduction**](https://ajdickinson.github.io/EC320S22/slides/000/000-main.html)
+
+
+**Formats** [.html](https://ajdickinson.github.io/EC320S22/slides/000/000-main.html) | [.pdf](https://ajdickinson.github.io/EC524S23/slides/000/000-main.pdf)
+
+**Readings** Introduction in *ItE Review* & *MM 1 (appendix)*
