@@ -39,51 +39,51 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 **001 - Review** 
 
-- Readings: 
+- Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
 **002 - The fundamental problem of causal inference** 
 
-- Readings: 
+- Readings: *MM 1*
 
 **003 - Logic of regression** 
 
-- Readings: 
+- Readings: *MM 2*
 
 **004 - Simple linear regression** 
 
-- Readings: 
+- Readings: *ItE 1*
 
 **005 - Classical assumptions** 
 
-- Readings: 
+- Readings: *ItE 2*
 
 **006 - Inference** 
 
-- Readings: 
+- Readings: *ItE 2*
 
 **007 - Mulitple variable regression** 
 
-- Readings: 
+- Readings: *ItE 3, 6.2; MM 2 (appendix)*
 
 **008 - Mulitple variable regression inference** 
 
-- Readings: 
+- Readings: *ItE 3, 6.2; MM 2 (appendix)*
 
 **009 - Nonlinear relationships** 
 
-- Readings: 
+- Readings: *ItE 4*
 
 **010 - Categorical variables**
 
-- Readings: 
+- Readings: *ItE 5*
 
 **011 - Model specification**
 
-- Readings:
+- Readings: *ItE 6*
 
 **012 - Difference in differences**
 
-- Readings: 
+- Readings: TBD
 
 
 ## Contributors
