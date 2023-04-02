@@ -1,0 +1,250 @@
+
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i,700,700i);
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+@import url(https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans+Condensed:wght@300;400;600;700&family=Noto+Sans:wght@200;300;400;600;700&family=Raleway:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
+
+
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Fira Sans", "Droid Serif", Palatino,
+  FreeSerif, serif !default;
+$font-family-monospace: "JetBrainsMono Nerd Font" ;
+$presentation-heading-font-weight: 400 !default;
+$presentation-font-size-root: 32px;
+$presentation-font-weight-root: 400;
+
+// colors
+$body-bg: #fff !default;
+$body-color: #2E3440 !default;
+$link-color: #81A1C1 !default;
+$link-color-hover: #b48ead !default;
+$selection-bg: #5E81AC !default;
+$body-bg: #4c566a !default;
+$code-bg: #F5F5F5 !default;
+$code-color: #5E81AC !default;
+
+/*-- scss:rules --*/
+
+/*-- scss:rules --*/
+
+#title-slide {
+  text-align: left;
+
+  .quarto-title-authors {
+    justify-content: left;
+    font-weight: 200;
+  
+    .quarto-title-author { // optional, test it for yourself
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
+      font-weight: 200;
+    }
+  }
+}
+
+#title-slide .title {
+  font-weight: 400;
+  font-size: 50px;
+}
+
+#title-slide .subtitle {
+  color: #81A1C1;
+   text-align: left;
+   font-size: 40px;
+}
+
+
+// #title-slide .reveal-slide-number {
+//   display: none;
+// }
+
+.reveal h1 {
+  color: #4c566a;
+  font-weight: 400;
+  font-size: 50px;
+}
+.reveal h2 {
+  // background-color: #ECEFF4;
+  // display: block !important;
+  padding-bottom: 30px;
+  color: #4c566a;
+  max-width: 1800px;
+  text-decoration: none;
+}
+.reveal p, .reveal li {
+  font-weight: 200;
+}
+
+.inverse {
+  // padding-bottom: 30px;
+  background-color: #4c566a !important;
+  // text-decoration: none;
+  // text-align: left;
+  color: #fff !important;
+}
+section.has-light-background h1 {
+  color: #fff
+}
+.inverse p {
+  color: #fff;
+}
+// /* Removes colored bar from top of the slide resulting in a clear slide */
+// .clear{
+//   border-top: 0px solid #FAFAFA;
+// }
+.middle h3 {
+  vertical-align: middle !important;
+}
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left;
+}
+.vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* file: style.css */
+.v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.reveal dd {
+  display: block;
+  position: relative;
+  color: #6f7d98;
+  width: unset;
+  margin: var(--r-block-margin) auto;
+  padding: .625rem 1.75rem;
+  border-left: .25rem solid #6f7d98;
+  font-style: normal;
+  background: none;
+  box-shadow: none
+}
+.reveal dl {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-left: 0em;
+}
+.reveal blockquote {
+  color: #2E3440;
+  border-left: 0.5rem solid #ccc;
+}
+
+.note {
+  font-family: 'Zilla Slab' !important;
+  font-weight: 300;
+  font-style: italic;
+  color: #314f4f !important;
+  // font-size: 32px;
+}
+.note-green {
+  font-family: 'Zilla Slab' !important;
+  font-weight: 300;
+  font-style: italic;
+  color: #A3BE8C !important;
+  // font-size: 32px;
+}
+.note-blue {
+  font-family: 'Zilla Slab' !important;
+  font-weight: 300;
+  font-style: italic;
+  color: #81A1C1 !important;
+  // font-size: 32px;
+}
+.note h1 {
+  font-family: 'Zilla Slab' !important;
+}
+.ex {
+  color: #ccc !important;
+  font-style: italic;
+  font-weight: 500;
+}
+
+
+.h {
+  font-weight: 600;
+  color: #2e3440;
+}
+.hi {
+  font-weight: 600;
+  color: #4c566a
+}
+.hii {
+  font-weight: 600;
+  color: #81A1C1;
+}
+.hi-teal {
+  font-weight: 600;
+  color: #8FBCBB;
+}
+.hi-bb {
+  font-weight: 600;
+  color: #88C0D0;
+}
+
+.hp {
+  font-weight: 600;
+  color: #b48ead !important;
+}
+.hi-green {
+  font-weight: 600;
+  color: #A3BE8C;
+}
+.hi-red {
+  font-weight: 600;
+  color: #BF616A;
+}
+
+.hi-white {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+
+.blue {
+  color: #81A1C1;
+}
+.purple {
+  color: #b48ead !important;
+}
+.green {
+  color: #A3BE8C;
+}
+.red {
+  color: #BF616A;
+}
+.teal {
+  color: #8FBCBB;
+}
+
+
+.small {
+  font-size:28px;
+}
+.tiny {
+  font-size:24px;
+}
+.big {
+  font-size: 38px;
+  font-weight: 400;
+}
+.realbig {
+  font-size: 60px;
+  font-weight: 400;
+}
+.huge {
+  font-size: 100px;
+  font-weight: 400;
+}
+.mono {
+  font-family: monospace;
+}

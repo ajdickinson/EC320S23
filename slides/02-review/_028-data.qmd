@@ -1,0 +1,171 @@
+---
+name: data
+---
+
+# Data types {.inverse .note}
+
+---
+
+## Data
+
+There are [two]{.hi} broad types of data
+
+1. [Experimental data]{.hi}
+
+> Data generated in controlled, laboratory settings^[[Note:]{.note} Experiments can often occur outside the lab (eg randomized control trials and A/B testing)]
+
+. . .
+
+Ideal for [causal identification]{.hi}, but difficult to obtain
+
+. . .
+
+- Logistically intractable
+- Expensive
+- Morally repugnant
+
+
+## Data {data-visibility="uncounted"}
+
+There are [two]{.hi} broad types of data
+
+1. [Experimental data]{.hi}
+
+2. [Observational data]{.hi}
+
+> Data generated in non-experimental settings
+
+. . .
+
+Types of observational data:
+
+:::: {.columns}
+
+::: {.column width="%50"}
+- Surveys
+- Census
+- Administrative data
+:::
+
+::: {.column width="%50"}
+- Environmental data
+- Transaction data
+- Text and image data
+:::
+
+::::
+
+. . . 
+
+Commonly used though poses challenges to [causal identification]{.hi}
+
+---
+
+## Data types: Cross sectional
+
+> Sample of individuals from a population at a point in time
+
+. . .
+
+<br>
+
+Ideally collected using [random sampling]{.hi}
+
+- [random sampling]{.hi} $+$ [sufficient sample size]{.hp} $=$ [representative sample]{.hii}
+- Non-random sampling is more common and difficult to work with
+
+. . .
+
+<br>
+
+[Note:]{.note} Used extensively in applied microeconomics^[Applied microeconomics = Labor, health, education, public finance, development, industrial organization, and urban economics.] and is the main focus of this course
+
+---
+
+## Data types: Time series
+
+> Observations of variables over time
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="10%"}
+[Ex.]{.ex}
+:::
+
+::: {.column width="45%"}
+- Quarterly GDP
+- Annual infant mortality rates
+:::
+
+::: {.column width="45%"}
+- Daily stock prices
+:::
+
+::::
+
+. . .
+
+[Complication:]{.note} Observations are not independent draws
+
+- eg GDP this quarter is highly correlated to GDP last quarter
+
+. . .
+
+More advanced methods needed^[See EC 421 and EC 422]
+
+---
+
+## Data types: Pooled cross sectional
+
+> Cross sections from different points in time
+
+. . .
+
+<br>
+
+Useful for studying relationship that change over time.
+
+<br>
+
+Again, requires more advanced methods^[See EC 421 and many of the 400-level applied classes]
+
+---
+
+## Data types: Panel data
+
+> Time series for each cross sectional unit
+
+<br>
+
+. . . 
+
+[Ex.]{.ex} [Daily attendance across my class]{.fragment}
+
+<br>
+
+. . .
+
+Can control for [unobserved]{.note} characteristics
+
+<br>
+
+. . .
+
+Again, requires more advanced methods^[See EC 421 and many of the 400-level applied classes]
+
+---
+
+## Data types: Messy data
+
+[Analysis ready]{.note} dataset are rare. Most data are _messy_
+
+[Data wrangling]{.hi} is a non-trivial part of an economist or data scientist/analyst's job
+
+. . .
+
+[R]{.mono .big} has a suite of packages^[More than one suite, but for this class we use the [tidyverse]{.mono}] that facilitate data wrangling:
+
+- The [tidyverse:]{.mono} `readr`, `tidyr`, `dplyr`, `ggplot2` + others
+

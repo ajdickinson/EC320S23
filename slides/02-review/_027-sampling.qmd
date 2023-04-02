@@ -1,0 +1,592 @@
+---
+name: sampling
+---
+
+# Sampling {.inverse .note}
+
+---
+
+## Sampling
+
+[Population:]{.hi}
+
+> A group of items or events we would like to know about. 
+
+[Ex.]{.ex} Boomers, redheads in Oklahoma, cats in Eugene
+
+. . .
+
+[Parameter:]{.hi}^[Parameter of interest is the parameter that the researcher seeks to learn about]
+
+> a value that describes that population 
+
+[Ex.]{.ex} Mean height of American
+
+---
+
+## Sampling {data-visibility="uncounted"}
+
+[Sample:]{.hi} 
+
+> A survey of a subset of the population. 
+
+[Ex.]{.ex} Respondents to a survey, random sample of econ students at the UO
+
+. . .
+
+<br>
+
+Often we aim to draw observations [randomly]{.note} from the population
+
+- Advantageous as it becomes a [representative sample]{.hi} of the population...
+
+---
+
+## Sampling distributions
+
+[Focus:]{.note .hi} Populations vs Samples
+
+- How can we make inferences about a [population]{.hi} based on a small [sample]{.hi} of the population?
+- How do we learn about an unknown population [parameter of interest]{.note}?
+
+<br>
+
+. . .
+
+[Challenge:]{.hi} Usually missing data of the entire population.
+
+[Solution:]{.hi} Sample from the population and estimate the parameter.
+
+- Draw $n$ observations from the population, then use an [estimator]{.note}.
+
+
+---
+
+## Population distributions
+
+Suppose we have some estimator $\hat{\theta}$ for a parameter $\theta$:
+
+- We don’t know $\theta$, but say we assume that $\hat{\theta}$ follows some probability distribution $p(\hat{\theta})$
+- Next, suppose we hypothesize some value for $\theta$, say $\theta = 2.5$
+- Now we use our estimator $\hat{\theta}$ to calculate an estimate for $\theta$. Say that
+we get $\hat{\theta} = 45$
+- We "know" the distribution of $\hat{\theta}$, so we know the probability of getting $\hat{\theta}= 45$ if really $\theta= 2.5$. So we can say ” if $\theta$ really was 2.5,
+then the probability of getting $\hat{\theta} = 45$ is super super low. Thus the
+probability that $\theta= 2.5$ is super super low”.
+- We are able to make a statement about the true value of $\theta$ just by
+knowing the distribution of our preferred estimator $\hat{\theta}$
+
+Sweet, but what distribution should we be assuming?
+
+---
+
+## Sampling distributions
+
+There are myriad ways to produce a sample,^[Only a subset of these can help produce reliable statistics.] but we will restrict our attention [to simple random sampling]{.hi}, where
+
+1. Each observation is a random variable.
+
+2. The $n$ random variables are independent.
+
+3. Life becomes much simpler for the econometrician.
+
+
+---
+
+## Population *vs.* sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+. . .
+
+```{r}
+#| label: "population_v_sample_df"
+#| include: FALSE
+#| cache: true
+
+# Set the seed
+set.seed(12468)
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 10
+
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 2, sd = 20),
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(TRUE, n_s), rep(FALSE, n_p - n_s))),
+  s2 = sample(x = c(rep(TRUE, n_s), rep(FALSE, n_p - n_s))),
+  s3 = sample(x = c(rep(TRUE, n_s), rep(FALSE, n_p - n_s)))
+)
+
+# Means
+m0 <- mean(pop_df$x) |> round(3)
+m1 <- mean(subset(pop_df$x, pop_df$s1 == T)) |> round(3)
+m2 <- mean(subset(pop_df$x, pop_df$s2 == T)) |> round(3)
+m3 <- mean(subset(pop_df$x, pop_df$s3 == T)) |> round(3)
+
+# Simulation
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:1e4, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+}) %>% do.call(rbind, .) %>% as_tibble()
+
+```
+
+
+
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: ""
+#| fig-subcap:
+#|   - "Population"
+#|   - "Population relationship"
+#| layout-ncol: 2
+#| column: page
+
+popcol = hii
+s1col = hp
+s2col = hp
+
+ggplot(data = pop_df, aes(x = row, y = col)) +
+geom_point(color = hii, size = 10) +
+theme_void()
+
+ggplot() +
+  geom_histogram(data = pop_df, aes(x), color = 'white', size = 0.3, fill = popcol, alpha = 0.5) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  geom_label(aes(x = -25, y = 7, 
+                # colour = 'blue',
+                label = paste0("µ = ", m0)), 
+                size = 10, color = 'black', family = 'Fira Sans Book', label.size = NA
+            ) +
+  theme_void()
+```
+
+
+---
+
+## Population _vs_ sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+```{r}
+#| label: sample01
+#| echo: FALSE
+#| cache: true
+#| fig-cap: ""
+#| fig-subcap:
+#|   - "10 random individuals"
+#|   - "Population relationship"
+#| layout-ncol: 2
+#| column: page
+
+popcol = hii
+s1col = hp
+s2col = hp
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
+  geom_point(color = s1col, size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_void() +
+  theme(legend.position = "none")
+
+ggplot() +
+  geom_histogram(data = pop_df, aes(x), color = 'white', size = 0.31, fill = popcol, alpha = 0.5) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  geom_histogram(data = subset(pop_df, s1 == T), aes(x), fill = s1col, alpha = 0.50) +
+  geom_vline(xintercept = m1, size = 2, color = s1col) +
+  geom_label(aes(x = -25, y = 7, 
+                # colour = 'blue',
+                label = paste0("µ = ", m0)), 
+                size = 10, color = hi, family = 'Fira Sans Book', label.size = NA
+            ) +
+  geom_label(aes(x = -29.5, y = 6, 
+                # colour = 'blue',
+                label = paste0("hat(µ)", " = ", m1)), 
+                size = 10, color = hp, family = 'Fira Sans Book', label.size = NA
+            ) +
+  theme_void()
+```
+
+
+---
+
+## Population _vs_ sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+```{r}
+#| label: sample02
+#| echo: FALSE
+#| cache: true
+#| fig-cap: ""
+#| fig-subcap:
+#|   - "10 random individuals"
+#|   - "Population relationship"
+#| layout-ncol: 2
+#| column: page
+
+popcol = hii
+s1col = hp
+s2col = hp
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
+  geom_point(color = s2col, size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_void() +
+  theme(legend.position = "none")
+
+ggplot() +
+  geom_histogram(data = pop_df, aes(x), color = 'white', size = 0.31, fill = popcol, alpha = 0.5) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  geom_histogram(data = subset(pop_df, s2 == T), aes(x), fill = s2col, alpha = 0.50) +
+  geom_vline(xintercept = m2, size = 2, color = s2col) +
+  geom_label(aes(x = -25, y = 7, 
+                # colour = 'blue',
+                label = paste0("µ = ", m0)), 
+                size = 10, color = hi, family = 'Fira Sans Book', label.size = NA
+            ) +
+  geom_label(aes(x = -29.5, y = 6, 
+                # colour = 'blue',
+                label = paste0("hat(µ)", " = ", m2)), 
+                size = 10, color = hp, family = 'Fira Sans Book', label.size = NA
+            ) +
+  theme_void()
+```
+
+
+---
+
+## Population _vs_ sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+```{r}
+#| label: sample03
+#| echo: FALSE
+#| cache: true
+#| fig-cap: ""
+#| fig-subcap:
+#|   - "10 random individuals"
+#|   - "Population relationship"
+#| layout-ncol: 2
+#| column: page
+
+popcol = hii
+s1col = hp
+s2col = hp
+s3col = hp
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s3)) +
+  geom_point(color = s3col, size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_void() +
+  theme(legend.position = "none")
+
+ggplot() +
+  geom_histogram(data = pop_df, aes(x), color = 'white', size = 0.31, fill = popcol, alpha = 0.5) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  geom_histogram(data = subset(pop_df, s3 == T), aes(x), fill = s3col, alpha = 0.50) +
+  geom_vline(xintercept = m3, size = 2, color = s3col) +
+  geom_label(aes(x = -25, y = 7, 
+                # colour = 'blue',
+                label = paste0("µ = ", m0)), 
+                size = 10, color = hi, family = 'Fira Sans Book', label.size = NA
+            ) +
+  geom_label(aes(x = -29.5, y = 6, 
+                # colour = 'blue',
+                label = paste0("hat(µ)", " = ", m3)), 
+                size = 10, color = hp, family = 'Fira Sans Book', label.size = NA
+            ) +
+  theme_void()
+```
+
+
+
+---
+
+:::{.vertical-center}
+Let's repeat this [10,000 times]{.hi} and then plot the estimates.
+
+(This exercise is called a Monte Carlo simulation.)
+:::
+
+---
+
+#### How in the world do I do that
+
+```{r}
+#| echo: TRUE
+#| preserve: TRUE
+#| code-fold: TRUE
+#| code-summary: "Show the code"
+#| eval: FALSE
+
+# Set the seed
+set.seed(12468)
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 10
+
+# Generate data
+pop_df <- tibble(
+  x = rnorm(n_p, mean = 2, sd = 20)
+)
+
+# Simulation
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:1e4, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+# Create histogram of simulation
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+---
+
+::: {.panel-tabset}
+
+###### 10
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: "Regular resampling means of 10 obs at a time"
+
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:10, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+###### 100
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: "Regular resampling means of 10 obs at a time"
+
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:100, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+###### 1,000
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: "Regular resampling means of 10 obs at a time"
+
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:1e3, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+###### 10,000
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: "Regular resampling means of 10 obs at a time"
+
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:1e4, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+###### 100,000
+
+```{r}
+#| echo: FALSE
+#| cache: true
+#| fig-cap: "Regular resampling means of 10 obs at a time"
+
+sim_df <- parallel::mclapply(mc.cores = 4, X = 1:1e5, FUN = function(x, size = n_s) {
+  pop_df %>% 
+    sample_n(size = size) %>% 
+    summarize(mu_hat = mean(x))
+    }) %>% do.call(rbind, .) %>% as_tibble()
+
+ggplot(data = sim_df, aes(mu_hat)) +
+  geom_histogram(binwidth = 1, fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = m0, size = 2, color = hi) +
+  scale_x_continuous(breaks = m0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+
+:::
+
+
+---
+
+## Population _vs._ Sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| fig-cap: "As the number of samples approach infinity"
+
+
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot(data = df, aes(x = x,y = y)) +
+  geom_polygon(data = df, aes(x, y), fill = hii, color = "white", size = 0.25, alpha = 0.6) +
+  geom_vline(xintercept = 0, size = 2, color = hi) +
+  scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  xlab(latex2exp::TeX(r"($\hat{\mu}$)")) +
+  # mytheme_s +
+  theme(axis.text.x = element_text(size = 20),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 20, hjust = 1, color = hi),
+      line = element_blank())
+```
+:::
+
+::: {.column width="50%"}
+On average, the mean of the samples are close to the population mean
+
+But...some individual samples can miss the mark.
+
+The difference between individual samples and the population creates [uncertainty]{.hi}
+:::
+
+::::
+
+---
+
+## Population _vs._ sample
+
+[Question:]{.note} _Why do we care about population vs. sample?_
+
+. . .
+
+[Answer:]{.note} Uncertainty matters.
+
+. . .
+
+- $\hat{\mu}$ is a random variable that depends on the sample.
+- We don't know if our sample is representative of the population. 
+- Individual sample means can be biased
+- We have to keep track of this uncertainty.
+
+
+---
+
+## The Central Limit Theorem
+
+[Theorem]{.hi}
+
+> *Let* $x_1, x_2, \dots, x_n$ *be a random sample from a population with mean* $\mathop{\mathbb{E}}\left[ X \right] = \mu$ *and variance* $\text{Var}\left( X \right) = \sigma^2 < \infty$*, let* $\bar{X}$ *be the sample mean.*  *Then, as* $n\rightarrow \infty$*, the function* $\frac{\sqrt{n}\left(\bar{X}-\mu\right)}{S_x}$ *converges to a* .hi-pink[Normal Distribution] *with mean 0 and variance 1.* 
+
+. . .
+
+- CLT states that when $n \rightarrow \infty$, the sample mean will be normally distributed. 
+
+. . .
+
+- The Law of Large Number (LLN) states that as $n \rightarrow \infty$, the sample converges on the population mean.
+
+. . .
+
+- The only unknown parameter is $\mu$, and we can get around that by making probabilistic statements about it. 

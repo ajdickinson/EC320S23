@@ -1,0 +1,146 @@
+---
+name: R
+---
+
+---
+
+## What is [R]{.mono .realbig}?
+
+To quote the [[R]{.mono .big} project website](https://www.r-project.org)^[[[R]{.mono} wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))]
+
+> R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows and MacOS.
+
+. . .
+
+What does that mean?
+
+- [R] was created for the statistical and graphical work required by econometrics--written by statistical programmers
+
+- [R]{.mono .big} has a vibrant, thriving online community. ([stack overflow](https://stackoverflow.com/questions/tagged/r))
+
+- Plus it's __free__ and __open source__.
+
+---
+
+## Why are we using [R]{.mono .realbig}?
+
+1\. [R]{.mono .big} is [free]{.hi} and [open source]{.hi}—saving both you and the university money.
+
+<br>
+
+2\. _Related:_ Outside of a small group of economists, private- and public-sector [employers favor [R]{.mono .big}]{.blue} over [Stata]{.mono} and most competing softwares.
+
+<br>
+
+3\. [R]{.mono .big} is very [flexible and powerful]{.hi}—adaptable to nearly any task, _e.g._, 'metrics, spatial data analysis, machine learning, web scraping, data cleaning, website building, teaching. I write all my slides, problem sets, and exams in [R]{.mono .big}.
+
+---
+
+## Why are we using [R]{.mono .realbig}?
+
+4\. _Related:_ [R]{.mono .big} imposes [no artificial restrictions]{.hi} on your amount of observations, variables, memory, or processing power.
+
+<br>
+
+5\. If you put in the work,^[Learning [R]{.mono} definitely requires time and effort.] you will come away with a [valuable and marketable]{.hi} tool.
+
+<br>
+
+6\. I 💖 [R]{.mono .big}
+
+---
+
+```{r}
+#| echo: FALSE
+#| fig-width: 14
+#| fig-height: 10
+#| fig-align: "center"
+
+# The popularity data
+pacman::p_load(tidyverse, magrittr, nord)
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+pop_df <- data.frame(
+  lang = c("SQL", "Python", "R", "SAS", "Matlab", "SPSS", "Stata"),
+  n_jobs = c(107130, 66976, 48772, 25644, 11464, 3717, 1624),
+  free = c(T, T, T, F, F, F, F)
+)
+pop_df %<>% mutate(lang = lang %>% factor(ordered = T))
+# Plot it
+ggplot(data = pop_df, aes(x = lang, y = n_jobs, fill = free)) +
+geom_col() +
+geom_hline(yintercept = 0) +
+aes(x = reorder(lang, -n_jobs), fill = reorder(free, -free)) +
+xlab("Statistical language") +
+scale_y_continuous(label = scales::comma) +
+ylab("Number of jobs") +
+ggtitle(
+  "Comparing statistical languages",
+  subtitle = "Number of job postings on Indeed.com, 2019/01/06"
+) +
+scale_fill_manual(
+  "Free?",
+  labels = c("True", "False"),
+  values = c(hii, hi)
+) +
+hrbrthemes::theme_ipsum(base_size = 24) +
+theme(legend.position = "bottom",
+      axis.title.x = element_text(size = 18),
+      axis.title.y = element_text(size = 18),
+      plot.title = element_text(size = 48))
+```
+
+# Getting started with [R]{.mono .huge} {.inverse}
+
+---
+
+## [R]{.mono .realbig} setup for EC 320
+
+### Installation
+
+You need to install [2]{.hi} pieces of software:
+
+- [[R]{.mono .big}](https://cran.r-project.org/)
+- [[Rstudio]{.mono}](https://posit.co/download/rstudio-desktop/)
+
+. . .
+
+For explicit instructions for how to install, follow [this tutorial](https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome)
+
+. . .
+
+<br>
+
+[Note:]{.note} [R]{.mono .big}/[Rstudio]{.mono} installations differ by operating system
+
+---
+
+## [R]{.mono .realbig} setup for EC 320 
+
+::: {.align-center}
+[R]{.mono .big} [v.]{.small} [Rstudio]{.mono .big}
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- The programming language (ie english, spanish, french etc.)
+- [Ex.]{.ex} The engine, chassis, wheels, etc. of a car
+:::
+
+::: {.column width="50%"}
+- The Integrated Development Environment (IDE) (ie word processor)
+- [Ex.]{.ex} The dashboard containing various buttons and monitors
+
+:::
+
+::::
+
+. . .
+
+R works without Rstudio, but Rstudio doesn't work without R
+
+---
+
+## R
+

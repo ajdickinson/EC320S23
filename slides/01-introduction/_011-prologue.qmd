@@ -1,0 +1,117 @@
+---
+name: motivation
+--- 
+
+## Motivation
+
+What is the goal of econometrics? 
+
+. . .
+
+> To learn about the world using [data]{.hi}.
+
+. . .
+
+Why do economists (and others) study econometrics?
+
+. . .
+
+> Providing answers to important problems. 
+
+. . .
+
+[Ex.]{.hi}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+- [Do minimum wage policies reduce poverty?]{.tiny}
+- [Does the death penalty deter violent crime?]{.tiny}
+<!-- - [Does recreational marijuana cross state lines? -->
+- [How will global warming affect the economy?]{.tiny}
+- [How responsive are polluter to a carbon tax?]{.tiny}
+:::
+
+::: {.column width="45%"}
+- [What explains the gender pay gap?]{.tiny}
+- [Are recessions good for your health?]{.tiny}
+- [Can we forecast the next recession?]{.tiny}
+:::
+
+::::
+
+--- 
+
+## Motivation {data-visibility="uncounted"}
+
+What is the goal of econometrics? 
+
+> To learn about the world using [data]{.hi}.
+
+Why do economists (and others) study econometrics?
+
+> Providing answers to important problems. 
+
+How do you pronounce it?
+
+. . .
+
+> [uk · kaa · nuh · meh · truhks](https://www.google.com/search?q=econometrics+pronunciation&oq=econometrics+pronunciation&aqs=chrome..69i64j69i57.7785j0j1&sourceid=chrome&ie=UTF-8){preview-link="false"}
+
+---
+
+## Motivation 
+
+Why should [you]{.hi} study econometrics?
+
+. . .
+
+> Develop skills and learn to use tools that are valued by employers.
+>
+> Cultivate a healthy sense of skepticism
+
+. . .
+
+[IMO]{.hii}^[Please take this with a grain of salt. I am a single data point. Others may disagree], of all the courses in a typical economics major, [econometrics is the most translatable]{.hi} to a job
+
+- Data is the new oil
+- Extracting meaningful analysis from _big data_ is a sought after skill in the job market of 2023
+
+---
+
+## Motivation  {data-visibility="uncounted"}
+
+Why should [you]{.hi} study econometrics?
+
+<br>
+
+Throughout this course, I will try my best to emphasize [why:]{.hi .big}
+
+- [Why]{.hi} are we learning this?
+- [Why]{.hi} does this matter with regard to future econometrics courses?
+- [Why]{.hi} is [_fill in the blank_]{.small} important for answering important problems? 
+- [Why]{.hi} does this matter to employers?
+
+. . .
+
+<br>
+
+Econometrics is built on crucial [fundamentals]{.note}. These [fundamentals]{.note} is the focus of this class.
+
+---
+
+## uk · kaa · nuh · meh · truhks
+
+Most econometric inquiry concerns one of [two]{.hi} distinct goals:
+
+. . .
+
+1. [Prediction:]{.hp} Accurately [predict]{.purple} or [forecast]{.purple} an outcome given a set of predictors. [Given what we know about]{.purple} $x$, [what values do we expect]{.purple} $y$ [to take?]{.purple}
+
+. . .
+
+2. [Causal identification:]{.hii} [Estimate]{.blue} the effect of an intervention on an outcome. [How does]{.blue} $y$ [change when we change]{.blue} $x$[?]{.blue}
+
+. . .
+
+In this class, and in [EC 421]{.hii}, we will focus on the [later]{.hii}. The [former]{.hp} is the focus of [EC 422]{.hp} and [EC 524]{.hp}

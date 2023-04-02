@@ -1,0 +1,194 @@
+---
+name: rv
+---
+
+# Basic probability {.inverse .note}
+
+---
+
+## Essential definitions
+
+[Experiment:]{.hi} 
+
+> Any procedure that is _infinitely repeatable_ and has a _well-defined set of outcomes_.
+
+. . .
+
+[Ex.]{.ex} Flip a coin 10 times and record the number of heads. 
+
+<br>
+
+. . .
+
+[Random Variable:]{.hp}
+
+> A variable with _numerical values determined by an experiment or a random phenomenon_.
+
+. . .
+
+- Describes the [sample space]{.blue} of an experiment.
+
+---
+
+## Essential definitions
+
+[Sample Space:]{.hi-teal}
+
+> The set of potential outcomes an experiment could generate
+
+[Ex.]{.ex} The sum of two dice is an integer from 2 to 12.
+
+<br>
+
+. . .
+
+
+[Event:]{.hii}
+
+> A subset of the [sample space]{.teal} or a combination of outcomes.
+
+[Ex.]{.ex} Rolling a two or a four.
+
+---
+
+## Random variables
+
+[Notation:]{.hi} Capital letters for random variables (_e.g._, $X$, $Y$, or $Z$) and lowercase letters for particular outcomes (_e.g._, $x$, $y$, or $z$).
+
+. . .
+
+<br>
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[Experiment]{.hi}
+
+Flipping a coin.
+
+[Events:]{.hii}
+
+Heads or tails.
+:::
+
+::: {.column width="50%"}
+[Random Variable:]{.hp} ($X$) 
+
+
+Receive $1 if heads, $x_i=1$, pay $1 if tails, $x_i=-1$  
+
+[Sample Space:]{.hi-teal} 
+
+$\{-1,1\}$
+
+:::
+
+::::
+
+---
+
+## Probability density functions
+
+---
+
+## Cumulative density functions
+
+---
+
+## Discrete random variables
+
+> A random variable that takes a countable set of values.
+
+. . .
+
+[Bernoulli (_binary_) random variable]{.hi}
+
+> Random variable that takes values of either 1 or 0.
+
+
+- Characterized by $P(X=1)$, "the probability of success."
+- Probabilities sum to 1: $P(X=1) + P(X=0) = 1$
+
+. . .
+
+- More generally, if $P(X=1) = \theta$ for some $\theta \in [0,1]$, then $P(X=0) = 1 - \theta$.
+
+---
+
+## Discrete Random Variables: Probabilities 
+
+We describe a discrete random variable by listing its possible values with associated probabilities.
+
+If $X$ takes on $k$ possible values $\{x_1, \dots, x_k\}$, then the probabilities $p_1, p_2, \dots, p_k$ are defined by $$p_j = P(X=x_j), \quad j = 1,2, \dots, k,$$ where $$p_j \in [0,1]$$ and $$p_1 + p_2 + \dots + p_k = 1.$$
+
+---
+
+## Discrete Random Variables
+
+[Probability density function]{.hi} (pdf)
+
+> The _pdf_ of $X$ summarizes possible outcomes and associated probabilities: 
+
+$$f(x_j)=p_j, \quad j=1,2,\dots,k.$$
+
+. . .
+
+[Ex.]{.ex} 2020 Presidential election: 538 electoral votes at stake.
+
+- $\{X:0,1, \dots, 538\}$ is the number of votes won. 
+- Unlikely that one will win 0 or 538 votes: $f(0) \approx 0$ and $f(538) \approx 0$.
+- Nonzero probability of winning an exact majority: $f(270) > 0$.
+
+
+---
+
+## Discrete random variables [Ex.]{.ex}
+
+Basketball player goes to the foul line to shoot two free throws.
+
+- $X$ is the number of shots made (either 0, 1, or 2).
+- The pdf of $X$ is $f(0)= 0.3$, $f(1) = 0.4$, $f(2) = 0.3$.^[[Note:]{.note} the probabilities sum to 1.]
+
+Use the pdf to calculate the probability of the [event]{.hii} that the player makes _at least one shot_, _i.e._, $P(X \geq 1)$.
+
+<br>
+
+. . .
+
+$$
+P(X \geq 1) = P(X=1) + P(X=2)= 0.4 + 0.3 = 0.7
+$$
+
+
+---
+
+## Continuous random variables
+
+> A random variable that takes any real value with _zero_ probability.
+
+. . .
+
+_Wait, what?!_ [The variable takes so many values that we can't count all possibilities, so the probability of any one particular value is zero.]{.fragment}
+
+. . .
+
+<br>
+
+Measurement is discrete ([_e.g._]{.note}, dollars and cents), but variables with many possible values are best treated as continuous.
+
+- [_e.g._]{.note}, electoral votes, height, wages, temperature, _etc._
+
+---
+
+## Continuous random variables
+
+Probability density functions also describe continuous random variables.
+
+<br>
+
+Difference between continuous and discrete [PDFs]{.hi}
+
+- Interested in the probability of events within a _range_ of values.
+- [_e.g._]{.note} What is the probability of more than 1 inch of rain tomorrow? 
+

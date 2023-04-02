@@ -1,0 +1,1356 @@
+---
+title: "Statistics Review"
+subtitle: "EC 320, Set 02"
+author: Andrew Dickinson
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    slide-number: true
+    footer: "EC320, Set 02 | Statistics Review"
+    preview-links: TRUE
+    code-fold: FALSE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+hideFootnotes: true
+---
+
+# Prologue{.inverse}
+
+```{r}
+library(pacman)
+p_load(hrbrthemes, fastverse, tidyverse, magrittr, wooldridge, here, kableExtra, nord)
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 28),
+       axis.title.y = element_text(size = 28))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+```
+
+---
+
+## Housekeeping
+
+The first computational problem set XXX
+
+- Due dates (Monday at midnight XXX)
+- Computational problem sets: Mondays at 11:59pm  
+
+
+The first analytical problem set XXX
+
+- Due dates (Monday at midnight XXX)
+- Analytical problem sets: Fridays at 11:59pm.
+
+. . .
+
+Any issues with [R]{.mono}?
+
+- I have office hours XXX, XXX GE has office hours on XXX
+
+---
+
+## Motivation
+
+The focus of our course is [regression analysis]{.hii}--part of the fundamental toolkit for learning from data.
+
+<br>
+
+. . .
+
+The [underlying theory]{.hi} is critical to grasp the mechanics and pitfalls
+
+- Make us better practitioners and savvier consumers of science.
+
+<br>
+
+. . .
+
+[Today:]{.hi} Review the essential concepts from Math 243
+
+
+# [Warning.]{.note}
+
+::: {.middle}
+The following review is a lot packed in very briefly though you _should_ have learned much of it before. But that being said, it will be overwhelming for most.
+::: 
+
+# Math review {.inverse}
+
+---
+
+## Notation
+
+Data on a variable $X$ are a sequence of $n$ observations, indexed by $i$: $$\{x_i: 1, \dots, n \}.$$
+
+. . .
+
+[Ex.]{.ex} $n = 5$
+
+:::: {.columns}
+
+::: {.column width="35%"}
+```{r}
+#| echo = FALSE
+# Sample size
+n <- 5
+
+set.seed(94665)
+
+# Generate datata
+table_df <- data.frame(
+  i = 1:n,
+  x = sample(1:10, n) # draw integers
+)
+
+colnames(table_df) <- c("\\(i\\)", "\\(x_i\\)")
+
+table_df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="65%"}
+<br>
+<br>
+
+- $i$ indicates the row number.
+
+- $n$ is the number of rows.
+
+- $x_i$ is the value of $X$ for row $i$.
+:::
+
+::::
+
+---
+
+## Summation
+
+The [summation operator]{.hii} adds a sequence of numbers over an index:
+
+$$
+\sum_{i=1}^{n} x_i \equiv x_1 + x_2 + \dots + x_n.
+$$
+
+> The sum of $x_i$ from 1 to $n$.
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+<!-- <br> -->
+
+```{r, echo=FALSE, include=TRUE, results="asis"}
+df <- data.frame(
+  i = 1:4,
+  x = c(7, 4, 10, 3)
+)
+
+colnames(df) <- c("\\(i\\)", "\\(x_i\\)")
+
+df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="70%"}
+$$
+\begin{aligned}
+ \sum_{i=1}^{4} x_i = 7 + 4 + 10 + 3 &= 23 \\
+ \underbrace{\frac{1}{n} \sum_{i=1}^n x_i}_{\text{sample average}} \rightarrow \frac{1}{4} \sum_{i=1}^4 x_i &= \  6  
+\end{aligned}
+$$
+:::
+::::
+
+---
+
+## Summation: Rule 01
+
+For any constant $c$, 
+
+$$
+\sum_{i=1}^{n} c = nc.
+$$
+
+. . .
+
+:::: {.columns}
+::: {.column width="30%"}
+
+```{r, echo=FALSE, include=TRUE, results="asis"}
+df <- data.frame(
+  i = 1:4,
+  c = c(2, 2, 2, 2)
+)
+
+colnames(df) <- c("\\(i\\)", "\\(c\\)")
+
+df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="70%"}
+
+$$
+\begin{aligned}
+ \sum_{i=1}^{4} 2 &= 4 \times 2 \\
+                  &= 8
+\end{aligned}
+$$
+
+:::
+::::
+
+
+---
+
+## Summation: Rule 02
+
+For any constant $c$, $$\sum_{i=1}^{n} cx_i = c \sum_{i=1}^{n} x_i.$$
+
+. . .
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<br>
+
+```{r, echo=FALSE, include=TRUE, results="asis"}
+df <- data.frame(
+  i = 1:3,
+  c = c(2, 2, 2),
+  x = c(7, 4, 10) 
+)
+
+colnames(df) <- c("\\(i\\)", "\\(c\\)", "\\(x_i\\)")
+
+df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="70%"}
+\begin{align}
+ \sum_{i=1}^{3} 2x_i &= 2\times7 + 2\times4 + 2 \times10\\
+               &= 14 + 8 + 20 = 42 \\
+
+ 2 \sum_{i=1}^{3} x_i &= 2(7 + 4 + 10) = 42
+\end{align}
+:::
+::::
+
+
+---
+
+## Summation: Rule 03
+
+If $\{(x_i, y_i): 1, \dots, n \}$ is a set of $n$ pairs, and $a$ and $b$ are constants, then $$\sum_{i=1}^{n} (ax_i + by_i) = a \sum_{i=1}^{n} x_i + b \sum_{i=1}^{n} y_i.$$
+
+. . .
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<br>
+
+```{r, echo=FALSE, include=TRUE, results="asis"}
+df <- data.frame(
+  i = 1:2,
+  a = c(2, 2),
+  x = c(7, 4),
+  b = c(1, 1),
+  y = c(4, 2)
+)
+
+colnames(df) <- c("\\(i\\)", "\\(a\\)", "\\(x_i\\)", "\\(b\\)", "\\(y_i\\)")
+
+df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="70%"}
+\begin{align}
+ \sum_{i=1}^{2} (2x_i + y_i) &= 18 + 10 = 28 \\
+ 2 \sum_{i=1}^{2} x_i + \sum_{i=1}^{2} y_i &= 2 \times 11 + 6 = 28
+\end{align}
+:::
+::::
+
+
+---
+
+## Summation: Caution 01
+
+The [sum of the ratios]{.hii} is not the [ratio of the sums:]{.hp} 
+$$
+{\color{#81A1C1}{\sum_{i=1}^{n} x_i / y_i}} \neq \color{#B48EAD}{\left(\sum_{i=1}^{n} x_i \right) \Bigg/ \left(\sum_{i=1}^{n} y_i \right)}
+$$
+
+. . .
+
+[Ex.]{.ex}
+
+If $n = 2$, then $\frac{x_1}{y_1} + \frac{x_2}{y_2} \neq \frac{x_1 + x_2}{y_1 + y_2}$.
+
+---
+
+## Summation: Caution 02
+
+The [sum of squares]{.hii} is not the [square of the sums:]{.hp}
+$$
+\color{#81A1C1}{\sum_{i=1}^{n} x_i^2} \neq \color{#B48EAD}{\left(\sum_{i=1}^{n} x_i \right)^2}.
+$$
+
+. . .
+
+[Ex.]{.ex}
+
+If $n = 2$, then $x_1^2 + x_2^2 \neq (x_1 + x_2)^2 = x_1^2 + 2x_1x_2 + x_2^2$.
+
+---
+
+## Cartesian coordinate system
+
+Cartesian plane: 2-D plane defined by two perpendicular number lines:
+
+- x-axis (_horizontal_)
+- y-axis (_vertical_) 
+  
+. . .
+
+Using these axes, any point in the plane is described using an ordered pair of numbers $(x,y)$
+
+---
+
+## Cartesian coordinate system
+
+A particular line on this plane takes the form
+$$
+\begin{aligned}
+y= a+ bx
+\end{aligned}
+$$
+where $a$ is known as the intercept and $b$ is the slope.
+
+Any incremental unit increase in $x$ results in $y$ increasing by $b$.
+
+---
+
+## [Ex.]{.ex}
+
+```{R}
+#| label: "spurious"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+#| fig-height: 10
+
+cheese <- c(29.8,30.1,30.5,30.6,31.3,31.7,32.6,33.1,32.7,32.8)
+bed_ded <- c(327,456,509,497,596,573,661,741,809,717)
+
+df <- data.frame(cheese=cheese, 
+                 bed_ded=bed_ded)
+
+ggplot(df, aes(cheese, bed_ded)) +
+  geom_point(size = 4, color = "darkslategray") +
+  geom_smooth(method = "lm", se = FALSE, color = hii) +
+  xlab("Per Capita Cheese Consumption (lbs.)") +
+  ylab("Death by bedsheet tangling") + 
+  mytheme +
+  theme(
+    axis.text = element_text(size = 18)
+  )
+```
+
+# Random variables {.inverse}
+
+---
+
+## Essential definitions
+
+[Experiment:]{.hi} 
+
+> Any procedure that is _infinitely repeatable_ and has a _well-defined set of outcomes_.
+
+. . .
+
+[Ex.]{.ex} Flip a coin 10 times and record the number of heads. 
+
+<br>
+
+. . .
+
+[Random Variable:]{.hp}
+
+> A variable with _numerical values determined by an experiment or a random phenomenon_.
+
+. . .
+
+- Describes the [sample space]{.blue} of an experiment.
+
+---
+
+## Essential definitions
+
+[Sample Space:]{.hi-teal}
+
+> The set of potential outcomes an experiment could generate
+
+[Ex.]{.ex} The sum of two dice is an integer from 2 to 12.
+
+<br>
+
+. . .
+
+
+[Event:]{.hii}
+
+> A subset of the [sample space]{.teal} or a combination of outcomes.
+
+[Ex.]{.ex} Rolling a two or a four.
+
+---
+
+## Random variables
+
+[Notation:]{.hi} Capital letters for random variables (_e.g._, $X$, $Y$, or $Z$) and lowercase letters for particular outcomes (_e.g._, $x$, $y$, or $z$).
+
+. . .
+
+<br>
+
+[Experiment]{.hi} Flipping a coin.
+
+. . .
+
+[Events:]{.hii} heads or tails.
+
+. . .
+
+[Random Variable:]{.hp} $X$ 
+
+- Win 1USD if heads, $x_i=1$
+- pay 1USD if tails, $x_i=-1$  
+
+. . .
+
+[Sample Space:]{.hi-teal} $\{-1,1\}$
+
+---
+
+## Discrete random variables
+
+> A random variable that takes a countable set of values.
+
+. . .
+
+[Bernoulli (_binary_) random variable]{.hi}
+
+> Random variable that takes values of either 1 or 0.
+
+
+- Characterized by $P(X=1)$, "the probability of success."
+- Probabilities sum to 1: $P(X=1) + P(X=0) = 1$
+
+. . .
+
+- More generally, if $P(X=1) = \theta$ for some $\theta \in [0,1]$, then $P(X=0) = 1 - \theta$.
+
+---
+
+## Discrete Random Variables: Probabilities 
+
+We describe a discrete random variable by listing its possible values with associated probabilities.
+
+If $X$ takes on $k$ possible values $\{x_1, \dots, x_k\}$, then the probabilities $p_1, p_2, \dots, p_k$ are defined by $$p_j = P(X=x_j), \quad j = 1,2, \dots, k,$$ where $$p_j \in [0,1]$$ and $$p_1 + p_2 + \dots + p_k = 1.$$
+
+---
+
+## Discrete Random Variables
+
+[Probability density function]{.hi} (pdf)
+
+> The _pdf_ of $X$ summarizes possible outcomes and associated probabilities: 
+
+$$f(x_j)=p_j, \quad j=1,2,\dots,k.$$
+
+. . .
+
+[Ex.]{.ex} 2020 Presidential election: 538 electoral votes at stake.
+
+- $\{X:0,1, \dots, 538\}$ is the number of votes won. 
+- Unlikely that one will win 0 or 538 votes: $f(0) \approx 0$ and $f(538) \approx 0$.
+- Nonzero probability of winning an exact majority: $f(270) > 0$.
+
+
+---
+
+## Discrete random variables [Ex.]{.ex}
+
+Basketball player goes to the foul line to shoot two free throws.
+
+- $X$ is the number of shots made (either 0, 1, or 2).
+- The pdf of $X$ is $f(0)= 0.3$, $f(1) = 0.4$, $f(2) = 0.3$.^[[Note:]{.note} the probabilities sum to 1.]
+
+Use the pdf to calculate the probability of the [event]{.hii} that the player makes _at least one shot_, _i.e._, $P(X \geq 1)$.
+
+<br>
+
+. . .
+
+$$
+P(X \geq 1) = P(X=1) + P(X=2)= 0.4 + 0.3 = 0.7
+$$
+
+
+---
+
+## Continuous random variables
+
+> A random variable that takes any real value with _zero_ probability.
+
+. . .
+
+_Wait, what?!_ [The variable takes so many values that we can't count all possibilities, so the probability of any one particular value is zero.]{.fragment}
+
+. . .
+
+<br>
+
+Measurement is discrete ([_e.g._]{.note}, dollars and cents), but variables with many possible values are best treated as continuous.
+
+- [_e.g._]{.note}, electoral votes, height, wages, temperature, _etc._
+
+---
+
+## Continuous random variables
+
+Probability density functions also describe continuous random variables.
+
+<br>
+
+Difference between continuous and discrete [PDFs]{.hi}
+
+- Interested in the probability of events within a _range_ of values.
+- [_e.g._]{.note} What is the probability of more than 1 inch of rain tomorrow? 
+
+---
+
+## Uniform distribution
+
+The probability density function of a variable uniformly distributed between 0 and 2 is
+
+$$
+f(x) =
+\begin{cases}
+  \frac{1}{2} & \text{if } 0 \leq x \leq 2 \\
+  0 & \text{otherwise}
+\end{cases}
+$$
+
+```{R}
+#| label: "unif_dist_01"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+
+x <- seq(-1, 3, 0.01)
+y <- seq(1, 1.5, 0.01)
+z <- seq(0, 2 ,0.01)
+
+ggplot() +
+  scale_x_continuous(limits = c(-1, 3), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 1), expand=c(0,0), breaks = c(0, 0.5, 1), labels = c(0, 0.5, 1)) +
+  geom_ribbon(aes(x = z, ymin = 0, ymax = 0.5), fill = "grey85", linetype = "blank") +
+  xlab(expression(X)) + 
+  ylab("Density") +
+  mytheme_s
+```
+
+---
+
+## Uniform distribution
+
+By definition, the area under $f(x)$ is equal to 1.
+
+The [shaded area]{.hi} illustrates the probability of the event $1 \leq X \leq 1.5$.
+
+<br>
+
+$$
+P(1 \leq X \leq 1.5) = (1.5-1) \times0.5 = 0.25
+$$
+
+```{R}
+#| label: "unif_dist_02"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+x <- seq(-1, 3, 0.01)
+y <- seq(1, 1.5, 0.01)
+z <- seq(0, 2 ,0.01)
+
+ggplot() +
+  scale_x_continuous(limits = c(-1, 3), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 1), expand=c(0,0), breaks = c(0, 0.5, 1), labels = c(0, 0.5, 1)) +
+  geom_ribbon(aes(x = z, ymin = 0, ymax = 0.5), fill = "grey85", linetype = "blank") +
+  geom_ribbon(aes(x = y, ymin = 0, ymax = 0.5), fill = hii, linetype = "blank") +
+  geom_vline(xintercept = 1, size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = 1.5, size = 0.35, linetype = "dashed", color = hi) +
+  xlab(expression(X)) + 
+  ylab("Density") +
+  mytheme_s
+```
+
+---
+
+## Normal Distribution
+
+The ["bell curve"]{.hi .note}
+
+- Symmetric: mean and median occur at the same point (_i.e._, no skew).
+- Low-probability events in tails; high-probability events near center.
+
+<br>
+
+```{R}
+#| label: "normal_dist_01"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab("Density")
+```
+
+---
+
+## Normal Distribution
+
+The [shaded area]{.hi} illustrates the probability of the event $-2 \leq X \leq 2$.
+
+- "Find area under curve" [=]{.mono} use integral calculus (or, in practice, [R]{.mono}).
+$$
+P(-2 \leq X \leq 2) \approx 0.95
+$$
+
+```{R}
+#| label: "normal_dist_02"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_polygon(data = df %>% filter(x <= qnorm(0.5 + 0.475) & x >= qnorm(0.5 - 0.475)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qnorm(0.5 + 0.475), size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = qnorm(0.5 - 0.475), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab("Density")
+```
+
+---
+
+## Expected Value
+
+> Describes the _central tendency_ of distribution in a single number.^[_Central tendency_ [=]{.mono} typical value to expect upon drawing from the distribution.]
+
+<br>
+
+. . .
+
+Density functions describe the entire distribution[, but sometimes we just want a summary.]{.fragment}
+
+<br>
+
+. . .
+
+Other summary statistics we may be interested in include
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Median
+- Standard deviation
+:::
+
+::: {.column width="50%"}
+- 25th percentile
+- 75th percentile
+:::
+
+::::
+
+
+---
+
+## Expected Value (discrete)
+
+> The expected value of a discrete random variable $X$ is the weighted average of its $k$ values $\{x_1, \dots, x_k\}$ and their associated probabilities:
+
+$$
+\begin{aligned}
+E(X) &= x_1 P(x_1) + x_2 P(x_2) + \dots +x_k P(x_k) \\
+&= \sum_{j=1}^{k} x_jP(x_j).
+\end{aligned}
+$$
+
+<br> 
+
+. . .
+
+[AKA:]{.note} [Population mean]{.hi}
+
+---
+
+## Expected Value [Ex.]{.ex}
+
+Rolling a six-sided die once can take values $\{1, 2, 3, 4, 5, 6\}$, each with equal probability. [_What is the expected value of a roll?_]{.fragment}
+
+<br>
+
+. . .
+
+$$
+\begin{align*}
+E(\text{Roll}) = 1 \times \frac{1}{6} &+ 2 \times \frac{1}{6} + 3 \times \frac{1}{6} + 4 \times \frac{1}{6} \\
+                                       &+ 5 \times \frac{1}{6} + 6 \times \frac{1}{6} = {3.5}
+\end{align*}
+$$
+
+<br>
+
+[Note:]{.note} The [EV]{.hi} can be a number that isn't a possible outcome of $X$.
+
+---
+
+## Expected value (continuous)
+
+If $X$ is a continuous random variable and $f(x)$ is its probability density function, then the expected value of $X$^[[Note:]{.note} $x$ represents the particular values of $X$.] is
+
+$$
+E(X) = \int_{-\infty}^{\infty} x f(x) dx.
+$$
+
+```{R}
+#| label: "Ex_val_continuous"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_vline(xintercept = 0, color = hii, size = 1) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab("Density")
+```
+
+---
+
+## Expected value: Rule 01 
+
+For any constant $c$, $E(c) = c$. [Ex.]{.ex .fragment}
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="55%"}
+- $E(5) =$ [$5$.]{.fragment}
+- $E(1) =$ [$1$.]{.fragment}
+:::
+
+::: {.column width="45%"}
+- $E(4700) =$ [$4700$.]{.fragment}
+:::
+
+::::
+
+---
+
+## Expected value: Rule 02
+
+For any constants $a$ and $b$, $E(aX + b) = aE(X) + b$.
+
+. . .
+
+<br>
+
+[Ex.]{.ex} Suppose $X$ is the high temperature in degrees Celsius in Eugene during August. The long-run average is $E(X) = 28$. If $Y$ is the temperature in degrees Fahrenheit, then $Y = 32 + \frac{9}{5} X$. [What is $\color{#b48ead}{E(Y)}$?]{.purple .fragment}
+
+. . .
+
+$$
+E(Y) = 32 + \frac{9}{5} E(X) = 32 + \frac{9}{5} \times 28 = \color{#b48ead}{82.4}
+$$
+
+---
+
+## Expected value: Rule 03
+
+If $\{a_1, a_2, \dots , a_n\}$ are constants and $\{X_1, X_2, \dots , X_n\}$ are random variables, then
+
+$$
+\color{#4c566a}{E(a_1 X_1 + a_2 X_2 + \dots + a_n X_n)} = \color{#81A1C1}{a_1 E(X_1) + a_2 E(X_2) + \dots + a_n E(X_n)}.
+$$
+
+In English, [the expected value of the sum]{.hi} [=]{.mono} [the sum of expected values]{.hi}.
+
+---
+
+## Expected value: Rule 03
+
+[The expected value of the sum]{.hi} [=]{.mono} [the sum of expected values]{.hii}.
+
+[Ex.]{.ex} Suppose that a coffee shop sells $X_1$ small, $X_2$ medium, and $X_3$ large caffeinated beverages in a day. The quantities sold are random with expected values $E(X_1) = 43$, $E(X_2) = 56$, and $E(X_3) = 21$. The prices of small, medium, and large beverages are $1.75$, $2.50$, and $3.25$ dollars. [What is expected revenue?]{.purple .fragment}
+
+. . .
+
+$$
+\begin{aligned}
+\color{#4c566a}{E(1.75 X_1 + 2.50 X_2 + 3.35 X_3)} &= \color{#81A1C1}{1.75 E(X_1) + 2.50 E(X_2) + 3.25 E(X_3)} \\
+&= \color{#b48ead}{1.75(43) + 2.50(56) + 3.25(21)} \\
+&= \color{#b48ead}{283.5}
+\end{aligned}
+$$
+
+---
+
+## Expected value: Caution
+
+Previously, we found that the expected value of rolling a six-sided die is $E \left(\text{Roll} \right) = 3.5$.
+
+- If we square this number, we get $\left[E ( \text{Roll} ) \right]^2 = 12.25$.
+
+[Is]{.note} $\left[E \left( \text{Roll} \right) \right]^2$ [the same as]{.note} $E \left(\text{Roll}^2 \right)$[?]{.note}
+
+. . .
+
+
+
+$$
+\begin{align*}
+E \left( \text{Roll}^2 \right) &= 1^2 \times \frac{1}{6} + 2^2 \times \frac{1}{6} + 3^2 \times \frac{1}{6} + 4^2 \times \frac{1}{6} \\
+                               &\quad \qquad \qquad + 5^2 \times \frac{1}{6} + 6^2 \times \frac{1}{6} \\ 
+                               &\approx 15.167 \neq 12.25.
+\end{align*}
+$$
+
+[No!]{.hi .note}
+
+---
+
+## Expected value: Caution
+
+Except in special cases, [the transformation of an expected value]{.hi} is note [the expected value of a transformed random variable]{.hii}.
+
+For some function $g(\cdot)$, it is typically the case that
+
+$$\color{#4c566a}{g \left( E(X) \right)} \neq \color{#81A1C1}{E \left( g(X) \right)}.$$
+
+---
+
+## Variance
+
+Random variables $\color{#b48ead}{X}$ and $\color{#81A1C1}{Y}$ share the same population mean, but are distributed differently.
+
+```{R}
+#| label: "different variances"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+#| fig-height: 10
+
+df <- tibble(x = seq(-4, 4, 0.01), 
+             y = dnorm(x),
+             z = dnorm(x, sd = 0.4)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0, z = 0))
+
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 1.1), expand=c(0,0), breaks = c(0, 0.5, 1), labels = c(0, 0.5, 1)) +
+  geom_polygon(data = df, aes(x, y), fill = hii, alpha = 0.5) +
+  geom_polygon(data = df, aes(x, z), fill = "#b48ead", alpha = 0.5) +
+  # geom_vline(xintercept = 0, size = 1) +
+  #geom_polygon(data = df %>% filter(x <= qnorm(0.5 + 0.475) & x >= qnorm(0.5 - 0.475)), aes(x, y), fill = red_pink) +
+  #geom_vline(xintercept = qnorm(0.5 + 0.475), size = 0.35, linetype = "dashed", color = met_slate) +
+  #geom_vline(xintercept = qnorm(0.5 - 0.475), size = 0.35, linetype = "dashed", color = met_slate) +
+  mytheme_s +
+  xlab(paste0(expression(X), " and ", expression(Y))) + 
+  ylab("Density")
+```
+
+---
+
+## Variance ($\sigma^2$)
+
+> Tells us how far $X$ deviates from $\mu$, _on average_:
+
+$$
+\mathop{\text{Var}}(X) \equiv \mathbf{P}\left( (X - \mu)^2 \right) = \sigma^2
+$$
+
+Where: $\mu = E(X)$.
+
+. . .
+
+_How tightly is a random variable distributed about its mean?_
+
+. . .
+
+Describe the distance of $X$ from its population mean $\mu$ as the squared difference: $(X - \mu)^2$.
+
+- Distributing the terms above yields $\sigma^2 = E(X^2 - 2X \mu + \mu^2) = E(X^2) - 2 \mu^2 + \mu^2 = E(X^2) - \mu^2$.
+
+---
+
+## Variance: Rule 01
+
+$\mathop{\text{Var}}(X) = 0 \iff X$ is a constant.
+
+- A random variable that never deviates from its mean has zero variance.
+
+. . .
+
+_Wait what? How can a [random variable]{.purple} be a constant??_ [Because a constant fits the technical defintion of a random variable^[See [this link](https://math.stackexchange.com/questions/2701336/is-a-constant-a-random-variable)]. It's just not-so-random]{.fragment}
+
+---
+
+## Variance: Rule 02
+
+For any constants $a$ and $b$, $\mathop{\text{Var}}(aX + b) = a^2\mathop{\text{Var}}(X)$.
+
+<br>
+
+. . .
+
+[Ex.]{.ex} Suppose $X$ is the high temperature in degrees Celsius in Eugene during August. If $Y$ is the temperature in degrees Fahrenheit, then $Y = 32 + \frac{9}{5} X$. [What is $\color{#81A1C1}{\mathop{\text{Var}}(Y)}$?]{.blue .fragment}
+
+. . .
+
+<br>
+
+$$
+\mathop{\text{Var}}(Y) = (\frac{9}{5})^2 \mathop{\text{Var}}(X) = \color{#81A1C1}{\frac{81}{25} \mathop{\text{Var}}(X)}
+$$
+
+---
+
+## Standard Deviation ($\sigma$)
+
+> The positive square root of the variance:
+
+$$
+\mathop{\text{sd}}(X) = +\sqrt{\mathop{\text{Var}}(X)} = \sigma
+$$
+
+<br>
+
+. . .
+
+[Rule 01:]{.hi} For any constant $c$, $\mathop{\text{sd}}(c) = 0$.
+
+. . .
+
+[Rule 02:]{.hi} For any constants $a$ and $b$, $\mathop{\text{sd}}(aX + b) = \left| a \right|\mathop{\text{sd}}(X)$.
+
+. . .
+
+<br>
+
+[Note: The same as variance, almost]{.note} 
+
+---
+
+## Standardizing a random variable
+
+When we're working with a random variable $X$ with an unfamiliar scale, it is useful to [standardize]{.hi} it by defining a new variable $Z$:
+
+$$
+Z \equiv \frac{X - \mu}{\sigma}.
+$$
+
+. . .
+
+$Z$ has mean $0$ and standard deviation $1$. How?
+
+. . .
+
+- First, some simple trickery: $Z = aX + b$, where $a \equiv \frac{1}{\sigma}$ and $b \equiv - \frac{\mu}{\sigma}$.
+
+. . .
+
+- $E(Z) = a E(X) + b = \mu \frac{1}{\sigma} - \frac{\mu}{\sigma} = 0$.
+
+. . .
+
+- $\text{Var}(Z) = a^2\text{Var}(X) = \frac{1}{\sigma^2} \sigma^2 = 1$.
+
+
+---
+
+## Covariance
+
+> For two random variables X and Y, the covariance is defined as the expected value (or mean) of the product of their deviations from their individual expected values:
+
+$$
+\mathop{\text{Cov}}(X, Y) \equiv E \left[ (X - \mu_X) (Y - \mu_Y) \right] = \sigma_{xy}
+$$
+
+. . .
+
+__Idea:__ Characterize the relationship between random variables $X$ and $Y$.
+
+- [Positive correlation:]{.hii} When $\sigma_{xy} > 0$, then $X$ is [above]{.blue} its mean when $Y$ is [above]{.blue} its mean, _on average_.
+
+- [Negative correlation:]{.hi-red} When $\sigma_{xy} < 0$, then $X$ is [below]{.red} its mean when $Y$ is [above]{.blue} its mean, _on average_.
+
+---
+
+## Covariance: Rule 01
+
+[Statistical independence:]{.hi}
+
+> If $X$ and $Y$ are independent, then $\mathop{\mathbb{E}}(XY) = \mathop{\mathbb{E}}(X)\mathop{\mathbb{E}}(Y)$.
+
+. . .
+
+- If $X$ and $Y$ are [independent]{.blue}, then $\mathop{\text{Cov}}(X, Y) = 0$.
+
+<br>
+
+. . .
+
+[Caution:]{.note} $\mathop{\text{Cov}}(X, Y) = 0$ [does not imply]{.hi-red} that $X$ and $Y$ are independent.
+
+- $\mathop{\text{Cov}}(X, Y) = 0$ means that $X$ and $Y$ are _uncorrelated_. 
+
+
+---
+
+## Covariance: Rule 02
+
+For any constants $a$, $b$, $c$, and $d$, 
+
+$$
+\mathop{\text{Cov}}(aX + b, cY + d) = ac\mathop{\text{Cov}}(X, Y)
+$$
+
+. . .
+
+[Ex.]{.ex}
+
+---
+
+## Correlation Coefficient
+
+A problem with covariance is that it is sensitive to units of measurement.
+
+. . .
+
+The __correlation coefficient__ solves this problem by rescaling the covariance:
+
+$$
+\mathop{\text{Corr}}(X,Y) \equiv \frac{\mathop{\text{Cov}}(X,Y)}{\mathop{\text{sd}}(X) \times \mathop{\text{sd}}(Y)} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}.
+$$
+
+- Also denoted as $\rho_{XY}$.
+
+- $-1 \leq \mathop{\text{Corr}}(X,Y) \leq 1$
+
+- Invariant to scale: if I double $Y$, $\mathop{\text{Corr}}(X,Y)$ will not change.
+
+
+---
+
+## Correlation Coefficient
+
+Perfect positive correlation: $\mathop{\text{Corr}}(X,Y) = 1$.
+
+```{R}
+#| label: "Corr_coef is perfect positive"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 + 3*x)
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+Perfect negative correlation: $\mathop{\text{Corr}}(X,Y) = -1$.
+
+```{R}
+#| label: "Corr_coef is perfect negative"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 - 3*x)
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+Positive correlation: $\mathop{\text{Corr}}(X,Y) > 0$.
+
+```{R}
+#| label: "Corr_coef is positive"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 + 3*x + rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+
+---
+
+## Correlation Coefficient
+
+Negative correlation: $\mathop{\text{Corr}}(X,Y) < 0$.
+
+```{R}
+#| label: "Corr_coef is negative"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 - 3*x + rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+No correlation: $\mathop{\text{Corr}}(X,Y) = 0$.
+
+```{R}
+#| label: "Corr_coef is 0"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Variance: Rule 03
+
+For constants $a$ and $b$,
+
+$$
+\mathop{\text{Var}} (aX + bY) = a^2 \mathop{\text{Var}}(X) + b^2 \mathop{\text{Var}}(Y) + 2ab\mathop{\text{Cov}}(X, Y).
+$$
+
+. . .
+
+- If $X$ and $Y$ are uncorrelated, then $\mathop{\text{Var}} (X + Y) = \mathop{\text{Var}}(X) + \mathop{\text{Var}}(Y)$
+
+- If $X$ and $Y$ are uncorrelated, then $\mathop{\text{Var}} (X - Y) = \mathop{\text{Var}}(X) + \mathop{\text{Var}}(Y)$
+
+
+# Sampling {.inverse}
+
+---
+
+## Sampling
+
+[Population:]{.hi}
+
+> A group of items or events we would like to know about. 
+
+[Ex.]{.ex} Boomers, redheads in Oklahoma, cats in Eugene
+
+. . .
+
+[Parameter:]{.hi}^[Parameter of interest is the parameter that the researcher seeks to learn about]
+
+> a value that describes that population 
+
+[Ex.]{.ex} Mean hieght of American
+
+---
+
+## Sampling {data-visibility="uncounted"}
+
+[Sample:]{.hi} 
+
+> A survey of a subset of the population. 
+
+[Ex.]{.ex} Respondents to a survey, random sample of econ students at the UO
+
+. . .
+
+<br>
+
+Often we aim to draw observations [randomly]{.note} from the population
+
+- Advantagous as it becomes a [representative sample]{.hi} of the population...
+
+---
+
+## Sampling
+
+[Focus:]{.note .hi} Populations vs Samples
+
+- How can we make inferences about a [population]{.hi} based on a small [sample]{.hi} of the population?
+- How do we learn about an unknown population [parameter of interest]{.note}?
+
+<br>
+
+. . .
+
+[Challenge:]{.hi} Usually missing data of the entire population.
+
+[Solution:]{.hi} Sample from the population and estimate the parameter.
+
+- Draw $n$ observations from the population, then use an [estimator]{.note}.
+
+---
+
+## Sampling
+
+There are myriad ways to produce a sample,^[Only a subset of these can help produce reliable statistics.] but we will restrict our attention [to simple random sampling]{.hi}, where
+
+1. Each observation is a random variable.
+
+2. The $n$ random variables are independent.
+
+3. Life becomes much simpler for the econometrician.
+
+
+---
+
+## Estimators
+
+[Estimand:]{.hi}
+
+> Quantity that is to be estimated in a statistical analysis
+
+. . .
+
+[Estimator:]{.hi}
+
+> A rule (or formula) for estimating an unknown population parameter given a sample of data.
+
+. . .
+
+[Estimate:]{.hi}
+
+> A specific numerical value that we obtain from the sample data by applying the estimator.
+
+---
+
+## Estimators [Ex.]{.ex}
+
+Suppose we want to know the average height of the population in the US
+
+- We have a [sample]{.blue} 1 million Americans
+
+. . .
+
+[Etimand:]{.hi} The population mean ($\mu$)
+
+. . .
+
+[Estimator:]{.hi} The sample mean ($\bar{X}$)
+
+$$
+\bar{X} = \dfrac{1}{n} \sum_{i=1}^n X_i
+$$
+
+[Estimate:]{.hi} The sample mean ($\hat{\mu} = 5\text{'}6\text{''}$)
+
+
+{{< include _02x-review-samples.qmd >}}

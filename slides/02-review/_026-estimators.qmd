@@ -1,0 +1,389 @@
+---
+name: estimators
+---
+
+# Estimators {.inverse .note}
+
+## Estimators
+
+Why do we estimate things?
+
+. . .
+
+<br>
+
+Suppose we want to know the average height of the population in the US
+
+- We have a [sample]{.blue} 1 million Americans
+
+<br>
+
+. . .
+
+_How can we use these data to estimate the height of the population?_
+
+## Estimators
+
+[Estimand:]{.hi}
+
+> Quantity that is to be estimated in a statistical analysis
+
+. . .
+
+[Estimator:]{.hi}
+
+> A rule (or formula) for estimating an unknown population parameter given a sample of data.
+
+. . .
+
+[Estimate:]{.hi}
+
+> A specific numerical value that we obtain from the sample data by applying the estimator.
+
+---
+
+## Estimators [Ex.]{.ex}
+
+Suppose we want to know the average height of the population in the US
+
+- We have a [sample]{.blue} 1 million Americans
+
+. . .
+
+[Estimand:]{.hi} The population mean ($\mu$)
+
+. . .
+
+[Estimator:]{.hi} The sample mean ($\bar{X}$)
+
+$$
+\bar{X} = \dfrac{1}{n} \sum_{i=1}^n X_i
+$$
+
+. . .
+
+[Estimate:]{.hi} The sample mean ($\hat{\mu} = 5\text{'}6\text{''}$)
+
+
+## Properties of estimators
+
+Imagine that we want to estimate an unknown parameter $\mu$, and we know the distributions of three competing estimators. [Which one should we use?]{.note}
+
+```{r}
+#| label: "competing pdfs"
+#| echo : FALSE
+#| fig.height: 4.5
+#| message: FALSE
+#| warning: FALSE
+
+# Generate data for densities' polygons
+d1 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 1, sd = 1)
+  ) %>%
+  rbind(.,
+    tibble(x = seq(7.5, -7.5, -0.01), y = 0)
+    )
+
+d2 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dunif(x, min = -2.5, max = 1.5)
+  ) %>%
+  rbind(.,
+    tibble(x = seq(7.5, -7.5, -0.01), y = 0)
+    )
+
+d3 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 0, sd = 2.5)
+  ) %>%
+  rbind(.,
+    tibble(x = seq(7.5, -7.5, -0.01), y = 0)
+    )
+
+# Plot them
+ggplot() +
+  geom_polygon(data = d1, aes(x, y), size = 0.25, alpha = 0.6, color = 'white', fill = hii) +
+  geom_polygon(data = d2, aes(x, y), size = 0.25, alpha = 0.6, color = 'white', fill = hired) +
+  geom_polygon(data = d3, aes(x, y), size = 0.25, alpha = 0.6, color = 'white', fill = hp) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+  scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  theme_void() + 
+  theme(
+    # axis.line = element_line(color = hi),
+    panel.grid = element_blank(),
+    rect = element_blank(),
+    axis.text.x = element_text(size = 20),
+    axis.text.y = element_blank(),
+    axis.title = element_blank(),
+    line = element_blank()
+  )
+```
+
+---
+
+## Properties of estimators
+
+[Question]{.note} What properties make an estimator reliable?
+
+. . .
+
+[Answer (1):]{.note} [Unbiasedness]{.hi}
+
+On average, does the estimator tend toward the correct value?
+
+. . .
+
+<br>
+
+[More formally:]{.note} Does the mean of estimator's distribution equal the parameter it estimates?
+
+$$ \mathop{\text{Bias}_\mu} \left( \hat{\mu} \right) = \mathop{\mathbb{E}}\left[ \hat{\mu} \right] - \mu $$
+
+---
+
+## Properties of estimators
+
+[Question]{.note} What properties make an estimator reliable?
+
+[A01:]{.note} [Unbiasedness]{.hi}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+[Unbiased estimator:]{.hi} $\mathop{\mathbb{E}}\left[ \hat{\mu} \right] = \mu$
+
+```{r}
+#| label: "unbiased pdf"
+#| echo: FALSE
+
+tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
+tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot(data = tmp, aes(x, y)) +
+  geom_polygon(fill = hp, alpha = 0.49) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+  scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)"), limits = c(-6,6)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  theme_bw()+ 
+  theme(
+    panel.grid = element_blank(),
+    rect = element_blank(),
+    axis.text.x = element_text(size = 40),
+    axis.text.y = element_blank(),
+    axis.title = element_blank(),
+    line = element_blank()
+  )
+```
+
+:::
+
+::: {.column width="50%"}
+
+[Biased estimator]{.hi} $\mathop{\mathbb{E}}\left[ \hat{\mu} \right] \neq \mu$
+
+```{r} 
+#| label: "biased pdf"
+#| echo: FALSE
+
+tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
+tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot(data = tmp, aes(x, y)) +
+  geom_polygon(aes(x = x + 2), fill = hi, alpha = 0.49) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+  scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)"), limits = c(-6,6)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  theme_bw()+ 
+  theme(
+    panel.grid = element_blank(),
+    rect = element_blank(),
+    axis.text.x = element_text(size = 40),
+    axis.text.y = element_blank(),
+    axis.title = element_blank(),
+    line = element_blank()
+  )
+```
+
+:::
+
+::::
+
+---
+
+### Unbiasedness example
+
+Is the sample mean $\frac{1}{n} \sum_{i=1}^n x_i = \hat{\mu}$ an unbiased estimator of the population mean $E(x_i) = \mu$?
+
+$$
+\begin{aligned}
+\mathop{\mathbb{E}}\left[ \hat{\mu} \right] &= \mathop{\mathbb{E}}\left[ \frac{1}{n} \sum_{i=1}^n x_i \right] \\
+&=\frac{1}{n} \sum_{i=1}^n\mathop{\mathbb{E}}\left[ x_i \right] \quad \big\} \quad \text{rule 3} \\
+&=\frac{1}{n} \sum_{i=1}^n \mu \quad \quad \ \ \ \big\} \quad \text{by definition} \\
+&= \mu
+\end{aligned}
+$$
+
+
+---
+
+### Properties of estimators
+
+[Question]{.note} What properties make an estimator reliable?
+
+[A02:]{.note} [Efficiency]{.hi} _(low variance)_
+
+The central tendencies (means) of competing distributions are not the only things that matter. We also care about the [variance]{.note} of an estimator.
+
+$$ \mathop{\text{Var}} \left( \hat{\mu} \right) = \mathop{\mathbb{E}}\left[ \left( \hat{\mu} - \mathop{\mathbb{E}}\left[ \hat{\mu} \right] \right)^2 \right] $$
+
+Lower variance estimators produce estimates closer to the mean in each sample.
+
+---
+
+## Properties of estimators
+
+[Question]{.note} What properties make an estimator reliable?
+
+[A02:]{.note} [Efficiency]{.hi} _(low variance)_
+
+```{r}
+#| label: "variance pdf"
+#| echo: FALSE
+#| fig.height: 4.5
+
+d4 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 0, sd = 1)
+  ) %>%
+  rbind(.,
+    tibble(
+      x = seq(7.5, -7.5, -0.01),
+      y = 0
+    )
+  )
+
+d5 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 0, sd = 2)
+  ) %>%
+  rbind(.,
+    tibble(
+      x = seq(7.5, -7.5, -0.01),
+      y = 0
+    )
+  )
+
+ggplot() +
+  geom_polygon(data = d4, aes(x, y), fill = hii, alpha = 0.49) +
+  geom_polygon(data = d5, aes(x, y), fill = hi, alpha = 0.48) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+  scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+  theme_void()+ 
+  theme(
+    panel.grid = element_blank(),
+    rect = element_blank(),
+    axis.text.x = element_text(size = 20),
+    axis.text.y = element_blank(),
+    axis.title = element_blank(),
+    line = element_blank()
+    )
+```
+
+---
+
+## The bias-variance tradeoff
+
+Should we be willing to take a bit of bias to reduce the variance
+
+In econ, in causal inference we emphasize unbiasedness
+
+```{r}
+#| label: "variance bias"
+#| echo: FALSE
+#| fig.height: 4.5
+
+d4 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 0.3, sd = 1)
+  ) %>%
+  rbind(.,
+   tibble(
+    x = seq(7.5, -7.5, -0.01),
+    y = 0
+    )
+  )
+
+d5 <- tibble(
+  x = seq(-7.5, 7.5, 0.01),
+  y = dnorm(x, mean = 0, sd = 2)
+  ) %>%
+  rbind(.,
+   tibble(
+    x = seq(7.5, -7.5, -0.01),
+    y = 0
+    )
+  )
+
+ggplot() +
+geom_polygon(data = d4, aes(x, y), fill = hp, alpha = 0.49) +
+geom_polygon(data = d5, aes(x, y), fill = hi, alpha = 0.48) +
+geom_hline(yintercept = 0, color = "black") +
+geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+scale_x_continuous(breaks = 0, labels = TeX(r"($\mu$)")) +
+scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
+theme_void()+ 
+theme(
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(size = 20),
+  axis.text.y = element_blank(),
+  axis.title = element_blank(),
+  line = element_blank()
+)
+```
+
+---
+
+## Unbiased estimators
+
+<br>
+
+In addition to the sample mean, there are several other unbiased estimators we will use often.
+
+- [Sample variance]{.hi} estimates variance $\sigma^2$.
+
+- [Sample covariance]{.hi} estimates covariance $\sigma_{XY}$.
+
+- [Sample correlation]{.hi} estimates the pop. correlation coefficient $\rho_{XY}$.
+
+---
+
+## Unbiased estimators
+
+Sample variance, $S_X^2$, is an unbiased estimator of the pop. variance $\sigma^2$
+
+$$S_{X}^2 = \dfrac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2.$$
+
+. . .
+
+Sample covariance, $S_{XY}$, is an unbiased estimator of the pop. covariance, $\sigma_{XY}$
+
+
+$$S_{XY} = \dfrac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y}).$$
+
+---
+
+## Unbiased estimators {data-visibility="false"}
+
+Sample correlation $r_{XY}$ is an unbiased estimator of the pop. correlation coefficient $\rho_{XY}$
+
+$$r_{XY} = \dfrac{S_{XY}}{\sqrt{S_X^2} \sqrt{S_Y^2}}.$$
+

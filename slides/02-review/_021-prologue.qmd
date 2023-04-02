@@ -1,0 +1,54 @@
+---
+name: prologue
+---
+
+# Prologue{.inverse}
+
+## Housekeeping
+
+The first computational problem set XXX
+
+- Due dates (Monday at midnight XXX)
+- Computational problem sets: Mondays at 11:59pm  
+
+
+The first analytical problem set XXX
+
+- Due dates (Monday at midnight XXX)
+- Analytical problem sets: Fridays at 11:59pm.
+
+. . .
+
+Any issues with [R]{.mono}?
+
+- I have office hours XXX, XXX GE has office hours on XXX
+
+---
+
+## Motivation
+
+The focus of our course is [regression analysis]{.hii}--part of the fundamental toolkit for learning from data.
+
+<br>
+
+. . .
+
+The [underlying theory]{.hi} is critical to grasp the mechanics and pitfalls
+
+- Make us better practitioners and savvier consumers of science.
+
+<br>
+
+. . .
+
+[Today:]{.hi} Review the essential concepts from Math 243
+
+
+
+# [Warning.]{.note}
+
+::: {.middle}
+The following review is a lot packed in very briefly though you _should_ have learned much of it before. But that being said, it will be overwhelming for most.
+::: 
+
+

@@ -1,0 +1,159 @@
+
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i,700,700i);
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css); 
+
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Fira Sans", "Droid Serif", Palatino,
+  FreeSerif, serif !default;
+$font-family-monospace: "Fira Code" ;
+$presentation-heading-font-weight: 400 !default;
+$presentation-font-size-root: 32px;
+$presentation-font-weight-root: 400;
+
+// colors
+$body-bg: #fff !default;
+$body-color: #2E3440 !default;
+$link-color: #81A1C1 !default;
+$link-color-hover: #b48ead !default;
+$selection-bg: #5E81AC !default;
+$body-bg: #4c566a !default;
+
+
+/*-- scss:rules --*/
+
+#title-slide {
+  text-align: left;
+
+  .quarto-title-authors {
+      justify-content: left;
+      font-weight: 400;
+  
+  .quarto-title-author { // optional, test it for yourself
+      padding-left: 0;
+      padding-right: 0;
+      font-weight: 400;
+      width: 100%;
+  }
+  }
+}
+
+section#title-slide div.quarto-title-authors {
+    font-weight: 400;
+}
+
+#title-slide .title {
+  font-weight: 400;
+  font-size: 50px;
+}
+
+#title-slide .subtitle {
+  color: #81A1C1;
+  text-align: left;
+  font-size: 40px;
+}
+
+.reveal h1 {
+  color: #4c566a;
+  font-weight: 400;
+  font-size: 50px;
+}
+.reveal h2 {
+  // background-color: #ECEFF4;
+  // display: block !important;
+  padding-bottom: 30px;
+  color: #4c566a;
+  max-width: 1800px;
+  text-decoration: none;
+}
+.reveal p, .reveal li {
+  font-weight: 200;
+}
+
+.inverse {
+  // padding-bottom: 30px;
+  background-color: #4c566a !important;
+  // text-decoration: none;
+  // text-align: left;
+  color: #fff !important;
+}
+section.has-light-background h1 {
+  color: #fff
+}
+.inverse p {
+  color: #fff;
+}
+/* Removes colored bar from top of the slide resulting in a clear slide */
+.clear{
+  border-top: 0px solid #FAFAFA;
+}
+.middle {
+  vertical-align: middle;;
+}
+.align-center {
+  text-align: center;
+}
+.align-left {
+  text-align: left;
+}
+
+
+.h {
+  font-weight: 600;
+  color: #2e3440;
+}
+.hi {
+  font-weight: 600;
+  color: #4c566a
+}
+.hii {
+  font-weight: 600;
+  color: #81A1C1;
+}
+.hp {
+  font-weight: 600;
+  color: #b48ead !important;
+}
+.hi-white {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+.hi-green {
+  font-weight: 600;
+  color: #A3BE8C;
+}
+.hi-red {
+  font-weight: 600;
+  color: #BF616A;
+}
+
+.blue {
+  color: #81A1C1;
+}
+.purple {
+  color: #b48ead !important;
+}
+.green {
+  color: #A3BE8C;
+}
+.red {
+  color: #BF616A;
+}
+.small {
+  font-size:28px;
+}
+.tiny {
+  font-size:24px;
+}
+.big {
+  font-size: 38px;
+  font-weight: 600;
+}
+.realbig {
+  font-size: 60px;
+  font-weight: 600;
+}
+.mono {
+  font-family: monospace;
+}

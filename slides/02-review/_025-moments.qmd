@@ -1,0 +1,582 @@
+---
+name: moments
+---
+
+# Moments {.inverse .note}
+
+---
+
+## Moments
+
+> Quantitative measures used to describe the shape and characteristics of a probability distribution^[See this video for a more in depth description of moments [(click here)](https://www.youtube.com/watch?v=fv5QB3eK7jA){preview-link="false"}]
+
+. . .
+
+Summarize and understand the important features of a distribution
+
+
+<br>
+
+. . .
+
+
+[First moment:]{.note} [Mean]{.hi}
+
+[Second moment:]{.note} [Variance]{.hi}
+
+[Third moment:]{.note} Skewness
+
+[Fourth moment:]{.note} Kurtosis
+
+$\quad \quad \quad \vdots$
+
+
+---
+
+## Expected Value
+
+> Describes the _central tendency_ of distribution in a single number.^[_Central tendency_ [=]{.mono} typical value to expect upon drawing from the distribution.]
+
+<br>
+
+. . .
+
+Density functions describe the entire distribution[, but sometimes we just want a summary.]{.fragment}
+
+<br>
+
+. . .
+
+Other summary statistics we may be interested in include
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Median
+- Standard deviation
+:::
+
+::: {.column width="50%"}
+- 25th percentile
+- 75th percentile
+:::
+
+::::
+
+
+---
+
+## Expected Value (discrete)
+
+> The expected value of a discrete random variable $X$ is the weighted average of its $k$ values $\{x_1, \dots, x_k\}$ and their associated probabilities:
+
+$$
+\begin{aligned}
+E(X) &= x_1 P(x_1) + x_2 P(x_2) + \dots +x_k P(x_k) \\
+&= \sum_{j=1}^{k} x_jP(x_j).
+\end{aligned}
+$$
+
+<br> 
+
+. . .
+
+[AKA:]{.note} [Population mean]{.hi}
+
+---
+
+## Expected Value [Ex.]{.ex}
+
+Rolling a six-sided die once can take values $\{1, 2, 3, 4, 5, 6\}$, each with equal probability. [_What is the expected value of a roll?_]{.fragment}
+
+<br>
+
+. . .
+
+$$
+\begin{align*}
+E(\text{Roll}) = 1 \times \frac{1}{6} &+ 2 \times \frac{1}{6} + 3 \times \frac{1}{6} + 4 \times \frac{1}{6} \\
+                                       &+ 5 \times \frac{1}{6} + 6 \times \frac{1}{6} = {3.5}
+\end{align*}
+$$
+
+<br>
+
+[Note:]{.note} The [EV]{.hi} can be a number that isn't a possible outcome of $X$.
+
+---
+
+## Expected value (continuous)
+
+If $X$ is a continuous random variable and $f(x)$ is its probability density function, then the expected value of $X$^[[Note:]{.note} $x$ represents the particular values of $X$.] is
+
+$$
+E(X) = \int_{-\infty}^{\infty} x f(x) dx.
+$$
+
+```{R}
+#| label: "Ex_val_continuous"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0))
+
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_vline(xintercept = 0, color = hii, size = 1) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab("Density")
+```
+
+---
+
+## Expected value: Rule 01 
+
+For any constant $c$, $E(c) = c$. [Ex.]{.ex .fragment}
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="55%"}
+- $E(5) =$ [$5$.]{.fragment}
+- $E(1) =$ [$1$.]{.fragment}
+:::
+
+::: {.column width="45%"}
+- $E(4700) =$ [$4700$.]{.fragment}
+:::
+
+::::
+
+---
+
+## Expected value: Rule 02
+
+For any constants $a$ and $b$, $E(aX + b) = aE(X) + b$.
+
+. . .
+
+<br>
+
+[Ex.]{.ex} Suppose $X$ is the high temperature in degrees Celsius in Eugene during August. The long-run average is $E(X) = 28$. If $Y$ is the temperature in degrees Fahrenheit, then $Y = 32 + \frac{9}{5} X$. [What is $\color{#b48ead}{E(Y)}$?]{.purple .fragment}
+
+. . .
+
+$$
+E(Y) = 32 + \frac{9}{5} E(X) = 32 + \frac{9}{5} \times 28 = \color{#b48ead}{82.4}
+$$
+
+---
+
+## Expected value: Rule 03
+
+If $\{a_1, a_2, \dots , a_n\}$ are constants and $\{X_1, X_2, \dots , X_n\}$ are random variables, then
+
+$$
+\color{#4c566a}{E(a_1 X_1 + a_2 X_2 + \dots + a_n X_n)} = \color{#81A1C1}{a_1 E(X_1) + a_2 E(X_2) + \dots + a_n E(X_n)}.
+$$
+
+In English, [the expected value of the sum]{.hi} [=]{.mono} [the sum of expected values]{.hi}.
+
+---
+
+## Expected value: Rule 03
+
+[The expected value of the sum]{.hi} [=]{.mono} [the sum of expected values]{.hii}.
+
+[Ex.]{.ex} Suppose that a coffee shop sells $X_1$ small, $X_2$ medium, and $X_3$ large caffeinated beverages in a day. The quantities sold are random with expected values $E(X_1) = 43$, $E(X_2) = 56$, and $E(X_3) = 21$. The prices of small, medium, and large beverages are $1.75$, $2.50$, and $3.25$ dollars. [What is expected revenue?]{.purple .fragment}
+
+. . .
+
+$$
+\begin{aligned}
+\color{#4c566a}{E(1.75 X_1 + 2.50 X_2 + 3.35 X_3)} &= \color{#81A1C1}{1.75 E(X_1) + 2.50 E(X_2) + 3.25 E(X_3)} \\
+&= \color{#b48ead}{1.75(43) + 2.50(56) + 3.25(21)} \\
+&= \color{#b48ead}{283.5}
+\end{aligned}
+$$
+
+---
+
+## Expected value: Caution
+
+Previously, we found that the expected value of rolling a six-sided die is $E \left(\text{Roll} \right) = 3.5$.
+
+- If we square this number, we get $\left[E ( \text{Roll} ) \right]^2 = 12.25$.
+
+[Is]{.note} $\left[E \left( \text{Roll} \right) \right]^2$ [the same as]{.note} $E \left(\text{Roll}^2 \right)$[?]{.note}
+
+. . .
+
+
+
+$$
+\begin{align*}
+E \left( \text{Roll}^2 \right) &= 1^2 \times \frac{1}{6} + 2^2 \times \frac{1}{6} + 3^2 \times \frac{1}{6} + 4^2 \times \frac{1}{6} \\
+                               &\quad \qquad \qquad + 5^2 \times \frac{1}{6} + 6^2 \times \frac{1}{6} \\ 
+                               &\approx 15.167 \neq 12.25.
+\end{align*}
+$$
+
+[No!]{.hi .note}
+
+---
+
+## Expected value: Caution
+
+Except in special cases, [the transformation of an expected value]{.hi} is note [the expected value of a transformed random variable]{.hii}.
+
+For some function $g(\cdot)$, it is typically the case that
+
+$$\color{#4c566a}{g \left( E(X) \right)} \neq \color{#81A1C1}{E \left( g(X) \right)}.$$
+
+---
+
+## Variance
+
+Random variables $\color{#b48ead}{X}$ and $\color{#81A1C1}{Y}$ share the same population mean, but are distributed differently.
+
+```{R}
+#| label: "different variances"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 16
+#| fig-height: 10
+
+df <- tibble(x = seq(-4, 4, 0.01), 
+             y = dnorm(x),
+             z = dnorm(x, sd = 0.4)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0, z = 0))
+
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 1.1), expand=c(0,0), breaks = c(0, 0.5, 1), labels = c(0, 0.5, 1)) +
+  geom_polygon(data = df, aes(x, y), fill = hii, alpha = 0.5) +
+  geom_polygon(data = df, aes(x, z), fill = "#b48ead", alpha = 0.5) +
+  # geom_vline(xintercept = 0, size = 1) +
+  #geom_polygon(data = df %>% filter(x <= qnorm(0.5 + 0.475) & x >= qnorm(0.5 - 0.475)), aes(x, y), fill = red_pink) +
+  #geom_vline(xintercept = qnorm(0.5 + 0.475), size = 0.35, linetype = "dashed", color = met_slate) +
+  #geom_vline(xintercept = qnorm(0.5 - 0.475), size = 0.35, linetype = "dashed", color = met_slate) +
+  mytheme_s +
+  xlab(paste0(expression(X), " and ", expression(Y))) + 
+  ylab("Density")
+```
+
+---
+
+## Variance ($\sigma^2$)
+
+> Tells us how far $X$ deviates from $\mu$, _on average_:
+
+$$
+\mathop{\text{Var}}(X) \equiv \mathbf{P}\left( (X - \mu)^2 \right) = \sigma^2
+$$
+
+Where: $\mu = E(X)$.
+
+. . .
+
+_How tightly is a random variable distributed about its mean?_
+
+. . .
+
+Describe the distance of $X$ from its population mean $\mu$ as the squared difference: $(X - \mu)^2$.
+
+- Distributing the terms above yields $\sigma^2 = E(X^2 - 2X \mu + \mu^2) = E(X^2) - 2 \mu^2 + \mu^2 = E(X^2) - \mu^2$.
+
+---
+
+## Variance: Rule 01
+
+$\mathop{\text{Var}}(X) = 0 \iff X$ is a constant.
+
+- A random variable that never deviates from its mean has zero variance.
+
+. . .
+
+_Wait what? How can a [random variable]{.purple} be a constant??_ [Because a constant fits the technical defintion of a random variable^[See [this link](https://math.stackexchange.com/questions/2701336/is-a-constant-a-random-variable)]. It's just not-so-random]{.fragment}
+
+---
+
+## Variance: Rule 02
+
+For any constants $a$ and $b$, $\mathop{\text{Var}}(aX + b) = a^2\mathop{\text{Var}}(X)$.
+
+<br>
+
+. . .
+
+[Ex.]{.ex} Suppose $X$ is the high temperature in degrees Celsius in Eugene during August. If $Y$ is the temperature in degrees Fahrenheit, then $Y = 32 + \frac{9}{5} X$. [What is $\color{#81A1C1}{\mathop{\text{Var}}(Y)}$?]{.blue .fragment}
+
+. . .
+
+<br>
+
+$$
+\mathop{\text{Var}}(Y) = (\frac{9}{5})^2 \mathop{\text{Var}}(X) = \color{#81A1C1}{\frac{81}{25} \mathop{\text{Var}}(X)}
+$$
+
+---
+
+## Standard Deviation ($\sigma$)
+
+> The positive square root of the variance:
+
+$$
+\mathop{\text{sd}}(X) = +\sqrt{\mathop{\text{Var}}(X)} = \sigma
+$$
+
+<br>
+
+. . .
+
+[Rule 01:]{.hi} For any constant $c$, $\mathop{\text{sd}}(c) = 0$.
+
+. . .
+
+[Rule 02:]{.hi} For any constants $a$ and $b$, $\mathop{\text{sd}}(aX + b) = \left| a \right|\mathop{\text{sd}}(X)$.
+
+. . .
+
+<br>
+
+[Note: The same as variance, almost]{.note} 
+
+---
+
+## Standardizing a random variable
+
+When we're working with a random variable $X$ with an unfamiliar scale, it is useful to [standardize]{.hi} it by defining a new variable $Z$:
+
+$$
+Z \equiv \frac{X - \mu}{\sigma}.
+$$
+
+. . .
+
+$Z$ has mean $0$ and standard deviation $1$. How?
+
+. . .
+
+- First, some simple trickery: $Z = aX + b$, where $a \equiv \frac{1}{\sigma}$ and $b \equiv - \frac{\mu}{\sigma}$.
+
+. . .
+
+- $E(Z) = a E(X) + b = \mu \frac{1}{\sigma} - \frac{\mu}{\sigma} = 0$.
+
+. . .
+
+- $\text{Var}(Z) = a^2\text{Var}(X) = \frac{1}{\sigma^2} \sigma^2 = 1$.
+
+
+---
+
+## Covariance
+
+> For two random variables X and Y, the covariance is defined as the expected value (or mean) of the product of their deviations from their individual expected values:
+
+$$
+\mathop{\text{Cov}}(X, Y) \equiv E \left[ (X - \mu_X) (Y - \mu_Y) \right] = \sigma_{xy}
+$$
+
+. . .
+
+__Idea:__ Characterize the relationship between random variables $X$ and $Y$.
+
+- [Positive correlation:]{.hii} When $\sigma_{xy} > 0$, then $X$ is [above]{.blue} its mean when $Y$ is [above]{.blue} its mean, _on average_.
+
+- [Negative correlation:]{.hi-red} When $\sigma_{xy} < 0$, then $X$ is [below]{.red} its mean when $Y$ is [above]{.blue} its mean, _on average_.
+
+---
+
+## Covariance: Rule 01
+
+[Statistical independence:]{.hi}
+
+> If $X$ and $Y$ are independent, then $\mathop{\mathbb{E}}(XY) = \mathop{\mathbb{E}}(X)\mathop{\mathbb{E}}(Y)$.
+
+. . .
+
+- If $X$ and $Y$ are [independent]{.blue}, then $\mathop{\text{Cov}}(X, Y) = 0$.
+
+<br>
+
+. . .
+
+[Caution:]{.note} $\mathop{\text{Cov}}(X, Y) = 0$ [does not imply]{.hi-red} that $X$ and $Y$ are independent.
+
+- $\mathop{\text{Cov}}(X, Y) = 0$ means that $X$ and $Y$ are _uncorrelated_. 
+
+
+---
+
+## Covariance: Rule 02
+
+For any constants $a$, $b$, $c$, and $d$, 
+
+$$
+\mathop{\text{Cov}}(aX + b, cY + d) = ac\mathop{\text{Cov}}(X, Y)
+$$
+
+. . .
+
+[Ex.]{.ex}
+
+---
+
+## Correlation Coefficient
+
+A problem with covariance is that it is sensitive to units of measurement.
+
+. . .
+
+The __correlation coefficient__ solves this problem by rescaling the covariance:
+
+$$
+\mathop{\text{Corr}}(X,Y) \equiv \frac{\mathop{\text{Cov}}(X,Y)}{\mathop{\text{sd}}(X) \times \mathop{\text{sd}}(Y)} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}.
+$$
+
+- Also denoted as $\rho_{XY}$.
+
+- $-1 \leq \mathop{\text{Corr}}(X,Y) \leq 1$
+
+- Invariant to scale: if I double $Y$, $\mathop{\text{Corr}}(X,Y)$ will not change.
+
+
+---
+
+## Correlation Coefficient
+
+Perfect positive correlation: $\mathop{\text{Corr}}(X,Y) = 1$.
+
+```{R}
+#| label: "Corr_coef is perfect positive"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 + 3*x)
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+Perfect negative correlation: $\mathop{\text{Corr}}(X,Y) = -1$.
+
+```{R}
+#| label: "Corr_coef is perfect negative"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 - 3*x)
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+Positive correlation: $\mathop{\text{Corr}}(X,Y) > 0$.
+
+```{R}
+#| label: "Corr_coef is positive"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 + 3*x + rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+
+---
+
+## Correlation Coefficient
+
+Negative correlation: $\mathop{\text{Corr}}(X,Y) < 0$.
+
+```{R}
+#| label: "Corr_coef is negative"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = 1 - 3*x + rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Correlation Coefficient
+
+No correlation: $\mathop{\text{Corr}}(X,Y) = 0$.
+
+```{R}
+#| label: "Corr_coef is 0"
+#| fig-align: center
+#| echo: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+df <- tibble(x = rnorm(100, 5, 5),
+             y = rnorm(100, 2, 6))
+
+ggplot() +
+  geom_point(data = df, aes(x, y), color = hii) +
+  mytheme_s +
+  xlab(expression(X)) + 
+  ylab(expression(Y))
+```
+
+---
+
+## Variance: Rule 03
+
+For constants $a$ and $b$,
+
+$$
+\mathop{\text{Var}} (aX + bY) = a^2 \mathop{\text{Var}}(X) + b^2 \mathop{\text{Var}}(Y) + 2ab\mathop{\text{Cov}}(X, Y).
+$$
+
+. . .
+
+- If $X$ and $Y$ are uncorrelated, then $\mathop{\text{Var}} (X + Y) = \mathop{\text{Var}}(X) + \mathop{\text{Var}}(Y)$
+
+- If $X$ and $Y$ are uncorrelated, then $\mathop{\text{Var}} (X - Y) = \mathop{\text{Var}}(X) + \mathop{\text{Var}}(Y)$

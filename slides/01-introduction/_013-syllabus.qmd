@@ -1,0 +1,178 @@
+---
+name: syllabus
+---
+
+## In EC 320
+
+<br>
+
+We start to build up the fundamentals of [causal analysis]{.blue}
+
+<br>
+
+But first we need to build up the necessary [Theory]{.hi}, [Tools]{.hii}, and [Skills]{.hp}
+
+<br>
+
+This course will focus _almost_ exclusively on a particular method that is common in statistics in general:
+
+. . .
+
+<br>
+
+- [Ordinary Least Squares (OLS)]{.note} [(aka linear regression)]{.tiny}
+
+---
+
+## Coursework
+
+[Rough weekly outline:]{.hii}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- [01:]{.hi} Introduction and review
+- [02:]{.hi} The econometric problem
+- [03:]{.hi} SLR estimation
+- [04:]{.hi} SLR assumption
+- [05:]{.hi} SLR inference
+:::
+
+::: {.column width="50%"}
+- [06:]{.hi} [Midterm]{.hii}
+- [07:]{.hi} MLR estimate and inference
+- [08:]{.hi} Transformations
+- [09:]{.hi} Quantitative variables
+- [10:]{.hi} Exogeniety and final review
+:::
+
+::::
+
+. . .
+
+<br>
+
+[Final:]{.hii} Tuesday, June 13 @ 2:45
+
+
+# Syllabus{.inverse}
+
+- [link]
+
+---
+
+## Course site
+
+
+---
+
+## About me
+
+Please call me [Andrew]{.hii .big}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
+- [Office hours:]{.hi} XXX
+:::
+
+::: {.column width="60%"}
+- [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
+:::
+
+::::
+
+<br>
+
+. . .
+
+[> Metrics]{.hi .big}
+
+- I love studying econometrics
+- My first time teaching EC 320
+- [TA'd:]{.hii} EC 421 (x2), EC 422/522, EC 423/523, EC 424/524
+- [Instructed:]{.hii} EC 330 (x3)
+
+---
+
+## About me {data-visibility="uncounted"}
+
+Please call me [Andrew]{.hii .big}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
+- [Office hours:]{.hi} XXX
+:::
+
+::: {.column width="60%"}
+- [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
+:::
+
+::::
+
+<br>
+
+[> Grad school]{.hi .big}
+
+- 4th year Econ PhD student
+- Applied topics related to environmental economics
+- Causal inference, statistical learning, and data science
+- Current focus on air pollution
+
+---
+
+## About me {data-visibility="uncounted"}
+
+Please call me [Andrew]{.hii .big}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
+- [Office hours:]{.hi} XXX
+:::
+
+::: {.column width="60%"}
+- [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
+:::
+
+::::
+
+<br>
+
+[> Before grad school]{.hi .big}
+
+- Grew up in San Diego, CA
+- Spent childhood/undergrad summers in the San Juan Islands
+- Studied economics and math at San Diego State University
+- Prior to PhD, researched crime and immigration topics
+
+<!-- . . .
+
+[> Outside of grad school]{.hi .big}
+
+- Getting outside: backpacking, climbing, running, snorkling etc.
+-  -->
+
+---
+
+## In EC 320
+
+An applied econometrician^[Applied econometrician = Practitioner of econometrics, e.g., analyst, consultant, data scientist.] needs a solid grasp on (at least) three areas:
+
+1. The underlying [theory]{.hi} (assumptions, strengths, weaknesses).
+1. An ability to load, aggregating, joining, visualizing [large datasets]{.hi}.
+1. [Applying]{.hi} the theoretical methods to [actual data]{.hi}.
+
+. . .
+
+This course aims to deepen your knowledge in each of these three areas.
+
+::: incremental
+- 1: Analytical skills [([Math]{.hi-red})]{.fragment}
+- 2-3: Computational tools [([R]{.mono .big})]{.fragment}
+:::
+
