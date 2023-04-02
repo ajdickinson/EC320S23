@@ -31,9 +31,9 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 
 ## Lecture notes
 
-[**000 - Introduction**](https://ajdickinson.github.io/EC320S22/slides/000/000-main.html)
+[**000 - Introduction**](https://ajdickinson.github.io/EC320S22/slides/000-intro/000-main.html)
 
 
-**Formats** [.html](https://ajdickinson.github.io/EC320S22/slides/000/000-main.html) | [.pdf](https://ajdickinson.github.io/EC524S23/slides/000/000-main.pdf)
+**Formats** [.html](https://ajdickinson.github.io/EC320S22/slides/000-intro/000-main.html) | [.pdf](https://ajdickinson.github.io/EC524S23/slides/000-intro/000-main.pdf)
 
 **Readings** Introduction in *ItE Review* & *MM 1 (appendix)*
