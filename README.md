@@ -7,4 +7,6 @@ This course introduces statistical techniques that economists use to test econom
 Statistial programming is fundemental to practicing applied econometrics. Thus we will teach the statistical programming language `R` to apply insights from theory and learn how to work with data. 
 
 
-[syllabus](ajdickinson.github.io/EC320S22/syllabus/syllabus.pdf)
+[syllabus](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)  
+
+https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf
