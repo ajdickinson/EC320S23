@@ -1,6 +1,6 @@
 # EC 320, Spring 2023
 
-Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/) and [Colleen O'Briant(https://economics.uoregon.edu/profile/cobriant/)].
+Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/) and [Colleen O'Briant](https://economics.uoregon.edu/profile/cobriant/).
 
 ## Schedule
 
