@@ -36,3 +36,56 @@ The HTML versions of the lecture slides allow you to view animations and interac
 **000 - Introduction** [html](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.pdf)
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
+
+**001 - Review** 
+
+- Readings: 
+
+**002 - The fundamental problem of causal inference** 
+
+- Readings: 
+
+**003 - Logic of regression** 
+
+- Readings: 
+
+**004 - Simple linear regression** 
+
+- Readings: 
+
+**005 - Classical assumptions** 
+
+- Readings: 
+
+**006 - Inference** 
+
+- Readings: 
+
+**007 - Mulitple variable regression** 
+
+- Readings: 
+
+**008 - Mulitple variable regression inference** 
+
+- Readings: 
+
+**009 - Nonlinear relationships** 
+
+- Readings: 
+
+**010 - Categorical variables**
+
+- Readings: 
+
+**011 - Model specification**
+
+- Readings:
+
+**012 - Difference in differences**
+
+- Readings: 
+
+
+## Contributors
+
+Material for this course has contributions from [Ed Rubin](http://edrub.in/) ([@edrubin](https://github.com/edrubin)), [Kyle Raze](https://kyleraze.com/) ([@kyleraze](https://github.com/kyleraze)), [Philip Economides](https://philip-economides.com/)([@peconomi](https://github.com/peconomi)), and [Emmett Saulnier](https://www.emmettsaulnier.com/), who have taught the class prior to me and graciously made their work public. I also source some material from [Nick Huntington-Klein](https://nickchk.com/) ([@NickCH-K](https://github.com/NickCH-K)), who maintains a [trove of resources](https://nickchk.com/causalgraphs.html) for learning causal inference.
