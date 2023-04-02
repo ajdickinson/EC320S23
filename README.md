@@ -16,7 +16,7 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 
 ## Syllabus
 
-[**Syllabus**](https://ajdickinson.github.io/EC320S22/syllabus/syllabus.pdf)
+[**Syllabus**](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)
 
 ## Books
 
