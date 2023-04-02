@@ -6,7 +6,7 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 
 **Lecture** Monday and Wednesday, 2:00p–3:20p (PST), [101 Knight Library](https://map.uoregon.edu/08a3b9892)
 
-**Lab** Wednesday, 4:00p–5:20p (Pacific), [220 Chapman](https://map.uoregon.edu/cd63d45ec)
+**Lab** Wednesday, 4:00p–5:20p (Pacific), (zoom link to be added here)
 
 **Office hours**
 
