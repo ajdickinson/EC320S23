@@ -1,6 +1,6 @@
 # EC 320, Spring 2023
 
-Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/).
+Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/) and [Colleen O'Briant(https://economics.uoregon.edu/profile/cobriant/)].
 
 ## Schedule
 
@@ -29,11 +29,10 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 
 - [R for Data Science](https://r4ds.had.co.nz/)
 
-## Lecture notes
+## Slides 
 
-[**000 - Introduction**](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.html)
+The HTML versions of the lecture slides allow you to view animations and interactive features, provided that you have an internet connection. The PDF slides don't require an internet connection, but they cannot display the animations or interactive features.
 
+**000 - Introduction** [html](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.pdf)
 
-**Formats** [.html](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.html) | [.pdf](https://ajdickinson.github.io/EC320S23/slides/000-intro/000-main.pdf)
-
-**Readings** Introduction in *ItE Review* & *MM 1 (appendix)*
+- Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
