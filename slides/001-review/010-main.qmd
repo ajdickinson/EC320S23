@@ -46,27 +46,27 @@ mytheme_s = mytheme +
 ```
 
 
-<!-- {{< include _021-prologue.qmd >}} -->
+<!-- {{< include _011-prologue.qmd >}} -->
 
-<!-- {{< include _022-notation.qmd >}} -->
+<!-- {{< include _012-notation.qmd >}} -->
 
 <!-- TODO: Add in pdf + cdf definitions; add cdf images -->
 
-<!-- {{< include _023-probability.qmd >}} -->
+<!-- {{< include _013-probability.qmd >}} -->
 
 <!-- TODO: Add cdf images -->
 <!-- TODO: Describe distro definitions + add examples -->
 
 
-{{< include _024-distros.qmd >}}
+{{< include _014-distros.qmd >}}
 
-{{< include _025-moments.qmd >}}
+{{< include _015-moments.qmd >}}
 
-{{< include _026-estimators.qmd >}}
+{{< include _016-estimators.qmd >}}
 
-<!-- {{< include _027-sampling.qmd >}} -->
+<!-- {{< include _017-sampling.qmd >}} -->
 
-<!-- {{< include _028-data.qmd >}} -->
+<!-- {{< include _018-data.qmd >}} -->
 
-{{< include _029-hytesting.qmd >}}
+{{< include _019-hytesting.qmd >}}
 

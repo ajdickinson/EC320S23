@@ -9,7 +9,7 @@ format:
     theme: [default, ../styles.scss]
     slide-number: true
     footer: "EC320, Set 01 | Introduction and Overview"
-    preview-links: TRUE
+    preview-links: auto
     code-fold: FALSE
 title-slide-attributes: 
   data-background-position: left
@@ -32,3 +32,11 @@ title-slide-attributes:
 # [R]{.mono .huge} {.inverse}
 
 {{< include _004-R.qmd >}}
+
+# Chat GPT {.inverse .note}
+
+{{< include _005-GPT.qmd >}}
+
+# Next class: Statistics review {.inverse .note}
+
+

@@ -52,17 +52,38 @@ This course will focus _almost_ exclusively on a particular method that is commo
 
 <br>
 
-[Final:]{.hii} Tuesday, June 13 @ 2:45
+[Final:]{.hii} [Tuesday, June 13 @ 2:45](https://registrar.uoregon.edu/calendars/examinations#complete-final-exam-schedule)
 
 
-# Syllabus{.inverse}
+# Syllabus {.inverse}
 
-- [link]
+[_(click here)_](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf){.white}
 
 ---
 
 ## Course site
 
+I use [GitHub]{.mono} to host a separate site with all the course materials
+
+You can find a link to it [here](https://github.com/ajdickinson/EC320S23) or on the Canvas homepage
+
+. . .
+
+<br>
+
+I use it because:
+
+1. it is convenient for me to post slides
+2. it allows me to post class materials on my website
+3. acts as a secondary site in case Canvas poops out
+
+. . .
+
+[EVERYTHING](.hi) will be posted to both Canvas and GitHub except one thing... [the slides]{.fragment}
+
+. . .
+
+All zoom records will only be available on Canvas
 
 ---
 
@@ -72,12 +93,12 @@ Please call me [Andrew]{.hii .big}
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="55%"}
 - [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
-- [Office hours:]{.hi} XXX
+- [Office hours:]{.hi} T & Th 4:00p-5:00p 
 :::
 
-::: {.column width="60%"}
+::: {.column width="45%"}
 - [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
 :::
 
@@ -102,12 +123,12 @@ Please call me [Andrew]{.hii .big}
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="55%"}
 - [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
-- [Office hours:]{.hi} XXX
+- [Office hours:]{.hi} T & Th 4:00p-5:00p 
 :::
 
-::: {.column width="60%"}
+::: {.column width="45%"}
 - [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
 :::
 
@@ -130,12 +151,12 @@ Please call me [Andrew]{.hii .big}
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="55%"}
 - [Office:]{.hi} [PLC 523](https://map.uoregon.edu/7c6d0ffbd)
-- [Office hours:]{.hi} XXX
+- [Office hours:]{.hi} T & Th 4:00p-5:00p 
 :::
 
-::: {.column width="60%"}
+::: {.column width="45%"}
 - [Email:]{.hi} [adickin3@uoregon.edu](adickin3@uoregon.edu)
 :::
 

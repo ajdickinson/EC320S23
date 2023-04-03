@@ -68,6 +68,14 @@ This assumption is fragile in the real world.
 
 ---
 
+Do you think this is a causal statement?
+
+. . .
+
+![](./images/uoregon-inference.jpeg)
+
+---
+
 ## Experiments
 
 How can we ensure the [all else equals]{.blue} assumption holds?
@@ -146,11 +154,54 @@ With some assumptions, researchers infer the causal relationships examining diff
 
 ---
 
-. . . 
+## Natural experiments
+
+Any examples of [natural experiments]{.note} that come to mind?
+
+. . .
+
+Here are some of the more famous ones:
+
+
+1. Vietnam draft lottery
+
+::: {.notes}
+During the Vietnam War, the U.S. used a lottery system to determine which young men would be drafted into military service. The random assignment of draft numbers created a natural experiment that researchers have used to study the causal effects of military service on various outcomes, including earnings, education, and long-term health.
+:::
+
+. . .
+
+2. The Mariel Boatlift
+
+::: {.notes}
+The Mariel Boatlift: In 1980, Fidel Castro unexpectedly allowed around 125,000 Cubans to leave for the United States, creating a sudden increase in the supply of low-skilled labor in Miami. This "supply shock" has been used as a natural experiment to study the effects of immigration on the wages and employment opportunities of native workers in the receiving country.
+:::
+
+. . .
+
+3. Divorce Law Reforms
+
+::: {.notes}
+In the 1970s and 1980s, several U.S. states adopted "no-fault" divorce laws, which made it easier for couples to obtain a divorce without having to prove fault or misconduct by either spouse. These reforms created a natural experiment to study the effects of divorce law changes on marriage and divorce rates, labor force participation, and outcomes for children in affected families.
+:::
+
+. . .
+
+4. The Opening of the London Congestion Charge
+
+::: {.notes}
+In 2003, London introduced a congestion charge for vehicles entering the city center during peak hours. The charge aimed to reduce traffic congestion and improve air quality. The introduction of the charge provided a natural experiment to study its effects on air pollution, traffic congestion, and public transportation use.
+:::
+
+---
+
+In more recent news:
+
+. . .
 
 ![](./images/suez.webp)
 
-[2021 Suez Canal Obstruction](https://en.wikipedia.org/wiki/2021_Suez_Canal_obstruction). [map](https://www.google.com/maps/place/Suez+Canal/@30.4203538,31.9563998,8.7z/data=!4m6!3m5!1s0x14f9aaeef52d333b:0xadec1b7a1220a846!8m2!3d30.5578479!4d32.3388628!16zL20vMDc4M24){.fragment}
+[2021 Suez Canal Obstruction](https://en.wikipedia.org/wiki/2021_Suez_Canal_obstruction). [_(map)_](https://www.google.com/maps/place/Suez+Canal/@30.4203538,31.9563998,8.7z/data=!4m6!3m5!1s0x14f9aaeef52d333b:0xadec1b7a1220a846!8m2!3d30.5578479!4d32.3388628!16zL20vMDc4M24){.fragment}
 
 ---
 

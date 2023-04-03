@@ -142,5 +142,42 @@ R works without Rstudio, but Rstudio doesn't work without R
 
 ---
 
-## R
+## R basics
 
+You will dive deeper into R in lab, but here six big points about R:
+
+:::: {.columns}
+
+::: {.column width="65%"}
+
+1. Everything is an __object__.
+
+1. Every object has a __name__ and __value__.
+
+1. You use __functions__ on these objects.
+
+1. Functions come in __libraries__ (__packages__)
+
+1. R will try to __help__ you.
+
+1. R has its __quirks__.
+
+:::
+
+::: {.column width="35%"}
+
+`foo`
+
+`foo <- 2`
+
+`mean(foo)`
+
+`library(dplyr)`
+
+`?dplyr`
+
+`NA; error; warning`
+
+:::
+
+::::
