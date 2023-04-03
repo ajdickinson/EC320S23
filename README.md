@@ -13,7 +13,7 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 - **Andrew Dickinson** Tuesdays and Thursdays, 4:00p–5:00p,  [Zoom](https://uoregon.zoom.us/j/6669213025)
 - **Colleen O'Briant** Fridays, TBD, (zoom link to be added)
 
-Find the syllabus here: [**Syllabus**](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)
+Find the syllabus here: [html](https://ajdickinson.github.io/EC320S23/syllabus/syllabus-canvas.html) [**PDF**](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)
 
 ## Books
 
