@@ -28,12 +28,12 @@ include-in-header:
 	\ra{1.2}
 \begin{tabular}{@{\extracolsep{5pt}} l l l l l @{}}
 	& \textbf{{Lecture}} & \textbf{{Lab}} \\
-{\scriptsize \texttt{when}}	& Mo. \& We. 2:00p--3:20p & Wed 4:00p-5:20p \\
-{\scriptsize \texttt{where}}	& \href{https://map.uoregon.edu/08a3b9892}{Knight Library 101} & Synch and asynch (zoom) \\
+{\scriptsize \texttt{when}}	& Mo. \& We. 2:00p--3:20p & \textit{(see lab section below)} \\
+{\scriptsize \texttt{where}}	& \href{https://map.uoregon.edu/08a3b9892}{Knight Library 101} & Zoom \\
 {\scriptsize \texttt{who}} & \textbf{Andrew Dickinson} & \textbf{Colleen O'Briant} \\
 {\scriptsize \texttt{}}  & \href{mailto:adickin3@uoregon.edu}{adickin3@uoregon.edu} & \href{mailto:cobriant@uoregon.edu}{cobriant@uoregon.edu} & {\scriptsize(Use ``\texttt{EC 320}'' in email subject.)} \\
-{\scriptsize \texttt{office hours}}  & Tuesday @ 4p & Thursday @ 4p & {\scriptsize (or by appointment)} \\
-                                     & Friday @ TBA  &                & \\
+{\scriptsize \texttt{office hours}}  & Tue @ 4:00p-5:00p  & Wed @ 4:00p-5:20p & {\scriptsize (or by appointment)} \\
+                                     & Thu @ 4:00p-5:00p  & Fri @ 8:00a-9:00a & \\
 {\scriptsize \texttt{materials}}  & \multicolumn{4}{l}{\href{http://smile.amazon.com/Introduction-Econometrics-Christopher-Dougherty/dp/0199676828/}{1. Introduction to Econometrics, 5\textsuperscript{th} ed. }} \\
   & \multicolumn{4}{l}{\href{https://www.amazon.com/Mastering-Metrics-Path-Cause-Effect/dp/0691152845/}{2. Mastering `Metrics}}
 \end{tabular}
@@ -89,24 +89,32 @@ Learning \texttt{R} is challenging, but well worth the effort. \texttt{R} is a p
 
 ## Lab
 
-In your weekly *synchronous* Wednesday lab section, you will learn to apply the concepts discussed in lecture using \texttt{R}. The main focus is on the practical application of statistical techniques and computational components of the bi-weekly problem sets. Attending lab is *crucial* for learning the material and passing the course. Everyone will have the option of either attending the *synchronous* session online **or** watching the *asynchronous* recordings that will be posted on the course Canvas page after every session.
+Labs will be delivered *asynchronously* this quarter. The scheduled Wednesday lab section will serve as an in depth help session where you may ask for help on lab assignments or ask general \texttt{R} questions. In lab section, you will learn to apply the concepts discussed in lecture using \texttt{R}. The main focus is on the practical application of statistical techniques and computational components of the bi-weekly problem sets. Lab section is *crucial* for learning the material and passing the course. Our GE Colleen will hold **additional office hours** on Friday mornings, **several hours before** labs assignments are due, to provide additional time to ask questions before lab assignments are due.
 
-## Problem sets
+## Problem sets and lab assignments
 
-- Problem sets will be **submitted online via Canvas**. 
-- Each week, an __analytical__ and a __computational__ problem set will be posted
-- Attending lab section will be useful for completing computational problem sets
-- Only \texttt{html} and \texttt{pdf} file types will be accepted.
-- The assignments are short and are intended to to keep you up to date with the current material
-- Your lowest problem set scores will be dropped
-- Submissions **must be your own work**. You will receive **zero points** for copied work.
-- Presentation matters. You may lose points for poor penmenship, scans, and presentation.
+Each week, there will be two short form assignments: problem sets and lab assignments. Lab assignments will be strictly focused on developing your computational skills in R while problem sets will primarily focus on analytical problems but may include a computational component. Submissions **must be your own work**. You will receive **zero points** for copied work. Both will be submitted on Canvas under the "Assignments" tab.
+
+**Problem sets**
+
+- Due on Tuesday evenings at 11:59p each week. See Canvas for exceptions.
+- \texttt{PDF} and \texttt{html} are the only file types accepted for problem sets on Canvas. 
+- Your lowest problem set score will be dropped
+- Presentation matters. You may lose points for poor penmanship, scans, and presentation.
+
+**Lab assignments**
+
+- Due on Friday evenings at 5:00p each week. See Canvas for exceptions.
+- \texttt{html} is the only file type accepted for lab assignments on Canvas. 
+- Lab assignments will directly relate to topics covered in lab section. Use the lab section videos as a resource to complete these assignments.
+- Your lowest lab assignment score will be dropped
+
 
 Feel free to work together on the assignments. Unless explicitly stated, **each student is required to write and submit independent answers**. This means that word-for-word copies will not be accepted and will be viewed as academic dishonesty. In other words: You must place answers **in your own words and code**. Copying from other people (even if you worked with them) or from previous assignments is considered cheating.
 
 ## Late policy
 
-- Late assignments will be accepted **up to 48 hours late** with a penalty of **2 percentage points per hour late**
+- Late assignments will be accepted **up to 48 hours late** with a penalty of **2% per hour late**
 - For example, when submitted 10 hours late, an assignment with a 90% score would be penalized by 20%, and the resulting final grade would be a 70%
 
 ## Exams
@@ -114,7 +122,7 @@ Feel free to work together on the assignments. Unless explicitly stated, **each 
 - The **midterm** will likely take place on **Monday, May 05 2023 @ 2:00-3:20**
 - The **final exam** will be on  **Tuesday, June 13, 2023 @ 2:45-4:45**
 
-There will be no option to take an exam early. Please bring your _calculator_ and _student ID_ for the exams. 
+There will be no option to take an exam early. Please bring your _scientific calculator_ and _student ID_ for the exams. 
 
 
 ## Makeup assignments
@@ -129,8 +137,8 @@ Grades for this class will be assigned based on the following assignments: (appr
 	\ra{1.2}
 	\centering
 	\begin{tabular}{@{\extracolsep{1cm}}ll@{}}
-    \textbf{Analytical problem sets} & 15\% \\
-		\textbf{Computational problem sets} & 15\% \\
+    \textbf{Problem sets} & 15\% \\
+		\textbf{Lab assignments} & 15\% \\
 		% \textbf{Quizzes} & 10\% \\
 		\textbf{Midterm exam} & 30\% \\
 		% \textbf{Data assignment} & 10\%\\
