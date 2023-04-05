@@ -34,7 +34,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
-**001 - Review** [html](https://ajdickinson.github.io/EC320S23/slides/001-review/001-main.html)
+**001 - Review** [html](https://ajdickinson.github.io/EC320S23/slides/001-review/010-main.html)
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
