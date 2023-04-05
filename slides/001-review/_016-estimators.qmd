@@ -2,8 +2,6 @@
 name: estimators
 ---
 
-# Estimators {.inverse .note}
-
 ## Estimators
 
 Why do we estimate things?

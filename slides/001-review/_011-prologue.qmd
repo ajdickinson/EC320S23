@@ -2,26 +2,27 @@
 name: prologue
 ---
 
-# Prologue{.inverse}
-
 ## Housekeeping
 
-The first computational problem set XXX
+The first lab assignment is due Friday at 5p
 
-- Due dates (Monday at midnight XXX)
-- Computational problem sets: Mondays at 11:59pm  
+. . .
 
+[Due dates]{.hi}
 
-The first analytical problem set XXX
+- Problem sets: Tuesday nights at 11:59p
+- Lab assignments: Fridays at 5p  
 
-- Due dates (Monday at midnight XXX)
-- Analytical problem sets: Fridays at 11:59pm.
+. . . 
+
+The first analytical problem set is due Tuesday. [I will post it later tonight.]{.fragment} [Very short. Very simple]{.fragment}
 
 . . .
 
 Any issues with [R]{.mono}?
 
-- I have office hours XXX, XXX GE has office hours on XXX
+- I have office hours Tomorrow from 4p-5p, 
+- Colleen has office hours Friday, 8a-9a
 
 ---
 

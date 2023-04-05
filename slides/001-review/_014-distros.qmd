@@ -2,13 +2,20 @@
 name: distros
 ---
 
-# Distribution {.inverse .notes}
-
 ---
 
 ## Distributions
 
-> Def in here
+> Function that represents all outcomes of a random variable and the corresponding probabilities.
+
+. . .
+
+- Summary that describes the spread of data points in a set
+- Essential for making inferences and assumptions from data
+
+. . .
+
+[Key Takeaway:]{.note} The shape of a distribution provides valuable information
 
 
 
@@ -145,13 +152,13 @@ ggplot() +
 ## Normal Distribution
 
 
-Continuous distribution where $x_i$ can take the value of any real number (${\mathbb{R}}$)
+Continuous distribution where $x_i$ takes the value of any real number (${\mathbb{R}}$)
 
 - Domain spans the entire real line
 - Centered on the distribution mean $\mu$
 
 [Rule 1:]{.note} The probability that the random variable takes a value $x_i$ is 0 for any $x_i\in {\mathbb{R}}$
 
-[Rule 2:]{.note} The probability that the random variable takes a value within $[x_i,x_j]$ range, where $x_i \neq x_j$, is the area under $p(x)$ between those two values 
+[Rule 2:]{.note} The probability that the random variable falls between $[x_i,x_j]$ range, where $x_i \neq x_j$, is the area under $p(x)$ between those two values 
 
 The area above represents $p(x)=0.95$. The values $\{-1.96, 1.96\}$ represent the 95% confidence interval for $\mu$.

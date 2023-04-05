@@ -2,7 +2,6 @@
 name: math-review
 ---
 
-# Notation {.inverse .note}
 
 ---
 
@@ -69,7 +68,6 @@ $$
 
 ::: {.column width="30%"}
 
-<!-- <br> -->
 
 ```{r, echo=FALSE, include=TRUE, results="asis"}
 df <- data.frame(
@@ -88,12 +86,55 @@ df %>%
 ::: {.column width="70%"}
 $$
 \begin{aligned}
- \sum_{i=1}^{4} x_i = 7 + 4 + 10 + 3 &= 23 \\
- \underbrace{\frac{1}{n} \sum_{i=1}^n x_i}_{\text{sample average}} \rightarrow \frac{1}{4} \sum_{i=1}^4 x_i &= \  6  
+ \sum_{i=1}^{4} x_i = 7 + 4 + 10 + 3 = 23 \\
+  \frac{1}{n} \sum_{i=1}^n x_i  \rightarrow \frac{1}{4} \sum_{i=1}^4 x_i &= \  6  
 \end{aligned}
 $$
+
 :::
 ::::
+
+---
+
+## Summation {data-visibility="uncounted"}
+
+The [summation operator]{.hii} adds a sequence of numbers over an index:
+
+$$
+\sum_{i=1}^{n} x_i \equiv x_1 + x_2 + \dots + x_n.
+$$
+
+> The sum of $x_i$ from 1 to $n$.
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+```{r, echo=FALSE, include=TRUE, results="asis"}
+df <- data.frame(
+  i = 1:4,
+  x = c(7, 4, 10, 3)
+)
+
+colnames(df) <- c("\\(i\\)", "\\(x_i\\)")
+
+df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+::: {.column width="70%"}
+$$
+\begin{aligned}
+ \sum_{i=1}^{4} x_i = 7 + 4 + 10 + 3 = 23 \\
+ {\scriptsize \text{sample average}} \Bigg \{ \frac{1}{n} \sum_{i=1}^n x_i  \rightarrow \frac{1}{4} \sum_{i=1}^4 x_i &= \  6  
+\end{aligned}
+$$
+
+:::
+::::
+
 
 ---
 

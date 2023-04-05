@@ -2,8 +2,6 @@
 name: sampling
 ---
 
-# Sampling {.inverse .note}
-
 ---
 
 ## Sampling
@@ -12,7 +10,7 @@ name: sampling
 
 > A group of items or events we would like to know about. 
 
-[Ex.]{.ex} Boomers, redheads in Oklahoma, cats in Eugene
+[Ex.]{.ex} Americans, games of chess, cats in Eugene, etc.
 
 . . .
 
@@ -20,7 +18,7 @@ name: sampling
 
 > a value that describes that population 
 
-[Ex.]{.ex} Mean height of American
+[Ex.]{.ex} Mean height of American, average length of a chess game, median weight of the kitties
 
 ---
 

@@ -21,6 +21,9 @@ title-slide-attributes:
 hideFootnotes: true
 ---
 
+# Prologue{.inverse}
+
+
 ```{r}
 library(pacman)
 p_load(hrbrthemes, fastverse, tidyverse, magrittr, wooldridge, here, kableExtra, nord, latex2exp)
@@ -45,28 +48,51 @@ mytheme_s = mytheme +
         axis.line = element_line(color = hi))
 ```
 
+::: {.hidden}
+$$
+\usepackage{amsmath}
+$$
+:::
 
-<!-- {{< include _011-prologue.qmd >}} -->
+{{< include _011-prologue.qmd >}}
 
-<!-- {{< include _012-notation.qmd >}} -->
+# Notation {.inverse .note}
 
-<!-- TODO: Add in pdf + cdf definitions; add cdf images -->
+{{< include _012-notation.qmd >}}
 
-<!-- {{< include _013-probability.qmd >}} -->
+
+# Basic probability {.inverse .note}
+
+{{< include _013-probability.qmd >}}
 
 <!-- TODO: Add cdf images -->
 <!-- TODO: Describe distro definitions + add examples -->
 
+# Distributions {.inverse .notes}
 
 {{< include _014-distros.qmd >}}
 
+# Moments {.inverse .note}
+
 {{< include _015-moments.qmd >}}
+
+# Estimators {.inverse .note}
 
 {{< include _016-estimators.qmd >}}
 
+# [Next class]{.note .white} {.inverse}
+
+- Sampling
+- Data types
+- Hypothesis testing
+- OLS
+
+<!-- # Sampling {.inverse .note} -->
 <!-- {{< include _017-sampling.qmd >}} -->
 
-<!-- {{< include _018-data.qmd >}} -->
 
-{{< include _019-hytesting.qmd >}}
+<!-- # Data types {.inverse .note}
 
+{{< include _018-data.qmd >}}
+
+<!-- {{< include _019-hytesting.qmd >}} -->

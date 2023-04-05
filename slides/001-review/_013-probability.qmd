@@ -2,8 +2,6 @@
 name: rv
 ---
 
-# Basic probability {.inverse .note}
-
 ---
 
 ## Essential definitions
@@ -86,13 +84,30 @@ $\{-1,1\}$
 
 ::::
 
+<!-- ---
+
+## Probability density (mass) functions
+
+> A function that describes the relative likelihood of observing a continuous random variable $X$ take on a particular value.
+
+Denoted $f_X(x)$ and satisfies the following properties:
+
+- $f_X(x) \geq 0$ for all $x$.
+- The total probability of observing $X$ within the entire range of possible values is 1. Or,
+
+ $$
+  \int_{-\infty}^{\infty} f_X(x) , dx = 1
+  $$
+
+
+Allows us to compute probabilities for continuous random variables
+
+- A PDF is a continuous version of the probability mass function (PMF) for discrete random variables.
+
+
 ---
 
-## Probability density functions
-
----
-
-## Cumulative density functions
+## Cumulative density functions -->
 
 ---
 

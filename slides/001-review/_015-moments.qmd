@@ -2,8 +2,6 @@
 name: moments
 ---
 
-# Moments {.inverse .note}
-
 ---
 
 ## Moments
@@ -179,7 +177,7 @@ $$
 If $\{a_1, a_2, \dots , a_n\}$ are constants and $\{X_1, X_2, \dots , X_n\}$ are random variables, then
 
 $$
-\color{#4c566a}{E(a_1 X_1 + a_2 X_2 + \dots + a_n X_n)} = \color{#81A1C1}{a_1 E(X_1) + a_2 E(X_2) + \dots + a_n E(X_n)}.
+{\scriptsize \color{#4c566a}{E(a_1 X_1 + a_2 X_2 + \dots + a_n X_n)} = \color{#81A1C1}{a_1 E(X_1) + a_2 E(X_2) + \dots + a_n E(X_n)}}
 $$
 
 In English, [the expected value of the sum]{.hi} [=]{.mono} [the sum of expected values]{.hi}.
@@ -195,11 +193,11 @@ In English, [the expected value of the sum]{.hi} [=]{.mono} [the sum of expected
 . . .
 
 $$
-\begin{aligned}
-\color{#4c566a}{E(1.75 X_1 + 2.50 X_2 + 3.35 X_3)} &= \color{#81A1C1}{1.75 E(X_1) + 2.50 E(X_2) + 3.25 E(X_3)} \\
-&= \color{#b48ead}{1.75(43) + 2.50(56) + 3.25(21)} \\
-&= \color{#b48ead}{283.5}
-\end{aligned}
+\begin{align*}
+\color{#4c566a}{\scriptsize E(1.75 X_1 + 2.50 X_2 + 3.35 X_3)} &= \color{#81A1C1}{\scriptsize 1.75 E(X_1) + 2.50 E(X_2) + 3.25 E(X_3)} \\
+&= \color{#b48ead}{\scriptsize 1.75(43) + 2.50(56) + 3.25(21)} \\
+&= \color{#b48ead}{\scriptsize 283.5}
+\end{align*}
 $$
 
 ---
@@ -300,7 +298,7 @@ $\mathop{\text{Var}}(X) = 0 \iff X$ is a constant.
 
 . . .
 
-_Wait what? How can a [random variable]{.purple} be a constant??_ [Because a constant fits the technical defintion of a random variable^[See [this link](https://math.stackexchange.com/questions/2701336/is-a-constant-a-random-variable)]. It's just not-so-random]{.fragment}
+_Wait what? How can a [random variable]{.purple} be a constant??_ [Because a constant fits the technical definition of a random variable^[See [this link](https://math.stackexchange.com/questions/2701336/is-a-constant-a-random-variable) for a more technical explanation]. It's just not-so-random]{.fragment}
 
 ---
 
@@ -423,10 +421,6 @@ For any constants $a$, $b$, $c$, and $d$,
 $$
 \mathop{\text{Cov}}(aX + b, cY + d) = ac\mathop{\text{Cov}}(X, Y)
 $$
-
-. . .
-
-[Ex.]{.ex}
 
 ---
 
