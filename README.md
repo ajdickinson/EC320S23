@@ -82,6 +82,10 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: TBD
 
+## Problem sets
+
+[PS01](https://ajdickinson.github.io/EC320S23/problem-sets/ps01.html)
+
 
 ## Contributors
 
