@@ -1,0 +1,53 @@
+---
+title: "The fundamental problem of causal inference"
+subtitle: "EC 320, Set 03"
+author: "Andrew Dickinson"
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    monobackgroundcolor: #F5F5F5
+    slide-number: true
+    footer: "EC320, Set 03 | Statistics Review"
+    preview-links: auto
+    code-fold: FALSE
+    code-copy: TRUE
+    highlight-style: a11y-light
+    cache: FALSE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+hideFootnotes: true
+---
+
+# Prologue {.inverse .note}
+
+```{r}
+pacman::p_load(hrbrthemes, fastverse, tidyverse, magrittr, wooldridge, here, kableExtra, nord, latex2exp)
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 28),
+       axis.title.y = element_text(size = 28))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+```
+
+{{< include _021-prologue.qmd >}}
+
+# The Fundamental Problem of Econometrics {.inverse .note}
+
+{{< include _022-fun-problem.qmd >}}

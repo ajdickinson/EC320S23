@@ -98,8 +98,12 @@ section.has-light-background h1 {
   vertical-align: middle !important;
 }
 .align-center {
-  text-align: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
+
 .align-left {
   text-align: left;
 }
@@ -137,6 +141,20 @@ section.has-light-background h1 {
 .reveal blockquote {
   color: #2E3440;
   border-left: 0.5rem solid #ccc;
+}
+.reveal .slides section .fragment.highlight-note.visible {
+  color: #314f4f !important;
+  font-family: 'Zilla Slab' !important;
+  font-weight: 300;
+  font-style: italic;
+  display: inline;
+}
+.reveal .slides section .fragment.highlight-red.visible {
+  color: #81A1C1 !important;
+  font-family: 'Zilla Slab' !important;
+  font-weight: 600;
+  font-style: italic;
+  display: inline;
 }
 
 .note {
@@ -194,6 +212,10 @@ section.has-light-background h1 {
 .hi-white {
   font-weight: 600;
   color: #ffffff !important;
+}
+.hi-grey {
+  font-weight: 600;
+  color : #7f7f7f !important;
 }
 
 

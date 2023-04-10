@@ -57,25 +57,6 @@ Often we aim to draw observations [randomly]{.note} from the population
 
 - Draw $n$ observations from the population, then use an [estimator]{.note}.
 
-
----
-
-## Population distributions
-
-Suppose we have some estimator $\hat{\theta}$ for a parameter $\theta$:
-
-- We don’t know $\theta$, but say we assume that $\hat{\theta}$ follows some probability distribution $p(\hat{\theta})$
-- Next, suppose we hypothesize some value for $\theta$, say $\theta = 2.5$
-- Now we use our estimator $\hat{\theta}$ to calculate an estimate for $\theta$. Say that
-we get $\hat{\theta} = 45$
-- We "know" the distribution of $\hat{\theta}$, so we know the probability of getting $\hat{\theta}= 45$ if really $\theta= 2.5$. So we can say ” if $\theta$ really was 2.5,
-then the probability of getting $\hat{\theta} = 45$ is super super low. Thus the
-probability that $\theta= 2.5$ is super super low”.
-- We are able to make a statement about the true value of $\theta$ just by
-knowing the distribution of our preferred estimator $\hat{\theta}$
-
-Sweet, but what distribution should we be assuming?
-
 ---
 
 ## Sampling distributions
@@ -86,7 +67,9 @@ There are myriad ways to produce a sample,^[Only a subset of these can help prod
 
 2. The $n$ random variables are independent.
 
-3. Life becomes much simpler for the econometrician.
+. . .
+
+Life becomes much simpler for the econometrician.
 
 
 ---
@@ -510,7 +493,7 @@ ggplot(data = sim_df, aes(mu_hat)) +
 
 ---
 
-## Population _vs._ Sample
+## Population _vs._ sample
 
 [Question:]{.note} _Why do we care about population vs. sample?_
 
@@ -544,9 +527,8 @@ ggplot(data = df, aes(x = x,y = y)) +
 ::: {.column width="50%"}
 On average, the mean of the samples are close to the population mean
 
-But...some individual samples can miss the mark.
-
-The difference between individual samples and the population creates [uncertainty]{.hi}
+- Some individual samples can miss the mark.
+- The difference between individual samples and the population creates [uncertainty]{.hi}
 :::
 
 ::::
@@ -568,14 +550,37 @@ The difference between individual samples and the population creates [uncertaint
 - Individual sample means can be biased
 - We have to keep track of this uncertainty.
 
+---
+
+## Population distributions {.scrollable}
+
+[Consider the following argument]{.hi} [(this slide scrolls down)]{.note .tiny}
+
+Suppose we have some estimator $\hat{\theta}$ for a parameter $\theta$:
+
+- $\theta$ is unobserved, but assume $\hat{\theta}$ follows a probability distribution $p(\hat{\theta})$
+- We hypothesize some value, say $\theta = 2.5$
+- We use our estimator $\hat{\theta}$ to calculate an estimate. $\hat{\theta} = 45$
+- If we make an [assumption]{.fragment .highlight-red data-fragment-index=1} of the distribution of $\hat{\theta}$, we can calculate the probability of getting $\hat{\theta}= 45$ when $\theta= 2.5$ is true. 
+- For sake of argument, let's say that the probability that $\theta = 2.5$ if we observe $\theta = 45$ is less than $0.001$ 
+
+We can say
+
+> _if $\theta$ really was 2.5, then the probability of getting $\hat{\theta} = 45$ is super super low. Thus the probability that $\theta$ is actually $2.5$ is super super low”._
+
+- We can make statements about the true value of $\theta$ just by knowing the distribution of our preferred estimator $\hat{\theta}$
+
+[But what distribution should we be assuming?]{.note .fragment data-fragment-index=1}
+
+
 
 ---
 
-## The Central Limit Theorem
+## The Central Limit Theorem^[[A more in depth explanation + visualization](https://www.youtube.com/watch?v=zeJD6dqJ5lo)]
 
 [Theorem]{.hi}
 
-> *Let* $x_1, x_2, \dots, x_n$ *be a random sample from a population with mean* $\mathop{\mathbb{E}}\left[ X \right] = \mu$ *and variance* $\text{Var}\left( X \right) = \sigma^2 < \infty$*, let* $\bar{X}$ *be the sample mean.*  *Then, as* $n\rightarrow \infty$*, the function* $\frac{\sqrt{n}\left(\bar{X}-\mu\right)}{S_x}$ *converges to a* .hi-pink[Normal Distribution] *with mean 0 and variance 1.* 
+> *Let* $x_1, x_2, \dots, x_n$ *be a random sample from a population with mean* $\mathop{\mathbb{E}}\left[ X \right] = \mu$ *and variance* $\text{Var}\left( X \right) = \sigma^2 < \infty$*, let* $\bar{X}$ *be the sample mean.*  *Then, as* $n\rightarrow \infty$*, the function* $\frac{\sqrt{n}\left(\bar{X}-\mu\right)}{S_x}$ *converges to a* [Normal Distribution]{.note} *with mean 0 and variance 1.* 
 
 . . .
 
@@ -584,7 +589,3 @@ The difference between individual samples and the population creates [uncertaint
 . . .
 
 - The Law of Large Number (LLN) states that as $n \rightarrow \infty$, the sample converges on the population mean.
-
-. . .
-
-- The only unknown parameter is $\mu$, and we can get around that by making probabilistic statements about it. 

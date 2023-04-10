@@ -1,0 +1,179 @@
+---
+name: fundamental-problem
+---
+
+---
+
+## Causal Identification
+
+### Goal 
+
+Identify the effect of a treatment, $D_i$, on individual $i$'s .outcome, $Y_{D,i}$.
+
+## Ideal data
+
+Ideally, we could calculate the .hi[treatment effect] *for each individual* $i$ as
+
+$$Y_{1,i} - Y_{0,i}$$ 
+
+- $Y_{1,i}$ is the outcome for person $i$ when she receives the treatment.
+- $Y_{0,i}$ is the outcome for person $i$ when she does not receive the treatment.
+- Known as potential outcomes.
+
+---
+
+## Causal Identification
+
+### Ideal data
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+The *ideal* data for 10 people
+
+```{R}
+#| echo: FALSE
+#| label: "test"
+set.seed(3)
+ideal_df <- data.frame(
+  i = 1:10,
+  trt = rep(c(1, 0), each = 5),
+  y1i = c(runif(10, 4, 10) %>% round(2)),
+  y0i = c(runif(10, 0, 5) %>% round(2))
+)
+ideal_df
+```
+
+:::
+
+::: {.column width="50%"}
+
+Calculate the causal effect of treatment.
+$$
+\begin{align}
+  \tau_i = y_{1,i} -  y_{0,i}
+\end{align}
+$$
+for each individual $i$.
+
+:::
+::::
+
+---
+
+<!-- ## Causal Identification {data-visibility="uncounted"}
+
+### Ideal data
+
+:::: {.columns}
+
+::: {.column width="50%"}
+The *ideal* data for 10 people
+```{R, ideal_data_trt, echo = F}
+ideal_df %>% mutate(effect_i = y1i - y0i)
+```
+:::
+
+::: {.column width="50%"}
+Calculate the causal effect of treatment.
+$$
+\begin{align}
+  \tau_i = y_{1,i} -  y_{0,i}
+\end{align}
+$$
+for each individual $i$.
+:::
+
+::::
+
+---
+
+## Causal Identification {data-visibility="uncounted"}
+
+### Ideal data
+
+:::: {.columns}
+
+::: {.column width="50%"}
+The *ideal* data for 10 people
+```{R, ideal_data_trt2, echo = F}
+ideal_df %>% mutate(effect_i = y1i - y0i)
+```
+:::
+
+::: {.column width="50%"}
+Calculate the causal effect of treatment.
+$$
+\begin{align}
+  \tau_i = y_{1,i} -  y_{0,i}
+\end{align}
+$$
+for each individual $i$.
+
+The mean of $\tau_i$ is the<br>average treatment effect (ATE).
+
+Thus, $\color{#EC7662}{\overline{\tau} = `r transmute(ideal_df, effect_i = y1i - y0i) %>% unlist %>% mean %>% round(2)`}$
+:::
+
+::::
+
+. . .
+
+Notice the assignment of treatment does not influence ATE. Information on who was treated is irrelevant in this setting. 
+
+---
+
+## Fundamental Problem of Econometrics
+
+### Ideal comparison
+$$
+\begin{align}
+  \tau_i = \color{#EC7662}{y_{1,i}} &- \color{#9370DB}{y_{0,i}}
+\end{align}
+$$
+
+Highlights the fundamental problem of econometrics, much like when a traveler assesses options down two separate roads.
+
+. . .
+
+### The problem
+
+- If we observe $\color{#EC7662}{y_{1,i}}$, then we cannot observe $\color{#9370DB}{y_{0,i}}$.
+
+- If we observe $\color{#9370DB}{y_{0,i}}$, then we cannot observe $\color{#EC7662}{y_{1,i}}$.
+
+- Can only observe what actually happened; cannot observe the **counterfactual**.
+
+The traveler's alternative outcome is forever unknown to them.
+
+---
+
+## Fundamental Problem of Econometrics
+
+A dataset that we can observe for 10 people looks something like
+
+:::: {.columns}
+
+::: {column width="50%"}
+```{R, ideal_data_obs, echo = F}
+obs_df <- ideal_df
+obs_df$y0i[1:5] <- NA
+obs_df$y1i[6:10] <- NA
+obs_df
+```
+:::
+
+::: {.column width="50%"}
+We can't observe $\color{#EC7662}{y_{1,i}}$ and $\color{#9370DB}{y_{0,i}}$.
+
+But, we do observe
+- $\color{#EC7662}{y_{1,i}}$ for $i$ in 1, 2, 3, 4, 5
+- $\color{#9370DB}{y_{0,i}}$ for $i$ in 6, 7, 8, 9, 10
+
+:::
+
+::::
+
+
+**Q:** How do we "fill in" the `NA`s and estimate $\overline{\tau}$? -->

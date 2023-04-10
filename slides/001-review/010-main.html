@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="010-main_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="010-main_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -341,9 +405,9 @@ Andrew Dickinson
   <p class="date">Spring 2023</p>
 </section>
 <section>
-<section id="prologue" class="title-slide slide level1 inverse center">
+<section id="prologue" class="title-slide slide level1 inverse note center">
 <h1>Prologue</h1>
-<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-1_79b4f1b5fe79e1ce60214bdb9f7a0cdf">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-1_238dc6c7ee21e7e24557e0372bf8b5ca">
 
 </div>
 <div class="hidden">
@@ -926,11 +990,9 @@ P(X \geq 1) = P(X=1) + P(X=2)= 0.4 + 0.3 = 0.7
 <li>Interested in the probability of events within a <em>range</em> of values.</li>
 <li><span class="note"><em>e.g.</em></span> What is the probability of more than 1 inch of rain tomorrow?</li>
 </ul>
-<!-- TODO: Add cdf images -->
-<!-- TODO: Describe distro definitions + add examples -->
 </section></section>
 <section>
-<section id="distributions" class="title-slide slide level1 inverse notes center">
+<section id="distributions" class="title-slide slide level1 inverse note center">
 <h1>Distributions</h1>
 
 </section>
@@ -1519,199 +1581,872 @@ Z \equiv \frac{X - \mu}{\sigma}.
 <p>Sample correlation <span class="math inline">\(r_{XY}\)</span> is an unbiased estimator of the pop. correlation coefficient <span class="math inline">\(\rho_{XY}\)</span></p>
 <p><span class="math display">\[r_{XY} = \dfrac{S_{XY}}{\sqrt{S_X^2} \sqrt{S_Y^2}}.\]</span></p>
 </section></section>
-<section id="next-class" class="title-slide slide level1 inverse center">
-<h1><span class="note white">Next class</span></h1>
+<section>
+<section id="sampling" class="title-slide slide level1 inverse note center">
+<h1>Sampling</h1>
+
+</section>
+<section id="sampling-1" class="slide level2">
+<h2>Sampling</h2>
+<p><span class="hi">Population:</span></p>
+<blockquote>
+<p>A group of items or events we would like to know about.</p>
+</blockquote>
+<p><span class="ex">Ex.</span> Americans, games of chess, cats in Eugene, etc.</p>
+<div class="fragment">
+<p><span class="hi">Parameter:</span><sup>1</sup></p>
+<blockquote>
+<p>a value that describes that population</p>
+</blockquote>
+<p><span class="ex">Ex.</span> Mean height of American, average length of a chess game, median weight of the kitties</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>Parameter of interest is the parameter that the researcher seeks to learn about</p></li></ol></aside></section>
+<section id="sampling-2" class="slide level2" data-visibility="uncounted">
+<h2>Sampling</h2>
+<p><span class="hi">Sample:</span></p>
+<blockquote>
+<p>A survey of a subset of the population.</p>
+</blockquote>
+<p><span class="ex">Ex.</span> Respondents to a survey, random sample of econ students at the UO</p>
+<div class="fragment">
+<p><br></p>
+<p>Often we aim to draw observations <span class="note">randomly</span> from the population</p>
 <ul>
-<li>Sampling</li>
-<li>Data types</li>
-<li>Hypothesis testing</li>
-<li>OLS</li>
+<li>Advantageous as it becomes a <span class="hi">representative sample</span> of the population…</li>
 </ul>
-<!-- # Sampling {.inverse .note} -->
-<!-- {{< include _017-sampling.qmd >}} -->
-
-<!-- # Data types {.inverse .note}
-
-
----
-name: data
----
-
-
----
-
-## Data
-
-There are [two]{.hi} broad types of data
-
-1. [Experimental data]{.hi}
-
-> Data generated in controlled, laboratory settings^[[Note:]{.note} Experiments can often occur outside the lab (eg randomized control trials and A/B testing)]
-
-. . .
-
-Ideal for [causal identification]{.hi}, but difficult to obtain
-
-. . .
-
-- Logistically intractable
-- Expensive
-- Morally repugnant
-
-
-## Data {data-visibility="uncounted"}
-
-There are [two]{.hi} broad types of data
-
-1. [Experimental data]{.hi}
-
-2. [Observational data]{.hi}
-
-> Data generated in non-experimental settings
-
-. . .
-
-Types of observational data:
-
-:::: {.columns}
-
-::: {.column width="%50"}
-- Surveys
-- Census
-- Administrative data
-:::
-
-::: {.column width="%50"}
-- Environmental data
-- Transaction data
-- Text and image data
-:::
-
-::::
-
-. . . 
-
-Commonly used though poses challenges to [causal identification]{.hi}
-
----
-
-## Data types: Cross sectional
-
-> Sample of individuals from a population at a point in time
-
-. . .
-
-<br>
-
-Ideally collected using [random sampling]{.hi}
-
-- [random sampling]{.hi} $+$ [sufficient sample size]{.hp} $=$ [representative sample]{.hii}
-- Non-random sampling is more common and difficult to work with
-
-. . .
-
-<br>
-
-[Note:]{.note} Used extensively in applied microeconomics^[Applied microeconomics = Labor, health, education, public finance, development, industrial organization, and urban economics.] and is the main focus of this course
-
----
-
-## Data types: Time series
-
-> Observations of variables over time
-
-. . .
-
-:::: {.columns}
-
-::: {.column width="10%"}
-[Ex.]{.ex}
-:::
-
-::: {.column width="45%"}
-- Quarterly GDP
-- Annual infant mortality rates
-:::
-
-::: {.column width="45%"}
-- Daily stock prices
-:::
-
-::::
-
-. . .
-
-[Complication:]{.note} Observations are not independent draws
-
-- eg GDP this quarter is highly correlated to GDP last quarter
-
-. . .
-
-More advanced methods needed^[See EC 421 and EC 422]
-
----
-
-## Data types: Pooled cross sectional
-
-> Cross sections from different points in time
-
-. . .
-
-<br>
-
-Useful for studying relationship that change over time.
-
-<br>
-
-Again, requires more advanced methods^[See EC 421 and many of the 400-level applied classes]
-
----
-
-## Data types: Panel data
-
-> Time series for each cross sectional unit
-
-<br>
-
-. . . 
-
-[Ex.]{.ex} [Daily attendance across my class]{.fragment}
-
-<br>
-
-. . .
-
-Can control for [unobserved]{.note} characteristics
-
-<br>
-
-. . .
-
-Again, requires more advanced methods^[See EC 421 and many of the 400-level applied classes]
-
----
-
-## Data types: Messy data
-
-[Analysis ready]{.note} dataset are rare. Most data are _messy_
-
-[Data wrangling]{.hi} is a non-trivial part of an economist or data scientist/analyst's job
-
-. . .
-
-[R]{.mono .big} has a suite of packages^[More than one suite, but for this class we use the [tidyverse]{.mono}] that facilitate data wrangling:
-
-- The [tidyverse:]{.mono} `readr`, `tidyr`, `dplyr`, `ggplot2` + others
-
-
-
-
-<!-- {{< include _019-hytesting.qmd >}} -->
+</div>
+</section>
+<section id="sampling-distributions" class="slide level2">
+<h2>Sampling distributions</h2>
+<p><span class="note hi">Focus:</span> Populations vs Samples</p>
+<ul>
+<li>How can we make inferences about a <span class="hi">population</span> based on a small <span class="hi">sample</span> of the population?</li>
+<li>How do we learn about an unknown population <span class="note">parameter of interest</span>?</li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p><span class="hi">Challenge:</span> Usually missing data of the entire population.</p>
+<p><span class="hi">Solution:</span> Sample from the population and estimate the parameter.</p>
+<ul>
+<li>Draw <span class="math inline">\(n\)</span> observations from the population, then use an <span class="note">estimator</span>.</li>
+</ul>
+</div>
+</section>
+<section id="sampling-distributions-1" class="slide level2">
+<h2>Sampling distributions</h2>
+<p>There are myriad ways to produce a sample,<sup>1</sup> but we will restrict our attention <span class="hi">to simple random sampling</span>, where</p>
+<ol type="1">
+<li><p>Each observation is a random variable.</p></li>
+<li><p>The <span class="math inline">\(n\)</span> random variables are independent.</p></li>
+</ol>
+<div class="fragment">
+<p>Life becomes much simpler for the econometrician.</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn7"><p>Only a subset of these can help produce reliable statistics.</p></li></ol></aside></section>
+<section id="population-vs.-sample" class="slide level2">
+<h2>Population <em>vs.</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="fragment">
+<div class="cell column-page quarto-layout-panel" data-hash="010-main_cache/revealjs/unnamed-chunk-26_10413d6bc7bbd83c0db1f286794c67bc">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+<p></p><figcaption>Population</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-26-2.png" width="960"></p>
+<p></p><figcaption>Population relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="population-vs-sample" class="slide level2">
+<h2>Population <em>vs</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="cell column-page quarto-layout-panel" data-hash="010-main_cache/revealjs/sample01_5b0e9a39a950e389bcbd6a33e2939f50">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample01-1.png" width="960"></p>
+<p></p><figcaption>10 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample01-2.png" width="960"></p>
+<p></p><figcaption>Population relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="population-vs-sample-1" class="slide level2">
+<h2>Population <em>vs</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="cell column-page quarto-layout-panel" data-hash="010-main_cache/revealjs/sample02_b7842d26403f71473e7a174302faf552">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample02-1.png" width="960"></p>
+<p></p><figcaption>10 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample02-2.png" width="960"></p>
+<p></p><figcaption>Population relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="population-vs-sample-2" class="slide level2">
+<h2>Population <em>vs</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="cell column-page quarto-layout-panel" data-hash="010-main_cache/revealjs/sample03_ed3eb971c93895f96d24691ab689a7ed">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample03-1.png" width="960"></p>
+<p></p><figcaption>10 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/sample03-2.png" width="960"></p>
+<p></p><figcaption>Population relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="vertical-center">
+<p>Let’s repeat this <span class="hi">10,000 times</span> and then plot the estimates.</p>
+<p>(This exercise is called a Monte Carlo simulation.)</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="how-in-the-world-do-i-do-that">How in the world do I do that</h4>
+<div class="cell" data-preserve="true" data-hash="010-main_cache/revealjs/unnamed-chunk-30_9c695fb5730170376f647c352f2cdb1b">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Set the seed</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">set.seed</span>(<span class="dv">12468</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Set population and sample sizes</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>n_p <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>n_s <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Generate data</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>pop_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(n_p, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Simulation</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>sim_df <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">mclapply</span>(<span class="at">mc.cores =</span> <span class="dv">4</span>, <span class="at">X =</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x, <span class="at">size =</span> n_s) {</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  pop_df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="fu">sample_n</span>(<span class="at">size =</span> size) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="fu">summarize</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(x))</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    }) <span class="sc">%&gt;%</span> <span class="fu">do.call</span>(rbind, .) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Create histogram of simulation</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="fu">ggplot</span>(<span class="at">data =</span> sim_df, <span class="fu">aes</span>(mu_hat)) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> hii, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.25</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> m0, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> hi) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> m0, <span class="at">labels =</span> <span class="fu">TeX</span>(r<span class="st">"($\mu$)"</span>)) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))<span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="fu">xlab</span>(latex2exp<span class="sc">::</span><span class="fu">TeX</span>(r<span class="st">"($\hat{\mu}$)"</span>)) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      <span class="at">rect =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-30"><a href="#cb1-30"></a>      <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">color =</span> hi),</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      <span class="at">line =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">10</a></li><li><a href="#tabset-1-2">100</a></li><li><a href="#tabset-1-3">1,000</a></li><li><a href="#tabset-1-4">10,000</a></li><li><a href="#tabset-1-5">100,000</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-31_a92d4281afba8600bf2f007096474b99">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
+<p></p><figcaption>Regular resampling means of 10 obs at a time</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-32_c631dbd74748bffc9dbd1a1abcd293e1">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
+<p></p><figcaption>Regular resampling means of 10 obs at a time</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-33_22c765408960358a04595cffa4b79c0b">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
+<p></p><figcaption>Regular resampling means of 10 obs at a time</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-4">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-34_2731d6f599319166c0db7a424781fe86">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+<p></p><figcaption>Regular resampling means of 10 obs at a time</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-5">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-35_73d67e5a6863fe32f9c76d4f5d7e2f86">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
+<p></p><figcaption>Regular resampling means of 10 obs at a time</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="population-vs.-sample-1" class="slide level2">
+<h2>Population <em>vs.</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="010-main_cache/revealjs/unnamed-chunk-36_7d03785eeb4710ae8768deed5dc318c3">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="010-main_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
+<p></p><figcaption>As the number of samples approach infinity</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>On average, the mean of the samples are close to the population mean</p>
+<ul>
+<li>Some individual samples can miss the mark.</li>
+<li>The difference between individual samples and the population creates <span class="hi">uncertainty</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="population-vs.-sample-2" class="slide level2">
+<h2>Population <em>vs.</em> sample</h2>
+<p><span class="note">Question:</span> <em>Why do we care about population vs.&nbsp;sample?</em></p>
+<div class="fragment">
+<p><span class="note">Answer:</span> Uncertainty matters.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\hat{\mu}\)</span> is a random variable that depends on the sample.</li>
+<li>We don’t know if our sample is representative of the population.</li>
+<li>Individual sample means can be biased</li>
+<li>We have to keep track of this uncertainty.</li>
+</ul>
+</div>
+</section>
+<section id="population-distributions" class="slide level2 scrollable">
+<h2>Population distributions</h2>
+<p><span class="hi">Consider the following argument</span> <span class="note tiny">(this slide scrolls down)</span></p>
+<p>Suppose we have some estimator <span class="math inline">\(\hat{\theta}\)</span> for a parameter <span class="math inline">\(\theta\)</span>:</p>
+<ul>
+<li><span class="math inline">\(\theta\)</span> is unobserved, but assume <span class="math inline">\(\hat{\theta}\)</span> follows a probability distribution <span class="math inline">\(p(\hat{\theta})\)</span></li>
+<li>We hypothesize some value, say <span class="math inline">\(\theta = 2.5\)</span></li>
+<li>We use our estimator <span class="math inline">\(\hat{\theta}\)</span> to calculate an estimate. <span class="math inline">\(\hat{\theta} = 45\)</span></li>
+<li>If we make an <span class="fragment highlight-red" data-fragment-index="1">assumption</span> of the distribution of <span class="math inline">\(\hat{\theta}\)</span>, we can calculate the probability of getting <span class="math inline">\(\hat{\theta}= 45\)</span> when <span class="math inline">\(\theta= 2.5\)</span> is true.</li>
+<li>For sake of argument, let’s say that the probability that <span class="math inline">\(\theta = 2.5\)</span> if we observe <span class="math inline">\(\theta = 45\)</span> is less than <span class="math inline">\(0.001\)</span></li>
+</ul>
+<p>We can say</p>
+<blockquote>
+<p><em>if <span class="math inline">\(\theta\)</span> really was 2.5, then the probability of getting <span class="math inline">\(\hat{\theta} = 45\)</span> is super super low. Thus the probability that <span class="math inline">\(\theta\)</span> is actually <span class="math inline">\(2.5\)</span> is super super low”.</em></p>
+</blockquote>
+<ul>
+<li>We can make statements about the true value of <span class="math inline">\(\theta\)</span> just by knowing the distribution of our preferred estimator <span class="math inline">\(\hat{\theta}\)</span></li>
+</ul>
+<p><span class="note fragment" data-fragment-index="1">But what distribution should we be assuming?</span></p>
+</section>
+<section id="the-central-limit-theorem" class="slide level2">
+<h2>The Central Limit Theorem<sup>1</sup></h2>
+<p><span class="hi">Theorem</span></p>
+<blockquote>
+<p><em>Let</em> <span class="math inline">\(x_1, x_2, \dots, x_n\)</span> <em>be a random sample from a population with mean</em> <span class="math inline">\(\mathop{\mathbb{E}}\left[ X \right] = \mu\)</span> <em>and variance</em> <span class="math inline">\(\text{Var}\left( X \right) = \sigma^2 &lt; \infty\)</span><em>, let</em> <span class="math inline">\(\bar{X}\)</span> <em>be the sample mean.</em> <em>Then, as</em> <span class="math inline">\(n\rightarrow \infty\)</span><em>, the function</em> <span class="math inline">\(\frac{\sqrt{n}\left(\bar{X}-\mu\right)}{S_x}\)</span> <em>converges to a</em> <span class="note">Normal Distribution</span> <em>with mean 0 and variance 1.</em></p>
+</blockquote>
+<div class="fragment">
+<ul>
+<li>CLT states that when <span class="math inline">\(n \rightarrow \infty\)</span>, the sample mean will be normally distributed.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The Law of Large Number (LLN) states that as <span class="math inline">\(n \rightarrow \infty\)</span>, the sample converges on the population mean.</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://www.youtube.com/watch?v=zeJD6dqJ5lo">A more in depth explanation + visualization</a></p></li></ol></aside></section></section>
+<section>
+<section id="hypothesis-testing" class="title-slide slide level1 inverse note center">
+<h1>Hypothesis testing</h1>
+
+</section>
+<section id="hypothesis-testing-1" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p>How do we assess an estimate of the population mean?</p>
+<ul>
+<li>How likely is it that we have observed this estimate?</li>
+<li>Is it just a coincidence?</li>
+<li>Is is <em>statistically distinguishable</em> from a hypothesized value?</li>
+<li>Should we update out prior beliefs?</li>
+</ul>
+<div class="fragment">
+<p>We can conduct <span class="note">statistical tests</span> to address these questions.</p>
+</div>
+</section>
+<section id="hypothesis-testing-2" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p><span class="hi-grey">Null hypothesis</span> (<span class="math inline">\(\text{H}_0\)</span>) <strong>:</strong> <span class="math inline">\(\mu = \mu_0\)</span></p>
+<p><span class="hii">Alternative hypothesis</span> (<span class="math inline">\(\text{H}_1\)</span>) <strong>:</strong> <span class="math inline">\(\mu \neq \mu_0\)</span></p>
+<div class="fragment">
+<p>There are four possible outcomes of our test:</p>
+<ol type="1">
+<li><p>We <span class="hi">fail to reject</span> the null hypothesis and the null is true.</p></li>
+<li><p>We <span class="hi-red">reject</span> the null hypothesis and the null is false.</p></li>
+<li><p>We <span class="hi-red">reject</span> the null hypothesis, but the null is actually true (<span class="note">Type I error</span>).</p></li>
+<li><p>We <span class="hi">fail to reject</span> the null hypothesis, but the null is actually false (<span class="note">Type II error</span>).</p></li>
+</ol>
+</div>
+</section>
+<section id="hypothesis-testing-3" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p><span class="note">Four possible outcomes</span></p>
+<p><br></p>
+<p>We <span class="hi">fail to reject</span> the null hypothesis and the null is true.</p>
+<ul>
+<li>The defendant was acquitted and he didn’t do the crime.</li>
+</ul>
+<div class="fragment">
+<p>We <span class="hi-red">reject</span> the null hypothesis and the null is false.</p>
+<ul>
+<li>The defendant was convicted and he did the crime.</li>
+</ul>
+</div>
+</section>
+<section id="hypothesis-testing-4" class="slide level2" data-visibility="uncounted">
+<h2>Hypothesis Testing</h2>
+<p><span class="note">Four possible outcomes</span></p>
+<p><br></p>
+<p>We <span class="hi-red">reject</span> the null hypothesis, but the null is actually true.</p>
+<ul>
+<li>The defendant was convicted, but he didn’t do the crime!</li>
+<li><strong>Type I error</strong> (a.k.a. <em>false positive</em>)</li>
+</ul>
+<div class="fragment">
+<p>We <span class="hi">fail to reject</span> the null hypothesis, but the null is actually false.</p>
+<ul>
+<li>The defendant was acquitted, but he did the crime!</li>
+<li><strong>Type II error</strong> (a.k.a. <em>false negative</em>)</li>
+</ul>
+</div>
+</section>
+<section id="hypothesis-testing-5" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p><span class="math inline">\(\hat{\mu}\)</span> is random: it could be anything, even if <span class="math inline">\(\mu = \mu_0\)</span> is true.</p>
+<ul>
+<li><p>But if <span class="math inline">\(\mu = 0\)</span> is true, then <span class="math inline">\(\hat{\mu}\)</span> is unlikely to take values far from zero.</p></li>
+<li><p>As the variance of <span class="math inline">\(\hat{\mu}\)</span> shrinks, we are even less likely to observe “extreme” values of <span class="math inline">\(\hat{\mu}\)</span> (assuming <span class="math inline">\(\mu = \mu_0\)</span>).</p></li>
+</ul>
+<div class="fragment">
+<p>Our test should take extreme values of <span class="math inline">\(\hat{\mu}\)</span> as evidence against the null hypothesis, but it should also weight them by what we know about the variance of <span class="math inline">\(\hat{\mu}\)</span>.</p>
+<ul>
+<li>For now, we’ll assume that the variable of interest <span class="math inline">\(X\)</span> is normally distributed with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="hypothesis-testing-6" class="slide level2">
+<h2>Hypothesis Testing</h2>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-37-1.png" width="960" class="r-stretch quarto-figure-center"><p>Reject (<span class="math inline">\(\text{H}_0\)</span>) if <span class="math inline">\(\hat{\mu}\)</span> lies in the <span class="hi">rejection region</span>.</p>
+<ul>
+<li>The area of the rejection region is defined by the <span class="hi">significance level</span> of the test.</li>
+<li>In a 5% test, the area is 0.05.</li>
+<li>Significance level <span class="mono">=</span> tolerance for Type I error.</li>
+</ul>
+</section>
+<section id="hypothesis-testing-7" class="slide level2">
+<h2>Hypothesis Testing</h2>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" class="r-stretch quarto-figure-center"><p>Reject (<span class="math inline">\(\text{H}_0\)</span>) if <span class="math inline">\(\left| z \right| =\left| \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{sd}}(\hat{\mu})} \right| &gt; 1.96\)</span>.</p>
+<p>What happens to <span class="math inline">\(z\)</span> as <span class="math inline">\(\left| \hat{\mu} - \mu_0 \right|\)</span> increases?</p>
+<p>What happens to <span class="math inline">\(z\)</span> as <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span> increases?</p>
+</section>
+<section id="hypothesis-testing-8" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p>The formula for the <span class="math inline">\(z\)</span> statistic assumes that we know <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span>.</p>
+<ul>
+<li>In practice, we don’t know <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span>, so we have to estimate it.</li>
+</ul>
+<div class="fragment">
+<p>If the variance of <span class="math inline">\(X\)</span> is <span class="math inline">\(\sigma^2\)</span>, then</p>
+<p><span class="math display">\[\sigma^2_{\hat{\mu}} = \dfrac{\sigma^2}{n}.\]</span></p>
+<ul>
+<li>We can estimate <span class="math inline">\(\sigma^2\)</span> with the sample variance <span class="math inline">\(S_{X}^2\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="hypothesis-testing-9" class="slide level2" data-visibility="uncounted">
+<h2>Hypothesis Testing</h2>
+<p>The formula for the <span class="math inline">\(z\)</span> statistic assumes that we know <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span>.</p>
+<ul>
+<li>In practice, we don’t know <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span>, so we have to estimate it.</li>
+</ul>
+<p>The sample variance of the sample mean is</p>
+<p><span class="math display">\[S_{\hat{\mu}}^2 = \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2.\]</span></p>
+</section>
+<section id="hypothesis-testing-10" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p>The <span class="hi">standard error</span> of <span class="math inline">\(\hat{\mu}\)</span> is the square root of <span class="math inline">\(S_{\hat{\mu}}^2\)</span>:</p>
+<p><span class="math display">\[\mathop{\text{SE}}(\hat{\mu}) = \sqrt{ \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2}.\]</span></p>
+<ul>
+<li>Standard error = sample standard deviation of an estimator.</li>
+</ul>
+<div class="fragment">
+<p>When we use <span class="math inline">\(\mathop{\text{SE}}(\hat{\mu})\)</span> in place of <span class="math inline">\(\mathop{\text{sd}}(\hat{\mu})\)</span>, the <span class="math inline">\(z\)</span> statistic becomes a <span class="math inline">\(t\)</span> statistic:</p>
+<p><span class="math display">\[t = \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{SE}}(\hat{\mu})}.\]</span></p>
+</div>
+</section>
+<section id="hypothesis-testing-11" class="slide level2" data-visibility="uncounted">
+<h2>Hypothesis Testing</h2>
+<p>The <span class="hi">standard error</span> of <span class="math inline">\(\hat{\mu}\)</span> is the square root of <span class="math inline">\(S_{\hat{\mu}}^2\)</span>:</p>
+<p><span class="math display">\[\mathop{\text{SE}}(\hat{\mu}) = \sqrt{ \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2}.\]</span></p>
+<ul>
+<li><p>Standard error = sample standard deviation of an estimator.</p></li>
+<li><p>Unlike the <span class="math inline">\(\mathop{\text{SD}}(\hat{\mu})\)</span>, <span class="math inline">\(\mathop{\text{SE}}(\hat{\mu})\)</span> varies from sample to sample.</p></li>
+<li><p><span class="note">Consequence:</span> <span class="math inline">\(t\)</span> statistics do not necessarily have a normal distribution.</p></li>
+</ul>
+</section>
+<section id="hypothesis-testing-12" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p><span class="hi">Normal distribution vs.&nbsp;<span class="math inline">\(t\)</span> distribution</span></p>
+<ul>
+<li>A normal distribution has the same shape for any sample size.</li>
+<li>The shape of the t distribution depends the <span class="hi">degrees of freedom</span>.</li>
+</ul>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-39-1.png" width="960" class="r-stretch quarto-figure-center"><ul>
+<li>Degrees of freedom <span class="mono">=</span> 5.</li>
+</ul>
+</section>
+<section id="hypothesis-testing-13" class="slide level2" data-visibility="uncounted">
+<h2>Hypothesis Testing</h2>
+<p><span class="hi">Normal distribution vs.&nbsp;<span class="math inline">\(t\)</span> distribution</span></p>
+<ul>
+<li>A normal distribution has the same shape for any sample size.</li>
+<li>The shape of the t distribution depends the <strong>degrees of freedom</strong>.</li>
+</ul>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-40-1.png" width="960" class="r-stretch quarto-figure-center"><ul>
+<li>Degrees of freedom <span class="mono">=</span> 50.</li>
+</ul>
+</section>
+<section id="hypothesis-testing-14" class="slide level2" data-visibility="uncounted">
+<h2>Hypothesis Testing</h2>
+<p><span class="hi">Normal distribution vs.&nbsp;<span class="math inline">\(t\)</span> distribution</span></p>
+<ul>
+<li>A normal distribution has the same shape for any sample size.</li>
+<li>The shape of the t distribution depends the <strong>degrees of freedom</strong>.</li>
+</ul>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-41-1.png" width="960" class="r-stretch quarto-figure-center"><ul>
+<li>Degrees of freedom <span class="mono">=</span> 500.</li>
+</ul>
+</section>
+<section id="hypothesis-testing-15" class="slide level2">
+<h2>Hypothesis Testing</h2>
+<p><span class="hi">Two sided t Tests</span></p>
+<p>To conduct a t test, compare the <span class="math inline">\(t\)</span> statistic to the appropriate <span class="hi">critical value</span> of the t distribution.</p>
+<ul>
+<li>To find the critical value in a t table, we need the degrees of freedom and the significance level <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p>Reject (<span class="math inline">\(\text{H}_0\)</span>) at the <span class="math inline">\(\alpha \cdot 100\)</span>-percent level if</p>
+<p><span class="math display">\[\left| t \right| = \left| \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{SE}}(\hat{\mu})} \right| &gt; t_\text{crit}.\]</span></p>
+</section>
+<section id="on-your-own" class="slide level2">
+<h2>On Your Own</h2>
+<p>As the term progresses, we will encounter additional flavors of hypothesis testing and other related concepts.</p>
+<p>You may find it helpful to review the following topics from Math 243:</p>
+<ul>
+<li>Confidence intervals</li>
+<li>One-sided <span class="math inline">\(t\)</span> tests</li>
+<li><span class="math inline">\(p\)</span> values</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="vertical-center">
+<p>Hypothesis testing is an essential tool. <span class="fragment">Yet the traditional way of teaching hypothesis testing can be unintuitive.</span></p>
+<p><span class="fragment"><em>It took me several tries (classes) to fully understand the concept</em></span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="vertical-center">
+<p><em>If you can program, you have direct access to the fundamental ideas in statistics</em></p>
+<p><span class="fragment">To demonstrate, consider <span class="note">hypothesis testing</span></span></p>
+<p><span class="fragment"><em>In order to do that, we need a problem…</em></span></p>
+<p><span class="fragment"><em>Does drinking beer make you more attractive to mosquitos?</em></span></p>
+</div>
+</section>
+<section id="hypothesis-testing-16" class="slide level2">
+<h2>Hypothesis testing</h2>
+<p>Though it sounds silly, this research question is important</p>
+<ul>
+<li>Malaria is transmitted via mosquito</li>
+<li>Most model for malaria transmission historically assume equal risk of mosquito bites across individuals</li>
+<li>Though, good evidence of <em>heterogenous</em> propensity bites exist</li>
+<li>Understanding which people might have higher propensity for bites may allow for interventions that reduce the impact of malaria</li>
+</ul>
+</section>
+<section class="slide level2">
+
+
+<img data-src="./image/Screenshot%202023-03-23%20at%203.42.08%20PM.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+<div class="cell" data-layout-align="center" data-hash="010-main_cache/revealjs/unnamed-chunk-43_5c9283c99fe0a06683334d94e54f17a8">
+
+</div>
+<p>Here is the data. <span class="fragment">Treatment group in <span class="hii">blue</span>.</span></p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-44-1.png" width="960" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="align-center">
+<p><span class="hii">Treatment mean:</span> 23.6 <span class="hi-grey">Control mean:</span> 19.22</p>
+</div>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p>Difference in means: <span class="hi-red">4.38</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Plot the true difference</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-45-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<p><span class="fragment">Suppose the <span class="hi">difference</span> is coincidental.</span> <span class="fragment">Then the labels don’t matter</span></p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-46-1.png" width="960" class="r-stretch quarto-figure-center"><div class="align-center">
+<p><span class="hii">Treatment mean:</span> 23.6 <span class="hi-grey">Control mean:</span> 19.22</p>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p>Difference in means: <span class="hi-red">4.38</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Suppose the <span class="hi">difference</span> is coincidental. Then the labels don’t matter</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-47-1.png" width="960" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="align-center">
+<p><span class="hii">Treatment mean:</span> 20.96 <span class="hi-grey">Control mean:</span> 22.89</p>
+</div>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p><em>False</em> difference in means : <span class="hi">-1.93</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Plot the <em>“fake”</em> difference</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-48-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="and-do-it-again" class="title-slide slide level1 center">
+<h1><em>And do it again</em></h1>
+
+</section>
+<section class="slide level2">
+
+<p>Labels don’t matter. Assign treatment randomly. Find the difference.</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-49-1.png" width="960" class="r-stretch quarto-figure-center"><div class="align-center">
+<p><span class="hii">Treatment mean:</span> 21.36 <span class="hi-grey">Control mean:</span> 22.33</p>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p><em>False</em> difference in means : <span class="hi">-0.97</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Plot the difference</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-50-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="and-do-it-again-3-times" class="title-slide slide level1 center">
+<h1><em>And do it again (3 times)</em></h1>
+
+</section>
+<section class="slide level2">
+
+<p>Labels don’t matter. Assign treatment randomly. Find the difference.</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-51-1.png" width="960" class="r-stretch quarto-figure-center"><div class="align-center">
+<p><span class="hii">Treatment mean:</span> 21.28 <span class="hi-grey">Control mean:</span> 22.44</p>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p><em>False</em> difference in means : <span class="hi">-1.16</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Plot the differences</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-52-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="and-do-it-again-4-times" class="title-slide slide level1 center">
+<h1><em>And do it again (4 times)</em></h1>
+
+</section>
+<section class="slide level2">
+
+<p>Labels don’t matter. Assign treatment randomly. Find the difference.</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-53-1.png" width="960" class="r-stretch quarto-figure-center"><div class="align-center">
+<p><span class="hii">Treatment mean:</span> 21.92 <span class="hi-grey">Control mean:</span> 21.56</p>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p><em>False</em> difference in means : <span class="hi">0.36</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Plot the differences</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-54-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="and-do-it-again-2500-times" class="title-slide slide level1 center">
+<h1><em>And do it again (2,500 times)</em></h1>
+
+</section>
+<section class="slide level2">
+
+<p>Plot all 2,500 differences.</p>
+
+<img data-src="010-main_files/figure-revealjs/unnamed-chunk-55-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="data-types" class="title-slide slide level1 inverse note center">
+<h1>Data types</h1>
+
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<p>There are <span class="hi">two</span> broad types of data</p>
+<ol type="1">
+<li><span class="hi">Experimental data</span></li>
+</ol>
+<blockquote>
+<p>Data generated in controlled, laboratory settings<sup>1</sup></p>
+</blockquote>
+<div class="fragment">
+<p>Ideal for <span class="hi">causal identification</span>, but difficult to obtain</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Logistically intractable</li>
+<li>Expensive</li>
+<li>Morally repugnant</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn9"><p><span class="note">Note:</span> Experiments can often occur outside the lab (eg randomized control trials and A/B testing)</p></li></ol></aside></section>
+<section id="data-1" class="slide level2" data-visibility="uncounted">
+<h2>Data</h2>
+<p>There are <span class="hi">two</span> broad types of data</p>
+<ol type="1">
+<li><p><span class="hi">Experimental data</span></p></li>
+<li><p><span class="hi">Observational data</span></p></li>
+</ol>
+<blockquote>
+<p>Data generated in non-experimental settings</p>
+</blockquote>
+<div class="fragment">
+<p>Types of observational data:</p>
+<div class="columns">
+<div class="column" style="width:%50;">
+<ul>
+<li>Surveys</li>
+<li>Census</li>
+<li>Administrative data</li>
+</ul>
+</div><div class="column" style="width:%50;">
+<ul>
+<li>Environmental data</li>
+<li>Transaction data</li>
+<li>Text and image data</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Commonly used though poses challenges to <span class="hi">causal identification</span></p>
+</div>
+</section>
+<section id="data-types-cross-sectional" class="slide level2">
+<h2>Data types: Cross sectional</h2>
+<blockquote>
+<p>Sample of individuals from a population at a point in time</p>
+</blockquote>
+<div class="fragment">
+<p><br></p>
+<p>Ideally collected using <span class="hi">random sampling</span></p>
+<ul>
+<li><span class="hi">random sampling</span> <span class="math inline">\(+\)</span> <span class="hp">sufficient sample size</span> <span class="math inline">\(=\)</span> <span class="hii">representative sample</span></li>
+<li>Non-random sampling is more common and difficult to work with</li>
+</ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><span class="note">Note:</span> Used extensively in applied microeconomics<sup>1</sup> and is the main focus of this course</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn10"><p>Applied microeconomics = Labor, health, education, public finance, development, industrial organization, and urban economics.</p></li></ol></aside></section>
+<section id="data-types-time-series" class="slide level2">
+<h2>Data types: Time series</h2>
+<blockquote>
+<p>Observations of variables over time</p>
+</blockquote>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:10%;">
+<p><span class="ex">Ex.</span></p>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>Quarterly GDP</li>
+<li>Annual infant mortality rates</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>Daily stock prices</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="note">Complication:</span> Observations are not independent draws</p>
+<ul>
+<li>eg GDP this quarter is highly correlated to GDP last quarter</li>
+</ul>
+</div>
+<div class="fragment">
+<p>More advanced methods needed<sup>1</sup></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn11"><p>See EC 421 and EC 422</p></li></ol></aside></section>
+<section id="data-types-pooled-cross-sectional" class="slide level2">
+<h2>Data types: Pooled cross sectional</h2>
+<blockquote>
+<p>Cross sections from different points in time</p>
+</blockquote>
+<div class="fragment">
+<p><br></p>
+<p>Useful for studying relationship that change over time.</p>
+<p><br></p>
+<p>Again, requires more advanced methods<sup>1</sup></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn12"><p>See EC 421 and many of the 400-level applied classes</p></li></ol></aside></section>
+<section id="data-types-panel-data" class="slide level2">
+<h2>Data types: Panel data</h2>
+<blockquote>
+<p>Time series for each cross sectional unit</p>
+</blockquote>
+<p><br></p>
+<div class="fragment">
+<p><span class="ex">Ex.</span> <span class="fragment">Daily attendance across my class</span></p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>Can control for <span class="note">unobserved</span> characteristics</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>Again, requires more advanced methods<sup>1</sup></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn13"><p>See EC 421 and many of the 400-level applied classes</p></li></ol></aside></section>
+<section id="data-types-messy-data" class="slide level2">
+<h2>Data types: Messy data</h2>
+<p><span class="note">Analysis ready</span> dataset are rare. Most data are <em>messy</em></p>
+<p><span class="hi">Data wrangling</span> is a non-trivial part of an economist or data scientist/analyst’s job</p>
+<div class="fragment">
+<p><span class="mono big">R</span> has a suite of packages<sup>1</sup> that facilitate data wrangling:</p>
+<ul>
+<li>The <span class="mono">tidyverse:</span> <code>readr</code>, <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code> + others</li>
+</ul>
 <div class="footer footer-default">
 <p>EC320, Set 02 | Statistics Review</p>
 </div>
-</section>
-
+</div>
+<aside><ol class="aside-footnotes"><li id="fn14"><p>More than one suite, but for this class we use the <span class="mono">tidyverse</span></p></li></ol></aside></section></section>
 
     </div>
   </div>

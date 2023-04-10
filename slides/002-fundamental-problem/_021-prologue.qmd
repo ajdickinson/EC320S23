@@ -1,0 +1,63 @@
+---
+name: prologue
+---
+
+## Housekeeping
+
+put stuff here
+
+---
+
+## Statistics Inform Policy
+
+__Policy:__ In 2017, the University of Oregon started requiring first-year students to live on campus.
+
+__Rationale:__ First-year students who live on campus fare better than those who live off campus.
+
+- _80 percent more likely_ to graduate in four years.
+- Second-year retention rate _5 percentage points higher_.
+- GPAs _0.13 points higher_, on average. 
+
+. . .
+
+_Do these comparisons suggest that the policy will improve student outcomes?_
+
+. . .
+
+_Do they describe the effect of living on campus?_
+
+. . .
+
+_Do they describe something else?_
+
+---
+
+## Other Things Equal
+
+The UO's interpretation of those comparisons warrants skepticism.
+
+- The decision to live on campus is probably related to family wealth and interest in school.
+
+- Family wealth and interest in school are also related to academic achievement.
+
+. . .
+
+__Why?__ The difference in outcomes between those on and off campus is not an .hi-purple[_all else equal_]^[_All else equal_ [=]{.mono} _ceteris paribus_, _all else held constant_, _etc_.] comparison.
+
+__Upshot:__ We can't attribute the difference in outcomes solely to living on campus.
+
+---
+
+## Other Things Equal
+
+### A high bar
+
+When all other factors are held constant, statistical comparisons detect causal relationships.
+
+. . .
+
+(Micro)economics has developed a comparative advantage in understanding where .hi-purple[_all else equal_] comparisons can and cannot be made.
+
+- Anyone can retort "_correlation doesn't necessarily imply causation_."
+
+- Understanding _why_ is difficult, but useful for learning from data.

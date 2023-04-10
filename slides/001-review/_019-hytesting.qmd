@@ -2,45 +2,436 @@
 name: hypothesis-testing
 ---
 
-# Hypothesis testing {.inverse .note}
-
 ---
 
-::: {.vertical-center}
-In every stats class I have ever taken, I learned about [hypothesis testing]{.note}
+## Hypothesis Testing
 
-[_Not once did I fully grasp the concept_]{.fragment}
-:::
+How do we assess an estimate of the population mean?
 
----
+- How likely is it that we have observed this estimate?
+- Is it just a coincidence?
+- Is is _statistically distinguishable_ from a hypothesized value?
+- Should we update out prior beliefs?
 
 . . .
 
-::: {.vertical-center}
-> When I decided to learn ~~CG~~ ~~statistics~~, I read several ~~descriptions~~ books which I shall politely not identify. I understood none of them. Most of them simply ~~wrote down the method~~ described statistical procedures, then applied them without any intuitive explanation or hint of how anyone might have invented these procedures in the first place. This ~~article~~ ~~talk~~ slide was born of that frustration and my wish that future student will learn the deep and elegant ideas at the heart of statistics rather than the confusing grab bag of statistical procedures.^[From John Rauser's talk at Strata in 2014 [(click here)](https://youtu.be/5Dnw46eC-0o)]
-:::
+We can conduct [statistical tests]{.note} to address these questions.
 
 
 ---
 
-::: {.vertical-center}
-In every stats class I have ever taken, I learned about [hypothesis testing]{.note}
+## Hypothesis Testing
+
+[Null hypothesis]{.hi-grey} ($\text{H}_0$) __:__ $\mu = \mu_0$
+
+[Alternative hypothesis]{.hii} ($\text{H}_1$) __:__ $\mu \neq \mu_0$
+
+. . .
+
+There are four possible outcomes of our test:
+
+1. We [fail to reject]{.hi} the null hypothesis and the null is true.
+
+2. We [reject]{.hi-red} the null hypothesis and the null is false.
+
+3. We [reject]{.hi-red} the null hypothesis, but the null is actually true ([Type I error]{.note}).
+
+4. We [fail to reject]{.hi} the null hypothesis, but the null is actually false ([Type II error]{.note}).
+
+---
+
+## Hypothesis Testing
+
+[Four possible outcomes]{.note}
 
 <br>
 
-[_I never fully grasped it until I learned to program_]{.fragment}
+We [fail to reject]{.hi} the null hypothesis and the null is true.
+
+- The defendant was acquitted and he didn't do the crime.
+
+. . .
+
+We [reject]{.hi-red} the null hypothesis and the null is false.
+
+- The defendant was convicted and he did the crime.
+
+---
+
+## Hypothesis Testing {data-visibility="uncounted"}
+
+[Four possible outcomes]{.note}
+
+<br>
+
+We [reject]{.hi-red} the null hypothesis, but the null is actually true. 
+
+- The defendant was convicted, but he didn't do the crime!
+- **Type I error** (a.k.a. _false positive_)
+
+. . .
+
+We [fail to reject]{.hi} the null hypothesis, but the null is actually false.
+
+- The defendant was acquitted, but he did the crime!
+- **Type II error** (a.k.a. _false negative_)
+
+---
+
+## Hypothesis Testing
+
+$\hat{\mu}$ is random: it could be anything, even if $\mu = \mu_0$ is true.
+
+- But if $\mu = 0$ is true, then $\hat{\mu}$ is unlikely to take values far from zero.
+
+- As the variance of $\hat{\mu}$ shrinks, we are even less likely to observe "extreme" values of $\hat{\mu}$ (assuming $\mu = \mu_0$).
+
+. . .
+
+Our test should take extreme values of $\hat{\mu}$ as evidence against the null hypothesis, but it should also weight them by what we know about the variance of $\hat{\mu}$.
+
+- For now, we'll assume that the variable of interest $X$ is normally distributed with mean $\mu$ and standard deviation $\sigma$.
+
+---
+
+## Hypothesis Testing
+
+```{r}
+#| fig.height: 3.75
+#| echo: FALSE
+#| fig.align: "center"
+
+
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dnorm(seq(-4,4, by = 0.01))
+)
+crit <- qnorm(c(.025,.975))
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0), breaks = c(-1.96, 0, 1.96), labels = c(TeX(r"($\mu_0 - 1.96 \, s.d.$)"), TeX(r"($\mu_0$)"), TeX(r"($\mu_0 + 1.96 \, sd$)"))) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = df %>% filter(x <= qnorm(1 - 0.975) & x >= qnorm(0.975)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qnorm(0.975), size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = qnorm(1 - 0.975), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s+ 
+theme(
+  axis.line = element_line(color = hi),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(),
+  axis.text.y = element_blank()
+) +
+  xlab("") + 
+  ylab("") 
+```
+
+Reject ($\text{H}_0$) if $\hat{\mu}$ lies in the [rejection region]{.hi}.
+
+- The area of the rejection region is defined by the [significance level]{.hi} of the test.
+- In a 5% test, the area is 0.05. 
+- Significance level [=]{.mono} tolerance for Type I error.
+
+---
+
+## Hypothesis Testing
+
+```{r}
+#| fig.height: 3.75
+#| echo: FALSE
+#| fig.align: "center"
+
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dnorm(seq(-4,4, by = 0.01))
+)
+crit <- qnorm(c(.025,.975))
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0), breaks = c(-1.96, 0, 1.96), labels = c(TeX(r"($\mu_0 - 1.96 \, s.d.$)"), TeX(r"($\mu_0$)"), TeX(r"($\mu_0 + 1.96 \, sd$)"))) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = df %>% filter(x <= qnorm(1 - 0.975) & x >= qnorm(0.975)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qnorm(0.975), size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = qnorm(1 - 0.975), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s+ 
+theme(
+  axis.line = element_line(color = hi),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(),
+  axis.text.y = element_blank(),
+) + 
+  xlab("") + 
+  ylab("") 
+```
+
+Reject ($\text{H}_0$) if $\left| z \right| =\left| \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{sd}}(\hat{\mu})} \right| > 1.96$.
+
+What happens to $z$ as $\left| \hat{\mu} - \mu_0 \right|$ increases? 
+
+What happens to $z$ as $\mathop{\text{sd}}(\hat{\mu})$ increases?
+
+---
+
+## Hypothesis Testing
+
+The formula for the $z$ statistic assumes that we know $\mathop{\text{sd}}(\hat{\mu})$.
+
+- In practice, we don't know $\mathop{\text{sd}}(\hat{\mu})$, so we have to estimate it.
+
+. . .
+
+If the variance of $X$ is $\sigma^2$, then 
+
+$$\sigma^2_{\hat{\mu}} = \dfrac{\sigma^2}{n}.$$
+
+- We can estimate $\sigma^2$ with the sample variance $S_{X}^2$.
+
+
+---
+
+## Hypothesis Testing {data-visibility="uncounted"}
+
+The formula for the $z$ statistic assumes that we know $\mathop{\text{sd}}(\hat{\mu})$.
+
+- In practice, we don't know $\mathop{\text{sd}}(\hat{\mu})$, so we have to estimate it.
+
+The sample variance of the sample mean is
+ 
+$$S_{\hat{\mu}}^2 = \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2.$$
+
+---
+
+## Hypothesis Testing
+
+The [standard error]{.hi} of $\hat{\mu}$ is the square root of $S_{\hat{\mu}}^2$:
+
+$$\mathop{\text{SE}}(\hat{\mu}) = \sqrt{ \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2}.$$
+
+- Standard error = sample standard deviation of an estimator.
+
+. . .
+
+When we use $\mathop{\text{SE}}(\hat{\mu})$ in place of $\mathop{\text{sd}}(\hat{\mu})$, the $z$ statistic becomes a $t$ statistic:
+
+$$t = \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{SE}}(\hat{\mu})}.$$
+
+---
+
+## Hypothesis Testing {data-visibility="uncounted"}
+
+The [standard error]{.hi} of $\hat{\mu}$ is the square root of $S_{\hat{\mu}}^2$:
+
+$$\mathop{\text{SE}}(\hat{\mu}) = \sqrt{ \dfrac{1}{n(n-1)} \sum_{i=1}^n (X_i - \bar{X})^2}.$$
+
+- Standard error = sample standard deviation of an estimator.
+
+- Unlike the $\mathop{\text{SD}}(\hat{\mu})$, $\mathop{\text{SE}}(\hat{\mu})$ varies from sample to sample.
+- [Consequence:]{.note} $t$ statistics do not necessarily have a normal distribution.
+
+---
+
+## Hypothesis Testing
+
+[Normal distribution vs. $t$ distribution]{.hi}
+
+- A normal distribution has the same shape for any sample size.
+- The shape of the t distribution depends the [degrees of freedom]{.hi}.
+
+```{r}
+#| fig.height: 3.5
+#| echo: FALSE
+#| fig.align: "center"
+
+n <- 5
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), n),
+    y_norm = dnorm(seq(-4,4, by = 0.01))
+)
+crit <- qt(c(.025,.975), n)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_line(data = df, aes(x, y), color = hii, size = 1) +
+  geom_line(data = df, aes(x, y_norm), color = higreen, size = 1) +
+  # geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, n) & x >= qt(0.975, n)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qt(0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = qt(1 - 0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = -1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  geom_vline(xintercept = 1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  mytheme_s+ 
+theme(
+  axis.line = element_line(color = hi),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(),
+  axis.text.y = element_blank(),
+) + 
+  xlab("") + 
+  ylab("") 
+```
+
+- Degrees of freedom [=]{.mono} 5.
+
+---
+
+## Hypothesis Testing {data-visibility="uncounted"}
+
+[Normal distribution vs. $t$ distribution]{.hi}
+
+- A normal distribution has the same shape for any sample size.
+- The shape of the t distribution depends the **degrees of freedom**.
+
+```{r}
+#| fig.height: 3.5
+#| echo: FALSE
+#| fig.align: "center"
+
+n <- 50
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), n),
+    y_norm = dnorm(seq(-4,4, by = 0.01))
+)
+crit <- qt(c(.025,.975), n)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_line(data = df, aes(x, y), color = hii, size = 1) +
+  geom_line(data = df, aes(x, y_norm), color = higreen, size = 1) +
+  # geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, n) & x >= qt(0.975, n)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qt(0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = qt(1 - 0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = -1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  geom_vline(xintercept = 1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  xlab("") + 
+  ylab("") +
+  mytheme_s+ 
+theme(
+  axis.line = element_line(color = hi),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(),
+  axis.text.y = element_blank(),
+)
+```
+
+- Degrees of freedom [=]{.mono} 50.
+
+---
+
+## Hypothesis Testing {data-visibility="uncounted"}
+
+[Normal distribution vs. $t$ distribution]{.hi}
+
+- A normal distribution has the same shape for any sample size.
+- The shape of the t distribution depends the **degrees of freedom**.
+
+```{r}
+#| fig.height: 3.5
+#| echo: FALSE
+#| fig.align: "center"
+
+n <- 500
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), n),
+    y_norm = dnorm(seq(-4,4, by = 0.01))
+)
+crit <- qt(c(.025,.975), n)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_line(data = df, aes(x, y), color = hii, size = 1) +
+  geom_line(data = df, aes(x, y_norm), color = higreen, size = 1) +
+  # geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  # geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, n) & x >= qt(0.975, n)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qt(0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = qt(1 - 0.975, n), size = 0.35, linetype = "dashed", color = hii) +
+  geom_vline(xintercept = -1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  geom_vline(xintercept = 1.96, size = 0.35, linetype = "dashed", color = higreen) +
+  xlab("") + 
+  ylab("") + 
+  mytheme_s+ 
+theme(
+  axis.line = element_line(color = hi),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  axis.text.x = element_text(),
+  axis.text.y = element_blank(),
+)
+```
+
+- Degrees of freedom [=]{.mono} 500.
+
+---
+
+## Hypothesis Testing
+
+[Two sided t Tests]{.hi}
+
+To conduct a t test, compare the $t$ statistic to the appropriate [critical value]{.hi} of the t distribution.
+
+- To find the critical value in a t table, we need the degrees of freedom and the significance level $\alpha$.
+
+Reject ($\text{H}_0$) at the $\alpha \cdot 100$-percent level if 
+
+$$\left| t \right| = \left| \dfrac{\hat{\mu} - \mu_0}{\mathop{\text{SE}}(\hat{\mu})} \right| > t_\text{crit}.$$
+
+---
+
+## On Your Own
+
+As the term progresses, we will encounter additional flavors of hypothesis testing and other related concepts.
+
+You may find it helpful to review the following topics from Math 243:
+
+- Confidence intervals
+- One-sided $t$ tests
+- $p$ values
+
+
+
+---
+
+::: {.vertical-center}
+
+Hypothesis testing is an essential tool. [Yet the traditional way of teaching hypothesis testing can be unintuitive.]{.fragment}
+
+[_It took me several tries (classes) to fully understand the concept_]{.fragment}
 :::
 
 ---
+
 
 ::: {.vertical-center}
 _If you can program, you have direct access to the fundamental ideas in statistics_
 
 [To demonstrate, consider [hypothesis testing]{.note}]{.fragment}
 
-[_In order to do that, we need a probelm..._]{.fragment}
+[_In order to do that, we need a problem..._]{.fragment}
 
-[_Does drinking beer make you more attractive to mosquitos?]{.fragment}
+[_Does drinking beer make you more attractive to mosquitos?_]{.fragment}
 
 :::
 
@@ -61,51 +452,107 @@ Though it sounds silly, this research question is important
 
 ---
 
-## Experiment data
-
 ```{r}
 #| echo: FALSE
+#| cache: FALSE
+
+ 
+pacman::p_load(hrbrthemes, fastverse, tidyverse, magrittr, wooldridge, here, kableExtra, nord, latex2exp)
 
 beer = c(27, 20, 21, 26, 27, 31, 24, 21, 20, 19, 23, 24, 28, 19, 24, 29, 18, 20, 17, 31, 20, 25, 28, 21, 27)
 
-beer = tibble(
+beer = data.table(
   count = beer,
   group = "beer",
   row = rep(1:5, times = 5),
   # row = expand.grid()
-  col = rep(1:5, each = 5)
+  col = rep(1:5, each = 5),
+  t = 1
 )
 
 water = c(21, 22, 15, 12, 21, 16, 19, 15, 22, 24, 19, 23, 13, 22, 20, 24, 18, 20)
 
-water = tibble(
+water = data.table(
   count = water,
   group = "water",
   row = rep(1:3, times = 6),
-  col = rep(1:6, each = 3)
+  col = rep(1:6, each = 3),
+  t = 0
 )
 
-tib = rbind(beer, water)
+dt = rbind(beer, water) %>%
+  as.data.table()
 
-tib %<>% mutate(
-  s1 = sample_n(size = size)
-)
+dt[, c("s1", "s2", "s3", "s4") := .(0,0,0,0) ]
+dt[sample(which(s1 == 0), 25), s1 := 1]
+dt[sample(which(s2== 0), 25), s2 := 1]
+dt[sample(which(s3 == 0), 25), s3 := 1]
+dt[sample(which(s4 == 0), 25), s4 := 1]
 
-mu0 = tib |>
-  group_by(group) |>
-  summarize(mean = mean(count) |> round(2))
+true_summ = dt[, .(mean = mean(count)), by = group ]
+s1_summ = dt[, .(mean = mean(count)), by = s1 ]
+s2_summ = dt[, .(mean = mean(count)), by = s2 ]
+s3_summ = dt[, .(mean = mean(count)), by = s3 ]
+s4_summ = dt[, .(mean = mean(count)), by = s4 ]
 
+true_list = c(
+    true_summ[group == "beer", mean ],
+    true_summ[group == "water", mean],
+    true_summ[group == "beer", mean ] - true_summ[group == "water", mean]
+  ) |> round(2)
+
+s1_list = c(
+    s1_summ[s1 == 1, mean ],
+    s1_summ[s1 == 0, mean],
+    s1_summ[s1 == 1, mean ] - s1_summ[s1 == 0, mean]
+  ) |> round(2)
+
+s2_list = c(
+    s2_summ[s2 == 1, mean ],
+    s2_summ[s2 == 0, mean],
+    s2_summ[s2 == 1, mean ] - s2_summ[s2 == 0, mean]
+  ) |> round(2)
+
+s3_list = c(
+    s3_summ[s3 == 1, mean ],
+    s3_summ[s3 == 0, mean],
+    s3_summ[s3 == 1, mean ] - s3_summ[s3 == 0, mean]
+  ) |> round(2)
+
+s4_list = c(
+    s4_summ[s4 == 1, mean ],
+    s4_summ[s4 == 0, mean],
+    s4_summ[s4 == 1, mean ] - s4_summ[s4 == 0, mean]
+  ) |> round(2)
+
+iter_fun <- function(iter) {
+  # Sample 25 observations
+  dt[, s := 0 ]
+  dt[sample(which(s == 0), 25), s := 1]
+  # Find mean of both groups and group differences
+  summ = dt[, .(mean = mean(count)), by = s ]
+  # Create list of means
+  table = data.table(
+    i = iter,
+    mu1 = summ[s == 1 , mean ],
+    mu0 = summ[s == 0, mean ],
+    diff = summ[s == 1 , mean ] - summ[s == 0, mean]
+  ) |> round(2)
+  # Return list
+  return(table)
+}
+
+sim_dt = parallel::mclapply(mc.cores = 8, 1:1e4, iter_fun) %>%
+    rbindlist()
 ```
 
 ```{r}
 #| fig.height: 5
+#| fig.align: "center"
 
-set.seed(48)
+# leg_cols <- c(" " = "black", " " = "green")
 
-leg_cols <- c(" " = "black", " " = "green")
-
-
-dat = ggplot(tib, aes(x = row, y = col), group = group, color = group) +
+dat = ggplot(dt, aes(x = row, y = col), group = group, color = group) +
   # geom_point(shape = 15, size = 30) +
   geom_label(
     aes(
@@ -137,38 +584,436 @@ dat = ggplot(tib, aes(x = row, y = col), group = group, color = group) +
 
 ```
 
+Here is the data. [Treatment group in [blue]{.hii}.]{.fragment}
+
 ```{r}
 #| echo: FALSE
 #| fig.height: 5
+#| fig.align: "center"
 dat
+```
+
+. . . 
+
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(true_list[1])` [Control mean:]{.hi-grey} `r paste0(true_list[2])`
+:::
+
+. . .
+
+::: {.align-center}
+Difference in means: [`r paste0(true_list[3])`]{.hi-red}
+:::
+
+
+---
+
+Plot the true difference
+
+```{r}
+#| fig.height: 7
+#| fig.align: "center"
+
+ggplot() +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
 ```
 
 ---
 
-## Experiment data {data-visibility="uncounted"}
+[Suppose the [difference]{.hi} is coincidental.]{.fragment} [Then the labels don't matter]{.fragment}
 
 ```{r}
 #| fig.height: 5
-
-library(grid)
+#| fig.align: "center"
 
 dat 
 
-grid.text(
-  paste0("Mean (beer) = ", mu0[1,2], "\n",
-         "Mean (water) = ", mu0[2,2], "\n",
-          "Difference (beer - water) = ", mu0[1,2] - mu0[2,2]
-        ),
-  x = unit(0.2, "npc"), y = unit(1, "npc") - unit(60, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Fira Sans"))
+```
 
 
-# + annotate("text", x = 1.5, y = 4.5, label = paste0("Mean (beer) = ", mu0[1,2], "\n",
-#                      "Mean (water) = ", mu0[2,2], "\n",
-#                      "Difference (beer - water) = ", mu0[1,2] - mu0[2,2]), size = 5, fontface = "bold", hjust = 0)
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(true_list[1])` [Control mean:]{.hi-grey} `r paste0(true_list[2])`
+:::
 
-# labs(
-#     subtitle = paste0("Mean (beer) = ", mu0[1,2], "\n",
-#                      "Mean (water) = ", mu0[2,2], "\n",
-#                      "Difference (beer - water) = ", mu0[1,2] - mu0[2,2])
-# #   )
+. . .
+
+::: {.align-center}
+Difference in means: [`r paste0(true_list[3])`]{.hi-red}
+:::
+
+---
+
+Suppose the [difference]{.hi} is coincidental. Then the labels don't matter
+
+```{r}
+#| fig.height: 5
+#| fig.align: "center"
+
+dat = ggplot(dt, aes(x = row, y = col), group = group, color = group) +
+  # geom_point(shape = 15, size = 30) +
+  geom_label(
+    aes(
+      label = count
+      , vjust = 0.5
+      , hjust = 0.5
+      , color = 'white'
+      , fill = as.factor(s1)
+      , group = as.factor(s1)
+      ),
+    , color = 'white'
+    , size = 6
+    , label.size = 1
+    , label.padding	= unit(.9, "lines")
+    , position = position_nudge(x = -0.5, y = -0.2)
+      ) +
+  scale_x_continuous(limits = c(-0.5, 5)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom"
+    , panel.spacing = unit(5, "cm")
+    , strip.text = element_blank()
+    , title = element_text(family = "Fira Sans")
+    , plot.margin = margin(t = 30, r = 5, b = 5, l = 5, unit = "pt")
+  ) +
+  coord_cartesian(clip = 'off') +
+  facet_wrap(~group) +
+  scale_fill_manual(values = c(hii, "grey50"), guide = "none")
+
+  dat
+
+```
+
+. . .
+
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(s1_list[1])`
+[Control mean:]{.hi-grey} `r paste0(s1_list[2])`
+:::
+
+. . .
+
+::: {.align-center}
+_False_ difference in means : [`r paste0(s1_list[3])`]{.hi}
+:::
+
+---
+
+Plot the _"fake"_ difference
+
+```{r}
+#| echo: FALSE
+#| fig.height: 7
+#| fig.align: "center"
+
+diffs = c(s1_list[3], s2_list[3], s3_list[3],
+     s4_list[3]) 
+
+diff_dt = data.table(
+  diffs = diffs
+)
+
+ggplot(data = diff_dt |> head(1), aes(x = diffs)) +
+  geom_dotplot(dotsize = 5, binwidth = 0.05, color = 'white', fill = hi) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
+```
+
+# _And do it again_
+
+---
+
+Labels don't matter. Assign treatment randomly. Find the difference.
+
+```{r}
+#| fig.height: 5
+#| fig.align: "center"
+
+dat = ggplot(dt, aes(x = row, y = col), group = group, color = group) +
+  # geom_point(shape = 15, size = 30) +
+  geom_label(
+    aes(
+      label = count
+      , vjust = 0.5
+      , hjust = 0.5
+      , color = 'white'
+      , fill = as.factor(s2)
+      , group = as.factor(s2)
+      ),
+    , color = 'white'
+    , size = 6
+    , label.size = 1
+    , label.padding	= unit(.9, "lines")
+    , position = position_nudge(x = -0.5, y = -0.2)
+      ) +
+  scale_x_continuous(limits = c(-0.5, 5)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom"
+    , panel.spacing = unit(5, "cm")
+    , strip.text = element_blank()
+    , title = element_text(family = "Fira Sans")
+    , plot.margin = margin(t = 30, r = 5, b = 5, l = 5, unit = "pt")
+  ) +
+  coord_cartesian(clip = 'off') +
+  facet_wrap(~group) +
+  scale_fill_manual(values = c(hii, "grey50"), guide = "none")
+
+  dat
+
+```
+
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(s2_list[1])`
+[Control mean:]{.hi-grey} `r paste0(s2_list[2])`
+:::
+
+. . .
+
+::: {.align-center}
+_False_ difference in means : [`r paste0(s2_list[3])`]{.hi}
+:::
+
+---
+
+Plot the difference
+
+```{r}
+#| echo: FALSE
+#| fig.height: 7
+#| fig.align: "center"
+
+ggplot(data = diff_dt |> head(2), aes(x = diffs)) +
+  geom_dotplot(dotsize = 5, binwidth = 0.05, color = 'white', fill = hi) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
+```
+
+# _And do it again (3 times)_
+
+
+---
+
+Labels don't matter. Assign treatment randomly. Find the difference.
+
+```{r}
+#| fig.height: 5
+#| fig.align: "center"
+
+dat = ggplot(dt, aes(x = row, y = col), group = group, color = group) +
+  # geom_point(shape = 15, size = 30) +
+  geom_label(
+    aes(
+      label = count
+      , vjust = 0.5
+      , hjust = 0.5
+      , color = 'white'
+      , fill = as.factor(s3)
+      , group = as.factor(s3)
+      ),
+    , color = 'white'
+    , size = 6
+    , label.size = 1
+    , label.padding	= unit(.9, "lines")
+    , position = position_nudge(x = -0.5, y = -0.2)
+      ) +
+  scale_x_continuous(limits = c(-0.5, 5)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom"
+    , panel.spacing = unit(5, "cm")
+    , strip.text = element_blank()
+    , title = element_text(family = "Fira Sans")
+    , plot.margin = margin(t = 30, r = 5, b = 5, l = 5, unit = "pt")
+  ) +
+  coord_cartesian(clip = 'off') +
+  facet_wrap(~group) +
+  scale_fill_manual(values = c(hii, "grey50"), guide = "none")
+
+  dat
+
+```
+
+
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(s3_list[1])`
+[Control mean:]{.hi-grey} `r paste0(s3_list[2])`
+:::
+
+. . .
+
+::: {.align-center}
+_False_ difference in means : [`r paste0(s3_list[3])`]{.hi}
+:::
+
+---
+
+Plot the differences
+
+```{r}
+#| echo: FALSE
+#| fig.height: 7
+#| fig.align: "center"
+
+ggplot(data = diff_dt |> head(3), aes(x = diffs)) +
+  geom_dotplot(dotsize = 5, binwidth = 0.05, color = 'white', fill = hi) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
+```
+
+# _And do it again (4 times)_
+
+
+---
+
+Labels don't matter. Assign treatment randomly. Find the difference.
+
+```{r}
+#| fig.height: 5
+#| fig.align: "center"
+
+dat = ggplot(dt, aes(x = row, y = col), group = group, color = group) +
+  # geom_point(shape = 15, size = 30) +
+  geom_label(
+    aes(
+      label = count
+      , vjust = 0.5
+      , hjust = 0.5
+      , color = 'white'
+      , fill = as.factor(s4)
+      , group = as.factor(s4)
+      ),
+    , color = 'white'
+    , size = 6
+    , label.size = 1
+    , label.padding	= unit(.9, "lines")
+    , position = position_nudge(x = -0.5, y = -0.2)
+      ) +
+  scale_x_continuous(limits = c(-0.5, 5)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom"
+    , panel.spacing = unit(5, "cm")
+    , strip.text = element_blank()
+    , title = element_text(family = "Fira Sans")
+    , plot.margin = margin(t = 30, r = 5, b = 5, l = 5, unit = "pt")
+  ) +
+  coord_cartesian(clip = 'off') +
+  facet_wrap(~group) +
+  scale_fill_manual(values = c(hii, "grey50"), guide = "none")
+
+  dat
+
+```
+
+::: {.align-center}
+[Treatment mean:]{.hii} `r paste0(s4_list[1])`
+[Control mean:]{.hi-grey} `r paste0(s4_list[2])`
+:::
+
+. . .
+
+::: {.align-center}
+_False_ difference in means : [`r paste0(s4_list[3])`]{.hi}
+:::
+
+---
+
+Plot the differences
+
+```{r}
+#| echo: FALSE
+#| fig.height: 7
+#| fig.align: "center"
+
+ggplot(data = diff_dt |> head(4), aes(x = diffs)) +
+  geom_dotplot(dotsize = 5, binwidth = 0.05, color = 'white', fill = hi) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
+```
+
+# _And do it again (2,500 times)_
+
+---
+
+Plot all 2,500 differences. 
+
+```{r}
+#| fig.height: 7
+#| fig.align: "center"
+
+ggplot(data = sim_dt %>% head(2500), aes(x = diff)) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  geom_dotplot(
+    alpha = 1,
+    dotsize = 2,
+    binwidth = 0.05,
+    color = "white",
+    fill = hi) +
+  geom_vline(xintercept = true_list[3], color = hired, size = 1.5) +
+  geom_label(aes(x = 5.25, y = 8.5, label = "Truth = 4.38"), color = hired) +
+  scale_x_continuous(limits = c(-6, 6)) +
+  theme_ipsum() +
+  labs(
+    x = "Effect size",
+    y = ""
+  ) +
+  theme(
+    axis.text.y = element_blank()
+  )
 ```
