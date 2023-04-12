@@ -2,25 +2,25 @@
 name: prologue
 ---
 
-## Housekeeping
 
-put stuff here
 
 ---
 
 ## Statistics Inform Policy
 
-__Policy:__ In 2017, the University of Oregon started requiring first-year students to live on campus.
-
-__Rationale:__ First-year students who live on campus fare better than those who live off campus.
-
-- _80 percent more likely_ to graduate in four years.
-- Second-year retention rate _5 percentage points higher_.
-- GPAs _0.13 points higher_, on average. 
+[Policy:]{.hi} In 2017, the University of Oregon started requiring first-year students to live on campus.
 
 . . .
 
-_Do these comparisons suggest that the policy will improve student outcomes?_
+[Rationale:]{.hi} First-year students who live on campus fare better:
+
+- _[80 percent]{.hii} more likely_ to graduate in four years.
+- Second-year retention rate _[5 percentage points higher]{.hii}_.
+- GPAs _[0.13 points higher]{.hii}_, on average. 
+
+. . .
+
+_Do these comparisons suggest the policy improves student outcomes?_
 
 . . .
 
@@ -37,27 +37,175 @@ _Do they describe something else?_
 The UO's interpretation of those comparisons warrants skepticism.
 
 - The decision to live on campus is probably related to family wealth and interest in school.
-
-- Family wealth and interest in school are also related to academic achievement.
+- Family wealth and interest in school are related to academic achievement.
 
 . . .
 
-__Why?__ The difference in outcomes between those on and off campus is not an .hi-purple[_all else equal_]^[_All else equal_ [=]{.mono} _ceteris paribus_, _all else held constant_, _etc_.] comparison.
+[Why might I be worried?]{.hi} 
 
-__Upshot:__ We can't attribute the difference in outcomes solely to living on campus.
+: The difference in outcomes between those on and off campus is not an [_all else equal_]{.note} comparison.
+
+[Upshot:]{.hi} Can't attribute the difference in outcomes solely to living on campus.
+
 
 ---
 
-## Other Things Equal
+Living on campus ([D]{.hi}) increases student welfare ([Y]{.hi})
 
-### A high bar
+```{r}
+#| label: dag-ex-setup
+#| echo: FALSE
+#| include: FALSE
 
-When all other factors are held constant, statistical comparisons detect causal relationships.
+
+
+# The full DAG
+dag_full = dagify(
+  Y ~ D,
+  Y ~ W,
+  D ~ W,
+  coords = tibble(
+    name = c("Y", "D", "W"),
+    x = c(1, 3, 2),
+    y = c(2, 2, 1)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "D" & to == "Y") | (name == "Y"),
+  path2 = (name == "D" & to == "W") | (name == "W" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r}
+#| label: dag-ex-ovb-00
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+
+# Filter data to include only D and Y nodes and the edge between them
+dag_dt_filtered <- dag_dt[((name == "D" & to == "Y") | (name %in% c("D", "Y"))),]
+
+# Plot the filtered DAG
+ggplot(
+  data = dag_dt_filtered,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_filtered[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+```
+
+<br>
+<br>
+
+---
+
+Living on campus ([D]{.hi}) increases student welfare ([Y]{.hi})
+
+
+```{r}
+#| label: dag-ex-ovb-01
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+```
+
+But parental income ([W]{.hi}) impacts both student welfare ([Y]{.hi}) and living on campus ([D]{.hi}). [Failing to account for parental income will bias comparisons]{.fragment}
+
+---
+
+## All else equal
+
+> _Ceteris paribus_, _all else held constant_, _etc_.
+
+<br>
 
 . . .
 
-(Micro)economics has developed a comparative advantage in understanding where .hi-purple[_all else equal_] comparisons can and cannot be made.
+#### [A high bar]{.hi}
+
+When [all else equal]{.note}, statistical comparisons detect causal relationships.
+
+. . .
+
+(Micro)economics has developed a comparative advantage in understanding where [_all else equal_]{.note} comparisons can and cannot be made.
 
 - Anyone can retort "_correlation doesn't necessarily imply causation_."
-
 - Understanding _why_ is difficult, but useful for learning from data.

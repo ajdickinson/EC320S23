@@ -21,10 +21,27 @@ title-slide-attributes:
 hideFootnotes: true
 ---
 
+## Housekeeping
+
+PS02:
+
+- Posted earlier today
+- Due next Tuesday at 11:59p
+- Covers remaining topics from the review and from lecture today
+
+. . .
+
+LA02:
+
+- Due Friday at 5:00p
+
 # Prologue {.inverse .note}
 
 ```{r}
-pacman::p_load(hrbrthemes, fastverse, tidyverse, magrittr, wooldridge, here, kableExtra, nord, latex2exp)
+pacman::p_load(hrbrthemes, fastverse, tidyverse,
+               magrittr, wooldridge, here, kableExtra,
+               ggdag, nord, latex2exp, dagitty, viridis,
+               emoGG)
 
 
 hi = nord_palettes$polarnight[3]
@@ -48,6 +65,24 @@ mytheme_s = mytheme +
 
 {{< include _021-prologue.qmd >}}
 
-# The Fundamental Problem of Econometrics {.inverse .note}
+# Fundamental problem of causal inference {.inverse .note}
 
 {{< include _022-fun-problem.qmd >}}
+
+# Randomized controlled trials {.inverse .note}
+
+{{< include _023-RCT.qmd >}}
+
+# Causality [Example.]{.ex} {.inverse .note}
+
+{{< include _024-ex.qmd >}}
+
+```{r}
+#| label: generate_pdfs
+#| include: FALSE 
+#| eval: FALSE
+
+#remotes::install_github('rstudio/pagedown')
+library(renderthis)
+renderthis::to_pdf("004-main.html", output = "04-fun-problem.pdf")
+```

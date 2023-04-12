@@ -38,7 +38,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
-**002 - The fundamental problem of causal inference** 
+**002 - The fundamental problem of causal inference** [html](https://ajdickinson.github.io/EC320S23/slides/002-fundamental-problem/020-main.html)
 
 - Readings: *MM 1*
 

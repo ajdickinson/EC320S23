@@ -1,0 +1,129 @@
+---
+name: ex
+---
+
+---
+
+## Causality
+
+#### [Example:]{.ex} [Returns to education]{.hi}
+
+The optimal investment in education by students, parents, and legislators depends in part on the monetary *return to education*.
+
+. . .
+
+[Thought experiment:]{.hp}
+
+- Randomly select an individual.
+- Give her an additional year of education.
+- How much do her earnings increase?
+
+The change in her earnings describes the [causal effect]{.hi} of education on earnings.
+
+---
+
+## Causality
+
+#### [Example:]{.ex} [Returns to education]{.hi}
+
+[Q:]{.note} Could we simply compare the earnings of those with more education to those with less?
+
+. . .
+
+[A:]{.note} If we want to measure the causal effect, probably not.
+
+. . .
+
+<br>
+
+[1.]{.note} People *choose* education based on their ability and other factors.
+
+[2.]{.note} High-ability people tend to earn more *and* stay in school longer.
+
+[3.]{.note} Education likely reduces experience (time out of the workforce).
+
+---
+
+## Causality {data-visibility="uncounted"}
+
+#### [Example:]{.ex} [Returns to education]{.hi}
+
+[Q:]{.note} Could we simply compare the earnings of those with more education to those with less?
+
+[A:]{.note} If we want to measure the causal effect, probably not.
+
+<br>
+
+Point [3.]{.note} illustrates the difficulty in learning about the effect of education while *holding all else constant*.
+
+. . .
+
+Many important variables have the same challenge: 
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- gender
+- race
+:::
+
+::: {.column width="60%"}
+- income
+:::
+
+::::
+
+
+
+---
+
+## Causality
+
+#### [Example:]{.ex} [Returns to education]{.hi}
+
+[Q:]{.note} How can we estimate the returns to education?
+
+. . .
+
+[Option 1:]{.hi} Run an [experiment]{.hi}.
+
+. . .
+
+- Randomly [assign education]{.hp} (might be difficult).
+- Randomly [encourage education]{.hp} (might work).
+- Randomly [assign programs]{.hp} that affect education (*e.g.*, mentoring).
+
+. . .
+
+[Option 2:]{.hi} Look for a [*natural experiment*]{.hi} (a policy or accident in society that arbitrarily increased education for one subset of people).
+
+. . .
+
+- Admissions [cutoffs]{.blue}
+- [Lottery]{.blue} enrollment and/or capacity [constraints]{.blue}
+
+---
+
+## Summary
+
+[Takeaway]{.hi}
+
+. . .
+
+* The fundamental problem of causal inference is our inability to observe the both outcomes of a particular unit in parallel
+
+. . .
+
+* This introduces challenges in finding a way to construct a valid counterfactual using group means
+
+. . .
+
+* This quasi-experimental approach is valid if there is no selection bias or if we control for selection bias such that it is eliminated
+
+. . .
+
+* RCTs and natural experiments are one way to avoid selection bias. 
+
+. . .
+
+* Since these events are often rare or infeasible, we will explore many other ways to approach this challenge

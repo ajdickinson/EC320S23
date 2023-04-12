@@ -337,6 +337,21 @@ Andrew Dickinson
 
   <p class="date">Spring 2023</p>
 </section>
+<section id="housekeeping" class="slide level2">
+<h2>Housekeeping</h2>
+<p>PS02:</p>
+<ul>
+<li>Posted earlier today</li>
+<li>Due next Tuesday at 11:59p</li>
+<li>Covers remaining topics from the review and from lecture today</li>
+</ul>
+<div class="fragment">
+<p>LA02:</p>
+<ul>
+<li>Due Friday at 5:00p</li>
+</ul>
+</div>
+</section>
 <section>
 <section id="prologue" class="title-slide slide level1 inverse note center">
 <h1>Prologue</h1>
@@ -344,21 +359,19 @@ Andrew Dickinson
 
 </div>
 </section>
-<section id="housekeeping" class="slide level2">
-<h2>Housekeeping</h2>
-<p>put stuff here</p>
-</section>
 <section id="statistics-inform-policy" class="slide level2">
 <h2>Statistics Inform Policy</h2>
-<p><strong>Policy:</strong> In 2017, the University of Oregon started requiring first-year students to live on campus.</p>
-<p><strong>Rationale:</strong> First-year students who live on campus fare better than those who live off campus.</p>
-<ul>
-<li><em>80 percent more likely</em> to graduate in four years.</li>
-<li>Second-year retention rate <em>5 percentage points higher</em>.</li>
-<li>GPAs <em>0.13 points higher</em>, on average.</li>
-</ul>
+<p><span class="hi">Policy:</span> In 2017, the University of Oregon started requiring first-year students to live on campus.</p>
 <div class="fragment">
-<p><em>Do these comparisons suggest that the policy will improve student outcomes?</em></p>
+<p><span class="hi">Rationale:</span> First-year students who live on campus fare better:</p>
+<ul>
+<li><em><span class="hii">80 percent</span> more likely</em> to graduate in four years.</li>
+<li>Second-year retention rate <em><span class="hii">5 percentage points higher</span></em>.</li>
+<li>GPAs <em><span class="hii">0.13 points higher</span></em>, on average.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><em>Do these comparisons suggest the policy improves student outcomes?</em></p>
 </div>
 <div class="fragment">
 <p><em>Do they describe the effect of living on campus?</em></p>
@@ -371,49 +384,77 @@ Andrew Dickinson
 <h2>Other Things Equal</h2>
 <p>The UO’s interpretation of those comparisons warrants skepticism.</p>
 <ul>
-<li><p>The decision to live on campus is probably related to family wealth and interest in school.</p></li>
-<li><p>Family wealth and interest in school are also related to academic achievement.</p></li>
+<li>The decision to live on campus is probably related to family wealth and interest in school.</li>
+<li>Family wealth and interest in school are related to academic achievement.</li>
 </ul>
 <div class="fragment">
-<p><strong>Why?</strong> The difference in outcomes between those on and off campus is not an .hi-purple[<em>all else equal</em>]<sup>1</sup> comparison.</p>
-<p><strong>Upshot:</strong> We can’t attribute the difference in outcomes solely to living on campus.</p>
+<dl>
+<dt><span class="hi">Why might I be worried?</span></dt>
+<dd>
+<p>The difference in outcomes between those on and off campus is not an <span class="note"><em>all else equal</em></span> comparison.</p>
+</dd>
+</dl>
+<p><span class="hi">Upshot:</span> Can’t attribute the difference in outcomes solely to living on campus.</p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><em>All else equal</em> <span class="mono">=</span> <em>ceteris paribus</em>, <em>all else held constant</em>, <em>etc</em>.</p></li></ol></aside></section>
-<section id="other-things-equal-1" class="slide level2">
-<h2>Other Things Equal</h2>
-<h3 id="a-high-bar">A high bar</h3>
-<p>When all other factors are held constant, statistical comparisons detect causal relationships.</p>
+</section>
+<section class="slide level2">
+
+<p>Living on campus (<span class="hi">D</span>) increases student welfare (<span class="hi">Y</span>)</p>
+
+<img data-src="020-main_files/figure-revealjs/dag-ex-ovb-00-1.png" width="576" class="r-stretch"><p><br> <br></p>
+</section>
+<section class="slide level2">
+
+<p>Living on campus (<span class="hi">D</span>) increases student welfare (<span class="hi">Y</span>)</p>
+
+<img data-src="020-main_files/figure-revealjs/dag-ex-ovb-01-1.png" width="576" class="r-stretch"><p>But parental income (<span class="hi">W</span>) impacts both student welfare (<span class="hi">Y</span>) and living on campus (<span class="hi">D</span>). <span class="fragment">Failing to account for parental income will bias comparisons</span></p>
+</section>
+<section id="all-else-equal" class="slide level2">
+<h2>All else equal</h2>
+<blockquote>
+<p><em>Ceteris paribus</em>, <em>all else held constant</em>, <em>etc</em>.</p>
+</blockquote>
+<p><br></p>
 <div class="fragment">
-<p>(Micro)economics has developed a comparative advantage in understanding where .hi-purple[<em>all else equal</em>] comparisons can and cannot be made.</p>
+<h4 id="a-high-bar"><span class="hi">A high bar</span></h4>
+<p>When <span class="note">all else equal</span>, statistical comparisons detect causal relationships.</p>
+<div class="fragment">
+<p>(Micro)economics has developed a comparative advantage in understanding where <span class="note"><em>all else equal</em></span> comparisons can and cannot be made.</p>
 <ul>
-<li><p>Anyone can retort “<em>correlation doesn’t necessarily imply causation</em>.”</p></li>
-<li><p>Understanding <em>why</em> is difficult, but useful for learning from data.</p></li>
+<li>Anyone can retort “<em>correlation doesn’t necessarily imply causation</em>.”</li>
+<li>Understanding <em>why</em> is difficult, but useful for learning from data.</li>
 </ul>
+</div>
 </div>
 </section></section>
 <section>
-<section id="the-fundamental-problem-of-econometrics" class="title-slide slide level1 inverse note center">
-<h1>The Fundamental Problem of Econometrics</h1>
+<section id="fundamental-problem-of-causal-inference" class="title-slide slide level1 inverse note center">
+<h1>Fundamental problem of causal inference</h1>
 
 </section>
 <section id="causal-identification" class="slide level2">
-<h2>Causal Identification</h2>
-<h3 id="goal">Goal</h3>
-<p>Identify the effect of a treatment, <span class="math inline">\(D_i\)</span>, on individual <span class="math inline">\(i\)</span>’s .outcome, <span class="math inline">\(Y_{D,i}\)</span>.</p>
+<h2>Causal identification</h2>
+<dl>
+<dt><span class="note">Goal:</span></dt>
+<dd>
+<p>Identify the effect of a treatment, <span class="math inline">\(D_i\)</span>, on individual <span class="math inline">\(i\)</span>’s outcome, <span class="math inline">\(Y_{D,i}\)</span>.</p>
+</dd>
+</dl>
+<div class="fragment">
+<p><br></p>
+<p>Ideally, we could calculate the <span class="hi">treatment effect</span> <em>for each individual</em> <span class="math inline">\(i\)</span> as</p>
+<p><span class="math display">\[Y_{1,i} - Y_{0,i}\]</span></p>
+<ul>
+<li><span class="math inline">\(Y_{1,i}\)</span>: the outcome for person <span class="math inline">\(i\)</span> when she receives the treatment.</li>
+<li><span class="math inline">\(Y_{0,i}\)</span>: the outcome for person <span class="math inline">\(i\)</span> when she doesn’t receive the treatment.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Referred to as <span class="note">potential outcomes</span></p>
+</div>
 </section>
 <section id="ideal-data" class="slide level2">
 <h2>Ideal data</h2>
-<p>Ideally, we could calculate the .hi[treatment effect] <em>for each individual</em> <span class="math inline">\(i\)</span> as</p>
-<p><span class="math display">\[Y_{1,i} - Y_{0,i}\]</span></p>
-<ul>
-<li><span class="math inline">\(Y_{1,i}\)</span> is the outcome for person <span class="math inline">\(i\)</span> when she receives the treatment.</li>
-<li><span class="math inline">\(Y_{0,i}\)</span> is the outcome for person <span class="math inline">\(i\)</span> when she does not receive the treatment.</li>
-<li>Known as potential outcomes.</li>
-</ul>
-</section>
-<section id="causal-identification-1" class="slide level2">
-<h2>Causal Identification</h2>
-<h3 id="ideal-data-1">Ideal data</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>The <em>ideal</em> data for 10 people</p>
@@ -433,7 +474,8 @@ Andrew Dickinson
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>Calculate the causal effect of treatment. <span class="math display">\[
+<p>Causal effect of treatment.</p>
+<p><span class="math display">\[
 \begin{align}
   \tau_i = y_{1,i} -  y_{0,i}
 \end{align}
@@ -441,25 +483,14 @@ Andrew Dickinson
 </div>
 </div>
 </section>
-<section class="slide level2">
-
-<!-- ## Causal Identification {data-visibility="uncounted"}
-
-### Ideal data
-
-:::: {.columns}
-
-::: {.column width="50%"}
-The *ideal* data for 10 people
-::: {.cell}
-
-```{.r .cell-code}
-ideal_df %>% mutate(effect_i = y1i - y0i)
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-    i trt  y1i  y0i effect_i
+<section id="ideal-data-1" class="slide level2" data-visibility="uncounted">
+<h2>Ideal data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The <em>ideal</em> data for 10 people</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    i trt  y1i  y0i effect_i
 1   1   1 5.01 2.56     2.45
 2   2   1 8.85 2.53     6.32
 3   3   1 6.31 2.67     3.64
@@ -469,43 +500,28 @@ ideal_df %>% mutate(effect_i = y1i - y0i)
 7   7   0 4.75 0.56     4.19
 8   8   0 5.77 3.52     2.25
 9   9   0 7.47 4.49     2.98
-10 10   0 7.79 1.40     6.39
-```
-:::
-:::
-:::
-
-::: {.column width="50%"}
-Calculate the causal effect of treatment.
-$$
+10 10   0 7.79 1.40     6.39</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Causal effect of treatment.</p>
+<p><span class="math display">\[
 \begin{align}
   \tau_i = y_{1,i} -  y_{0,i}
 \end{align}
-$$
-for each individual $i$.
-:::
-
-::::
-
----
-
-## Causal Identification {data-visibility="uncounted"}
-
-### Ideal data
-
-:::: {.columns}
-
-::: {.column width="50%"}
-The *ideal* data for 10 people
-::: {.cell}
-
-```{.r .cell-code}
-ideal_df %>% mutate(effect_i = y1i - y0i)
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-    i trt  y1i  y0i effect_i
+\]</span></p>
+<p>for each individual <span class="math inline">\(i\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="ideal-data-2" class="slide level2" data-visibility="uncounted">
+<h2>Ideal data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The <em>ideal</em> data for 10 people</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    i trt  y1i  y0i effect_i
 1   1   1 5.01 2.56     2.45
 2   2   1 8.85 2.53     6.32
 3   3   1 6.31 2.67     3.64
@@ -515,78 +531,61 @@ ideal_df %>% mutate(effect_i = y1i - y0i)
 7   7   0 4.75 0.56     4.19
 8   8   0 5.77 3.52     2.25
 9   9   0 7.47 4.49     2.98
-10 10   0 7.79 1.40     6.39
-```
-:::
-:::
-:::
-
-::: {.column width="50%"}
-Calculate the causal effect of treatment.
-$$
-\begin{align}
+10 10   0 7.79 1.40     6.39</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Causal effect of treatment.</p>
+<p><span class="math display">\[
+\begin{align*}
   \tau_i = y_{1,i} -  y_{0,i}
-\end{align}
-$$
-for each individual $i$.
-
-The mean of $\tau_i$ is the<br>average treatment effect (ATE).
-
-Thus, $\color{#EC7662}{\overline{\tau} = 3.82}$
-:::
-
-::::
-
-. . .
-
-Notice the assignment of treatment does not influence ATE. Information on who was treated is irrelevant in this setting. 
-
----
-
-## Fundamental Problem of Econometrics
-
-### Ideal comparison
-$$
+\end{align*}
+\]</span></p>
+<p>for each individual <span class="math inline">\(i\)</span>.</p>
+<p>Define the mean of <span class="math inline">\(\tau_i\)</span> as the <span class="note">average treatment effect</span> (ATE)</p>
+<p><span class="math display">\[
+\color{#81A1C1}{\overline{\tau} = 3.82}
+\]</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><span class="note">Notice</span> the assignment of treatment is irrelevant in this setting.</p>
+</div>
+</section>
+<section id="ideal-comparison" class="slide level2">
+<h2>Ideal comparison</h2>
+<p><span class="math display">\[
 \begin{align}
-  \tau_i = \color{#EC7662}{y_{1,i}} &- \color{#9370DB}{y_{0,i}}
+  \tau_i = \color{#81A1C1}{y_{1,i}} &amp;- \color{#B48EAD}{y_{0,i}}
 \end{align}
-$$
-
-Highlights the fundamental problem of econometrics, much like when a traveler assesses options down two separate roads.
-
-. . .
-
-### The problem
-
-- If we observe $\color{#EC7662}{y_{1,i}}$, then we cannot observe $\color{#9370DB}{y_{0,i}}$.
-
-- If we observe $\color{#9370DB}{y_{0,i}}$, then we cannot observe $\color{#EC7662}{y_{1,i}}$.
-
-- Can only observe what actually happened; cannot observe the **counterfactual**.
-
-The traveler's alternative outcome is forever unknown to them.
-
----
-
-## Fundamental Problem of Econometrics
-
-A dataset that we can observe for 10 people looks something like
-
-:::: {.columns}
-
-::: {column width="50%"}
-::: {.cell}
-
-```{.r .cell-code}
-obs_df <- ideal_df
-obs_df$y0i[1:5] <- NA
-obs_df$y1i[6:10] <- NA
-obs_df
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-    i trt  y1i  y0i
+\]</span></p>
+<p>Highlights the fundamental problem of econometrics, much like when a traveler assesses options down two separate roads.</p>
+<div class="fragment">
+<p><span class="note">The problem</span></p>
+<ul>
+<li>If we observe <span class="math inline">\(\color{#81A1C1}{y_{1,i}}\)</span>, then we cannot observe <span class="math inline">\(\color{#B48EAD}{y_{0,i}}\)</span>.</li>
+<li>If we observe <span class="math inline">\(\color{#B48EAD}{y_{0,i}}\)</span>, then we cannot observe <span class="math inline">\(\color{#81A1C1}{y_{1,i}}\)</span>.</li>
+<li>We do not observe the <span class="note">counterfactual</span>.</li>
+</ul>
+</div>
+</section>
+<section id="counterfactual" class="slide level2">
+<h2>Counterfactual</h2>
+<blockquote>
+<p>Hypothetical scenario representing the unobserved outcome for an individual or unit if they had experienced the alternative treatment or condition</p>
+</blockquote>
+<div class="fragment">
+<p>The traveler’s alternative outcome is forever unknown to them.</p>
+</div>
+</section>
+<section id="fundamental-problem-of-causal-inference-1" class="slide level2">
+<h2>Fundamental problem of causal inference</h2>
+<p>A dataset that we can observe for 10 people looks something like</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    i trt  y1i  y0i
 1   1   1 5.01   NA
 2   2   1 8.85   NA
 3   3   1 6.31   NA
@@ -596,27 +595,410 @@ obs_df
 7   7   0   NA 0.56
 8   8   0   NA 3.52
 9   9   0   NA 4.49
-10 10   0   NA 1.40
-```
-:::
-:::
-:::
+10 10   0   NA 1.40</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>We can’t observe <span class="math inline">\(\color{#81A1C1}{y_{1,i}}\)</span> and <span class="math inline">\(\color{#B48EAD}{y_{0,i}}\)</span>.</p>
+<p>But, we do observe</p>
+<ul>
+<li><span class="math inline">\(\color{#81A1C1}{y_{1,i}}\)</span> for <span class="math inline">\(i\)</span> in 1, 2, 3, 4, 5</li>
+<li><span class="math inline">\(\color{#B48EAD}{y_{0,i}}\)</span> for <span class="math inline">\(i\)</span> in 6, 7, 8, 9, 10</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p><span class="note">Q:</span> How do we “fill in” the <code>NA</code>s and estimate <span class="math inline">\(\overline{\tau}\)</span>? <span class="hi fragment">Or.</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">Q:</span> What is a good <em>counterfactual</em> for the missing data?</p>
+</div>
+</section>
+<section id="estimating-causal-effects" class="slide level2">
+<h2>Estimating causal effects</h2>
+<p><span class="note">Notation:</span> <span class="math inline">\(D_i\)</span> is a binary indicator variable such that</p>
+<ul>
+<li><span class="math inline">\(\color{#81A1C1}{D_i=1}\)</span> <em>if individual</em> <span class="math inline">\(\color{#81A1C1}{i}\)</span> <em>is treated</em>.</li>
+<li><span class="math inline">\(\color{#B48EAD}{D_i=0}\)</span> <em>if individual</em> <span class="math inline">\(\color{#B48EAD}{i}\)</span> <em>is not treated (control group)</em>.</li>
+</ul>
+<div class="fragment">
+<p>Then, rephrasing the previous slide,</p>
+<ul>
+<li>We only observe <span class="math inline">\(\color{#81A1C1}{y_{1,i}}\)</span> when <span class="math inline">\(\color{#81A1C1}{D_{i}=1}\)</span>.</li>
+<li>We only observe <span class="math inline">\(\color{#B48EAD}{y_{0,i}}\)</span> when <span class="math inline">\(\color{#B48EAD}{D_{i}=0}\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="note">Q:</span> How can we estimate <span class="math inline">\(\overline{\tau}\)</span> using only <span class="math inline">\(\left(\color{#81A1C1}{y_{1,i}|D_i=1}\right)\)</span> and <span class="math inline">\(\left(\color{#B48EAD}{y_{0,i}|D_i=0}\right)\)</span>?</p>
+</div>
+</section>
+<section id="estimating-causal-effects-1" class="slide level2">
+<h2>Estimating causal effects</h2>
+<p><span class="note">Q:</span> How can we estimate <span class="math inline">\(\overline{\tau}\)</span> using only <span class="math inline">\(\left(\color{#81A1C1}{y_{1,i}|D_i=1}\right)\)</span> and <span class="math inline">\(\left(\color{#B48EAD}{y_{0,i}|D_i=0}\right)\)</span>?</p>
+<div class="fragment">
+<p><span class="note">Idea:</span> What if we compare the group of <span class="math inline">\(n\)</span> peoples’ means? <em>I.e.</em>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+  =&amp;\color{#81A1C1}{\mathop{Avg_n}\left( y_i\mid D_i = 1 \right)} - \color{#B48EAD}{\mathop{Avg_n}\left( y_i\mid D_i =0 \right)}\\
+  =&amp;\color{#81A1C1}{\mathop{Avg_n}\left( y_{1i}\mid D_i = 1 \right)} - \color{#B48EAD}{\mathop{Avg_n}\left( y_{0i}\mid D_i =0 \right)}
+\end{aligned}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">Q:</span> When does a simple difference-in-means provide information on the <span class="hi">causal effect</span> of the treatment?</p>
+</div>
+<div class="fragment">
+<p><span class="note">Q:</span> Is <span class="math inline">\(\color{#81A1C1}{\mathop{Avg}\left( y_i\mid D_i = 1 \right)} - \color{#B48EAD}{\mathop{Avg}\left( y_i\mid D_i =0 \right)}\)</span> a <em>good</em> estimator for <span class="math inline">\(\overline{\tau}\)</span>?</p>
+</div>
+</section>
+<section id="estimating-causal-effects-2" class="slide level2">
+<h2>Estimating causal effects</h2>
+<p><span class="hi">Assumption:</span> Let <span class="math inline">\(\tau_i = \tau\)</span> for all <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>The treatment effect is equal (constant) across all individuals <span class="math inline">\(i\)</span>.</li>
+</ul>
+<div class="fragment">
+<p><span class="note">Note:</span> We defined</p>
+<p><span class="math display">\[
+\begin{align}
+  \tau_i = \tau = \color{#81A1C1}{y_{1,i}} - \color{#B48EAD}{y_{0,i}}
+\end{align}
+\]</span></p>
+<p>which implies</p>
+<p><span class="math display">\[
+\begin{align}
+   \color{#81A1C1}{y_{1,i}} = \color{#B48EAD}{y_{0,i}} + \tau
+\end{align}
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
 
-::: {.column width="50%"}
-We can't observe $\color{#EC7662}{y_{1,i}}$ and $\color{#9370DB}{y_{0,i}}$.
+<p><span class="note">Q:</span> Is <span class="math inline">\(\color{#81A1C1}{\mathop{Avg}\left( y_i\mid D_i = 1 \right)} \color{#434C5E}{-} \color{#B48EAD}{\mathop{Avg}\left( y_i\mid D_i =0 \right)}\)</span> a <em>good</em> estimator for <span class="math inline">\(\tau\)</span>?</p>
+<p><br></p>
+<div class="fragment">
+<p><span class="math inline">\(\quad \color{#ffffff}{\Bigg|}=\color{#81A1C1}{\mathop{Avg}\left( y_i\mid D_i = 1 \right)} \color{#434C5E}{-} \color{#B48EAD}{\mathop{Avg}\left( y_i\mid D_i =0 \right)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\quad \color{#ffffff}{\Bigg|}=\color{#81A1C1}{\mathop{Avg}\left( y_{1,i}\mid D_i = 1 \right)} \color{#434C5E}{-} \color{#B48EAD}{\mathop{Avg}\left( y_{0,i}\mid D_i =0 \right)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\quad \color{#ffffff}{\Bigg|}=\color{#B48EAD}{\mathop{Avg}\left( \color{#434C5E}{\tau \: +} \: \color{#B48EAD}{y_{0,i}} \mid D_i = 1 \right)} \color{#434C5E}{-} \color{#B48EAD}{\mathop{Avg}\left( y_{0,i}\mid D_i =0 \right)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\quad \color{#ffffff}{\Bigg|}= \color{#434C5E}{\tau} \color{#434C5E}{+} \color{#B48EAD}{\mathop{Avg}\left(\color{#B48EAD}{y_{0,i}} \mid D_i = 1 \right)} \color{#434C5E}{-} \color{#B48EAD}{\mathop{Avg}\left( y_{0,i}\mid D_i =0 \right)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\quad \color{#ffffff}{\Bigg|}= \color{#434C5E}\text{Average causal effect} + \color{#B48EAD}{\text{Selection bias}}\)</span></p>
+</div>
+</section>
+<section id="estimating-causal-effects-3" class="slide level2">
+<h2>Estimating causal effects</h2>
+<p>Our proposed difference-in-means estimator</p>
+<p><span class="math display">\[
+\color{#434C5E}\text{Average causal effect} + \color{#B48EAD}{\text{Selection bias}}
+\]</span></p>
+<p>gives us the sum of</p>
+<ol type="1">
+<li><span class="math inline">\(\tau\)</span>, the <span class="hi">causal, average treatment effect</span> that we want.</li>
+<li><span class="hp">Selection bias:</span> How much treatment and control groups differ, on average.</li>
+</ol>
+<div class="fragment">
+<p><a href="https://youtu.be/6YrIDhaUQOE">Mastering metrics video on selection bias</a></p>
+</div>
+</section></section>
+<section>
+<section id="randomized-controlled-trials" class="title-slide slide level1 inverse note center">
+<h1>Randomized controlled trials</h1>
 
-But, we do observe
-- $\color{#EC7662}{y_{1,i}}$ for $i$ in 1, 2, 3, 4, 5
-- $\color{#9370DB}{y_{0,i}}$ for $i$ in 6, 7, 8, 9, 10
+</section>
+<section id="selection-bias" class="slide level2">
+<h2>Selection Bias</h2>
+<p><span class="hi">Problem:</span> Selection bias precludes <em>all else equal</em> comparisons.</p>
+<ul>
+<li>To make causal statements, we need to shut down the bias term.</li>
+</ul>
+<div class="fragment">
+<p><span class="hi">Potential solution:</span> Conduct an experiment.</p>
+<ul>
+<li><p>How? <span class="hii">Random assignment of treatment</span></p></li>
+<li><p>Hence the name, <span class="note"><em>randomized</em> control trial</span> (RCT).</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Groups will need to be large enough</p>
+<ul>
+<li>Following the LLN, as we increase <span class="math inline">\(n\)</span> of both groups, our randomly assigned treatment estimate is <em>more likely</em> to be representative of the population mean.</li>
+</ul>
+</div>
+</section>
+<section id="randomized-control-trials" class="slide level2">
+<h2>Randomized control trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<p><br></p>
+<p><span class="hi-bb">Motivation:</span> Intestinal worms are common among children in less-developed countries. The parasitic symptoms disrupt human capital acquisition by keeping children home.</p>
+<p><br></p>
+<p><span class="hii">Policy Question:</span> Do school-based de-worming interventions provide a cost-effective way to increase school attendance?</p>
+</section>
+<section id="randomized-control-trials-1" class="slide level2">
+<h2>Randomized control trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance-1"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<p><br></p>
+<p><span class="hi">Research Question:</span> How much do de-worming interventions increase school attendance?</p>
+<p><br><span class="note">Q:</span> Could we simply compare average attendance among children with and without access to de-worming medication?</p>
+<div class="fragment">
+<p><br><span class="note">A:</span> If we’re after the causal effect, probably not.</p>
+</div>
+</section>
+<section id="randomized-control-trials-2" class="slide level2" data-visibility="uncounted">
+<h2>Randomized control trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance-2"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<p><br></p>
+<p><span class="hi">Research Question:</span> How much do de-worming interventions increase school attendance?</p>
+<p><br><span class="note">Q:</span> Why not?</p>
+<div class="fragment">
+<p><br><span class="note">A:</span> <span class="note">Selection bias</span> <span class="fragment">– Families with access to de-worming medication probably have healthier children for other reasons (<em>e.g.&nbsp;wealth, access to clean drinking water</em>).<sup>1</sup></span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><em>Can’t make an <em>all else equal</em> comparison. Biased and/or spurious results.</em></p></li></ol></aside></section>
+<section id="randomized-control-trials-3" class="slide level2">
+<h2>Randomized Control Trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance-3"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<div class="fragment">
+<p>Imagine an <span class="note">RCT</span> where we have <span class="hi">two</span> groups of villages:</p>
+<ul>
+<li><span class="hii">Treatment:</span> Where children get de-worming medication in school.</li>
+<li><span class="hp">Control:</span> Where children don’t get de-worming medication in school <em>(status quo)</em>.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>By randomizing, we will, on average, include all kinds of villages in both groups</p>
+<ul>
+<li>poor <em>vs.</em> less poor</li>
+<li>access to clean water <em>vs.</em> contaminated water</li>
+<li>hospital <em>vs.</em> no hospital</li>
+</ul>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span></span></p>
 
-:::
+<img data-src="020-main_files/figure-revealjs/plot1-1.png" width="960" class="r-stretch"></section>
+<section id="section-1" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em></span></p>
 
-::::
+<img data-src="020-main_files/figure-revealjs/plot2-1.png" width="960" class="r-stretch"></section>
+<section id="section-2" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
 
+<img data-src="020-main_files/figure-revealjs/plot3_1-1.png" width="960" class="r-stretch"></section>
+<section id="section-3" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
 
-**Q:** How do we "fill in" the `NA`s and estimate $\overline{\tau}$? -->
+<img data-src="020-main_files/figure-revealjs/plot3_2-1.png" width="960" class="r-stretch"></section>
+<section id="section-4" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_3-1.png" width="960" class="r-stretch"></section>
+<section id="section-5" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_4-1.png" width="960" class="r-stretch"></section>
+<section id="section-6" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_5-1.png" width="960" class="r-stretch"></section>
+<section id="section-7" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_6-1.png" width="960" class="r-stretch"></section>
+<section id="section-8" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_7-1.png" width="960" class="r-stretch"></section>
+<section id="section-9" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_8-1.png" width="960" class="r-stretch"></section>
+<section id="section-10" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_9-1.png" width="960" class="r-stretch"></section>
+<section id="section-11" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_10-1.png" width="960" class="r-stretch"></section>
+<section id="section-12" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_11-1.png" width="960" class="r-stretch"></section>
+<section id="section-13" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="small"><span class="hi">54 villages</span> <em>of varying levels of development</em> <span class="hii">plus randomly assigned treatment</span></span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_12-1.png" width="960" class="r-stretch"></section>
+<section id="randomized-control-trials-4" class="slide level2">
+<h2>Randomized Control Trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance-4"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<p>We can estimate the <span class="hi">causal effect</span> of de-worming on school attendance by comparing the average attendance rates in the treatment group (💊) with those in the control group (no 💊).</p>
+<p><span class="math display">\[
+\begin{align}
+  \overline{\text{Attendance}}_\text{Treatment} - \overline{\text{Attendance}}_\text{Control}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<p>Alternatively, we can use the regression</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{align}
+  \text{Attendance}_i = \beta_0 + \beta_1 \text{Treatment}_i + u_i \tag{1}
+\end{align}
+\]</span></p>
+<p>where <span class="math inline">\(\text{Treatment}_i\)</span> is a binary variable (=1 if village <span class="math inline">\(i\)</span> received the de-worming treatment).</p>
+</div>
+</section>
+<section id="randomized-control-trials-5" class="slide level2" data-visibility="uncounted">
+<h2>Randomized Control Trials</h2>
+<h4 id="ex.-effect-of-de-worming-on-attendance-5"><span class="ex">Ex.</span> <span class="hi">Effect of de-worming on attendance</span></h4>
+<p><span class="math display">\[
+\begin{align}
+  \text{Attendance}_i = \beta_0 + \beta_1 \text{Treatment}_i + u_i \tag{1}
+\end{align}
+\]</span></p>
+<p>where <span class="math inline">\(\text{Treatment}_i\)</span> is a binary variable (=1 if village <span class="math inline">\(i\)</span> received the de-worming treatment).</p>
+<p><span class="note">Q:</span> Should trust the results of Eq. <span class="math inline">\((1)\)</span>? <span class="fragment">Why?</span></p>
+<div class="fragment">
+<p><br><span class="note">A:</span> On average, <span class="hi">randomly assigning treatment should balance</span> treatment and control across the other dimensions that affect school attendance.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><span class="hi">Randomization can go wrong!</span></p>
+
+<img data-src="020-main_files/figure-revealjs/plot3_bad-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="causality-example." class="title-slide slide level1 inverse note center">
+<h1>Causality <span class="ex">Example.</span></h1>
+
+</section>
+<section id="causality" class="slide level2">
+<h2>Causality</h2>
+<h4 id="example-returns-to-education"><span class="ex">Example:</span> <span class="hi">Returns to education</span></h4>
+<p>The optimal investment in education by students, parents, and legislators depends in part on the monetary <em>return to education</em>.</p>
+<div class="fragment">
+<p><span class="hp">Thought experiment:</span></p>
+<ul>
+<li>Randomly select an individual.</li>
+<li>Give her an additional year of education.</li>
+<li>How much do her earnings increase?</li>
+</ul>
+<p>The change in her earnings describes the <span class="hi">causal effect</span> of education on earnings.</p>
+</div>
+</section>
+<section id="causality-1" class="slide level2">
+<h2>Causality</h2>
+<h4 id="example-returns-to-education-1"><span class="ex">Example:</span> <span class="hi">Returns to education</span></h4>
+<p><span class="note">Q:</span> Could we simply compare the earnings of those with more education to those with less?</p>
+<div class="fragment">
+<p><span class="note">A:</span> If we want to measure the causal effect, probably not.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><span class="note">1.</span> People <em>choose</em> education based on their ability and other factors.</p>
+<p><span class="note">2.</span> High-ability people tend to earn more <em>and</em> stay in school longer.</p>
+<p><span class="note">3.</span> Education likely reduces experience (time out of the workforce).</p>
+</div>
+</section>
+<section id="causality-2" class="slide level2" data-visibility="uncounted">
+<h2>Causality</h2>
+<h4 id="example-returns-to-education-2"><span class="ex">Example:</span> <span class="hi">Returns to education</span></h4>
+<p><span class="note">Q:</span> Could we simply compare the earnings of those with more education to those with less?</p>
+<p><span class="note">A:</span> If we want to measure the causal effect, probably not.</p>
+<p><br></p>
+<p>Point <span class="note">3.</span> illustrates the difficulty in learning about the effect of education while <em>holding all else constant</em>.</p>
+<div class="fragment">
+<p>Many important variables have the same challenge:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li>gender</li>
+<li>race</li>
+</ul>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>income</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="causality-3" class="slide level2">
+<h2>Causality</h2>
+<h4 id="example-returns-to-education-3"><span class="ex">Example:</span> <span class="hi">Returns to education</span></h4>
+<p><span class="note">Q:</span> How can we estimate the returns to education?</p>
+<div class="fragment">
+<p><span class="hi">Option 1:</span> Run an <span class="hi">experiment</span>.</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Randomly <span class="hp">assign education</span> (might be difficult).</li>
+<li>Randomly <span class="hp">encourage education</span> (might work).</li>
+<li>Randomly <span class="hp">assign programs</span> that affect education (<em>e.g.</em>, mentoring).</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="hi">Option 2:</span> Look for a <span class="hi"><em>natural experiment</em></span> (a policy or accident in society that arbitrarily increased education for one subset of people).</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Admissions <span class="blue">cutoffs</span></li>
+<li><span class="blue">Lottery</span> enrollment and/or capacity <span class="blue">constraints</span></li>
+</ul>
+</div>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p><span class="hi">Takeaway</span></p>
+<div class="fragment">
+<ul>
+<li>The fundamental problem of causal inference is our inability to observe the both outcomes of a particular unit in parallel</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>This introduces challenges in finding a way to construct a valid counterfactual using group means</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>This quasi-experimental approach is valid if there is no selection bias or if we control for selection bias such that it is eliminated</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>RCTs and natural experiments are one way to avoid selection bias.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Since these events are often rare or infeasible, we will explore many other ways to approach this challenge</li>
+</ul>
 <div class="footer footer-default">
 <p>EC320, Set 03 | Statistics Review</p>
+</div>
 </div>
 </section></section>
 

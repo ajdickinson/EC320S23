@@ -1,0 +1,490 @@
+---
+name: RCT
+---
+
+---
+
+## Selection Bias
+
+[Problem:]{.hi} Selection bias precludes *all else equal* comparisons.
+
+- To make causal statements, we need to shut down the bias term.
+
+. . .
+
+[Potential solution:]{.hi} Conduct an experiment.
+
+- How? [Random assignment of treatment]{.hii}
+
+- Hence the name, [*randomized* control trial]{.note} (RCT).
+
+. . .
+
+Groups will need to be large enough
+
+- Following the LLN, as we increase $n$ of both groups, our randomly assigned treatment estimate is _more likely_ to be representative of the population mean. 
+
+
+---
+
+## Randomized control trials 
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+<br>
+
+[Motivation:]{.hi-bb} Intestinal worms are common among children in less-developed countries. The parasitic symptoms disrupt human capital acquisition by keeping children home.
+
+<br>
+
+[Policy Question:]{.hii} Do school-based de-worming interventions provide a cost-effective way to increase school attendance? 
+
+
+---
+
+## Randomized control trials 
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+<br>
+
+[Research Question:]{.hi} How much do de-worming interventions increase school attendance?
+
+<br>[Q:]{.note} Could we simply compare average attendance among children with and without access to de-worming medication?
+
+. . .
+
+<br>[A:]{.note} If we're after the causal effect, probably not.
+
+---
+
+## Randomized control trials {data-visibility="uncounted"}
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+<br>
+
+[Research Question:]{.hi} How much do de-worming interventions increase school attendance?
+
+<br>[Q:]{.note} Why not?
+
+. . .
+
+<br>[A:]{.note} [Selection bias]{.note} [-- Families with access to de-worming medication probably have healthier children for other reasons (_e.g. wealth, access to clean drinking water_).^[_Can't make an *all else equal* comparison. Biased and/or spurious results._]]{.fragment}
+
+
+---
+
+## Randomized Control Trials 
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+. . .
+
+Imagine an [RCT]{.note} where we have [two]{.hi} groups of villages:
+
+- [Treatment:]{.hii} Where children get de-worming medication in school.
+- [Control:]{.hp} Where children don't get de-worming medication in school _(status quo)_.
+
+. . .
+
+By randomizing, we will, on average, include all kinds of villages in both groups
+
+- poor _vs._ less poor
+- access to clean water _vs._ contaminated water
+- hospital _vs._ no hospital
+
+
+---
+
+##
+
+[[54 villages]{.hi}]{.small}
+
+```{r}
+#| label: plot1
+#| echo: FALSE
+
+xd <- 9
+yd <- 6
+set.seed(123)
+med_df <- expand.grid(x = 1:xd, y = 1:yd) %>%
+  mutate(
+    q = x + y + 1.25 * rnorm(xd*yd),
+    trt = sample(x = c(TRUE, FALSE), size = xd*yd, replace = T, prob = c(0.51, 0.49)),
+  ) %>%
+  arrange(-y, x) %>%
+  mutate(id = 1:(xd*yd) %>% str_pad(2, "left", "0")) %>%
+  arrange(y, x)
+  
+ggplot(data = med_df, aes(x, y)) +
+geom_tile(color = "grey40", fill = "grey93", size = 0.2) +
+geom_text(aes(label = id), color = "grey45", size = 5, family = "Roboto Mono") +
+theme_void() +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_]{.small}
+
+```{r}
+#| label: plot2
+#| echo: FALSE
+
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_1
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df, aes(x, y)) +
+  geom_tile(aes(fill = q), color = "white", size = 0.2) +
+  # geom_text(aes(label = trt)) +
+  geom_emoji(data = sample_n(med_df, 1), emoji = "1f48a") +
+  scale_fill_viridis(option = "magma", direction = -1) +
+  theme_void() +
+  theme(legend.position = "none") +
+  coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_2
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 2), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_3
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 3), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_4
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 4), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_5
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 5), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_6
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 6), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_7
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 7), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_8
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 8), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_9
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 9), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_10
+#| echo: FALSE
+
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_11
+#| echo: FALSE
+
+set.seed(248)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+[[54 villages]{.hi} _of varying levels of development_ [plus randomly assigned treatment]{.hii}]{.small}
+
+```{r}
+#| label: plot3_12
+#| echo: FALSE
+
+set.seed(250)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+
+## Randomized Control Trials 
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+We can estimate the [causal effect]{.hi} of de-worming on school attendance by comparing the average attendance rates in the treatment group (💊) with those in the control group (no 💊).
+
+$$
+\begin{align}
+  \overline{\text{Attendance}}_\text{Treatment} - \overline{\text{Attendance}}_\text{Control}
+\end{align}
+$$
+
+. . .
+
+
+Alternatively, we can use the regression
+
+. . .
+
+
+$$
+\begin{align}
+  \text{Attendance}_i = \beta_0 + \beta_1 \text{Treatment}_i + u_i \tag{1}
+\end{align}
+$$
+
+where $\text{Treatment}_i$ is a binary variable (=1 if village $i$ received the de-worming treatment).
+
+---
+
+## Randomized Control Trials {data-visibility="uncounted"}
+
+#### [Ex.]{.ex} [Effect of de-worming on attendance]{.hi}
+
+$$
+\begin{align}
+  \text{Attendance}_i = \beta_0 + \beta_1 \text{Treatment}_i + u_i \tag{1}
+\end{align}
+$$
+
+where $\text{Treatment}_i$ is a binary variable (=1 if village $i$ received the de-worming treatment).
+
+
+[Q:]{.note} Should trust the results of Eq. $(1)$? [Why?]{.fragment}
+
+. . .
+
+<br>[A:]{.note} On average, [randomly assigning treatment should balance]{.hi} treatment and control across the other dimensions that affect school attendance.
+
+
+---
+
+[Randomization can go wrong!]{.hi}
+
+```{r}
+#| label: plot3_bad
+#| echo: FALSE
+
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = filter(med_df, x < xd/3 | y <= yd/3 | (x == xd & y == yd)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
