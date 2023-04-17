@@ -1,0 +1,206 @@
+---
+name: simple-reg
+---
+
+
+---
+
+## The regression model
+
+We can estimate the effect of $X$ on $Y$ by estimating a [regression model:]{.hi}
+
+$$Y_i = \beta_0 + \beta_1 X_i + u_i$$
+
+- $Y_i$ is the outcome variable.
+
+. . .
+
+- $X_i$ is the treatment variable (continuous).
+
+. . .
+
+- $\beta_0$ is the [intercept]{.hi} parameter. $\mathop{\mathbb{E}}\left[ {Y_i | X_i=0} \right] = \beta_0$
+
+. . .
+
+- $\beta_1$ is the [slope]{.hi} parameter, which under the correct causal setting represents marginal change in $X_i$'s effect on $Y_i$. $\frac{\partial Y_i}{\partial X_i} = \beta_1$
+
+
+. . .
+
+- $u_i$ is an error term including all other (omitted) factors affecting $Y_i$.
+
+---
+
+## The error term
+
+$u_i$ is quite special 
+
+<br>
+
+. . . 
+
+Consider the [data generating process]{.note} of variable $Y_i$,
+
+. . .
+
+- $u_i$ captures [all unobserved variables]{.blue} that explain variation in $Y_i$.
+
+<br>
+
+. . .
+
+Some error will exist in all models, our aim is to minimize error under a set of constraints
+
+- Error is the price we are willing to accept for simplified model
+
+---
+
+## The error term
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+. . .
+
+[1.]{.hi} [_Omission of explanatory variables_]{.hii}
+
+
+. . .
+
+- Our description (model) of the relationship between $Y$ and $X$ is a simplification
+- Other variables have been left out (omitted)
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} [_Aggregation of Variables_]{.hii}
+
+. . .
+
+- Microeconomic relationships are often summarized
+- [Ex.]{.ex} Housing prices ($X$) are described by county-level median home value data
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} Aggregation of Variables
+
+[3.]{.hi} [_Model misspecificiation_]{.hii}
+
+. . .
+
+- Model structure is incorrectly specified
+- [Ex.]{.ex} $Y$ depends on the anticipated value of $X$ in the previous period, not $X$
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} Aggregation of Variables
+
+[3.]{.hi} Model misspecificiation
+
+[4.]{.hi} [_Functional misspecificiation_]{.hii}
+
+. . .
+
+- The functional relationship is specified incorrectly
+- True relationship is nonlinear, not linear
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} Aggregation of Variables
+
+[3.]{.hi} Model misspecificiation
+
+[4.]{.hi} Functional misspecificiation
+
+[5.]{.hi} [_Measurement error_]{.hii}
+
+. . .
+
+- Measurement of the variables in the data is just wrong
+- $Y$ or $X$ 
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} Aggregation of Variables
+
+[3.]{.hi} Model misspecificiation
+
+[4.]{.hi} Functional misspecificiation
+
+[5.]{.hi} Measurement error
+
+---
+
+## Running regressions
+
+Using an estimator with data on $X_i$ and $Y_i$, we can estimate a [fitted regression line:]{.hi}
+
+$$
+\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i
+$$
+
+- $\hat{Y_i}$ is the [fitted value]{.hi} of $Y_i$.
+- $\hat{\beta}_0$ is the [estimated intercept]{.hi}.
+- $\hat{\beta}_1$ is the [estimated slope]{.hi}.
+
+. . .
+
+This procedure produces misses, known as [residuals]{.hi}, $Y_i - \hat{Y_i}$
+
+---
+
+##
+
+::: {.vertical-center}
+I think it would be easier to think about regression with a concrete example.
+:::
+
+<!-- ---
+
+## Running regressions
+
+Let's simplify the math a bit.^[[Note:] The caret/hat is denoted over $Y$ denotes that it is a fitted value
+] Suppose:
+
+$$
+\hat{Y_i} = b_0 + b_1 X_i
+$$
+
+where $b_0$ and $b_1$ are estimates that describe a linear relationship
+
+. . .
+
+[Goal]{.note} Pick a $b_0$ and a $b_1$ that fits the data or minimizes the residuals
+
+. . .
+
+_So how do we pick $b_0$ and $b_1$?_ -->

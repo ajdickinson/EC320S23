@@ -1,0 +1,336 @@
+---
+name: logic
+---
+
+---
+
+## Regression models
+
+Modeling is about reducing something [_really complicated_]{.hp} into something [_simple_]{.blue} that represents some part of the complicated reality.
+
+- Try to tell stories that are easy to understand, and easy to learn from
+- Model _toy versions_ of reality
+
+. . .
+
+Economists _often_ rely on [linear regression]{.hi} for statistical comparisons.
+
+- Describes the relationship between a dependent (endogenous) variable and one or more explanatory (exogenous) variable(s)
+- ["Linear"]{.note} is more flexible than you think
+
+
+---
+
+## Regression models
+
+Regression analysis helps us make *all else equal* comparisons
+
+. . . 
+
+<br>
+
+Running regressions provide correlative (_and even causal_) information between two variables
+
+. . .
+
+<br>
+
+[Ex.]{.ex} By how much does $Y$ change when $X$ increases by one unit?
+
+---
+
+## Regression models
+
+Modelling forces us to be explicit about the potential sources of selection bias
+
+- Model the effect of $X$ on $Y$ while [controlling]{.hi} for [potential confounders]{.note} that may muddy the water
+- Failure to account for sources of selection bias, leads to biased estimates.
+
+
+<!-- ---
+
+## Regression models {data-visibility="uncounted"}
+
+Regression models forces us to be explicit about the potential sources of selection bias
+
+- Model the effect of $X$ on $Y$ while [controlling]{.hi} [for potential confounders]{.hi} that may muddy the water
+- Failure to account for sources of selection bias, leads to biased estimates. -->
+
+. . .
+
+[Ex.]{.ex} Not controlling for confounding variables, leads to [omitted-variable bias]{.note}, a close cousin of selection bias
+
+. . .
+
+- [Why?]{.note} [Omitted variables that correlate with our covariate of interest, hides within the model, distorting our results.]{.fragment}
+
+---
+
+## Returns to education
+
+[Research Question:]{.note} By how much does an additional year of schooling increase future earnings?
+
+- [Dependent variable:]{.blue} Earnings
+- [Independent variable:]{.blue} An additional year of school
+
+. . .
+
+[Q.]{.note} How might education increase earnings?
+
+. . .
+
+[Q.]{.note} Why might a simple comparison between high and low educated not [isolate the economic returns to education]{.blue}?
+
+---
+
+## 
+
+<!-- DAG SLIDE -->
+
+More education ([X]{.hi}) increases lifetime earnings ([Y]{.hi}) 
+<br>
+<br>
+
+```{r}
+#| label: dag-ex-setup
+#| echo: FALSE
+#| include: FALSE
+
+
+
+# The full DAG
+dag_full = dagify(
+  Y ~ X,
+  Y ~ U,
+  X ~ U,
+  coords = tibble(
+    name = c("Y", "X", "U"),
+    x = c(1, 3, 2),
+    y = c(2, 2, 1)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "X" & to == "Y") | (name == "Y"),
+  path2 = (name == "X" & to == "U") | (name == "U" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r}
+#| label: dag-ex-ovb-00
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Filter data to include only D and Y nodes and the edge between them
+dag_dt_filtered <- dag_dt[((name == "X" & to == "Y") | (name %in% c("X", "Y"))),]
+
+# Plot the filtered DAG
+ggplot(
+  data = dag_dt_filtered,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_filtered[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+```
+
+<br>
+<br>
+
+
+---
+
+## {data-visibility="uncounted"}
+
+More education ([X]{.hi}) increases lifetime earnings ([Y]{.hi}) along with a lot of other things ([U]{.hi}).
+
+```{r}
+#| label: dag-ex-ovb-01
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Modify data to include only the desired edges
+dag_dt_modified <- dag_dt[2:4]
+
+# Plot the modified DAG
+ggplot(
+  data = dag_dt_modified,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_modified[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+
+```
+
+<br>
+<br>
+
+---
+
+## {data-visibility="uncounted"}
+
+More education ([X]{.hi}) increases lifetime earnings ([Y]{.hi}) along with a lot of other things ([U]{.hi}). But a lot of other things ([U]{.hi}) also impact education ([X]{.hi}).
+
+
+<!-- DAG SLIDE -->
+
+```{r}
+#| label: dag-ex-ovb-02
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+```
+
+. . .
+
+_Any unobserved variable_ that connects a [backdoor path]{.note} between education ([X]{.hi}) and earnings ([Y]{.hi}) is called a [confounder]{.hi}
+
+---
+
+## Returns to education
+
+_How might we estimate the causal effect of an additional year of schooling on earnings?_
+
+. . .
+
+[Approach 1:]{.note} Compare average earnings of private college graduates with those of public college graduates.
+
+- Prone to selection bias by variety of confounding variables
+
+. . .
+
+<!-- 
+[Approach 2:]{.note} Use a matching estimator that compares the earnings of individuals the same admissions profiles.
+
+- Cleaner comparison than a simple difference-in-means.
+- Somewhat difficult to implement.
+- Throws away data (inefficient).  
+
+---
+
+## Returns to education {data-visibility="uncounted"}
+
+_How might we estimate the causal effect of private college on earnings?_ -->
+
+[Approach 2:]{.note} Estimate a regression that compares the earnings of individuals with the same admissions profiles.
+
+- _Try to_ [control]{.hi} for [confounders]{.note} by including them in the model
+
+---
+
+##
+
+::: {.vertical-center}
+But before taking on [confounders]{.note} and using regression to link causal relationships... [let's breakdown the anatomy of the [simple regression model]{.note}]{.fragment}
+:::

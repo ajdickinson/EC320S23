@@ -1,0 +1,122 @@
+---
+title: "Regression logic"
+subtitle: "EC 320, Set 04"
+author: "Andrew Dickinson"
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    monobackgroundcolor: #F5F5F5
+    slide-number: true
+    footer: "EC320, Set 04 | Regression logic"
+    preview-links: auto
+    code-fold: FALSE
+    code-copy: TRUE
+    highlight-style: a11y-light
+    cache: FALSE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+hideFootnotes: true
+---
+
+## Housekeeping
+
+PS02:
+
+- Due Tuesday at 11:59p
+- Covers remaining topics from the review and from lecture Wednesday
+
+. . .
+
+LA02:
+
+- Due Friday at 5:00p
+
+<!-- # Prologue {.inverse .note} -->
+
+```{r}
+pacman::p_load(hrbrthemes, fastverse, tidyverse,
+               magrittr, wooldridge, here, kableExtra,
+               ggdag, nord, latex2exp, dagitty, viridis,
+               emoGG)
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 18),
+       axis.title.y = element_text(size = 18))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+```
+
+<!-- {{< include _031-prologue.qmd >}} -->
+
+# Regression logic {.inverse .note}
+
+{{< include _032-logic.qmd >}}
+
+# Simple regression model {.inverse .note}
+
+{{< include _033-simple-reg.qmd >}}
+
+# [Ex.]{.ex} [Effect of police on crime]{.hi-white} {.inverse}
+
+{{< include _034-exreg.qmd >}}
+
+# Ordinary least squares {.inverse .note}
+
+{{< include _035-ols.qmd >}}
+
+# Continue with OLS next time {.inverse}
+
+
+<!-- --- -->
+<!-- 
+```{r}
+set.seed(42)
+n <- 100
+x <- rnorm(n)
+y <- 3 + 1.5 * x + rnorm(n, sd = 1)
+
+sample_data <- data.frame(x = x, y = y)
+```
+
+```{r}
+json_data <- jsonlite::toJSON(sample_data, dataframe = "rows", pretty = TRUE)
+
+```
+
+```{ojs}
+//| panel: sidebar
+import { Inputs } from 'https://cdn.jsdelivr.net/npm/@observablehq/inputs@0.12.2/dist/inputs.umd.min.js';
+
+
+viewof intercept = Inputs.range({ min: -10, max: 10, value: 0, step: 0.1, label: "Intercept" });
+viewof slope = Inputs.range({ min: -5, max: 5, value: 1, step: 0.1, label: "Slope" });
+viewof show_residuals = Inputs.checkbox({ label: "Show Residuals", value: false });
+
+
+```
+
+```{ojs}
+//| panel: fill
+import { olsPlot } from './ols.js';
+
+const data = `r jsonlite::toJSON(sample_data, dataframe = "rows")`;
+const parsedData = JSON.parse(data);
+
+olsPlot(parsedData, intercept, slope, show_residuals);
+``` -->

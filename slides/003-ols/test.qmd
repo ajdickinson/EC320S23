@@ -1,0 +1,53 @@
+---
+title: "Interactive OLS"
+format: 
+  html:
+    page-layout: custom
+server: shiny
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+library(ggplot2)
+
+set.seed(42)
+n <- 100
+x <- rnorm(n)
+y <- 3 + 1.5 * x + rnorm(n, sd = 1)
+
+sample_data <- data.frame(x = x, y = y)
+```
+
+```{shiny}
+fluidPage(
+  sliderInput("intercept", "Intercept", min = -10, max = 10, value = 0, step = 0.1),
+  sliderInput("slope", "Slope", min = -5, max = 5, value = 1, step = 0.1),
+  checkboxInput("show_residuals", "Show Residuals", value = FALSE),
+  plotOutput("scatterPlot")
+)
+```
+
+```{shiny}
+function(input, output) {
+  output$scatterPlot <- renderPlot({
+    intercept <- input$intercept
+    slope <- input$slope
+    show_residuals <- input$show_residuals
+    
+    p <- ggplot(sample_data, aes(x = x, y = y)) +
+      geom_point() +
+      geom_abline(intercept = intercept, slope = slope, color = "blue", size = 1) +
+      theme_minimal()
+    
+    if (show_residuals) {
+      residuals <- sample_data$y - (intercept + slope * sample_data$x)
+      sample_data_residuals <- cbind(sample_data, residuals)
+      
+      p <- p + geom_segment(data = sample_data_residuals, aes(xend = x, yend = y - residuals),
+                            color = "red", size = 0.5)
+    }
+    
+    p
+  })
+}
+```

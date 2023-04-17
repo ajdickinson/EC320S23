@@ -1,0 +1,47 @@
+---
+name: ols
+---
+
+---
+
+## OLS
+
+The [OLS estimator]{.note} chooses the parameters $\hat{\beta_1}$ and $\hat{\beta_2}$ that minimize the [residual sum of squares (RSS):]{.hii}
+
+$$
+\min_{\hat{\beta}_1,\, \hat{\beta}_2} \quad \color{#BF616A}{\sum_{i=1}^n \hat{u}_i^2}
+$$
+
+This is why we call the estimator ordinary [least squares.]{.hi}
+
+---
+
+## OLS Formulas
+
+For details, see the [XXX handout]() posted on Canvas.
+
+[Slope coefficient]{.hi}
+
+$$
+\hat{\beta}_2 = \dfrac{\sum_{i=1}^n (Y_i - \bar{Y})(X_i - \bar{X})}{\sum_{i=1}^n  (X_i - \bar{X})^2}
+$$
+
+[Intercept]{.hi}
+
+$$
+\hat{\beta}_1 = \bar{Y} - \hat{\beta}_2 \bar{X}
+$$
+
+---
+
+## Slope coefficient
+
+The slope estimator is equal to the sample covariance divided by the sample variance of $X$:
+
+$$
+\begin{aligned}
+\hat{\beta}_2 &= \dfrac{\sum_{i=1}^n (Y_i - \bar{Y})(X_i - \bar{X})}{\sum_{i=1}^n  (X_i - \bar{X})^2} \\ \\
+              &= \dfrac{ \frac{1}{n-1} \sum_{i=1}^n (Y_i - \bar{Y})(X_i - \bar{X})}{ \frac{1}{n-1} \sum_{i=1}^n  (X_i - \bar{X})^2} \\ \\
+              &= \dfrac{S_{XY}}{S^2_X}.
+\end{aligned}
+$$

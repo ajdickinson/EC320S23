@@ -1,0 +1,17 @@
+---
+name: prologue
+---
+
+---
+
+##
+
+_So far_ we've identified the fundamental problem econometricians face. [How do we proceed?]{.fragment} [**Regressions!**]{.fragment}
+
+. . . 
+
+- Running models
+- Confounders
+- Omitted Variable Bias
+
+
