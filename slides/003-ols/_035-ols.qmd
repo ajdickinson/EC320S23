@@ -18,7 +18,7 @@ This is why we call the estimator ordinary [least squares.]{.hi}
 
 ## OLS Formulas
 
-For details, see the [XXX handout]() posted on Canvas.
+For details, see the [handout](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html) posted on Canvas.
 
 [Slope coefficient]{.hi}
 

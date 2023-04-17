@@ -23,16 +23,23 @@ hideFootnotes: true
 
 ## Housekeeping
 
-PS02:
+[PS02:]{.hi}
 
 - Due Tuesday at 11:59p
 - Covers remaining topics from the review and from lecture Wednesday
 
 . . .
 
-LA02:
+[LA03:]{.hi}
 
 - Due Friday at 5:00p
+
+. . .
+
+[Reading:]{.hi} _(up to this point)_
+
+ItE: R, [1]{.hi}
+MM: 1, [2]{.hi}
 
 <!-- # Prologue {.inverse .note} -->
 
