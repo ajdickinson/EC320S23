@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Andrew Dickinson">
-  <title>Regression logic</title>
+  <title>Simple linear regression I</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -326,7 +326,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-position="left" class="quarto-title-block center">
-  <h1 class="title">Regression logic</h1>
+  <h1 class="title">Simple linear regression I</h1>
   <p class="subtitle">EC 320, Set 04</p>
 
 <div class="quarto-title-authors">
@@ -356,7 +356,7 @@ Andrew Dickinson
 <p><span class="hi">Reading:</span> <em>(up to this point)</em></p>
 <p>ItE: R, <span class="hi">1</span> MM: 1, <span class="hi">2</span></p>
 <!-- # Prologue {.inverse .note} -->
-<div class="cell">
+<div class="cell" data-hash="030-main_cache/revealjs/unnamed-chunk-1_4fb6e0fe79cf1c861c46f19c2f87af27">
 
 </div>
 <!-- {{< include _031-prologue.qmd >}} -->
@@ -679,7 +679,7 @@ _So how do we pick $b_0$ and $b_1$?_ -->
 <section id="section-5" class="slide level2">
 <h2></h2>
 <!-- GENERATE DATA -->
-<div class="cell">
+<div class="cell" data-hash="030-main_cache/revealjs/unnamed-chunk-6_bde4954cbd2e005a1184371a9c3afeb7">
 
 </div>
 <!-- SLIDE HERE ABOUT HOW TO PICK BETA0 AND BETA1; PICK A LINE THAT MINIMIZES RESIDUAL -->
@@ -915,11 +915,11 @@ We estimate the regression coefficients using an estimator called .hi[Ordinary L
 <!-- --- -->
 <!-- 
 
-::: {.cell}
+::: {.cell hash='030-main_cache/revealjs/unnamed-chunk-16_8e9040e87f75f4def1cf3c23d53588f0'}
 
 :::
 
-::: {.cell}
+::: {.cell hash='030-main_cache/revealjs/unnamed-chunk-17_9041c9016b14dab834e1341f838f5475'}
 
 :::
 
@@ -927,7 +927,7 @@ We estimate the regression coefficients using an estimator called .hi[Ordinary L
 
 :::{.cell .panel-sidebar}
 
-```{.js .cell-code .hidden startFrom="111" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="110" source-offset="-0"}
 import { Inputs } from 'https://cdn.jsdelivr.net/npm/@observablehq/inputs@0.12.2/dist/inputs.umd.min.js';
 
 
@@ -1173,7 +1173,7 @@ olsPlot(parsedData, intercept, slope, show_residuals);
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],

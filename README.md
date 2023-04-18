@@ -34,15 +34,15 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
-**001 - Review** [html](https://ajdickinson.github.io/EC320S23/slides/001-review/010-main.html)
+**001 - Review:** [html](https://ajdickinson.github.io/EC320S23/slides/001-review/010-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/001-review/010-main.pdf)
 
 - Readings: Introduction in *ItE Review* & *MM 1 (appendix)*
 
-**002 - The fundamental problem of causal inference:** [html](https://ajdickinson.github.io/EC320S23/slides/002-fundamental-problem/020-main.html)
+**002 - The fundamental problem of causal inference:** [html](https://ajdickinson.github.io/EC320S23/slides/002-fundamental-problem/020-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/002-fundamental-problem/020-main.pdf)
 
 - Readings: *MM 1*
 
-**003 - Simple linear regression:** [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.html)
+**003 - Simple linear regression:** [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.pdf)
 
 - Deriving OLS handout: [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html)
 - Readings: *MM 2*

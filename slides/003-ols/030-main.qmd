@@ -1,5 +1,5 @@
 ---
-title: "Regression logic"
+title: "Simple linear regression I"
 subtitle: "EC 320, Set 04"
 author: "Andrew Dickinson"
 date: last-modified
@@ -12,13 +12,12 @@ format:
     footer: "EC320, Set 04 | Regression logic"
     preview-links: auto
     code-fold: FALSE
-    code-copy: TRUE
+    # code-copy: TRUE
     highlight-style: a11y-light
-    cache: FALSE
-    html-math-method: mathjax 
+    cache: TRUE
+    # html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
-hideFootnotes: true
 ---
 
 ## Housekeeping
@@ -90,40 +89,10 @@ mytheme_s = mytheme +
 # Continue with OLS next time {.inverse}
 
 
-<!-- --- -->
-<!-- 
 ```{r}
-set.seed(42)
-n <- 100
-x <- rnorm(n)
-y <- 3 + 1.5 * x + rnorm(n, sd = 1)
+#| include: false
+#| echo: false
+#| eval: false
 
-sample_data <- data.frame(x = x, y = y)
+renderthis::to_pdf(from = "./slides/003-ols/030-main.html", to = "./slides/003-ols/030-main.pdf")
 ```
-
-```{r}
-json_data <- jsonlite::toJSON(sample_data, dataframe = "rows", pretty = TRUE)
-
-```
-
-```{ojs}
-//| panel: sidebar
-import { Inputs } from 'https://cdn.jsdelivr.net/npm/@observablehq/inputs@0.12.2/dist/inputs.umd.min.js';
-
-
-viewof intercept = Inputs.range({ min: -10, max: 10, value: 0, step: 0.1, label: "Intercept" });
-viewof slope = Inputs.range({ min: -5, max: 5, value: 1, step: 0.1, label: "Slope" });
-viewof show_residuals = Inputs.checkbox({ label: "Show Residuals", value: false });
-
-
-```
-
-```{ojs}
-//| panel: fill
-import { olsPlot } from './ols.js';
-
-const data = `r jsonlite::toJSON(sample_data, dataframe = "rows")`;
-const parsedData = JSON.parse(data);
-
-olsPlot(parsedData, intercept, slope, show_residuals);
-``` -->

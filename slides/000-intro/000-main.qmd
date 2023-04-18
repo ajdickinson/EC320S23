@@ -40,3 +40,9 @@ title-slide-attributes:
 # Next class: Statistics review {.inverse .note}
 
 
+```{r}
+#| include: false
+#| echo: false
+
+renderthis::to_pdf(from = "./slides/000-intro/000-main.html", to = "./slides/000-intro/000-main.pdf")
+```

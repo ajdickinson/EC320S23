@@ -79,10 +79,9 @@ mytheme_s = mytheme +
 
 ```{r}
 #| label: generate_pdfs
-#| include: FALSE 
-#| eval: FALSE
+#| include: false
+#| echo: false
+#| eval: false
 
-#remotes::install_github('rstudio/pagedown')
-library(renderthis)
-renderthis::to_pdf("004-main.html", output = "04-fun-problem.pdf")
+renderthis::to_pdf(from = "./slides/002-fundamental-problem/020-main.html", to = "./slides/002-fundamental-problem/020-main.pdf")
 ```

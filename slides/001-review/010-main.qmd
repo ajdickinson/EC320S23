@@ -15,7 +15,7 @@ format:
     code-copy: TRUE
     highlight-style: a11y-light
     cache: TRUE
-    html-math-method: mathjax 
+    # html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
 hideFootnotes: true
@@ -85,3 +85,11 @@ $$
 # Data types {.inverse .note}
 
 {{< include _018-data.qmd >}}
+
+```{r}
+#| include: false
+#| eval: false
+#| echo: false
+
+renderthis::to_pdf(from = "./slides/001-review/010-main.html", to = "./slides/001-review/010-main.pdf")
+```
