@@ -1,0 +1,109 @@
+---
+name: interpretation
+---
+
+---
+
+## Interpretation
+
+There are [two stages]{.hi} of interpretation of a regression equation
+
+. . .
+
+[1.]{.note} Interpret regression estimates in to words
+
+. . .
+
+[2.]{.note} Deciding whether this interpretation should be taken at face value
+
+<br>
+
+. . .
+
+Both stages are important[, but for now, we will focus on the [former]{.note}]{.fragment}
+
+. . .
+
+<br>
+
+[Recall]{.note} the OLS estimates from the previous example
+
+---
+
+## [Ex.]{.ex} [Effect of police on crime]{.hi}
+
+Using the OLS formulas, we get $\hat{\beta_1}$ [=]{.mono} `r round(lm0$coefficients[1], 2)` and $\hat{\beta_2}$ [=]{.mono} `r round(lm0$coefficients[2], 2)`.
+
+```{r}
+#| label: true-fit-again
+#| echo: false
+#| fig.height: 5.75
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+
+data %>% 
+  ggplot(aes(x = police, y = crime)) +
+    geom_point(color = hi) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(0,7), ylim = c(0,75)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Police per 1000 students") + 
+    ylab("Crimes per 1000 students") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+## Coefficient Interpretation
+
+How do I interpret $\hat{\beta_1}$ [=]{.mono} `r round(lm0$coefficients[1], 2)` and $\hat{\beta_2}$ [=]{.mono} `r round(lm0$coefficients[2], 2)`
+
+. . .
+
+[Recall,]{.note} the [general interpretation]{.hi} of the intercept is the estimated value of $Y_i$ when $X_i=0$
+
+. . .
+
+[And,]{.note} the [general interpretation]{.hi} of the slope parameter is the estimated change in $Y_i$ for a marginal increase in $X_i$
+
+<br>
+
+. . .
+
+[First,]{.note} it is important to understand the units:
+
+- $\widehat{\text{Crime}_i}$ is measured as a crime [rate]{.hi}, the number of crimes per 1,000 students on campus
+- $\text{Police}_i$ is also measured as a [rate]{.hi}, the number of police officers per 1,000 students on campus
+
+
+---
+
+## Coefficient Interpretation
+
+Using OLS gives us the fitted line
+
+$$
+ \widehat{\text{Crime}_i} = \hat{\beta}_1 + \hat{\beta}_2\text{Police}_i.
+$$
+
+What does $\hat{\beta_1}$ [=]{.mono} `r round(lm0$coefficients[1], 2)` tell us? [Without any police on campus, the crime rate is `r round(lm0$coefficients[1], 2)` per 1,000 people on campus]{.note .fragment}
+
+. . .
+
+What does $\hat{\beta_2}$ [=]{.mono} `r round(lm0$coefficients[2], 2)` tell us? [For each additional police officer per 1,000, there is an associated increase in the crime rate by `r round(lm0$coefficients[2], 2)` crimes per 1,000 people on campus.]{.note .fragment}
+
+<br>
+
+. . .
+
+_Does this mean that police [cause]{.note} crime?_ [Probably not.]{.fragment} [_Why?_]{.fragment}

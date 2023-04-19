@@ -304,7 +304,7 @@ _How might we estimate the causal effect of an additional year of schooling on e
 
 . . .
 
-[Approach 1:]{.note} Compare average earnings of private college graduates with those of public college graduates.
+[Approach 1:]{.note} Compare average earnings of individuals who have 12 years of education to those with 16
 
 - Prone to selection bias by variety of confounding variables
 
@@ -323,9 +323,10 @@ _How might we estimate the causal effect of an additional year of schooling on e
 
 _How might we estimate the causal effect of private college on earnings?_ -->
 
-[Approach 2:]{.note} Estimate a regression that compares the earnings of individuals with the same admissions profiles.
+[Approach 2:]{.note} Estimate a regression that compares the earnings of individuals with the same profiles
 
 - _Try to_ [control]{.hi} for [confounders]{.note} by including them in the model
+- Race, parental income, geography etc.
 
 ---
 

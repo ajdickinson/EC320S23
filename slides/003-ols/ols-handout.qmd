@@ -10,7 +10,7 @@ format:
       - ../../problem-sets/doc-styles.scss
     toc: true
     toc-depth: 3
-    html-math-method: mathjax
+    # html-math-method: mathjax
 ---
 
 ::: {.content-hidden}

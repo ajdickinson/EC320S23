@@ -1,0 +1,216 @@
+---
+name: ex
+---
+
+---
+
+## OLS Application
+
+Suppose we do not yet have an [empirical question]{.note}, but wish to observe the mechanics involved in generating parameter estimates.
+
+Consider the following [mini sample]{.hp} $\{X,Y\}$ data points:
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+```{r}
+#| echo: false
+#| include: true
+
+mini_df <- data.frame(
+  i = 1:4,
+  x = c(1,2,3,4),
+  y = c(4,3,5,8)
+)
+
+
+mini_df %>%
+  kbl() %>%
+  kable_minimal(full_width = FALSE, position = "left")
+```
+:::
+
+
+
+::: {.column width="70%"}
+Regression Model: $Y_i = \beta_1 + \beta_2 X_i + u_i$<br>
+Fitted Line: $\hat{Y_i}= b_1 + b_2 X_i$
+
+Lets calculate the estimated parameters $b_1$ and $b_2$ using the OLS estimator
+:::
+
+::::
+
+---
+
+## OLS Application
+
+Recall that OLS focuses on minimizing the RSS. We will take four steps.
+
+1. Calculate the residuals, $\hat{u}_i = Y_i - \hat{Y_i}$
+2. Summate the squared residuals, $RSS = \sum_{i=1}^n \hat{u}_i^2$
+3. Differentiate for $\frac{\partial RSS}{\partial b_j}$ such that our number of unknown parameters is equal to the number of partial differentiation equations
+4. Solve for the unknown parameters
+
+. . .
+
+We'll use the [mini sample]{.hp} to get an idea of the mechanics involved. 
+Given larger datasets and more covariates, [R]{.mono .big} comes to the rescue.
+
+[Warning:]{.note} Check the second derivatives to ensure global minimums. [All]{.hi} the second-order partial derivatives must be greater than zero. 
+
+---
+
+## OLS Application
+
+### Step 1: Calculate the residuals
+
+$$
+\begin{aligned}
+\hat{u}_1 &= Y_1 - \hat{Y_1} = Y_1 - b_1 -b_2 X_1 \\
+\hat{u}_2 &= Y_2 - \hat{Y_2} = Y_2 - b_1 -b_2 X_2\\
+\hat{u}_3 &= Y_3 - \hat{Y_3} = Y_3 - b_1 -b_2 X_3\\
+\hat{u}_4 &= Y_4 - \hat{Y_4} = Y_4 - b_1 -b_2 X_4
+\end{aligned}
+$$
+
+Plug in values from our given data for $\{X,Y\}$
+$$
+\begin{aligned}
+\hat{u}_1 &= 4 - b_1 -1*b_2 \\
+\hat{u}_2 &= 3 - b_1 -2*b_2\\
+\hat{u}_3 &= 5 - b_1 -3*b_2\\
+\hat{u}_4 &= 8 - b_1 -4*b_2
+\end{aligned}
+$$
+
+Next we'll square each of these terms and summate for RSS
+
+---
+
+## OLS Application
+
+### Step 2: Calculate the RSS
+
+$$
+\begin{aligned}
+RSS &= \sum_{i=1}^{n} \hat{u_i}^2 =  \hat{u_1}^2 + \hat{u_2}^2 + \hat{u_3}^2 + \hat{u_4}^2\\
+&= (4 - b_1 - b_2)^2 + (3 - b_1 -2b_2)^2 + (5 - b_1 -3b_2)^2 + (8 - b_1 -4b_2)^2\\
+& = 114 + 4b_1^2 + 30b_2^2 - 40b_1 - 114b_2 + 20b_1 b_2 
+\end{aligned}
+$$
+
+. . .
+
+Recall that OLS minimizes the RSS expression with respect to the specific parameters involved. 
+
+To find the values that minimize a particular expression, we need to apply differentiation. 
+
+
+---
+
+## OLS Application
+
+### Step 3: Differentiate RSS by parameters
+
+To differentiate by a particular variable, multiply each term by its power value and subtract $1$ from the power of each of its terms.
+
+e.g. for $y=2x^3, \partial y / \partial x = 2*3x^{3-1} = 6x^2$
+
+. . .
+
+$$
+\begin{align}
+\frac{\partial RSS}{\partial b_1} = 0 &\implies  (4*2)b_1^{2-1} -(40*1)b_1^{1-1} + (20*1) b_1^{1-1} b_2 = 0 \notag \\
+&\implies 8b_1 - 40 + 20 b_2 = 0  \ \ \ \ \ \ \  \ \ \ \ \ \ Eq(1)
+\end{align}
+$$
+
+. . .
+
+$$
+\begin{align}
+\frac{\partial RSS}{\partial b_2} = 0 &\implies  (30*2)b_2^{2-1} -(114*1)b_2^{1-1} + (20*1) b_1 b_2^{1-1} = 0 \notag\\
+&\implies 60b_2 - 114 + 20 b_1 = 0  \ \ \ \ \ \ \  \ \ \ \ \ \ Eq(2)
+\end{align}
+$$
+
+---
+
+## OLS Application
+
+### Step 4: Solve for parameters
+
+With two unknowns $\{b_1, b_2\}$ and two equations in which these unknowns satisfied the first order conditions $\left\{\frac{\partial RSS}{\partial b_1}, \frac{\partial RSS}{\partial b_2}\right\}$, we can solve for our parameters.
+
+How? Substitute one expression into the other. 
+
+$$
+\begin{aligned}
+20 b_2 &= 40 - 8b_1  \implies 60b_2 = 120 - 24b_1\\
+&\text{substitute into second equation}\\
+ Eq(2): \  & 120 - 24b_1 -114 + 20b_1 = 0\\
+& 6 = 4b_1 \implies b_1 = 1.5\\
+Eq(1): \  & 20b_2 = 40 - 8\times 1.5 = 28 \implies b_2 = 1.4
+\end{aligned}
+$$
+
+---
+
+## OLS Application
+
+OLS would prescribe $\{1.5, 1.4\}$ for our set of parameter estimates. 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| fig.align: center
+#| fig.height: 5.75
+
+# Compute the linear regression
+model <- lm(y ~ x, data = mini_df)
+
+# Extract the intercept and slope
+intercept <- coef(model)[1]
+slope <- coef(model)[2]
+
+
+ggplot(mini_df, aes(x=x, y=y))+
+  geom_point(size=4)+
+  scale_y_continuous(expand=c(0,0), limits=c(0,10), breaks = seq(0,10,2))+
+  scale_x_continuous(expand=c(0,0), limits=c(0,5), breaks = seq(0,5,1))+
+  geom_abline(intercept = intercept, slope = slope, color = hp, size = 2) +
+  ylab("Y, dependent variable")  + xlab("X, explanatory variable")+
+  mytheme +
+  theme(
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    axis.line.x = element_line(color = "black", size = 0.5),
+    axis.line.y = element_line(color = "black", size = 0.5)
+  )
+```
+:::
+
+::: {.column width="50%"}
+
+<br> 
+
+ Fitting a line through the data points, with the aim of minimizing the RSS, results in the same implied parameters
+
+
+:::
+
+::::
+
+. . .
+
+- Such parameters will always be estimated computationally
+
+- We will perform an exercise by hand in [PS03]{.hi} to understand the mechanics underlying the values we hang our hats on
+

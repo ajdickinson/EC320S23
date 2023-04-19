@@ -45,3 +45,175 @@ $$
               &= \dfrac{S_{XY}}{S^2_X}.
 \end{aligned}
 $$
+
+---
+
+## [Ex.]{.ex} [Effect of police on crime]{.hi}
+
+```{r}
+#| label: models
+#| echo: false
+
+
+lm0 <- lm(crime ~ police, data = data)
+lm1 <- lm(crime ~ police, data = data2)
+```
+
+Using the OLS formulas, we get $\hat{\beta_1}$ [=]{.mono} `r round(lm0$coefficients[1], 2)` and $\hat{\beta_2}$ [=]{.mono} `r round(lm0$coefficients[2], 2)`.
+
+```{r}
+#| label: true-fit
+#| echo: false
+#| fig.height: 5.75
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+
+data %>% 
+  ggplot(aes(x = police, y = crime)) +
+    geom_point(color = hi) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(0,7), ylim = c(0,75)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Police per 1000 students") + 
+    ylab("Crimes per 1000 students") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+##
+
+::: {.vertical-center}
+A quick note on [outliers]{.note}
+:::
+
+---
+
+## Outliers
+
+Suppose we added another data point.
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+
+data2 %>% 
+  ggplot(aes(x = police, y = crime)) +
+    geom_point(color = hi) +
+    # geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    # geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
+    # # coord_fixed() +
+    coord_cartesian(xlim = c(0,20), ylim = c(0,150)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Police per 1000 students") + 
+    ylab("Crimes per 1000 students") +
+    theme(
+      legend.position = 'none'
+    )
+
+```
+
+---
+
+## Outliers {data-visibility="uncounted"}
+
+[Fitted line]{.hp} without outlier.
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+b0_1 <- lm1$coefficients[1]
+b1_1 <- lm1$coefficients[2]
+data2 %>% 
+  ggplot(aes(x = police, y = crime)) +
+    geom_point(color = hi) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    # geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
+    # # coord_fixed() +
+    coord_cartesian(xlim = c(0,20), ylim = c(0,150)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Police per 1000 students") + 
+    ylab("Crimes per 1000 students") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+## Outliers {data-visibility="uncounted"}
+
+[Fitted line]{.hp} without outlier. [Fitted line]{.hii} with outlier.
+
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+b0_1 <- lm1$coefficients[1]
+b1_1 <- lm1$coefficients[2]
+data2 %>% 
+  ggplot(aes(x = police, y = crime)) +
+    geom_point(color = hi) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_abline(intercept = b0_1, slope = b1_1, color = hii, size = 1) +
+    # geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
+    # # coord_fixed() +
+    coord_cartesian(xlim = c(0,20), ylim = c(0,150)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Police per 1000 students") + 
+    ylab("Crimes per 1000 students") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+## Outliers
+
+Because we square residuals, [outliers]{.note} hold greater influence on OLS estimates.
+
+. . .
+
+<br>
+
+OLS has a constraint. [When a data point is far away, it's residual holds more weight on the determination of estimates the further out it is.]{.fragment}
+
+<br>
+
+[Think of each observation like a lever, each applying force on the estimates. [Outliers]{.note} are like a giant lever which, like in physics, with longer levers, more force can be applied on an object, or in this case, more weight on the constraints]{.fragment}

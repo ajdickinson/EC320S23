@@ -14,8 +14,8 @@ format:
     code-fold: FALSE
     # code-copy: TRUE
     highlight-style: a11y-light
-    cache: TRUE
-    # html-math-method: mathjax 
+    cache: FALSE
+    html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
 ---
@@ -46,7 +46,7 @@ MM: 1, [2]{.hi}
 pacman::p_load(hrbrthemes, fastverse, tidyverse,
                magrittr, wooldridge, here, kableExtra,
                ggdag, nord, latex2exp, dagitty, viridis,
-               emoGG)
+               emoGG, plotly)
 
 
 hi = nord_palettes$polarnight[3]
@@ -55,6 +55,7 @@ hp = nord_palettes$aurora[5]
 higreen = nord_palettes$aurora[4]
 hiorange = nord_palettes$aurora[2]
 hired = nord_palettes$aurora[1]
+higrey = nord_palettes$snowstorm[1]
 
 mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
  theme(panel.grid.minor.x = element_blank(),
@@ -66,6 +67,17 @@ mytheme_s = mytheme +
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.line = element_line(color = hi))
+
+
+data = get(data(campus)) %>% 
+  mutate(crime = round(crime/enroll*1000, 2),
+         police = round(police/enroll*1000, 2)) %>% 
+  filter(police < 10) %>% # remove outlier
+  select(crime, police)
+data2 = get(data(campus)) %>% 
+  mutate(crime = round(crime/enroll*1000, 2),
+         police = round(police/enroll*1000, 2)) %>% 
+  select(crime, police)
 ```
 
 <!-- {{< include _031-prologue.qmd >}} -->
@@ -86,7 +98,13 @@ mytheme_s = mytheme +
 
 {{< include _035-ols.qmd >}}
 
-# Continue with OLS next time {.inverse}
+# Coefficient interpretation {.inverse .note}
+
+{{< include _036-interpretation.qmd >}}
+
+# [OLS]{.hi-white} [Ex.]{.ex} {.inverse}
+
+{{< include _037-ex.qmd >}}
 
 
 ```{r}

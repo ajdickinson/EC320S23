@@ -93,3 +93,12 @@ $$
 
 renderthis::to_pdf(from = "./slides/001-review/010-main.html", to = "./slides/001-review/010-main.pdf")
 ```
+
+<!--
+
+Notes:
+
+- Move hypothesis testing to the second linear regression lecture
+-
+
+ -->

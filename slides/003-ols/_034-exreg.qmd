@@ -19,28 +19,6 @@ Always plot your data first
 ---
 
 ## 
-<!-- GENERATE DATA -->
-
-```{r}
-#| echo: false
-
-library(pacman)
-p_load(ggthemes, viridis, knitr, extrafont, tidyverse, magrittr, wooldridge, DT)
-# Data 
-data <- get(data(campus)) %>% 
-  mutate(crime = round(crime/enroll*1000, 2),
-         police = round(police/enroll*1000, 2)) %>% 
-  filter(police < 10) %>% # remove outlier
-  select(crime, police)
-data2 <- get(data(campus)) %>% 
-  mutate(crime = round(crime/enroll*1000, 2),
-         police = round(police/enroll*1000, 2)) %>% 
-  select(crime, police)
-```
-
-<!-- SLIDE HERE ABOUT HOW TO PICK BETA0 AND BETA1; PICK A LINE THAT MINIMIZES RESIDUAL -->
-
-<!-- CREATE AN INTERACTIVE PLOT WITH SIM'D DATA ON SCATTER; DRAW NAIVE LINE -->
 
 ```{r}
 #| echo: false
@@ -191,7 +169,7 @@ So, the question becomes, _how do I pick $\hat{\beta_1}$ and $\hat{\beta_2}$_
 
 ##
 
-[Let's take some guesses:]{.fragment}
+[Let's take some guesses: ${\color{#ffffff} \hat{\beta_1} = 60}$]{.fragment}
 
 ```{r}
 #| echo: false
@@ -241,7 +219,7 @@ data %>%
 
 ## {data-visibility="uncounted"}
 
-Let's take some guesses: $\hat{\beta_1} = 60$ and $\hat{\beta_2}=-7$
+Let's take some guesses: $\hat{\beta_1} = 30$ and $\hat{\beta_2}=0$
 
 ```{r}
 #| echo: false
@@ -270,7 +248,7 @@ What about this one?
 
 ## {data-visibility="uncounted"}
 
-Let's take some guesses: $\hat{\beta_1} = 60$ and $\hat{\beta_2}=-7$
+Let's take some guesses: $\hat{\beta_1} = 15.6$ and $\hat{\beta_2}=7.94$
 
 ```{r}
 #| echo: false
@@ -312,7 +290,7 @@ $$
 
 ## {data-visibility="uncounted"}
 
-$\hat{\beta_1} = 60$ and $\hat{\beta_2}=-7$
+$\hat{\beta_1} = 15.4$ and $\hat{\beta_2}=7.94$
 
 ```{r}
 #| echo: false
@@ -378,7 +356,7 @@ data %>%
     geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
     # coord_fixed() +
     coord_cartesian(xlim = c(0,7), ylim = c(0,75)) +
-    scale_size(range = c(0.001,2)) +
+    scale_size(range = c(0.001,4)) +
     # scale_color_continuous() +
     mytheme_s +
     xlab("Police per 1000 students") + 
@@ -410,7 +388,7 @@ data %>%
     geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
     # coord_fixed() +
     coord_cartesian(xlim = c(0,7), ylim = c(0,75)) +
-    scale_size(range = c(0.001,2)) +
+    scale_size(range = c(0.001,4)) +
     # scale_color_continuous() +
     mytheme_s +
     xlab("Police per 1000 students") + 
@@ -443,7 +421,7 @@ data %>%
     geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1), size =  (crime - y_hat(police, b0, b1))^2), color = hii, alpha = 0.5) +
     # coord_fixed() +
     coord_cartesian(xlim = c(0,7), ylim = c(0,75)) +
-    scale_size(range = c(0.001,2)) +
+    scale_size(range = c(0.001,4)) +
     # scale_color_continuous() +
     mytheme_s +
     xlab("Police per 1000 students") + 
@@ -458,6 +436,149 @@ data %>%
 ## Minimizing RSS
 
 We could test thousands of guesses of $\beta_1$ and $\beta_2$ and pick the pair the has the smallest RSS
+
+. . .
+
+What if we did that. [Let's write a loop that guesses $\beta_1$ and $\beta_2$ [100,000 times]{.hi} and collect the [RSS]{.hii} for each guess.]{.fragment}
+
+[Then we plot it in three dimensions: $\beta_1$ ([x]{.mono}), $\beta_2$ ([y]{.mono}), [RSS]{.hii} ([z]{.mono})]{.fragment}
+
+---
+
+##
+
+```{r}
+#| label: foc-sim
+#| cache: true
+#| echo: false
+
+
+# Create a function that predicts y_hat
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+
+# Define number of draws
+n = 1e5
+
+# Define a range that the line's parameters can take
+b0_range = c(-100, 100)
+b1_range = c(-100, 100)
+# Create 100,000 draws from that distribution
+b0_v = runif(n, b0_range[1], b0_range[2]) %>% as.list()
+b1_v = runif(n, b1_range[1], b1_range[2]) %>% as.list()
+
+# Run the simulation in parallel
+rss_sim = parallel::mcmapply(FUN = function(x,y) {
+
+    # Calculate residuals
+    resid = data$crime - y_hat(data$police, x, y)
+    # Square residuals
+    resid_sq = resid^2
+    # Sum for RSS
+    rss = fsum(resid_sq)
+    # Create data.table of parameters + rss
+    dt = data.table(
+      b0 = x,
+      b1 = y,
+      rss = rss)
+    # Return data.table list
+    return(dt)
+
+    }, b0_v, b1_v, SIMPLIFY = FALSE, mc.cores = 6
+  ) %>% rbindlist()
+
+# Create rank variable for color
+setorder(rss_sim, rss)
+rss_sim[, rank := .I]
+
+rss_range = c(rss_sim[1] - 10000, rss_sim[n] + 10000)
+
+# Create a plane to simulate an FOC
+# Find the "optimal" point
+min_point <- rss_sim[1]
+# Create a grid which draws the surface of the optimal plane
+grid_size <- 100
+b0_range <- seq(min(rss_sim$b0), max(rss_sim$b0), length.out = grid_size)
+b1_range <- seq(min(rss_sim$b1), max(rss_sim$b1), length.out = grid_size)
+b0_b1_grid <- expand.grid(b0 = b0_range, b1 = b1_range)
+b0_b1_grid$z <- min_point$rss
+
+```
+
+Simulated RSS across $\beta_1, \beta_2 \sim \text{uniform}(-100, 100)$
+
+```{r}
+#| label: foc-3d-00
+#| echo: false
+#| fig.height: 7.5
+#| cache: true
+#| dependson: foc-sim
+
+plot_ly(
+  type = "scatter3d",
+  x = rss_sim$b1,
+  y = rss_sim$b0,
+  z = rss_sim$rss,
+  mode = "markers",
+  size = 1,
+  color = rss_sim$rank,
+  colors = colorRamp(viridis::magma(8) %>% rev()),
+) %>%
+layout(scene = list(
+  yaxis = list(title = "b0", range = b0_range),
+  xaxis = list(title = "b1", range = b1_range),
+  zaxis = list(title = "RSS", range = rss_range)
+)) %>% hide_colorbar()
+```
+
+
+---
+
+##
+
+Simulated RSS across $\beta_1, \beta_2 \sim \text{uniform}(-100, 100)$ _(zoomed in)_
+
+```{r}
+#| label: foc-3d-01
+#| echo: false
+#| fig.height: 7.5
+#| cache: true
+#| dependson: foc-sim
+plot_ly(
+  type = "scatter3d",
+  x = rss_sim$b1,
+  y = rss_sim$b0,
+  z = rss_sim$rss,
+  mode = "markers",
+  size = 1,
+  color = rss_sim$rank,
+  colors = colorRamp(viridis::magma(8) %>% rev()),
+) %>%
+  add_trace(
+    type = "surface",
+    x = b1_range,
+    y = b0_range,
+    z = matrix(b0_b1_grid$z, nrow = grid_size, ncol = grid_size),
+    surfacecolor = matrix(higrey, nrow = grid_size, ncol = grid_size),  # Set the color of the plane
+    opacity = 0.25,
+    showlegend = FALSE  # Hide legend for this trace
+    # name = "Optimal plane"
+  ) %>%
+  layout(scene = list(
+  yaxis = list(title = "b0", range = b0_range),
+  xaxis = list(title = "b1", range = b1_range),
+  zaxis = list(title = "RSS", range = c(0, 400000))
+)) %>% hide_colorbar()
+```
+
+---
+
+## Minimizing RSS
+
+We could test thousands of guesses of $\beta_1$ and $\beta_2$ and pick the pair the has the smallest RSS
+
+What if we did that. Let's write a loop that guesses $\beta_1$ and $\beta_2$ [100,000 times]{.hi} and collect the [RSS]{.hii} for each guess.
+
+Then we plot it in three dimensions: $\beta_1$ ([x]{.mono}), $\beta_2$ ([y]{.mono}), [RSS]{.hii} ([z]{.mono})
 
 . . .
 
