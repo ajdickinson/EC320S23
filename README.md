@@ -10,8 +10,8 @@ Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickins
 
 **Office hours**
 
-- **Andrew Dickinson** Tuesdays and Thursdays, 4:00p–5:00p,  [Zoom](https://uoregon.zoom.us/j/6669213025)
-- **Colleen O'Briant** Wednesdays, 4:00p-5:20p and Fridays, 8:00a-9:00a, (zoom link to be added)
+- **Andrew Dickinson** Tuesdays and Thursdays, 4:00p–5:00p, 
+- **Colleen O'Briant** Wednesdays, 4:00p-5:20p and Fridays, 8:00a-9:00a
 
 Find the syllabus here: [PDF](https://ajdickinson.github.io/EC320S23/syllabus/syllabus.pdf)
 
@@ -44,7 +44,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 **003 - Simple linear regression:** [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.pdf)
 
-- Deriving OLS handout: [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html)
+- Deriving OLS handout: [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html) | [PDF](https://ajdickinson.github.io/EC320S23/resources/ols-derived-inclass)
 - Readings: *ItE 1*, *MM 2*
 
 **004 - Simple linear regression** 
