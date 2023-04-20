@@ -44,7 +44,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 **003 - Simple linear regression:** [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.html) | [PDF](https://ajdickinson.github.io/EC320S23/slides/003-ols/030-main.pdf) 
 
-- Deriving OLS handout: [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html) | [PDF](https://ajdickinson.github.io/EC320S23/resources/ols-derived-inclass) _(in class)_
+- Deriving OLS handout: [html](https://ajdickinson.github.io/EC320S23/slides/003-ols/ols-handout.html) | [PDF](https://ajdickinson.github.io/EC320S23/resources/ols-derived-inclass.pdf) _(in class)_
 - Readings: *ItE 1*, *MM 2*
 
 **004 - Simple linear regression** 
