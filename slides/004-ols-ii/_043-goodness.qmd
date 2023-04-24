@@ -1,0 +1,381 @@
+---
+name: goodness
+---
+
+---
+
+## Goodness of Fit
+
+[Regression 1]{.hi-orange} *vs.* [Regression 2]{.hii}
+
+- Same slope.
+- Same intercept. 
+
+[Q:]{.note} Which fitted regression line *"explains"*^[_Explains_ [=]{.mono} _fits_.] the data better?
+
+
+:::: {.columns}
+
+::: {.column width="50"}
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+ggplot() +
+  xlim(-15,25) + ylim(0, 160) +
+  geom_point(data = df1, aes(x, y), color = hi, alpha = 0.5, size = 4) +
+  stat_smooth(data = df1, aes(x, y), method = "lm", se = FALSE, color = hiorange, size = 5) +
+  theme_void()
+```
+:::
+
+::: {.column width="50"}
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+ggplot() +
+  xlim(-15,25) + ylim(0, 160) +
+  geom_point(data = df2, aes(x, y), color = hi, alpha = 0.5, size = 4) +
+  stat_smooth(data = df2, aes(x, y), method = "lm", se = FALSE, color = hii, size = 5) +
+  theme_void()
+```
+:::
+
+::::
+
+---
+
+## Goodness of Fit {data-visibility="uncounted"}
+
+[Regression 1]{.hi-orange} *vs.* [Regression 2]{.hii}
+
+The [coefficient of determination]{.note}, $R^2$, is the fraction of the variation in $Y_i$ *"explained"* by $X_i$.
+
+- $R^2 = 1 \implies X_i$ explains _all_ of the variation in $Y_i$.
+- $R^2 = 0 \implies X_i$ explains _none_ of the variation in $Y_i$.
+
+:::: {.columns}
+
+::: {.column width="50"}
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+#| fig-cap: !expr 'paste("$R^2$ =", round(r2_1,2))'
+#| fig-cap-location: bottom
+
+ggplot() +
+  xlim(-15,25) + ylim(0, 160) +
+  geom_point(data = df1, aes(x, y), color = hi, alpha = 0.5, size = 4) +
+  stat_smooth(data = df1, aes(x, y), method = "lm", se = FALSE, color = hiorange, size = 5) +
+  theme_void()
+```
+:::
+
+::: {.column width="50"}
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+#| fig-cap: !expr 'paste("$R^2$ =", round(r2_2,2))'
+
+ggplot() +
+  xlim(-15,25) + ylim(0, 160) +
+  geom_point(data = df2, aes(x, y), color = hi, alpha = 0.5, size = 4) +
+  stat_smooth(data = df2, aes(x, y), method = "lm", se = FALSE, color = hii, size = 5) +
+  theme_void()
+```
+:::
+
+::::
+
+---
+
+## 
+
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig.align: center
+
+
+# Colors (order: x1, y)
+venn_colors <- c(hp, hii)
+
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5),
+  y  = c( 0.0,   -2.5),
+  r  = c( 1.9,    1.9),
+  l  = c( "Y", "X"),
+  xl = c( 0.0,   -0.5),
+  yl = c( 0.0,   -2.5)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+geom_text(aes(x = xl, y = yl, label = l), size = 12, family = "Fira Sans", parse = T) +
+xlim(-2.5, 2) +
+ylim(-4.5, 2) +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig.align: center
+
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -3),
+  y  = c( 0.0,   -2.75),
+  r  = c( 1.9,    1.9),
+  l  = c( "Y", "X"),
+  xl = c( 0.0,   -3),
+  yl = c( 0.0,   -2.75)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+geom_text(aes(x = xl, y = yl, label = l), size = 12, family = "Fira Sans", parse = T) +
+xlim(-5, 2) +
+ylim(-5, 2) +
+coord_equal()
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig.align: center
+
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5),
+  y  = c( 0.0,   -1.5),
+  r  = c( 1.9,    1.9),
+  l  = c( "Y", "X"),
+  xl = c( 0.0,   -0.5),
+  yl = c( 1.0,   -2.5)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+geom_text(aes(x = xl, y = yl, label = l), size = 12, family = "Fira Sans", parse = T) +
+xlim(-2.5, 2) +
+ylim(-5, 2) +
+coord_equal()
+```
+
+---
+
+## Explained and unexplained variation
+
+Residuals remind us that there are parts of $Y_i$ we can't explain.
+
+$$
+Y_i = \hat{Y_i} + \hat{u}_i
+$$
+
+- Sum the above, divide by $n$, and use the fact that OLS residuals sum to zero to get:
+
+$$
+\bar{\hat{u}} = 0 \implies \bar{Y} = \bar{\hat{Y}}
+$$
+
+---
+
+## Explained and unexplained variation
+
+[Total Sum of Squares]{.note} ([TSS]{.hi-red}) measures variation in $Y_i$:
+
+$$
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2.
+$$
+
+- [TSS]{.hi-red} can be decomposed into explained and unexplained variation.
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[Explained Sum of Squares]{.note} ([ESS]{.hi-yellow}) measures the variation in $\hat{Y_i}$:
+
+$$
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2.
+$$
+:::
+
+::: {.column width="50%"}
+[Residual Sum of Squares]{.note} ([RSS]{.hi-orange}) measures the variation in $\hat{u}_i$:
+
+$$
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2.
+$$
+:::
+
+::::
+
+---
+
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+:::
+
+---
+
+## {data-visibility="uncounted"}
+
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+
+[_Step 1:_]{.note} Plug $Y_i = \hat{Y_i} + \hat{u}_i$ into ${\color{#BF616A} \text{TSS}}$.
+
+$$
+\begin{align*}
+{\color{#BF616A} \text{TSS}} &= \sum_{i=1}^n (Y_i - \bar{Y})^2 \\
+                             &= \sum_{i=1}^n ([\hat{Y_i} + \hat{u}_i] - [\bar{\hat{Y}} + \bar{\hat{u}}])^2
+\end{align*}
+$$
+
+---
+
+## {data-visibility="uncounted"}
+
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+
+[_Step 2:_]{.note} Recall that $\bar{\hat{u}} = 0$ & $\bar{Y} = \bar{\hat{Y}}$.
+
+$$
+\begin{align*}
+{\color{#BF616A} \text{TSS}} &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right)^2 \\
+                             &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \\
+                             &= \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2 + \sum_{i=1}^n \hat{u}_i^2 + 2 \sum_{i=1}^n \left( (\hat{Y_i} - \bar{Y})\hat{u}_i \right)
+\end{align*}
+$$
+
+<br>
+
+---
+
+## {data-visibility="uncounted"}
+
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+
+[_Step 2:_]{.note} Recall that $\bar{\hat{u}} = 0$ & $\bar{Y} = \bar{\hat{Y}}$.
+
+$$
+\begin{align*}
+{\color{#BF616A} \text{TSS}} &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right)^2 \\
+                             &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \\
+                             &= {\color{#EBCB8B}{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}} + {\color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}} + 2 \sum_{i=1}^n \left( (\hat{Y_i} - \bar{Y})\hat{u}_i \right)
+\end{align*}
+$$
+
+[_Step 3:_]{.note} Notice [ESS]{.hi-yellow} and [RSS]{.hi-orange}.
+
+---
+
+## {data-visibility="uncounted"}
+
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+
+[_Step 2:_]{.note} Recall that $\bar{\hat{u}} = 0$ & $\bar{Y} = \bar{\hat{Y}}$.
+
+$$
+\begin{align*}
+{\color{#BF616A} \text{TSS}} &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right)^2 \\
+                             &= \sum_{i=1}^n \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \left( [\hat{Y_i} - \bar{Y}] + \hat{u}_i \right) \\
+                             &= {\color{#EBCB8B}{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}} + {\color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}} + 2 \sum_{i=1}^n \left( (\hat{Y_i} - \bar{Y})\hat{u}_i \right) \\
+                             &= {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}} + 2 \sum_{i=1}^n \left( (\hat{Y_i} - \bar{Y})\hat{u}_i \right)
+\end{align*}
+$$
+
+---
+
+## {data-visibility="uncounted"}
+
+[Goal:]{.note} Show that ${\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}$.
+
+[_Step 4:_]{.note} Simplify.
+
+$$
+\begin{align*}
+{\color{#BF616A} \text{TSS}} &= {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}} + 2 \sum_{i=1}^n \left( (\hat{Y_i} - \bar{Y})\hat{u}_i \right) \\
+                             &= {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}} + 2 \sum_{i=1}^n \hat{Y_i}\hat{u}_i - 2 \bar{Y}\sum_{i=1}^n \hat{u}_i
+\end{align*}
+$$
+
+. . .
+
+[_Step 5:_]{.note} Shut down the last two terms. Notice that
+
+$$
+\begin{align*}
+2 \sum_{i=1}^n \hat{Y_i}\hat{u}_i - 2 \bar{Y}\sum_{i=1}^n \hat{u}_i = 0
+\end{align*}
+$$
+
+_Which you will prove to be true in [PS03]{.hi}_
+
+---
+
+## Goodness of fit
+
+What percentage of the variation in our $Y_i$ is *apparently* explained by our model? The $R^2$ term represents this percentage.
+
+Total variation is represented by [TSS]{.hi-red} and our model is capturing the 'explained' sum of squares, [ESS]{.hi-yellow}.
+
+Taking a simple ratio reveals how much variation our model explains. 
+
+- $R^2 = \frac{{\color{#EBCB8B} \text{ESS}}}{{\color{#BF616A} \text{TSS}}}$ varies between 0 and 1
+
+- $R^2 = 1 - \frac{{\color{#D08770} \text{RSS}}}{{\color{#BF616A} \text{TSS}}}$, 100% less the unexplained variation 
+
+. . .
+
+$R^2$ is related to the correlation between the actual values of $Y$ and the fitted values of $Y$. Can show that $R^2 = (r_{Y, \hat{Y}})^2$.
+
+---
+
+## Goodness of fit
+
+_So what?_ [In the social sciences, low $R^2$ values are common.]{.fragment}
+
+. . .
+
+Low $R^2$ doesn't mean that an estimated regression is useless.
+
+- In a randomized control trial, $R^2$ is usually less than 0.1
+
+. . .
+
+High $R^2$ doesn't necessarily mean you have a *"good"* regression.
+
+- Worries about selection bias and omitted variables still apply
+- Some 'powerfully high' $R^2$ values are the result of simple accounting exercises, and tell us nothing about causality
+

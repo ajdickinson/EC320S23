@@ -1,0 +1,52 @@
+---
+name: properties
+---
+
+---
+
+## OLS Properties
+
+[OLS]{.hi} has [three]{.note} important properties:
+
+<br>
+
+. . .
+
+[1.]{.note} Residuals sum to zero: $\sum_{i=1}^n \hat{u}_i = 0$.
+
+. . .
+
+[2.]{.note} The sample covariance between the independent variable and the residuals is zero: $\sum_{i=1}^n X_i \hat{u}_i = 0$.
+
+. . .
+
+[3.]{.note} The point $(\bar{X}, \bar{Y})$ is always on the regression line.
+
+. . .
+
+<br>
+
+[PS03]{.hi} includes [proving]{.note} [1.]{.note} _and_ [2.]{.note} in the upcoming problem set. 
+
+---
+
+## Property [3.]{.note} _(proof)_
+
+The point $(\bar{X}, \bar{Y})$ is always on the regression line.
+
+- Start with the regression line: $\hat{Y_i} = \hat{\beta}_1 + \hat{\beta}_2X_i$.
+
+. . .
+
+- $\hat{Y_i} = \bar{Y} - \hat{\beta}_2 \bar{X} + \hat{\beta}_2X_i$.
+
+. . .
+
+- Plug in $\bar{X}$ for $X_i$:
+
+$$
+\begin{aligned}
+\hat{Y_i} &= \bar{Y} - \hat{\beta}_2 \bar{X} + \hat{\beta}_2\bar{X} \\
+&= \bar{Y}.
+\end{aligned}
+$$

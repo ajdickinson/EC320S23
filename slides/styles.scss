@@ -160,7 +160,7 @@ section.has-light-background h1 {
 .note {
   font-family: 'Zilla Slab' !important;
   font-weight: 300;
-  font-style: italic;
+  // font-style: italic;
   color: #314f4f !important;
   // font-size: 32px;
 }
@@ -207,6 +207,14 @@ section.has-light-background h1 {
 .hi-red {
   font-weight: 600;
   color: #BF616A;
+}
+.hi-orange {
+  font-weight: 600;
+  color: #D08770;
+}
+.hi-yellow {
+  font-weight: 600;
+  color: #EBCB8B;
 }
 
 .hi-white {
