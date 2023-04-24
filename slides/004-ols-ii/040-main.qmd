@@ -105,4 +105,8 @@ lm1 <- lm(crime ~ police, data = data2)
 
 {{< include _043-goodness.qmd >}}
 
+# _Units of measurement_ {.inverse .note}
+
+{{< include _044-units.qmd >}}
+
 # Next time: _Classical assumptions_ {.inverse .note}

@@ -420,13 +420,13 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 </section>
 <section id="review-1" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hi">intercept</span> is -11.89. What does this tell us?</p>
+<p>The estimated <span class="hi">intercept</span> is -14.33. What does this tell us?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">With <span class="note">zero</span> years of education, estimate hourly earnings would be –$10.44</span></p>
 </section>
 <section id="review-2" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hp">slope</span> is 2.36. How do we interpret it?</p>
+<p>The estimated <span class="hp">slope</span> is 2.57. How do we interpret it?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">For each additional year of schooling, hourly earnings increase by $2.32</span></p>
 </section></section>
@@ -528,7 +528,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.72</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.74</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -539,7 +539,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.08</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.05</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -607,10 +607,12 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <h2></h2>
 <p><span class="note">Goal:</span> Show that <span class="math inline">\({\color{#BF616A} \text{TSS}} = {\color{#EBCB8B} \text{ESS}} + {\color{#D08770} \text{RSS}}\)</span>.</p>
 <p><span class="note"><em>Step 1:</em></span> Plug <span class="math inline">\(Y_i = \hat{Y_i} + \hat{u}_i\)</span> into <span class="math inline">\({\color{#BF616A} \text{TSS}}\)</span>.</p>
-<p><span class="math display">\[\begin{align*}
+<p><span class="math display">\[
+\begin{align*}
 {\color{#BF616A} \text{TSS}} &amp;= \sum_{i=1}^n (Y_i - \bar{Y})^2 \\
                              &amp;= \sum_{i=1}^n ([\hat{Y_i} + \hat{u}_i] - [\bar{\hat{Y}} + \bar{\hat{u}}])^2
-\end{align*}\]</span></p>
+\end{align*}
+\]</span></p>
 </section>
 <section id="section-5" class="slide level2" data-visibility="uncounted">
 <h2></h2>
@@ -700,6 +702,37 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <li>Some ‘powerfully high’ <span class="math inline">\(R^2\)</span> values are the result of simple accounting exercises, and tell us nothing about causality</li>
 </ul>
 </div>
+</section></section>
+<section>
+<section id="units-of-measurement" class="title-slide slide level1 inverse note center">
+<h1><em>Units of measurement</em></h1>
+
+</section>
+<section id="last-time-3" class="slide level2">
+<h2>Last Time</h2>
+<p>We ran a regression of crimes per 1000 students on police per 1000 students. We found that <span class="math inline">\(\hat{\beta_1}\)</span> <span class="mono">=</span> 18.41 and <span class="math inline">\(\hat{\beta_2}\)</span> <span class="mono">=</span> 1.76.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-12-1.svg" width="960" class="r-stretch"></section>
+<section id="last-time-4" class="slide level2">
+<h2>Last Time</h2>
+<p>What if we had run a regression of crimes per student on police per 1000 students? What would happen to the slope?</p>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-13-1.svg" width="960"></p>
+</div>
+</div>
+<p><span class="math inline">\(\hat{\beta_2}\)</span> <span class="mono">=</span> 0.001756.</p>
+</div>
+</section>
+<section id="practice-problem-demeaning" class="slide level2">
+<h2>Practice problem: Demeaning</h2>
+<p>Suppose that, before running a regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span>, you decided to <em>demean</em> each variable by subtracting off the mean from each observation. This gave you <span class="math inline">\(\tilde{Y}_i = Y_i - \bar{Y}\)</span> and <span class="math inline">\(\tilde{X}_i = X_i - \bar{X}\)</span>.</p>
+<p>Then you decide to estimate</p>
+<p><span class="math display">\[
+\tilde{Y}_i = \beta_1 + \beta_2 \tilde{X}_i + u_i.
+\]</span></p>
+<p>What will you get for your intercept estimate <span class="math inline">\(\hat{\beta}_1\)</span>?</p>
 </section></section>
 <section id="next-time-classical-assumptions" class="title-slide slide level1 inverse note center">
 <h1>Next time: <em>Classical assumptions</em></h1>

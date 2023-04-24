@@ -1,0 +1,59 @@
+---
+name: units
+---
+
+---
+
+## Last Time
+
+We ran a regression of crimes per 1000 students on police per 1000 students. We found that $\hat{\beta_1}$ [=]{.mono} `r round(lm0$coefficients[1], 2)` and $\hat{\beta_2}$ [=]{.mono} `r round(lm0$coefficients[2], 2)`. 
+
+```{r, echo=FALSE, dev = "svg", fig.height = 5}
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+data %>% 
+  ggplot() +
+  geom_point(aes(x = police, y = crime), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme + xlab("Police per 1000 students") + ylab("Crimes per 1000 students")
+```
+
+---
+
+## Last Time
+
+What if we had run a regression of crimes per student on police per 1000 students? What would happen to the slope?
+
+. . .
+
+```{r, echo=FALSE, dev = "svg", fig.height = 5}
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm1$coefficients[1]
+b1 <- lm1$coefficients[2]
+data2 %>% 
+  ggplot() +
+  geom_point(aes(x = police, y = crime), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme + xlab("Police per 1000 students") + ylab("Crimes per student")
+```
+
+$\hat{\beta_2}$ [=]{.mono} `r lm1$coefficients[2]`.
+
+---
+
+## Practice problem: Demeaning
+
+Suppose that, before running a regression of $Y_i$ on $X_i$, you decided to _demean_ each variable by subtracting off the mean from each observation. This gave you $\tilde{Y}_i = Y_i - \bar{Y}$ and $\tilde{X}_i = X_i - \bar{X}$.
+
+Then you decide to estimate
+
+$$
+\tilde{Y}_i = \beta_1 + \beta_2 \tilde{X}_i + u_i.
+$$
+
+What will you get for your intercept estimate $\hat{\beta}_1$?
