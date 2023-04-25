@@ -2818,10 +2818,11 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 \]</span></p>
 <p>Before running a regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span>, you decided to demean each variable by subtracting off the mean from each observation. This gave you <span class="math inline">\(\tilde{Y_i} = Y_i - \bar{Y}\)</span> and <span class="math inline">\(\tilde{X_i} = X_i - \bar{X}\)</span>. The estimation equation becomes:</p>
 <p><span class="math display">\[
-\tilde{Y_i} = \alpha_0 + \alpha_1 \tilde{X_i} + u_i
+\tilde{Y_i} = \alpha_0 + \alpha_1 \tilde{X_i} + v_i
 \]</span></p>
+<p>where <span class="math inline">\(v_i = u_i - \bar{u_i}\)</span>.</p>
 <p><span class="note">Show:</span></p>
-<p><span class="number">001a.</span> the intercept parameter, <span class="math inline">\(\beta_0 = 0\)</span> <em>(4 pts)</em></p>
+<p><span class="number">001a.</span> the intercept parameter, <span class="math inline">\(\alpha_0 = 0\)</span> <em>(4 pts)</em></p>
 <p><span class="number">001b.</span> the slope parameter <span class="math inline">\(\alpha_1 = \beta_1\)</span> where <span class="math inline">\(\beta_1\)</span> is the slope parameter of the original model before demeaning. <em>(4 pts)</em></p>
 <div class="answer" style="display: none;">
 <p>Subtract the means from each variable in the original model and simplify:</p>
