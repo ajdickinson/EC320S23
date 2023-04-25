@@ -2587,12 +2587,12 @@ vertical-align: -.125em;
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <p><span class="number">001.</span> Suppose you take a Covid test and it comes back positive, but in reality you do not have Covid. What is the null hypothesis under consideration? What is the alternative hypothesis? Is this a type 1 or a type 2 error? <em>(1 point)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span> The null hypothesis of the test is that you do not have Covid with the alternative hypothesis that you do have Covid. The test coming back positive means that it rejected the null hypothesis that you do not have Covid, in favor of the alternative that you do have Covid. Thus, this a type 1 error.</p>
 </div>
 <p><span class="number">002.</span> Suppose we have a sample average <span class="math inline">\(\bar{X} = 0.75\)</span> with standard error <span class="math inline">\(\sigma_\bar{X} = 0.33\)</span>. What is the 95% confidence interval for <span class="math inline">\(\bar{X}\)</span> (assuming we have a large <span class="math inline">\(n\)</span>)? Would you reject the null hypothesis that <span class="math inline">\(H_0: \mu = 0\)</span> for an alternative <span class="math inline">\(H_a: \mu &gt; 0\)</span>? <em>(2 points)</em></p>
 <p><em>hint: The 95% critical value, with a large n, is going to be: <span class="math inline">\(z = 1.96\)</span></em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span> We can calculate the 95% confidence interval as <span class="math display">\[\begin{align}
 \left(\bar{X} - z_{0.025}\times \sigma_{\bar{X}}, \bar{X} - z_{0.975}\times\sigma_{\bar{X}}\right)
 &amp;= \left((0.75 - 1.96(0.33), 0.75 + 1.96(0.33)\right)\\
@@ -2602,11 +2602,11 @@ Thus, 95% of the samples drawn from the same population will have a sample mean 
 </div>
 <p><span class="number">003.</span> Suppose that you think that is has been raining less in Eugene the last five years compared to historical averages. So you go find that average annual rainfall between 2017 and 2021 is <span class="math inline">\(39.3\)</span> inches with a standard error of <span class="math inline">\(2.12\)</span>, while historically it has rained <span class="math inline">\(40\)</span> inches per year. Is there statistical evidence of a decrease in rainfall comparing 2017-2021 relative to the historical average? <em>(2 points)</em></p>
 <p><em>hint: The 95% critical value, with 4 degrees of freedom, is going to be: <span class="math inline">\(t = -2.78\)</span></em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span> No, the sample average of <span class="math inline">\(39.3\)</span> inches of rain is not statistically distinguishable from the historical average of <span class="math inline">\(40\)</span> inches. Formally, <span class="math inline">\(t = \frac{39.3-40}{2.12} = -0.33\)</span>. The 95% critical value from the t-distribution with <span class="math inline">\(4\)</span> degrees of freedom is <span class="math inline">\(t_{0.025,4}=\)</span>-2.78. Thus, since <span class="math inline">\(|t| &lt; |t_{0.025,4}|\)</span>, fail to reject the null hypothesis that <span class="math inline">\(\mu=40\)</span>.</p>
 </div>
 <p><span class="number">004</span> Explain the fundamental problem of causal inference. <em>(1 point)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span> The researcher will never observe the same observation treated and not treated.</p>
 </div>
 <p><span class="number">005.</span> Derive <span class="note">selection bias</span> from the following expression.</p>
@@ -2614,7 +2614,7 @@ Thus, 95% of the samples drawn from the same population will have a sample mean 
 \mathop{Avg}\left( y_i\mid D_i = 1 \right) - \mathop{Avg}\left( y_i\mid D_i =0 \right)
 \]</span></p>
 <p>Explain how randomization resolves selection bias. <em>(2 points)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span></p>
 <p><span class="math display">\[\begin{align*}
 \color{#ffffff}{\Bigg|}&amp;=\mathop{Avg}\left( y_i\mid D_i = 1 \right) - \mathop{Avg}\left( y_i\mid D_i =0 \right) \\
@@ -2630,7 +2630,7 @@ Thus, 95% of the samples drawn from the same population will have a sample mean 
 <p>Thus, all left over is the average treatment effect, <span class="math inline">\(\tau\)</span></p>
 </div>
 <p><span class="number">006.</span> Suppose we would like to know the effect of air pollution on health. Specifically, the effect of a mother’s exposure to “bad” air quality on birth weight compared to “good” air quality. What would be the “ideal comparison” to measure this effect? <em>(2 points)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="hp">Answer:</span> The ideal comparison would be to observe individual level birth weights of the same baby had in the scenario when the mother is exposed to good and bad air quality during pregnancy.</p>
 </div>
 </section>

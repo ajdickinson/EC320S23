@@ -89,6 +89,8 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 [PS02](https://ajdickinson.github.io/EC320S23/problem-sets/ps02/ps02.html)
 
+[PS03](https://ajdickinson.github.io/EC320S23/problem-sets/ps03/PS03.html)
+
 
 ## Contributors
 
