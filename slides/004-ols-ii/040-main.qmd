@@ -37,7 +37,7 @@ title-slide-attributes:
 
 [Reading:]{.hi} _(up to this point)_
 
-ItE: R, [1]{.hi}
+ItE: R, 1, [2]{.hi}
 MM: 1, [2]{.hi}
 
 # _Prologue_ {.inverse .note}
@@ -46,13 +46,14 @@ MM: 1, [2]{.hi}
 pacman::p_load(hrbrthemes, fastverse, tidyverse,
                magrittr, wooldridge, here, kableExtra,
                ggdag, nord, latex2exp, dagitty, viridis,
-               emoGG, plotly, ggforce)
+               emoGG, plotly, ggforce, latex2exp)
 
 
 hi = nord_palettes$polarnight[3]
 hii = nord_palettes$frost[3] 
 hp = nord_palettes$aurora[5]
 higreen = nord_palettes$aurora[4]
+hiyellow = nord_palettes$aurora[3]
 hiorange = nord_palettes$aurora[2]
 hired = nord_palettes$aurora[1]
 higrey = nord_palettes$snowstorm[1]
@@ -93,6 +94,7 @@ data2 <- data %>%
   mutate(crime = crime/1000)
 lm0 <- lm(crime ~ police, data = data)
 lm1 <- lm(crime ~ police, data = data2)
+
 ```
 
 {{< include _041-prologue.qmd >}}
@@ -109,4 +111,12 @@ lm1 <- lm(crime ~ police, data = data2)
 
 {{< include _044-units.qmd >}}
 
-# Next time: _Classical assumptions_ {.inverse .note}
+# [Ex.]{.ex} [Returns to schooling]{.hi-white} {.inverse}
+
+{{< include _045-ex.qmd >}}
+
+# _Classical assumptions_ {.inverse .note}
+
+{{< include _046-assumptions.qmd >}}
+
+<!-- TODO: Create an "aside" set of slides walking through logs -->

@@ -352,7 +352,7 @@ Andrew Dickinson
 </div>
 <div class="fragment">
 <p><span class="hi">Reading:</span> <em>(up to this point)</em></p>
-<p>ItE: R, <span class="hi">1</span> MM: 1, <span class="hi">2</span></p>
+<p>ItE: R, 1, <span class="hi">2</span> MM: 1, <span class="hi">2</span></p>
 </div>
 </section>
 <section>
@@ -420,13 +420,13 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 </section>
 <section id="review-1" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hi">intercept</span> is -14.33. What does this tell us?</p>
+<p>The estimated <span class="hi">intercept</span> is -6.93. What does this tell us?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">With <span class="note">zero</span> years of education, estimate hourly earnings would be –$10.44</span></p>
 </section>
 <section id="review-2" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hp">slope</span> is 2.57. How do we interpret it?</p>
+<p>The estimated <span class="hp">slope</span> is 2.05. How do we interpret it?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">For each additional year of schooling, hourly earnings increase by $2.32</span></p>
 </section></section>
@@ -528,7 +528,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.74</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.75</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -539,7 +539,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.05</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.07</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -576,7 +576,7 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <h2>Explained and unexplained variation</h2>
 <p><span class="note">Total Sum of Squares</span> (<span class="hi-red">TSS</span>) measures variation in <span class="math inline">\(Y_i\)</span>:</p>
 <p><span class="math display">\[
-{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2.
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
 \]</span></p>
 <ul>
 <li><span class="hi-red">TSS</span> can be decomposed into explained and unexplained variation.</li>
@@ -586,12 +586,12 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <div class="column" style="width:50%;">
 <p><span class="note">Explained Sum of Squares</span> (<span class="hi-yellow">ESS</span>) measures the variation in <span class="math inline">\(\hat{Y_i}\)</span>:</p>
 <p><span class="math display">\[
-{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2.
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
 \]</span></p>
 </div><div class="column" style="width:50%;">
 <p><span class="note">Residual Sum of Squares</span> (<span class="hi-orange">RSS</span>) measures the variation in <span class="math inline">\(\hat{u}_i\)</span>:</p>
 <p><span class="math display">\[
-{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2.
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
 \]</span></p>
 </div>
 </div>
@@ -673,6 +673,123 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <p><em>Which you will prove to be true in <span class="hi">PS03</span></em></p>
 </div>
 </section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p>Some visual intuition makes all the math seem a lot simpler</p>
+<p><br></p>
+<p><span class="fragment">Let’s regress <code>mpg</code> on <code>wt</code> using a new dataset, <code>mtcars</code></span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span class="math display">\[
+{\color{#A3BE8C} \overline{\text{MPG}_i}} = 20.09
+\]</span></p>
+</div><div class="column" style="width:70%;">
+<p><span class="math display">\[
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span class="math display">\[
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
+\]</span></p>
+</div><div class="column" style="width:70%;">
+<p><span class="math display">\[
+{\color{#ffffff} \overline{\text{Crime}_i} = 21.05}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><span class="math display">\[
+{\color{#B48EAD} \widehat{\text{Crime}_i}} = 18.41 + 1.76 \cdot \text{Police}_i
+\]</span></p>
+</div><div class="column" style="width:60%;">
+<p><span class="math display">\[
+{\color{#ffffff} \text{ESS} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><span class="math display">\[
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
+\]</span></p>
+</div><div class="column" style="width:60%;">
+<p><span class="math display">\[
+{\color{#ffffff} \widehat{\text{Crime}_i} = 18.41 + 1.76 \cdot \text{Police}_i}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><span class="math display">\[
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
+\]</span></p>
+</div><div class="column" style="width:60%;">
+<p><span class="math display">\[
+{\color{#ffffff} \text{ESS} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><span class="math display">\[
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
+\]</span></p>
+</div><div class="column" style="width:33%;">
+<p><span class="math display">\[
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
+\]</span></p>
+</div><div class="column" style="width:33%;">
+<p><span class="math display">\[
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
+\]</span></p>
+</div>
+</div>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="goodness-of-fit-3" class="slide level2">
 <h2>Goodness of fit</h2>
 <p>What percentage of the variation in our <span class="math inline">\(Y_i\)</span> is <em>apparently</em> explained by our model? The <span class="math inline">\(R^2\)</span> term represents this percentage.</p>
@@ -708,39 +825,464 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <h1><em>Units of measurement</em></h1>
 
 </section>
-<section id="last-time-3" class="slide level2">
-<h2>Last Time</h2>
-<p>We ran a regression of crimes per 1000 students on police per 1000 students. We found that <span class="math inline">\(\hat{\beta_1}\)</span> <span class="mono">=</span> 18.41 and <span class="math inline">\(\hat{\beta_2}\)</span> <span class="mono">=</span> 1.76.</p>
+<section id="ps01-001-demeaning" class="slide level2">
+<h2>PS01 001: Demeaning</h2>
+<p>Suppose we have the following model:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + u_i
+\]</span></p>
+<p>Before running a regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span>, you decided to demean each variable by subtracting off the mean from each observation. This gave you <span class="math inline">\(\tilde{Y_i} = Y_i - \bar{Y}\)</span> and <span class="math inline">\(\tilde{X_i} = X_i - \bar{X}\)</span>. The estimation equation becomes:</p>
+<p><span class="math display">\[
+\tilde{Y_i} = \alpha_0 + \alpha_1 \tilde{X_i} + v_i
+\]</span></p>
+<p>where <span class="math inline">\(v_i = u_i - \bar{u_i}\)</span>.</p>
+<p><span class="note">Show:</span></p>
+<p><span class="number">001a.</span> the intercept parameter, <span class="math inline">\(\alpha_0 = 0\)</span> <em>(4 pts)</em></p>
+<p><span class="number">001b.</span> the slope parameter <span class="math inline">\(\alpha_1 = \beta_1\)</span> where <span class="math inline">\(\beta_1\)</span> is the slope parameter of the original model before demeaning. <em>(4 pts)</em></p>
+</section></section>
+<section>
+<section id="ex.-returns-to-schooling" class="title-slide slide level1 inverse center">
+<h1><span class="ex">Ex.</span> <span class="hi-white">Returns to schooling</span></h1>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-12-1.svg" width="960" class="r-stretch"></section>
-<section id="last-time-4" class="slide level2">
-<h2>Last Time</h2>
-<p>What if we had run a regression of crimes per student on police per 1000 students? What would happen to the slope?</p>
-<div class="fragment">
+</section>
+<section id="returns-to-schooling" class="slide level2">
+<h2>Returns to Schooling</h2>
 <div class="cell">
-<div class="cell-output-display">
-<p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-13-1.svg" width="960"></p>
+
 </div>
+<p><span class="note">Policy Question:</span> <em>How much should the state subsidize higher education?</em></p>
+<ul>
+<li>Could higher education subsidies increase future tax revenue?</li>
+<li>Could targeted subsidies reduce income and racial inequality?</li>
+<li>Are there positive externalities associated with higher education?</li>
+</ul>
+<div class="fragment">
+<p><br></p>
+<p><span class="note"><em>Empirical Question:</em></span> <em>What is the return to an additional year of education?</em><sup>1</sup></p>
 </div>
-<p><span class="math inline">\(\hat{\beta_2}\)</span> <span class="mono">=</span> 0.001756.</p>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Useful for learning about the econometric assumptions that allow causal interpretation.</p></li></ol></aside></section>
+<section id="returns-to-schooling-1" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p><span class="note">Step 1:</span> Write down the population model.</p>
+<p><span class="math display">\[
+\log(\text{Earnings}_i) = \beta_1 + \beta_2\text{Education}_i + u_i
+\]</span></p>
+<div class="fragment">
+<p><span class="note">Step 2:</span> Find data.</p>
+<ul>
+<li><em>Source:</em> <a href="https://econpapers.repec.org/article/oupqjecon/v_3a107_3ay_3a1992_3ai_3a4_3ap_3a1421-1436..htm">Blackburn and Neumark (1992)</a>.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="note">Step 3:</span> Run a regression using OLS.</p>
+<p><span class="math display">\[
+\log(\hat{\text{Earnings}_i}) = \hat{\beta}_1 + \hat{\beta}_2\text{Education}_i
+\]</span></p>
+</div>
+</section></section>
+<section>
+<section id="aside-logarithms" class="title-slide slide level1 center">
+<h1><span class="note">Aside:</span> Logarithms</h1>
+
+</section>
+<section id="aside-logarithms-1" class="slide level2">
+<h2><span class="note">Aside:</span> Logarithms</h2>
+<p><span class="note">Logarithms</span> are functions are convenient for numbers that span several orders of magnitude</p>
+<p><br></p>
+<div class="fragment">
+<p>The <span class="note"><em>natural logarithm</em></span></p>
+<blockquote>
+<p>Inverse function to the exponential function with base <span class="math inline">\(e\)</span> defined as:</p>
+</blockquote>
+<p><span class="math display">\[
+\log{x} \quad \textit{or} \quad \ln{x}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Simplifies interpretation and stabilize relationships between variables.</p>
 </div>
 </section>
-<section id="practice-problem-demeaning" class="slide level2">
-<h2>Practice problem: Demeaning</h2>
-<p>Suppose that, before running a regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span>, you decided to <em>demean</em> each variable by subtracting off the mean from each observation. This gave you <span class="math inline">\(\tilde{Y}_i = Y_i - \bar{Y}\)</span> and <span class="math inline">\(\tilde{X}_i = X_i - \bar{X}\)</span>.</p>
-<p>Then you decide to estimate</p>
-<p><span class="math display">\[
-\tilde{Y}_i = \beta_1 + \beta_2 \tilde{X}_i + u_i.
-\]</span></p>
-<p>What will you get for your intercept estimate <span class="math inline">\(\hat{\beta}_1\)</span>?</p>
+<section id="aside-logarithms-2" class="slide level2">
+<h2><span class="note">Aside:</span> Logarithms</h2>
+<p>Our example model: <span class="math display">\[\log(\text{Earnings}_i) = \beta_1 + \beta_2\text{Education}_i + u_i\]</span></p>
+<p><span class="note">Natural logarithm</span> is applied to the dependent variable (Earnings).</p>
+<div class="fragment">
+<p><br></p>
+<p>Estimates how the <em>percentage change</em> in earnings. <span class="fragment"><span class="math inline">\(\beta_2\)</span> represents the percentage change in earnings for a one-unit increase in education.</span></p>
+</div>
 </section></section>
-<section id="next-time-classical-assumptions" class="title-slide slide level1 inverse note center">
-<h1>Next time: <em>Classical assumptions</em></h1>
+<section>
+<section id="return-to-our-example" class="title-slide slide level1 center" data-visibility="uncounted">
+<h1><span class="note"><em>Return to our</em></span> <span class="ex">example</span></h1>
+
+</section>
+<section id="returns-to-schooling-2" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p><span class="math inline">\(\log(\hat{\text{Earnings}_i})\)</span> <span class="math inline">\(=\)</span> <span class="hp">5.97</span> <span class="math inline">\(+\)</span> <span class="hp">0.06</span> <span class="math inline">\(\times\)</span> <span class="math inline">\(\text{Education}_i\)</span>.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="returns-to-schooling-3" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p>Additional year of school associated with a <span class="hp">6%</span> increase in earnings.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="returns-to-schooling-4" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p><span class="math inline">\(R^2\)</span> <span class="math inline">\(=\)</span> <span class="hp">0.097</span>.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="returns-to-schooling-5" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p>Education explains <span class="hp">9.7%</span> of the variation in wages.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="returns-to-schooling-6" class="slide level2">
+<h2>Returns to Schooling</h2>
+<p>What must we <span class="hi"><em>assume</em></span> to interpret <span class="math inline">\(\hat{\beta}_2\)</span> <span class="math inline">\(=\)</span> <span class="hp">0.06</span> as the return to schooling?</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="classical-assumptions" class="title-slide slide level1 inverse note center">
+<h1><em>Classical assumptions</em></h1>
+
+</section>
+<section id="residuals-vs.-errors" class="slide level2">
+<h2>Residuals <em>vs.</em> Errors</h2>
+<p>The most important assumptions concern the error term <span class="math inline">\(u_i\)</span>.</p>
+<div class="fragment">
+<p><span class="hi">Important:</span> An error <span class="math inline">\(u_i\)</span> and a residual <span class="math inline">\(\hat{u}_i\)</span> are related, but different.</p>
+</div>
+<div class="fragment">
+<p><span class="hi-green">Error:</span></p>
+<blockquote>
+<p>Difference between the wage of a worker with 16 years of education and the <span class="hi-green"><em>expected wage</em></span> with 16 years of education.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><span class="hii">Residual:</span></p>
+<blockquote>
+<p>Difference between the wage of a worker with 16 years of education and the <span class="hii"><em>average wage</em></span> of workers with 16 years of education.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<div class="align-center">
+<p><span class="hi-green">Population</span> <span class="note"><em>vs.</em></span> <span class="hii">sample</span></p>
+</div>
+</div>
+</section>
+<section id="residuals-vs.-errors-1" class="slide level2">
+<h2>Residuals <em>vs.</em> Errors</h2>
+<p>A <span class="hii">residual</span> tells us how a <span class="hi">worker</span>’s wages compare to the average wages of workers in the <span class="hii">sample</span> with the same level of education.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch"></section>
+<section id="residuals-vs.-errors-2" class="slide level2">
+<h2>Residuals <em>vs.</em> Errors</h2>
+<p>A <span class="hii">residual</span> tells us how a <span class="hi">worker</span>’s wages compare to the average wages of workers in the <span class="hii">sample</span> with the same level of education.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
+<section id="residuals-vs.-errors-3" class="slide level2">
+<h2>Residuals <em>vs.</em> Errors</h2>
+<p>An <span class="hi-green">error</span> tells us how a <span class="hi">worker</span>’s wages compare to the expected wages of workers in the <span class="hi-green">population</span> with the same level of education.</p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
+<section id="classical-assumptions-of-ols" class="slide level2">
+<h2>Classical Assumptions of OLS</h2>
+<div class="fragment">
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is .hi[linear in parameters] with an additive error term.</p>
+</div>
+</section>
+<section id="linearity-a1." class="slide level2">
+<h2>Linearity (A1.)</h2>
+<blockquote>
+<p>The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+</blockquote>
+<div class="fragment">
+<p><span class="hi">Examples</span></p>
+<ul>
+<li><span class="math inline">\(\text{Wage}_i = \beta_1 + \beta_2 \text{Experience}_i + u_i\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\log(\text{Happiness}_i) = \beta_1 + \beta_2 \log(\text{Money}_i) + u_i\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\sqrt{\text{Convictions}_i} = \beta_1 + \beta_2 (\text{Early Childhood Lead Exposure})_i + u_i\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\log(\text{Earnings}_i) = \beta_1 + \beta_2 \text{Education}_i + u_i\)</span></li>
+</ul>
+</div>
+</section>
+<section id="linearity-a1.-1" class="slide level2">
+<h2>Linearity (A1.)</h2>
+<blockquote>
+<p>The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+</blockquote>
+<p><span class="hi">Violations</span></p>
+<ul>
+<li><span class="math inline">\(\text{Wage}_i = (\beta_1 + \beta_2 \text{Experience}_i)u_i\)</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\text{Consumption}_i = \frac{1}{\beta_1 + \beta_2 \text{Income}_i} + u_i\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\text{Population}_i = \frac{\beta_1}{1 + e^{\beta_2 + \beta_3 \text{Food}_i}} + u_i\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\text{Batting Average}_i = \beta_1 (\text{Wheaties Consumption})_i^{\beta_2} + u_i\)</span></li>
+</ul>
+</div>
+</section>
+<section id="classical-assumptions-of-ols-1" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<div class="fragment">
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+</div>
+</section>
+<section id="sample-variation-a2." class="slide level2">
+<h2>Sample Variation (A2.)</h2>
+<blockquote>
+<p>There is variation in <span class="math inline">\(X\)</span>.</p>
+</blockquote>
+<p><span class="hi">Example</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="sample-variation-a2.-1" class="slide level2">
+<h2>Sample Variation (A2.)</h2>
+<blockquote>
+<p>There is variation in <span class="math inline">\(X\)</span>.</p>
+</blockquote>
+<p><span class="hi">Violation</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="classical-assumptions-of-ols-2" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<div class="fragment">
+<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+</div>
+</section>
+<section id="exogeniety-a3." class="slide level2">
+<h2>Exogeniety (A3.)</h2>
+<p>Assumption</p>
+<blockquote>
+<p>The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous:</span></p>
+</blockquote>
+<p><span class="math display">\[
+\mathop{\mathbb{E}}\left( u|X \right) = 0
+\]</span></p>
+<div class="fragment">
+<p>The assignment of <span class="math inline">\(X\)</span> is effectively random.</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><em>Implication:</em> no <span class="hp">selection bias</span> or <span class="hii">omitted variable bias</span></p>
+</div>
+</section>
+<section id="exogeniety-a3.-1" class="slide level2" data-visibility="uncounted">
+<h2>Exogeniety (A3.)</h2>
+<p>Assumption</p>
+<blockquote>
+<p>The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous:</span></p>
+</blockquote>
+<p><span class="math display">\[
+\mathop{\mathbb{E}}\left( u|X \right) = 0
+\]</span></p>
+<p><span class="hi">Example</span></p>
+<p>In the labor market, an important component of <span class="math inline">\(u\)</span> is unobserved ability.</p>
+<ul>
+<li><span class="math inline">\(\mathop{\mathbb{E}}\left( u|\text{Education} = 12 \right) = 0\)</span> and <span class="math inline">\(\mathop{\mathbb{E}}\left( u|\text{Education} = 20 \right) = 0\)</span>.</li>
+<li><span class="math inline">\(\mathop{\mathbb{E}}\left( u|\text{Experience} = 0 \right) = 0\)</span> and <span class="math inline">\(\mathop{\mathbb{E}}\left( u|\text{Experience} = 40 \right) = 0\)</span>.</li>
+<li><em>Do you believe this?</em></li>
+</ul>
+</section>
+<section id="section-10" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>Graphically…</p>
+</div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<p>Valid exogeniety, <em>i.e.</em>, <span class="math inline">\(\mathop{\mathbb{E}}\left( u \mid X \right) = 0\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" class="r-stretch"></section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<p>Invalid exogeniety, <em>i.e.</em>, <span class="math inline">\(\mathop{\mathbb{E}}\left( u \mid X \right) \neq 0\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p><span class="note"><em>When can we trust OLS?</em></span></p>
+</div>
+</section>
+<section id="bias" class="slide level2">
+<h2>Bias</h2>
+<p>An estimator is <span class="hi-red">biased</span> if its expected value is different from the true population parameter.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="hi">Unbiased estimator:</span> <span class="math inline">\(\mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="hi-red">Biased estimator:</span> <span class="math inline">\(\mathop{\mathbb{E}}\left[ \hat{\beta} \right] \neq \beta\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="required-assumptions" class="slide level2">
+<h2>Required Assumptions</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<div class="fragment">
+<p>☛ (3) implies <span class="note">random sampling</span>. <span class="fragment">Without it, our <span class="note">external validity</span> becomes uncertain.<sup>1</sup></span></p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><span class="hi">Result:</span> <span class="fragment">OLS is unbiased.</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="note">Internal Validity:</span> Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> <span class="note">External Validity:</span> Relates to how applicable the findings are to the real world.</p></li></ol></aside></section>
+<section id="classical-assumptions-of-ols-3" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p><span class="note"><em>Variance matters, too</em></span></p>
+</div>
+</section>
+<section id="why-variance-matters" class="slide level2">
+<h2>Why variance matters</h2>
+<p>Unbiasedness tells us that OLS gets it right, <em>on average</em>. <span class="fragment">But we can’t tell whether our sample is “typical.”</span></p>
+<p><br></p>
+<div class="fragment">
+<p><span class="hi">Variance</span> tells us how far OLS can deviate from the population mean.</p>
+<ul>
+<li>How tight is OLS centered on its expected value?</li>
+<li>This determines the <span class="hp">efficiency</span> of our estimator.</li>
+</ul>
+</div>
+</section>
+<section id="why-variance-matters-1" class="slide level2" data-visibility="uncounted">
+<h2>Why variance matters</h2>
+<p>Unbiasedness tells us that OLS gets it right, <em>on average</em>. But we can’t tell whether our sample is “typical.”</p>
+<p><br></p>
+<p>The smaller the variance, the closer OLS gets, <em>on average</em>, to the true population parameters <em>on any sample</em>.</p>
+<ul>
+<li>Given two unbiased estimators, we want the one with smaller variance.</li>
+<li>If <span class="note">two more assumptions</span> are satisfied, we are using the <span class="hp">most efficient</span> linear estimator.</li>
+</ul>
+</section>
+<section id="classical-assumptions-of-ols-4" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<div class="fragment">
+<p><span class="note">4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+</div>
+</section>
+<section id="homoskedasticity-a4." class="slide level2">
+<h2>Homoskedasticity (A4.)</h2>
+<blockquote>
+<p>The error term has the same variance for each value of the independent variable:</p>
+</blockquote>
+<p><span class="math display">\[
+\mathop{\text{Var}}(u|X) = \sigma^2.
+\]</span></p>
+<p><span class="hi">Example:</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="homoskedasticity-a4.-1" class="slide level2">
+<h2>Homoskedasticity (A4.)</h2>
+<blockquote>
+<p>The error term has the same variance for each value of the independent variable:</p>
+</blockquote>
+<p><span class="math display">\[
+\mathop{\text{Var}}(u|X) = \sigma^2.
+\]</span></p>
+<p><span class="hi">Violation:</span> <span class="note">Heteroskedasticity</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="homoskedasticity-a4.-2" class="slide level2">
+<h2>Homoskedasticity (A4.)</h2>
+<blockquote>
+<p>The error term has the same variance for each value of the independent variable:</p>
+</blockquote>
+<p><span class="math display">\[
+\mathop{\text{Var}}(u|X) = \sigma^2.
+\]</span></p>
+<p><span class="hi">Violation:</span> <span class="note">Heteroskedasticity</span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-37-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="classical-assumptions-of-ols-5" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<div class="fragment">
+<p><span class="note">5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+</div>
+</section>
+<section id="non-autocorrelation" class="slide level2">
+<h2>Non-Autocorrelation</h2>
+<blockquote>
+<p>The values of error terms have independent distributions</p>
+</blockquote>
+<p><span class="math display">\[
+E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
+\]</span></p>
+<div class="fragment">
+<ul>
+<li>This implies no systematic association between error term values for any pair of individuals</li>
+<li>Almost always some unobserved correlation across individuals<sup>1</sup></li>
+<li>Referred to as <span class="hp">clustering</span> problem.</li>
+<li>An easy solution exists where we can adjust our standard errors</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>(e.g.&nbsp;common correlation in unobservables among individuals within a given US state)</p></li></ol></aside></section>
+<section id="ols-variance" class="slide level2">
+<h2>OLS Variance</h2>
+<p>Variance of the slope estimator:</p>
+<p><span class="math display">\[
+\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<ul>
+<li>As error variance <span class="hii">increases</span>, variance of the slope estimator <span class="hii">increases</span></li>
+<li>As variation in <span class="math inline">\(X\)</span> <span class="hii">increases</span>, variance of the slope estimator <span class="hi-red">decreases</span></li>
+<li>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\text{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</li>
+</ul>
+<!-- TODO: Create an "aside" set of slides walking through logs -->
 <div class="footer footer-default">
 <p>EC320, Set 05 | Simple linear regression (again)</p>
 </div>
-</section>
-
+</section></section>
 
     </div>
   </div>

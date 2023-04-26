@@ -212,7 +212,7 @@ $$
 [Total Sum of Squares]{.note} ([TSS]{.hi-red}) measures variation in $Y_i$:
 
 $$
-{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2.
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
 $$
 
 - [TSS]{.hi-red} can be decomposed into explained and unexplained variation.
@@ -225,7 +225,7 @@ $$
 [Explained Sum of Squares]{.note} ([ESS]{.hi-yellow}) measures the variation in $\hat{Y_i}$:
 
 $$
-{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2.
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
 $$
 :::
 
@@ -233,7 +233,7 @@ $$
 [Residual Sum of Squares]{.note} ([RSS]{.hi-orange}) measures the variation in $\hat{u}_i$:
 
 $$
-{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2.
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
 $$
 :::
 
@@ -341,6 +341,317 @@ $$
 $$
 
 _Which you will prove to be true in [PS03]{.hi}_
+
+---
+
+##
+
+::: {.vertical-center}
+Some visual intuition makes all the math seem a lot simpler
+
+<br>
+
+[Let's regress `mpg` on `wt` using a new dataset, `mtcars`]{.fragment}
+:::
+
+---
+
+:::: {.columns}
+
+::: {.column width="50%"}
+$$
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+$$
+:::
+
+::: {.column width="50%"}
+$$
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+$$
+:::
+
+::::
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_point(color = hi) +
+    mytheme_s +
+    coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    xlab("Weight (thousands)") + 
+    ylab("MPG")
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="30%"}
+$$
+{\color{#A3BE8C} \overline{\text{MPG}_i}} = 20.09
+$$
+:::
+
+::: {.column width="70%"}
+$$
+{\color{#ffffff} \text{TSS} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2}
+$$
+:::
+
+::::
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+
+lm0 <- lm(mpg ~ wt, data = mtcars)
+
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+
+y_bar = mtcars$mpg %>% mean()
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_point(color = hi) +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="30%"}
+$$
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
+$$
+:::
+
+::: {.column width="70%"}
+$$
+{\color{#ffffff} \overline{\text{Crime}_i} = 21.05}
+$$
+:::
+
+::::
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_point(color = hi) +
+    # geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = wt, xend = wt, y = mpg, yend = y_bar), color = hired, alpha = 1, size = 1) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+{\color{#B48EAD} \widehat{\text{Crime}_i}} = 18.41 + 1.76 \cdot \text{Police}_i 
+$$
+:::
+
+::: {.column width="60%"}
+$$
+{\color{#ffffff} \text{ESS} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}
+$$
+:::
+
+::::
+
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_point(color = hi) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
+$$
+:::
+
+::: {.column width="60%"}
+$$
+{\color{#ffffff} \widehat{\text{Crime}_i} = 18.41 + 1.76 \cdot \text{Police}_i}
+$$
+:::
+
+::::
+
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_point(color = hi) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = wt, xend = wt, y = y_bar, yend = y_hat(wt, b0, b1)), color = hiyellow, alpha = 1, size = 1) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
+$$
+:::
+
+::: {.column width="60%"}
+$$
+{\color{#ffffff} \text{ESS} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}
+$$
+:::
+
+::::
+
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_point(color = hi) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = wt, xend = wt, y = mpg, yend = y_hat(wt, b0, b1)), color = hiorange, alpha = 1, size = 1) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="33%"}
+$$
+{\color{#BF616A} \text{TSS}} \equiv \sum_{i=1}^n (Y_i - \bar{Y})^2
+$$
+:::
+
+::: {.column width="33%"}
+$$
+{\color{#EBCB8B} \text{ESS}} \equiv \sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2
+$$
+:::
+
+::: {.column width="33%"}
+$$
+{\color{#D08770} \text{RSS}} \equiv \sum_{i=1}^n \hat{u}_i^2
+$$
+:::
+
+::::
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+    geom_hline(yintercept = y_bar, color = higreen, size = 1) +
+    geom_point(color = hi) +
+    geom_abline(intercept = b0, slope = b1, color = hp, size = 1.25) +
+    geom_segment(aes(x = wt, xend = wt, y = mpg, yend = y_bar), color = hired, position = position_dodge(5), alpha = 1, size = 1) +
+    geom_segment(aes(x = wt-0.02, xend = wt-0.02, y = mpg, yend = y_hat(wt, b0, b1)), color = hiorange, alpha = 1, size = 1) +
+    geom_segment(aes(x = wt+0.02, xend = wt+0.02, y = y_bar, yend = y_hat(wt, b0, b1)), color = hiyellow, alpha = 1, size = 1) +
+    # coord_fixed() +
+    coord_cartesian(xlim = c(1,6), ylim = c(0,35)) +
+    scale_size(range = c(0.001,2)) +
+    # scale_color_continuous() +
+    mytheme_s +
+    xlab("Weight (thousands)") + 
+    ylab("MPG") +
+    theme(
+      legend.position = 'none'
+    )
+```
+
 
 ---
 

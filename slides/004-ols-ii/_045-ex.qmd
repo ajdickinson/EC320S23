@@ -1,0 +1,188 @@
+---
+name: ex
+---
+
+---
+
+## Returns to Schooling
+
+```{r}
+#| echo: false
+
+
+# Neumark data
+wage <- get(data(wage2))
+lm_e <- lm(lwage ~ educ, data = wage)
+b0 <- lm_e$coefficients[1]
+b1 <- lm_e$coefficients[2]
+r_2 <- summary(lm(lwage ~ educ, data = wage))$r.squared
+```
+
+[Policy Question:]{.note} _How much should the state subsidize higher education?_
+
+- Could higher education subsidies increase future tax revenue?
+- Could targeted subsidies reduce income and racial inequality?
+- Are there positive externalities associated with higher education? 
+
+. . .
+
+<br>
+
+[_Empirical Question:_]{.note} _What is the return to an additional year of education?_^[Useful for learning about the econometric assumptions that allow causal interpretation.]
+
+---
+
+## Returns to Schooling
+
+[Step 1:]{.note} Write down the population model.
+
+$$
+\log(\text{Earnings}_i) = \beta_1 + \beta_2\text{Education}_i + u_i
+$$
+
+. . .
+
+[Step 2:]{.note} Find data.
+
+- *Source:* [Blackburn and Neumark (1992)](https://econpapers.repec.org/article/oupqjecon/v_3a107_3ay_3a1992_3ai_3a4_3ap_3a1421-1436..htm).
+
+. . .
+
+[Step 3:]{.note} Run a regression using OLS.
+
+$$
+\log(\hat{\text{Earnings}_i}) = \hat{\beta}_1 + \hat{\beta}_2\text{Education}_i
+$$
+
+# [Aside:]{.note} Logarithms
+
+---
+
+## [Aside:]{.note} Logarithms
+
+[Logarithms]{.note} are functions are convenient for numbers that span several orders of magnitude
+
+<br>
+
+. . .
+
+The [*natural logarithm*]{.note}
+
+> Inverse function to the exponential function with base $e$ defined as:
+
+$$
+\log{x} \quad \textit{or} \quad \ln{x}
+$$
+
+. . .
+
+Simplifies interpretation and stabilize relationships between variables.
+
+---
+
+## [Aside:]{.note} Logarithms
+
+Our example model: $$\log(\text{Earnings}_i) = \beta_1 + \beta_2\text{Education}_i + u_i$$
+
+[Natural logarithm]{.note} is applied to the dependent variable (Earnings).
+
+. . .
+
+<br>
+
+Estimates how the *percentage change* in earnings. [$\beta_2$ represents the percentage change in earnings for a one-unit increase in education.]{.fragment}
+
+. . .
+
+# [_Return to our_]{.note} [example]{.ex} {data-visibility="uncounted"}
+
+---
+
+## Returns to Schooling
+
+$\log(\hat{\text{Earnings}_i})$ $=$ [`r round(b0, 2)`]{.hp} $+$ [`r round(b1, 2)`]{.hp} $\times$ $\text{Education}_i$.
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Returns to Schooling
+
+Additional year of school associated with a [`r round(b1, 2)*100`%]{.hp} increase in earnings. 
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Returns to Schooling
+
+$R^2$ $=$ [`r round(r_2, 3)`]{.hp}. 
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Returns to Schooling
+
+Education explains [`r round(r_2, 3)*100`%]{.hp} of the variation in wages. 
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Returns to Schooling
+
+What must we [_assume_]{.hi} to interpret $\hat{\beta}_2$ $=$ [`r round(b1, 2)`]{.hp} as the return to schooling?
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+

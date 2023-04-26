@@ -1,0 +1,656 @@
+---
+name: assumptions
+---
+
+---
+
+## Residuals *vs.* Errors
+
+The most important assumptions concern the error term $u_i$.
+
+. . .
+
+[Important:]{.hi} An error $u_i$ and a residual $\hat{u}_i$ are related, but different.
+
+. . .
+
+[Error:]{.hi-green} 
+
+> Difference between the wage of a worker with 16 years of education and the [_expected wage_]{.hi-green} with 16 years of education.
+
+
+. . .
+
+[Residual:]{.hii}
+
+> Difference between the wage of a worker with 16 years of education and the [_average wage_]{.hii} of workers with 16 years of education.
+
+. . .
+
+:::{.align-center}
+[Population]{.hi-green} [_vs._]{.note} [sample]{.hii}
+:::
+
+---
+
+## Residuals *vs.* Errors
+
+A [residual]{.hii} tells us how a [worker]{.hi}'s wages compare to the average wages of workers in the [sample]{.hii} with the same level of education.
+
+```{r}
+#| echo: false
+#| fig.height: 5.5
+
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+wage %>% 
+  ggplot(aes(x = educ, y = lwage)) +
+  geom_point(color = hi, alpha = 0) +
+  geom_segment(aes(x = 11, xend = 11, y = 7.75, yend = y_hat(11, b0, b1), color = (7.75 - y_hat(11, b0, b1))^2), linetype = "solid", color = hii, size = 0.5) +
+  geom_point(aes(x = 11, y = 7.75), color = hi, size = 3) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Residuals *vs.* Errors
+
+A [residual]{.hii} tells us how a [worker]{.hi}'s wages compare to the average wages of workers in the [sample]{.hii} with the same level of education.
+
+```{r}
+#| echo: false
+#| fig.height: 5.5
+
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+wage %>% 
+  ggplot(aes(x = educ, y = lwage)) +
+  geom_point(color = hi, alpha = 0.1) +
+  geom_segment(aes(x = 11, xend = 11, y = 7.75, yend = y_hat(11, b0, b1), color = (7.75 - y_hat(11, b0, b1))^2), linetype = "solid", color = hii, size = 0.5) +
+  geom_point(aes(x = 11, y = 7.75), color = hi, size = 3) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Residuals *vs.* Errors
+
+An [error]{.hi-green} tells us how a [worker]{.hi}'s wages compare to the expected wages of workers in the [population]{.hi-green} with the same level of education.
+
+```{r}
+#| echo: false
+#| fig.height: 5.5
+
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+B0 <- b0 + 0.5
+B1 <- b1 - 0.035
+wage %>% 
+  ggplot(aes(x = educ, y = lwage)) +
+  geom_point(color = hi, alpha = 0) +
+  geom_segment(aes(x = 11, xend = 11, y = 7.75, yend = y_hat(11, B0, B1), color = (7.75 - y_hat(11, B0, B1))^2), linetype = "solid", color = higreen, size = 0.5) +
+  geom_point(aes(x = 11, y = 7.75), color = hi, size = 3) +
+  geom_abline(intercept = b0, slope = b1, color = hp, size = 1) +
+  geom_abline(intercept = B0, slope = B1, color = higreen, size = 1, linetype = "solid") +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Classical Assumptions of OLS
+
+. . .
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is .hi[linear in parameters] with an additive error term.
+
+---
+
+## Linearity (A1.)
+
+> The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+. . .
+
+[Examples]{.hi}
+
+- $\text{Wage}_i = \beta_1 + \beta_2 \text{Experience}_i + u_i$
+
+. . .
+
+- $\log(\text{Happiness}_i) = \beta_1 + \beta_2 \log(\text{Money}_i) + u_i$
+
+. . .
+
+- $\sqrt{\text{Convictions}_i} = \beta_1 + \beta_2 (\text{Early Childhood Lead Exposure})_i + u_i$
+
+. . .
+
+- $\log(\text{Earnings}_i) = \beta_1 + \beta_2 \text{Education}_i + u_i$
+
+---
+
+## Linearity (A1.)
+
+> The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[Violations]{.hi}
+
+- $\text{Wage}_i = (\beta_1 + \beta_2 \text{Experience}_i)u_i$
+
+. . .
+
+- $\text{Consumption}_i = \frac{1}{\beta_1 + \beta_2 \text{Income}_i} + u_i$
+
+. . .
+
+- $\text{Population}_i = \frac{\beta_1}{1 + e^{\beta_2 + \beta_3 \text{Food}_i}} + u_i$
+
+. . .
+
+- $\text{Batting Average}_i = \beta_1 (\text{Wheaties Consumption})_i^{\beta_2} + u_i$
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+. . .
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+
+---
+
+## Sample Variation (A2.)
+
+> There is variation in $X$.
+
+[Example]{.hi}
+
+```{r}
+#| echo: false
+#| fig.height: 4
+#| fig.align: center
+
+wage %>% 
+  ggplot() +
+  xlim(9, 18) + ylim(4.5, 8.1) +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Sample Variation (A2.)
+
+> There is variation in $X$.
+
+[Violation]{.hi}
+
+```{r}
+#| echo: false
+#| fig.height: 4
+#| fig.align: center
+
+wage %>% 
+  filter(educ == 13) %>% 
+  ggplot() +
+  xlim(9, 18) + ylim(4.5, 8.1) +
+  geom_point(aes(x = educ, y = lwage), color = hi) +
+  mytheme_s + xlab("Years of Education") + ylab("log(Monthly Earnings)")
+```
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+. . .
+
+[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+
+---
+
+## Exogeniety (A3.)
+
+Assumption
+
+> The $X$ variable is [exogenous:]{.note} 
+
+$$
+\mathop{\mathbb{E}}\left( u|X \right) = 0
+$$
+
+. . .
+
+The assignment of $X$ is effectively random.
+
+<br>
+
+. . .
+
+_Implication:_ no [selection bias]{.hp} or [omitted variable bias]{.hii}
+
+---
+
+## Exogeniety (A3.) {data-visibility="uncounted"}
+
+Assumption
+
+> The $X$ variable is [exogenous:]{.note} 
+
+$$
+\mathop{\mathbb{E}}\left( u|X \right) = 0
+$$
+
+[Example]{.hi}
+
+In the labor market, an important component of $u$ is unobserved ability.
+
+- $\mathop{\mathbb{E}}\left( u|\text{Education} = 12 \right) = 0$ and $\mathop{\mathbb{E}}\left( u|\text{Education} = 20 \right) = 0$.
+- $\mathop{\mathbb{E}}\left( u|\text{Experience} = 0 \right) = 0$ and $\mathop{\mathbb{E}}\left( u|\text{Experience} = 40 \right) = 0$.
+- _Do you believe this?_
+
+---
+
+## {data-visibility="uncounted"}
+
+:::{.vertical-center}
+Graphically...
+:::
+
+---
+
+## 
+
+```{r}
+#| include: false
+#| cache: true
+
+# Setup ----------------------------------------------------------------------------------
+  # Packages
+  library(pacman)
+  p_load(ggridges)
+# Data work ------------------------------------------------------------------------------
+  # Set seed
+  set.seed(12345)
+  # Sample size
+  n <- 1e5
+  # Exogenous
+  e_good <- tibble(
+    x = runif(n = n, min = 9, max = 18),
+    e = rnorm(n)
+  ) %>% mutate(x = round(x))
+  # Endogenous
+  e_bad <- tibble(
+    x = runif(n = n, min = 9, max = 18),
+    e = rnorm(n) + 0.5 * (x - 13.5),
+  ) %>% mutate(x = round(x))
+# Figures: Joint densities ---------------------------------------------------------------
+  # The joint plot: good
+  joint_good <- ggplot(data = e_good, aes(x = e)) +
+    geom_density() +
+    mytheme
+  # The joint plot: bad
+  joint_bad <- ggplot(data = e_bad, aes(x = e)) +
+    geom_density() +
+    mytheme
+# Figures: Conditional densities ---------------------------------------------------------
+  cond_good <- ggplot(data = e_good, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = ..x..),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("Unobserved Ability") +
+    ylab("Years of Education") +
+    mytheme +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(vjust = 0.5, size = 22, color = hi),
+      axis.title.x = element_text(size = 22, color = hi)
+    )
+  cond_bad <- ggplot(data = e_bad, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = ..x..),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("Unobserved Ability") +
+    ylab("Years of Education") +
+    mytheme +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(vjust = 0.5, size = 22, color = hi),
+      axis.title.x = element_text(size = 22, color = hi)
+    )
+```
+
+Valid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) = 0$
+
+```{r}
+#| echo: false
+#| fig.height: 6
+
+cond_good
+```
+
+---
+
+##
+
+Invalid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) \neq 0$
+
+```{r}
+#| echo: false
+#| fig.height: 6
+
+cond_bad
+```
+
+---
+
+##
+
+:::{.vertical-center}
+[_When can we trust OLS?_]{.note}
+:::
+
+---
+
+## Bias
+
+An estimator is [biased]{.hi-red} if its expected value is different from the true population parameter.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[Unbiased estimator:]{.hi} $\mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta$
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+
+tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
+tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
+ggplot(data = tmp, aes(x, y)) +
+geom_polygon(fill = hp, alpha = 0.9) +
+geom_hline(yintercept = 0, color = hi) +
+geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+scale_x_continuous(breaks = 0, labels = "ß") + 
+mytheme_s 
+
+# +
+# theme(axis.text.x = element_text(size = 40),
+#       axis.text.y = element_blank(),
+#       axis.title = element_blank(),
+#       line = element_blank())
+```
+
+:::
+
+::: {.column width="50%"}
+[Biased estimator:]{.hi-red} $\mathop{\mathbb{E}}\left[ \hat{\beta} \right] \neq \beta$
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+
+tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
+tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
+ggplot(data = tmp, aes(x, y)) +
+geom_polygon(aes(x = x + 2), fill = hi, alpha = 0.9) +
+geom_hline(yintercept = 0, color = hi) +
+geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
+scale_x_continuous(breaks = 0, labels = "ß") +
+mytheme_s 
+
+# +
+# theme(axis.text.x = element_text(size = 40),
+#       axis.text.y = element_blank(),
+#       axis.title = element_blank(),
+#       line = element_blank())
+```
+
+:::
+
+::::
+
+
+---
+
+## Required Assumptions
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+. . .
+
+&#9755; (3) implies [random sampling]{.note}. [Without it, our [external validity]{.note} becomes uncertain.^[[Internal Validity:]{.note} Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> [External Validity:]{.note} Relates to how applicable the findings are to the real world.]]{.fragment}
+
+. . .
+
+<br>
+
+[Result:]{.hi} [OLS is unbiased.]{.fragment}
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+---
+
+##
+
+:::{.vertical-center}
+[_Variance matters, too_]{.note}
+:::
+
+---
+
+## Why variance matters
+
+Unbiasedness tells us that OLS gets it right, _on average_. [But we can't tell whether our sample is "typical."]{.fragment}
+
+<br>
+
+. . .
+
+[Variance]{.hi} tells us how far OLS can deviate from the population mean.
+
+- How tight is OLS centered on its expected value?
+- This determines the [efficiency]{.hp} of our estimator.
+
+---
+
+## Why variance matters {data-visibility="uncounted"}
+
+Unbiasedness tells us that OLS gets it right, _on average_. But we can't tell whether our sample is "typical."
+
+<br>
+
+The smaller the variance, the closer OLS gets, _on average_, to the true population parameters _on any sample_.
+
+- Given two unbiased estimators, we want the one with smaller variance.
+- If [two more assumptions]{.note} are satisfied, we are using the [most efficient]{.hp} linear estimator.
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+. . .
+
+[4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+---
+
+## Homoskedasticity (A4.)
+
+> The error term has the same variance for each value of the independent variable:
+
+$$
+\mathop{\text{Var}}(u|X) = \sigma^2.
+$$
+
+[Example:]{.hi}
+
+```{r}
+#| echo: false
+#| fig.height: 3
+#| fig.align: center
+
+set.seed(12345)
+ggplot(data = tibble(
+  x = runif(1e3, -3, 3),
+  e = rnorm(1e3, 0, sd = 4)
+), aes(x = x, y = e)) +
+geom_point(color = hi, size = 2.75, alpha = 0.5) +
+labs(x = "Independent Variable", y = "Error Term") +
+mytheme_s +
+theme(
+  axis.text.x = element_text(size = 12),
+  axis.title.x = element_text(size = 12),
+  axis.text.y = element_blank()
+)
+
+```
+
+---
+
+## Homoskedasticity (A4.)
+
+> The error term has the same variance for each value of the independent variable:
+
+$$
+\mathop{\text{Var}}(u|X) = \sigma^2.
+$$
+
+[Violation:]{.hi} [Heteroskedasticity]{.note}
+
+```{r}
+#| echo: false
+#| fig.height: 3
+#| fig.align: center
+
+set.seed(12345)
+ggplot(data = tibble(
+  x = runif(1e3, -3, 3),
+  e = rnorm(1e3, 0, sd = 4 + 1.5 * x)
+), aes(x = x, y = e)) +
+geom_point(color = hi, size = 2.75, alpha = 0.5) +
+labs(x = "Independent Variable", y = "Error Term") +
+mytheme_s +
+theme(
+  axis.text.x = element_text(size = 12),
+  axis.title.x = element_text(size = 12),
+  axis.text.y = element_blank()
+)
+
+```
+
+---
+
+## Homoskedasticity (A4.)
+
+> The error term has the same variance for each value of the independent variable:
+
+$$
+\mathop{\text{Var}}(u|X) = \sigma^2.
+$$
+
+[Violation:]{.hi} [Heteroskedasticity]{.note}
+
+```{r}
+#| echo: false
+#| fig.height: 3
+#| fig.align: center
+
+set.seed(12345)
+ggplot(data = tibble(
+  x = runif(1e3, -3, 3),
+  e = rnorm(1e3, 0, sd = 2 + x^2)
+), aes(x = x, y = e)) +
+geom_point(color = hi, size = 2.75, alpha = 0.5) +
+labs(x = "Independent Variable", y = "Error Term") +
+mytheme_s +
+theme(
+  axis.text.x = element_text(size = 12),
+  axis.title.x = element_text(size = 12),
+  axis.text.y = element_blank()
+)
+
+```
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+[4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+. . .
+
+[5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+---
+
+## Non-Autocorrelation 
+
+> The values of error terms have independent distributions 
+
+$$
+E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
+$$
+
+. . .
+
+- This implies no systematic association between error term values for any pair of individuals
+- Almost always some unobserved correlation across individuals^[(e.g. common correlation in unobservables among individuals within a given US state)]
+- Referred to as [clustering]{.hp} problem.
+- An easy solution exists where we can adjust our standard errors
+
+---
+
+## OLS Variance 
+
+Variance of the slope estimator:
+
+$$
+\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+- As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}
+- As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}
+- Larger sample sizes exhibit more variation in $X \implies \mathop{\text{Var}}(\hat{\beta}_2)$ falls as $n$ rises.
+
+
