@@ -1,0 +1,166 @@
+---
+name: prologue
+---
+
+---
+
+## Classical Assumptions
+
+[Last Time]{.hi}
+
+1. We used the first 3 assumptions to show that OLS is unbiased: 
+
+$$
+\mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta
+$$
+
+We used the first 5 assumptions to derive a formula for the __variance__ of the OLS estimator: 
+
+$$
+\mathop{\text{Var}}(\hat{\beta}) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+
+---
+
+## 
+
+We will use the sampling distribution of $\hat{\beta}$ to conduct hypothesis tests.
+
+- Can use all 6 classical assumptions to show that OLS is normally distributed:
+
+$$\hat{\beta} \sim \mathop{N}\left( \beta, \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right)$$
+
+- We'll "prove" this using [R]{.mono}.
+
+<br>
+
+[Recall]{.note} from last time...
+
+---
+
+## 
+
+```{r}
+#| label: gen-dataset
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df)
+lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df <- mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+```{r}
+#| label: sim-scatter
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+Plotting the distributions of the sample parameters in a histogram
+
+<br>
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: simulation-hist1
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 5.75
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_histogram(data = line_df, aes(intercept), fill = hp, alpha = 0.75, bins = 40) +
+  geom_vline(xintercept = lm0$coefficients[1], size = 2, color = hi) +
+  scale_x_continuous(breaks = lm0$coefficients[1], labels = "beta_1") +
+  theme(axis.text.x = element_text(size = 50),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title = element_blank(),
+      line = element_blank())
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: simulation-hist2
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 5.75
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_histogram(data = line_df, aes(slope), fill = hp, alpha = 0.75, bins = 40) +
+  geom_vline(xintercept = lm0$coefficients[2], size = 2, color = "darkslategray") +
+  scale_x_continuous(breaks = lm0$coefficients[2], labels = "beta_2") +
+  theme(axis.text.x = element_text(size = 50),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title = element_blank(),
+      line = element_blank())
+```
+:::
+
+::::

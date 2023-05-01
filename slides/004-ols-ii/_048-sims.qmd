@@ -1,0 +1,684 @@
+---
+name: sims
+---
+
+---
+
+## Population *vs.* Sample
+
+[Q:]{.note} Why do we care about *population vs. sample*?
+
+. . .
+
+```{r}
+#| label: gen-dataset
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df)
+lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df <- mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: pop1
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+#| fig-cap: "Population"
+
+ggplot(data = pop_df, aes(x = row, y = col)) +
+geom_point(color = hi, size = 10) +
+theme_void()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: scatter1
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Population relationship"
+
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 3
+) +
+geom_point(color = hi, size = 6) +
+theme_void()
+```
+:::
+
+::::
+
+$$
+\begin{align*}
+  y_i &= `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i \\
+\end{align*}
+$$
+
+---
+
+## Population *vs.* Sample {data-visibility="uncounted"}
+
+[Q:]{.note} Why do we care about *population vs. sample*?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: sample1
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample 1: 30 random individuals"
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
+geom_point(color = hi, size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: sample1-scatter
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample relationship"
+
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s1), color = hi, size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::::
+
+$$
+\begin{align*}
+  y_i       &= `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i \\
+  \hat{y}_i &= `r round(lm1$coefficients[1], 2)` + `r round(lm1$coefficients[2], 2)` x_i 
+\end{align*}
+$$
+
+---
+
+## Population *vs.* Sample {data-visibility="uncounted"}
+
+[Q:]{.note} Why do we care about *population vs. sample*?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: sample2
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample 2: 30 random individuals"
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
+geom_point(color = hi, size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: sample2-scatter
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample relationship"
+
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s2), color = hi, size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::::
+
+$$
+\begin{align*}
+  y_i        &= `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i \\
+  \hat{y}_i &= `r round(lm2$coefficients[1], 2)` + `r round(lm2$coefficients[2], 2)` x_i
+
+\end{align*}
+$$
+
+
+---
+
+## Population *vs.* Sample {data-visibility="uncounted"}
+
+[Q:]{.note} Why do we care about *population vs. sample*?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: sample3
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample 3: 30 random individuals"
+
+ggplot(data = pop_df, aes(x = row, y = col, shape = s3)) +
+geom_point(color = hi, size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: sample3-scatter
+#| echo: false
+#| fig.height: 5.75
+#| fig-cap: "Sample relationship"
+
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s3), color = hi, size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm3$coefficients[1], slope = lm3$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+:::
+
+::::
+
+$$
+\begin{align*}
+  y_i &= `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i \\
+  \hat{y}_i = `r round(lm3$coefficients[1], 2)` + `r round(lm3$coefficients[2], 2)` x_i
+\end{align*}
+$$
+
+---
+
+##
+
+::: {.vertical-center}
+By now you should know where this is going... [Repeat [10,000]{.note} times]{.fragment}
+:::
+
+---
+
+<br>
+
+```{r}
+#| label: sim-scatter
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+## Population *vs.* Sample
+
+[Q:]{.note} Why do we care about *population vs. sample*?
+
+- On [average]{.hi}, the regression lines match the population line nicely.
+- However, [individual lines]{.note} (samples) can miss the mark.
+
+<br>
+
+. . .
+
+[Answer:]{.hi} Uncertainty matters.
+
+- This sampling variation creates [uncertainty]{.hi}.
+- $\hat{\beta}_1$ and $\hat{\beta}_2$ are random variables that depend on the random sample. 
+
+---
+
+## OLS Variance 
+
+Variance of the slope estimator:
+
+$$
+\mathop{\Var}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+- As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}
+- As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}
+- Larger sample sizes exhibit more variation in $X \implies \mathop{\Var}(\hat{\beta}_2)$ falls as $n$ rises.
+
+---
+
+## OLS Variance {data-visibility="uncounted"}
+
+Variance of the slope estimator:
+
+$$
+\mathop{\Var}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+- __As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}__
+- As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}
+- Larger sample sizes exhibit more variation in $X \implies \mathop{\Var}(\hat{\beta}_2)$ falls as $n$ rises.
+
+---
+
+Same as before $u_i \sim (0,1)$, $X_i \sim (0,1.5)$, $n = 30$
+
+```{r}
+#| label: sim-scatter-again
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+```{r}
+#| label: gen-dataset-ii
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df_new <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 2),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df_new)
+lm1 <- lm(y ~ x, data = filter(pop_df_new, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df_new, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df_new, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df_new <- parallel::mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df_new %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+Increase variance in error term $u_i \sim (0,2.5)$, $X_i \sim (0,1.5)$, $n = 30$
+
+```{r}
+#| label: sim-scatter-ii
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+#| dependson: gen-dataset-ii
+
+# Reshape sim_df_new
+line_df <- tibble(
+  intercept = sim_df_new %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df_new %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df_new, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+## OLS Variance {data-visibility="uncounted"}
+
+Variance of the slope estimator:
+
+$$
+\mathop{\Var}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+- As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}
+- __As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}__
+- Larger sample sizes exhibit more variation in $X \implies \mathop{\Var}(\hat{\beta}_2)$ falls as $n$ rises.
+
+---
+
+Original simulation $u_i \sim (0,1)$, $X_i \sim (0,1.5)$, $n = 30$
+
+```{r}
+#| label: sim-scatter-againii
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+```{r}
+#| label: gen-dataset-iii
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df_new <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 3),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df_new)
+lm1 <- lm(y ~ x, data = filter(pop_df_new, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df_new, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df_new, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df_new <- parallel::mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df_new %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+Increase variance in $X_i$ term $u_i \sim (0,1)$, $X_i \sim (0,3)$, $n = 30$
+
+```{r}
+#| label: sim-scatter-iii
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+#| dependson: gen-dataset-iii
+
+# Reshape sim_df_new
+line_df <- tibble(
+  intercept = sim_df_new %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df_new %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df_new, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+## OLS Variance {data-visibility="uncounted"}
+
+Variance of the slope estimator:
+
+$$
+\mathop{\Var}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+- As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}
+- As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}
+- __Larger sample sizes exhibit more variation in $X \implies \mathop{\Var}(\hat{\beta}_2)$ falls as $n$ rises.__
+
+---
+
+Original simulation $u_i \sim (0,1)$, $X_i \sim (0,1.5)$, $n = 30$
+
+```{r}
+#| label: sim-scatter-againiii
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+---
+
+```{r}
+#| label: gen-dataset-iv
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 60
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df_new <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df_new)
+lm1 <- lm(y ~ x, data = filter(pop_df_new, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df_new, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df_new, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df_new <- parallel::mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df_new %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+Increase sample size ($n$) in $X_i$ term $u_i \sim (0,1)$, $X_i \sim (0,1)$, $n = 60$
+
+```{r}
+#| label: sim-scatter-iv
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 6
+#| fig.align: center
+#| dependson: gen-dataset-iv
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df_new %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df_new %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
+geom_point(data = pop_df_new, aes(x = x, y = y), size = 3, color = hi) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = hp, size = 1.5
+) +
+coord_cartesian(xlim = c(0, 10), ylim = c(0,10)) +
+theme_void() +
+theme(
+  legend.position = "none"
+)
+```
+
+

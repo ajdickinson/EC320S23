@@ -1,0 +1,114 @@
+---
+name: inference
+---
+
+---
+
+## Motivation
+
+What does statistical evidence say about existing theories?
+
+We want to test hypotheses posed by politicians, economists, scientists, people with foil hats, _etc._
+
+- Does building a giant wall [reduce crime]{.hi}?
+- Does shutting down a government [adversely affect the economy]{.hi}?
+- Does legal cannabis [reduce drunk driving]{.hi} or [reduce opioid use]{.hi}?
+- Do air quality standards [improve health]{.hi} or [reduce jobs]{.hi}?
+
+. . .
+
+While uncertainty exists, we can still conduct *reliable* statistical tests (rejecting or failing to reject a hypothesis).
+
+---
+
+## Inference
+
+Our current workflow:
+
+- Get data (points with $X$ and $Y$ values).
+- Regress $Y$ on $X$.
+- Plot the fitted values (*i.e.*, $\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1X_i$) and report the estimates.
+
+. . .
+
+But how do we actually [learn]{.hi} something from this exercise?
+
+. . .
+
+- _For $\hat{\beta}_2$, can we rule out previously hypothesized values?_
+- _How confident should we be in the precision of our estimates?_
+
+. . .
+
+We need to be able to deal with uncertainty. Enter: [Inference]{.hp}
+
+---
+
+## Inference
+
+To conduct inference, we need information about the [variance]{.note} to learn about how likely $\hat{\beta}_2$ is just a coincidence 
+
+. . .
+
+After deriving the distribution of $\hat{\beta}_2$^[*Hint:* It's normal with mean $\beta_2$ and variance $\frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}$.], we have two (related) options for formal statistical inference (learning) about our unknown parameter $\beta_2$:
+
+- [Hypothesis testing:]{.hi} Determine whether there is statistically significant evidence to reject a hypothesized value or range of values.
+- [Confidence intervals:]{.hi} Use the estimate and its standard error to create an interval that will generally^[_E.g._, similarly constructed 95% confidence intervals will contain the true parameter 95% of the time.] contain the true parameter.
+
+
+---
+
+## OLS Variance
+
+Hypothesis tests and confidence intervals require information about the variance of the OLS estimator:
+
+$$
+\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+. . .
+
+[Problem:]{.hi} 
+
+- The variance formula has a population parameter: $\sigma^2$
+- We can't observe population parameters.
+
+. . .
+
+- [Solution:]{.hi} Estimate $\sigma^2$
+
+---
+
+## Estimating Error Variance
+
+We can estimate the variance of $u_i$ (a.k.a. $\sigma^2$) using the sum of squared residuals:
+
+$$ s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k} $$
+
+where $k$ gives the number of regression parameters.
+
+- In a simple linear regression, $k=2$.
+- $s^2_u$ is an unbiased estimator of $\sigma^2$.
+
+. . .
+
+In essence, we are _learning from our prediction errors_
+
+---
+
+## OLS Variance
+
+With $s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k}$, we can calculate
+
+$$\mathop{\text{Var}}(\hat{\beta}_2) = \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2}.$$
+
+. . .
+
+Taking the square root, we get the [standard error]{.note} of the OLS estimator:
+
+$$
+\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) = \sqrt{ \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2} }
+$$
+
+- Standard error [=]{.mono} sample standard deviation of an estimator.
+

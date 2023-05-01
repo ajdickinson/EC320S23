@@ -51,7 +51,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: *ItE 1*, *MM 2*
 
-**005 - Classical assumptions** 
+**005 - Inference:** [html](https://ajdickinson.github.io/EC320S23/slides/005-inference/050-main.html) 
 
 - Readings: *ItE 2*
 

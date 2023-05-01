@@ -1,0 +1,39 @@
+---
+name: gaussmarkov
+---
+
+## Gauss-Markov Theorem
+
+> OLS is the [Best Linear Unbiased Estimator]{.hi} ([BLUE]{.hii}) when the following assumptions hold:
+
+. . .
+
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+---
+
+## Gauss-Markov Theorem
+
+> OLS is the [Best Unbiased Estimator]{.hi} ([BUE]{.hii}) when the following assumptions hold:
+
+. . .
+
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+[A6.]{.note} [Normality:]{.hi} The population error term in normally distributed with mean zero and variance $\sigma^2$

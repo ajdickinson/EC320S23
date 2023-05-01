@@ -4,7 +4,7 @@ name: units
 
 ---
 
-## PS01 001: Demeaning
+## PS03: Demeaning
 
 Suppose we have the following model:
 
@@ -20,8 +20,4 @@ $$
 
 where $v_i = u_i - \bar{u_i}$.
 
-[Show:]{.note}
-
-[001a.]{.number} the intercept parameter, $\alpha_0 = 0$ _(4 pts)_
-
-[001b.]{.number} the slope parameter $\alpha_1 = \beta_1$ where $\beta_1$ is the slope parameter of the original model before demeaning. _(4 pts)_
+[Show:]{.note} $\alpha_0 = 0$ and $\alpha_1 = \beta_1$

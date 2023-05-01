@@ -358,7 +358,7 @@ Andrew Dickinson
 <section>
 <section id="prologue" class="title-slide slide level1 inverse note center">
 <h1><em>Prologue</em></h1>
-<div class="cell">
+<div class="cell" data-hash="040-main_cache/revealjs/unnamed-chunk-1_5757aae86687aeaf18cfca0e4f6a2748">
 
 </div>
 </section>
@@ -420,13 +420,13 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 </section>
 <section id="review-1" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hi">intercept</span> is -6.93. What does this tell us?</p>
+<p>The estimated <span class="hi">intercept</span> is -10.7. What does this tell us?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">With <span class="note">zero</span> years of education, estimate hourly earnings would be –$10.44</span></p>
 </section>
 <section id="review-2" class="slide level2" data-visibility="uncounted">
 <h2>Review</h2>
-<p>The estimated <span class="hp">slope</span> is 2.05. How do we interpret it?</p>
+<p>The estimated <span class="hp">slope</span> is 2.3. How do we interpret it?</p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch quarto-figure-center"><p><span class="fragment">For each additional year of schooling, hourly earnings increase by $2.32</span></p>
 </section></section>
@@ -491,7 +491,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 <p><span class="note">Q:</span> Which fitted regression line <em>“explains”</em><sup>1</sup> the data better?</p>
 <div class="columns">
 <div class="column" style="width:50;">
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-5_93d05e289721f3496f34743d9f8eab66">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -501,7 +501,7 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 </div>
 </div>
 </div><div class="column" style="width:50;">
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-6_7051028993dab6a9c55ecab27ca5f919">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -523,23 +523,23 @@ Y_i = \beta_1 + \beta_2X_i + u_i.
 </ul>
 <div class="columns">
 <div class="column" style="width:50;">
-<div class="cell fig-cap-location-bottom" data-layout-align="center">
+<div class="cell fig-cap-location-bottom" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-7_e882b1c0d5a572288238ed3a24e5e7bf">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.75</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.73</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:50;">
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-8_e68d8a7332dcf5c4eb6cfb04bf81b117">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
-<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.07</figcaption><p></p>
+<p></p><figcaption><span class="math inline">\(R^2\)</span> = 0.05</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -825,8 +825,8 @@ Y_i = \hat{Y_i} + \hat{u}_i
 <h1><em>Units of measurement</em></h1>
 
 </section>
-<section id="ps01-001-demeaning" class="slide level2">
-<h2>PS01 001: Demeaning</h2>
+<section id="ps03-demeaning" class="slide level2">
+<h2>PS03: Demeaning</h2>
 <p>Suppose we have the following model:</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_i + u_i
@@ -836,9 +836,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 \tilde{Y_i} = \alpha_0 + \alpha_1 \tilde{X_i} + v_i
 \]</span></p>
 <p>where <span class="math inline">\(v_i = u_i - \bar{u_i}\)</span>.</p>
-<p><span class="note">Show:</span></p>
-<p><span class="number">001a.</span> the intercept parameter, <span class="math inline">\(\alpha_0 = 0\)</span> <em>(4 pts)</em></p>
-<p><span class="number">001b.</span> the slope parameter <span class="math inline">\(\alpha_1 = \beta_1\)</span> where <span class="math inline">\(\beta_1\)</span> is the slope parameter of the original model before demeaning. <em>(4 pts)</em></p>
+<p><span class="note">Show:</span> <span class="math inline">\(\alpha_0 = 0\)</span> and <span class="math inline">\(\alpha_1 = \beta_1\)</span></p>
 </section></section>
 <section>
 <section id="ex.-returns-to-schooling" class="title-slide slide level1 inverse center">
@@ -847,7 +845,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </section>
 <section id="returns-to-schooling" class="slide level2">
 <h2>Returns to Schooling</h2>
-<div class="cell">
+<div class="cell" data-hash="040-main_cache/revealjs/unnamed-chunk-19_7fe43b2c78b36b0565a5f80283d76ec4">
 
 </div>
 <p><span class="note">Policy Question:</span> <em>How much should the state subsidize higher education?</em></p>
@@ -974,25 +972,25 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <h2>Residuals <em>vs.</em> Errors</h2>
 <p>A <span class="hii">residual</span> tells us how a <span class="hi">worker</span>’s wages compare to the average wages of workers in the <span class="hii">sample</span> with the same level of education.</p>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch"></section>
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="residuals-vs.-errors-2" class="slide level2">
 <h2>Residuals <em>vs.</em> Errors</h2>
 <p>A <span class="hii">residual</span> tells us how a <span class="hi">worker</span>’s wages compare to the average wages of workers in the <span class="hii">sample</span> with the same level of education.</p>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="residuals-vs.-errors-3" class="slide level2">
 <h2>Residuals <em>vs.</em> Errors</h2>
 <p>An <span class="hi-green">error</span> tells us how a <span class="hi">worker</span>’s wages compare to the expected wages of workers in the <span class="hi-green">population</span> with the same level of education.</p>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="classical-assumptions-of-ols" class="slide level2">
 <h2>Classical Assumptions of OLS</h2>
 <div class="fragment">
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is .hi[linear in parameters] with an additive error term.</p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
 </div>
 </section>
 <section id="linearity-a1." class="slide level2">
-<h2>Linearity (A1.)</h2>
+<h2>Linearity (<span class="note">A1.</span>)</h2>
 <blockquote>
 <p>The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
 </blockquote>
@@ -1019,7 +1017,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </div>
 </section>
 <section id="linearity-a1.-1" class="slide level2">
-<h2>Linearity (A1.)</h2>
+<h2>Linearity (<span class="note">A1.</span>)</h2>
 <blockquote>
 <p>The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
 </blockquote>
@@ -1045,13 +1043,13 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </section>
 <section id="classical-assumptions-of-ols-1" class="slide level2" data-visibility="uncounted">
 <h2>Classical Assumptions of OLS</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
 <div class="fragment">
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
 </div>
 </section>
 <section id="sample-variation-a2." class="slide level2">
-<h2>Sample Variation (A2.)</h2>
+<h2>Sample Variation (<span class="note">A2.</span>)</h2>
 <blockquote>
 <p>There is variation in <span class="math inline">\(X\)</span>.</p>
 </blockquote>
@@ -1059,23 +1057,29 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="sample-variation-a2.-1" class="slide level2">
-<h2>Sample Variation (A2.)</h2>
+<h2>Sample Variation (<span class="note">A2.</span>)</h2>
 <blockquote>
 <p>There is variation in <span class="math inline">\(X\)</span>.</p>
 </blockquote>
 <p><span class="hi">Violation</span></p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-10" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>As we will see later, <span class="note">sample variation</span> matters for inference as well.</p>
+</div>
+</section>
 <section id="classical-assumptions-of-ols-2" class="slide level2" data-visibility="uncounted">
 <h2>Classical Assumptions of OLS</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
 <div class="fragment">
-<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
 </div>
 </section>
 <section id="exogeniety-a3." class="slide level2">
-<h2>Exogeniety (A3.)</h2>
+<h2>Exogeniety (<span class="note">A3.</span>)</h2>
 <p>Assumption</p>
 <blockquote>
 <p>The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous:</span></p>
@@ -1092,7 +1096,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </div>
 </section>
 <section id="exogeniety-a3.-1" class="slide level2" data-visibility="uncounted">
-<h2>Exogeniety (A3.)</h2>
+<h2>Exogeniety (<span class="note">A3.</span>)</h2>
 <p>Assumption</p>
 <blockquote>
 <p>The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous:</span></p>
@@ -1108,23 +1112,23 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <li><em>Do you believe this?</em></li>
 </ul>
 </section>
-<section id="section-10" class="slide level2" data-visibility="uncounted">
+<section id="section-11" class="slide level2" data-visibility="uncounted">
 <h2></h2>
 <div class="vertical-center">
 <p>Graphically…</p>
 </div>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <p>Valid exogeniety, <em>i.e.</em>, <span class="math inline">\(\mathop{\mathbb{E}}\left( u \mid X \right) = 0\)</span></p>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" class="r-stretch"></section>
-<section id="section-12" class="slide level2">
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-13" class="slide level2">
 <h2></h2>
 <p>Invalid exogeniety, <em>i.e.</em>, <span class="math inline">\(\mathop{\mathbb{E}}\left( u \mid X \right) \neq 0\)</span></p>
 
-<img data-src="040-main_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
-<section id="section-13" class="slide level2">
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-14" class="slide level2">
 <h2></h2>
 <div class="vertical-center">
 <p><span class="note"><em>When can we trust OLS?</em></span></p>
@@ -1136,16 +1140,24 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="hi">Unbiased estimator:</span> <span class="math inline">\(\mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta\)</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-33_4fa8373548efa2f9a1270870801a174f">
 <div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><span class="hi-red">Biased estimator:</span> <span class="math inline">\(\mathop{\mathbb{E}}\left[ \hat{\beta} \right] \neq \beta\)</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/unnamed-chunk-34_9596e3118eae4147f020af454dc69c1d">
 <div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="040-main_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -1153,24 +1165,106 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </section>
 <section id="required-assumptions" class="slide level2">
 <h2>Required Assumptions</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
-<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
 <div class="fragment">
 <p>☛ (3) implies <span class="note">random sampling</span>. <span class="fragment">Without it, our <span class="note">external validity</span> becomes uncertain.<sup>1</sup></span></p>
 </div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="note">Internal Validity:</span> Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> <span class="note">External Validity:</span> Relates to how applicable the findings are to the real world.</p></li></ol></aside></section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p><span class="note">Let’s prove unbiasedness of OLS</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 id="section-16"></h6>
+<p><span class="note">Proving unbiasedness of simple OLS</span></p>
+<p>Suppose we have the following model</p>
+<p><span class="math display">\[
+Y_i = \beta_1 + \beta_2 X_i + u_i
+\]</span></p>
 <div class="fragment">
+<p>The slope parameter follows as:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>(<em>As shown in section 2.3 in ItE</em>) that the estimator <span class="math inline">\(\hat{\beta_2}\)</span>, can be broken up into a nonrandom and a random component:</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-17"></h6>
+<p><span class="note">Proving unbiasedness of simple OLS</span></p>
+<p>Substitute for <span class="math inline">\(y_i\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 = \frac{\sum((\beta_1 + \beta_2x_i + u_i) - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+<div class="fragment">
+<p>Substitute <span class="math inline">\(\bar{y} = \beta_1 + \beta_2\bar{x}\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2} + \frac{\sum(\beta_2x_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>The non-random component, <span class="math inline">\(\beta_2\)</span>, is factored out:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2} + \beta_2\frac{\sum(x_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-18"></h6>
+<p><span class="note">Proving unbiasedness of simple OLS</span></p>
+<p><span class="note">Observe</span> that the second term is equal to 1. Thus, we have:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 = \beta_2 + \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+<div class="fragment">
+<p>Taking the expectation,</p>
+<p><span class="math display">\[
+\mathrm{E}[\hat{\beta_2}] = \mathrm{E}[\beta] + \mathrm{E}\left[\frac{\sum \hat{u_i} (x_i - \bar{x})}{\sum(x_i - \bar{x})^2} \right]
+\]</span></p>
+</div>
+<div class="fragment">
+<p>By <span class="hi">Rules 01</span> and <span class="hi">02</span> of expected value and <span class="note">A3</span>:</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \mathrm{E}[\hat{\beta_2}] = \beta + \frac{\sum \mathrm{E}[\hat{u_i}] (x_i - \bar{x})}{\sum(x_i - \bar{x})^2} = \beta
+\end{equation*}
+\]</span></p>
+</div>
+</section>
+<section id="required-assumptions-1" class="slide level2" data-visibility="uncounted">
+<h2>Required Assumptions</h2>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p>☛ (3) implies <span class="note">random sampling</span>. Without it, our <span class="note">external validity</span> becomes uncertain.<sup>1</sup></p>
 <p><br></p>
 <p><span class="hi">Result:</span> <span class="fragment">OLS is unbiased.</span></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="note">Internal Validity:</span> Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> <span class="note">External Validity:</span> Relates to how applicable the findings are to the real world.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="note">Internal Validity:</span> Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> <span class="note">External Validity:</span> Relates to how applicable the findings are to the real world.</p></li></ol></aside></section>
 <section id="classical-assumptions-of-ols-3" class="slide level2" data-visibility="uncounted">
 <h2>Classical Assumptions of OLS</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
-<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<div class="fragment">
+<p><br> <br></p>
+<div class="align-center">
+<p>The following 2 assumptions are not required for unbiasedness…</p>
+</div>
+<div class="align-center">
+<p><span class="fragment">But the are important for an efficient estimator</span></p>
+</div>
+</div>
 </section>
-<section id="section-14" class="slide level2">
+<section id="section-19" class="slide level2">
 <h2></h2>
 <div class="vertical-center">
 <p><span class="note"><em>Variance matters, too</em></span></p>
@@ -1200,57 +1294,99 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </section>
 <section id="classical-assumptions-of-ols-4" class="slide level2" data-visibility="uncounted">
 <h2>Classical Assumptions of OLS</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
-<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
 <div class="fragment">
-<p><span class="note">4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
 </div>
 </section>
 <section id="homoskedasticity-a4." class="slide level2">
-<h2>Homoskedasticity (A4.)</h2>
+<h2>Homoskedasticity (<span class="note">A4.</span>)</h2>
 <blockquote>
 <p>The error term has the same variance for each value of the independent variable:</p>
 </blockquote>
 <p><span class="math display">\[
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\mathrm{Var}}(u|X) = \sigma^2.
 \]</span></p>
 <p><span class="hi">Example:</span></p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="homoskedasticity-a4.-1" class="slide level2">
-<h2>Homoskedasticity (A4.)</h2>
+<h2>Homoskedasticity (<span class="note">A4.</span>)</h2>
 <blockquote>
 <p>The error term has the same variance for each value of the independent variable:</p>
 </blockquote>
 <p><span class="math display">\[
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\mathrm{Var}}(u|X) = \sigma^2.
 \]</span></p>
 <p><span class="hi">Violation:</span> <span class="note">Heteroskedasticity</span></p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="homoskedasticity-a4.-2" class="slide level2">
-<h2>Homoskedasticity (A4.)</h2>
+<h2>Homoskedasticity (<span class="note">A4.</span>)</h2>
 <blockquote>
 <p>The error term has the same variance for each value of the independent variable:</p>
 </blockquote>
 <p><span class="math display">\[
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\mathrm{Var}}(u|X) = \sigma^2.
 \]</span></p>
 <p><span class="hi">Violation:</span> <span class="note">Heteroskedasticity</span></p>
 
 <img data-src="040-main_files/figure-revealjs/unnamed-chunk-37-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="heteroskedasticity-ex." class="slide level2">
+<h2>Heteroskedasticity <span class="ex">Ex.</span></h2>
+<p>Suppose we study the following relationship:</p>
+<p><span class="math display">\[
+\text{Luxury Expenditure}_i = \beta_1 + \beta_2 \text{Income}_i + u_i
+\]</span></p>
+<p><br></p>
+<p>As income increases, variation in luxury expenditures <span class="hii">increase</span></p>
+<ul>
+<li>Variance of <span class="math inline">\(u_i\)</span> is likely larger for higher-income households</li>
+<li>Plot of the residuals against the household income would likely reveal a funnel-shaped pattern</li>
+</ul>
+</section>
+<section id="section-20" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="fragment">Common test for heteroskedasticity…</span> <span class="fragment">Plot the residuals across <span class="math inline">\(X\)</span></span></p>
+
+<img data-src="040-main_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-21" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p><span class="note">There is more to be said about homo/heteroskedasticity in EC 421</span></p>
+</div>
+</section>
 <section id="classical-assumptions-of-ols-5" class="slide level2" data-visibility="uncounted">
 <h2>Classical Assumptions of OLS</h2>
-<p><span class="note">1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
-<p><span class="note">2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
-<p><span class="note">3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
-<p><span class="note">4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
 <div class="fragment">
-<p><span class="note">5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
 </div>
 </section>
 <section id="non-autocorrelation" class="slide level2">
+<h2>Non-Autocorrelation</h2>
+<blockquote>
+<p>The values of error terms have independent distributions<sup>1</sup></p>
+</blockquote>
+<p><span class="math display">\[
+E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
+\]</span></p>
+<div class="fragment">
+<p>Or…</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathop{\text{Cov}}(u_i, u_j) &amp;= E[(u_i - \mu_u)(u_j - \mu_u)]\\
+                              &amp;= E[u_i u_j] = E[u_i] E[u_j]  = 0, \text{where } i \neq j
+\end{align*}
+\]</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><span class="note">Notes:</span> <span class="math inline">\(\forall i = \text{for all} \: i\)</span>, <span class="math inline">\(\text{s.t.} = \text{such that}\)</span>, <span class="math inline">\(i \neq j \: \text{means} \: i \: \text{is not equal to} \: j\)</span></p></li></ol></aside></section>
+<section id="non-autocorrelation-1" class="slide level2">
 <h2>Non-Autocorrelation</h2>
 <blockquote>
 <p>The values of error terms have independent distributions</p>
@@ -1258,31 +1394,419 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <p><span class="math display">\[
 E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
 \]</span></p>
-<div class="fragment">
 <ul>
-<li>This implies no systematic association between error term values for any pair of individuals</li>
+<li>Implies no systematic association between pairs of individual <span class="math inline">\(u_i\)</span></li>
 <li>Almost always some unobserved correlation across individuals<sup>1</sup></li>
 <li>Referred to as <span class="hp">clustering</span> problem.</li>
 <li>An easy solution exists where we can adjust our standard errors</li>
 </ul>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>(e.g.&nbsp;common correlation in unobservables among individuals within a given US state)</p></li></ol></aside></section>
+<section id="section-22" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>Let’s take a moment to talk about the <span class="note">variance</span> of the <span class="hi">OLS</span> <span class="note">estimator</span></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>(e.g.&nbsp;common correlation in unobservables among individuals within a given US state)</p></li></ol></aside></section>
+</section>
+<section class="slide level2">
+
+<p><span class="note">Proof of the population variance</span></p>
+<p>By definition</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = E\left[\left(\hat{\beta}_2 - E(\hat{\beta}_2)\right)^2\right] = E\left[\left(\hat{\beta}_2 - \beta_2\right)^2\right]
+\]</span></p>
+<div class="fragment">
+<p><span class="note">Step 1:</span> Derive an expression for <span class="math inline">\(\hat{\beta}_2 - \beta_2\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 - \beta_2 = \frac{\sum(y_i - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2} - \beta_2
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Substitute for <span class="math inline">\(Y_i\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 - \beta_2 = \frac{\sum((\beta_1 + \beta_2x_i + u_i) - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2} - \beta_2
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-23"></h6>
+<p><span class="note">Proof of the population variance</span></p>
+<p>Substitute <span class="math inline">\(\bar{y} = \beta_1 + \beta_2\bar{x}\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 - \beta_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+<div class="fragment">
+<p><span class="note">Step 1:</span> Take variance <span class="math inline">\(\hat{\beta}_2 - \beta_2\)</span>:</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = E\left[\left(\frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}\right)^2\right]
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-24"></h6>
+<p>Square the numerator:</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = E\left[\frac{\sum(u_i(x_i - \bar{x}))\sum(\epsilon_j(x_j - \bar{x}))}{\left(\sum(x_i - \bar{x})^2\right)^2}\right]
+\]</span></p>
+<div class="fragment">
+<p>Using <span class="note">A5</span>, we can simplify:</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = \frac{1}{\left(\sum(x_i - \bar{x})^2\right)^2}\sum E(u_i^2(x_i - \bar{x})^2)
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-25"></h6>
+<p>Using <span class="note">A4</span>: <span class="math inline">\(Var(u_i) = \sigma^2\)</span>.</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = \frac{\sigma^2}{\left(\sum(x_i - \bar{x})^2\right)^2}\sum (x_i - \bar{x})^2
+\]</span></p>
+<div class="fragment">
+<p><br></p>
+<p>Thus we arrive at the variance of the OLS slope parameter:</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_2) = \frac{\sigma^2}{\sum(x_i - \bar{x})^2}
+\]</span></p>
+</div>
+</section>
+<section id="section-26" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>If <span class="note">A4.</span> and <span class="note">A5.</span> are satisfied, along with <span class="note">A1.</span>, <span class="note">A2.</span>, and <span class="note">A3.</span>, then we are using the <span class="hi">most efficient</span> linear estimator.</p>
+</div>
+</section>
+<section id="classical-assumptions-of-ols-6" class="slide level2" data-visibility="uncounted">
+<h2>Classical Assumptions of OLS</h2>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+<div class="fragment">
+<p><span class="note">A6.</span> <span class="hi">Normality:</span> The population error term in normally distributed with mean zero and variance <span class="math inline">\(\sigma^2\)</span></p>
+</div>
+</section>
+<section id="nomality-a6." class="slide level2">
+<h2>Nomality (<span class="note">A6.</span>)</h2>
+<blockquote>
+<p>The population error term in normally distributed with mean zero and variance <span class="math inline">\(\sigma^2\)</span></p>
+</blockquote>
+<p>Or,</p>
+<p><span class="math display">\[
+u \sim N(0,\sigma^2)
+\]</span></p>
+<p>Where <span class="math inline">\(\sim\)</span> stands for <span class="note">distributed by</span> and <span class="math inline">\(N\)</span> stands for <span class="note">normal distribution</span></p>
+<div class="fragment">
+<p><br></p>
+<p>However, <span class="note">A6.</span> is note required for efficientcy nor unbiasedness</p>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="gauss-markov" class="title-slide slide level1 inverse note center">
+<h1><em>Gauss Markov</em></h1>
+
+</section>
+<section id="gauss-markov-theorem" class="slide level2">
+<h2>Gauss-Markov Theorem</h2>
+<blockquote>
+<p>OLS is the <span class="hi">Best Linear Unbiased Estimator</span> (<span class="hii">BLUE</span>) when the following assumptions hold:</p>
+</blockquote>
+<div class="fragment">
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+</div>
+</section>
+<section id="gauss-markov-theorem-1" class="slide level2">
+<h2>Gauss-Markov Theorem</h2>
+<blockquote>
+<p>OLS is the <span class="hi">Best Unbiased Estimator</span> (<span class="hii">BUE</span>) when the following assumptions hold:</p>
+</blockquote>
+<div class="fragment">
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+<p><span class="note">A6.</span> <span class="hi">Normality:</span> The population error term in normally distributed with mean zero and variance <span class="math inline">\(\sigma^2\)</span></p>
+</div>
+</section></section>
+<section>
+<section id="population-vs.-sample-revisited" class="title-slide slide level1 inverse note center">
+<h1><em>Population vs.&nbsp;sample, revisited</em></h1>
+
+</section>
+<section id="population-vs.-sample" class="slide level2">
+<h2>Population <em>vs.</em> Sample</h2>
+<p><span class="note">Q:</span> Why do we care about <em>population vs.&nbsp;sample</em>?</p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center" data-hash="040-main_cache/revealjs/pop1_ba470de74c65167ba0cc892a2fb264cc">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/pop1-1.png" width="960"></p>
+<p></p><figcaption>Population</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/scatter1_b5dc01a325a8943fe2c83af35f9bb781">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/scatter1-1.png" width="960"></p>
+<p></p><figcaption>Population relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{align*}
+  y_i &amp;= 2.53 + 0.57 x_i + u_i \\
+\end{align*}
+\]</span></p>
+</div>
+</section>
+<section id="population-vs.-sample-1" class="slide level2" data-visibility="uncounted">
+<h2>Population <em>vs.</em> Sample</h2>
+<p><span class="note">Q:</span> Why do we care about <em>population vs.&nbsp;sample</em>?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample1_35a56d7af2d5e7719f845b8771c6c72c">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample1-1.png" width="960"></p>
+<p></p><figcaption>Sample 1: 30 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample1-scatter_e0bd9f3f495c4f5413370fc5eda0c94c">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample1-scatter-1.png" width="960"></p>
+<p></p><figcaption>Sample relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{align*}
+  y_i       &amp;= 2.53 + 0.57 x_i + u_i \\
+  \hat{y}_i &amp;= 2.36 + 0.61 x_i
+\end{align*}
+\]</span></p>
+</section>
+<section id="population-vs.-sample-2" class="slide level2" data-visibility="uncounted">
+<h2>Population <em>vs.</em> Sample</h2>
+<p><span class="note">Q:</span> Why do we care about <em>population vs.&nbsp;sample</em>?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample2_564dacb335f8cc0fe4365bf066423ad1">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample2-1.png" width="960"></p>
+<p></p><figcaption>Sample 2: 30 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample2-scatter_0490655b9feb384d50170cf67f64e65d">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample2-scatter-1.png" width="960"></p>
+<p></p><figcaption>Sample relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>$$ <span class="math display">\[\begin{align*}
+  y_i        &amp;= 2.53 + 0.57 x_i + u_i \\
+  \hat{y}_i &amp;= 2.79 + 0.56 x_i
+
+\end{align*}\]</span> $$</p>
+</section>
+<section id="population-vs.-sample-3" class="slide level2" data-visibility="uncounted">
+<h2>Population <em>vs.</em> Sample</h2>
+<p><span class="note">Q:</span> Why do we care about <em>population vs.&nbsp;sample</em>?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample3_a30c1745fa2c9d6cc971d858671ca362">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample3-1.png" width="960"></p>
+<p></p><figcaption>Sample 3: 30 random individuals</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="040-main_cache/revealjs/sample3-scatter_6d62f2dc431817e704613b4595be6fab">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="040-main_files/figure-revealjs/sample3-scatter-1.png" width="960"></p>
+<p></p><figcaption>Sample relationship</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{align*}
+  y_i &amp;= 2.53 + 0.57 x_i + u_i \\
+  \hat{y}_i = 3.21 + 0.45 x_i
+\end{align*}
+\]</span></p>
+</section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p>By now you should know where this is going… <span class="fragment">Repeat <span class="note">10,000</span> times</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><br></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="population-vs.-sample-4" class="slide level2">
+<h2>Population <em>vs.</em> Sample</h2>
+<p><span class="note">Q:</span> Why do we care about <em>population vs.&nbsp;sample</em>?</p>
+<ul>
+<li>On <span class="hi">average</span>, the regression lines match the population line nicely.</li>
+<li>However, <span class="note">individual lines</span> (samples) can miss the mark.</li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p><span class="hi">Answer:</span> Uncertainty matters.</p>
+<ul>
+<li>This sampling variation creates <span class="hi">uncertainty</span>.</li>
+<li><span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> are random variables that depend on the random sample.</li>
+</ul>
+</div>
+</section>
 <section id="ols-variance" class="slide level2">
 <h2>OLS Variance</h2>
 <p>Variance of the slope estimator:</p>
 <p><span class="math display">\[
-\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\mathop{\mathrm{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
 \]</span></p>
 <ul>
 <li>As error variance <span class="hii">increases</span>, variance of the slope estimator <span class="hii">increases</span></li>
 <li>As variation in <span class="math inline">\(X\)</span> <span class="hii">increases</span>, variance of the slope estimator <span class="hi-red">decreases</span></li>
-<li>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\text{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</li>
+<li>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\mathrm{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</li>
 </ul>
-<!-- TODO: Create an "aside" set of slides walking through logs -->
+</section>
+<section id="ols-variance-1" class="slide level2" data-visibility="uncounted">
+<h2>OLS Variance</h2>
+<p>Variance of the slope estimator:</p>
+<p><span class="math display">\[
+\mathop{\mathrm{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<ul>
+<li><strong>As error variance <span class="hii">increases</span>, variance of the slope estimator <span class="hii">increases</span></strong></li>
+<li>As variation in <span class="math inline">\(X\)</span> <span class="hii">increases</span>, variance of the slope estimator <span class="hi-red">decreases</span></li>
+<li>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\mathrm{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Same as before <span class="math inline">\(u_i \sim (0,1)\)</span>, <span class="math inline">\(X_i \sim (0,1.5)\)</span>, <span class="math inline">\(n = 30\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-again-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<p>Increase variance in error term <span class="math inline">\(u_i \sim (0,2.5)\)</span>, <span class="math inline">\(X_i \sim (0,1.5)\)</span>, <span class="math inline">\(n = 30\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-ii-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="ols-variance-2" class="slide level2" data-visibility="uncounted">
+<h2>OLS Variance</h2>
+<p>Variance of the slope estimator:</p>
+<p><span class="math display">\[
+\mathop{\mathrm{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<ul>
+<li>As error variance <span class="hii">increases</span>, variance of the slope estimator <span class="hii">increases</span></li>
+<li><strong>As variation in <span class="math inline">\(X\)</span> <span class="hii">increases</span>, variance of the slope estimator <span class="hi-red">decreases</span></strong></li>
+<li>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\mathrm{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Original simulation <span class="math inline">\(u_i \sim (0,1)\)</span>, <span class="math inline">\(X_i \sim (0,1.5)\)</span>, <span class="math inline">\(n = 30\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-againii-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<p>Increase variance in <span class="math inline">\(X_i\)</span> term <span class="math inline">\(u_i \sim (0,1)\)</span>, <span class="math inline">\(X_i \sim (0,3)\)</span>, <span class="math inline">\(n = 30\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-iii-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="ols-variance-3" class="slide level2" data-visibility="uncounted">
+<h2>OLS Variance</h2>
+<p>Variance of the slope estimator:</p>
+<p><span class="math display">\[
+\mathop{\mathrm{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<ul>
+<li>As error variance <span class="hii">increases</span>, variance of the slope estimator <span class="hii">increases</span></li>
+<li>As variation in <span class="math inline">\(X\)</span> <span class="hii">increases</span>, variance of the slope estimator <span class="hi-red">decreases</span></li>
+<li><strong>Larger sample sizes exhibit more variation in <span class="math inline">\(X \implies \mathop{\mathrm{Var}}(\hat{\beta}_2)\)</span> falls as <span class="math inline">\(n\)</span> rises.</strong></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Original simulation <span class="math inline">\(u_i \sim (0,1)\)</span>, <span class="math inline">\(X_i \sim (0,1.5)\)</span>, <span class="math inline">\(n = 30\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-againiii-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<p>Increase sample size (<span class="math inline">\(n\)</span>) in <span class="math inline">\(X_i\)</span> term <span class="math inline">\(u_i \sim (0,1)\)</span>, <span class="math inline">\(X_i \sim (0,1)\)</span>, <span class="math inline">\(n = 60\)</span></p>
+
+<img data-src="040-main_files/figure-revealjs/sim-scatter-iv-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p>We will further this discussion next time to conduct inference.</p>
+</div>
+</section></section>
+<section id="fin" class="title-slide slide level1 inverse center">
+<h1>Fin</h1>
+<!-- TODO: Create an aside about the mathematical language symbols -->
+<!-- 
+TODO: Create Gauss-Markov slides
+TODO: Make a note about canvas grades
+TODO: Add why we need variation in $X_i$ for A2
+     -->
 <div class="footer footer-default">
 <p>EC320, Set 05 | Simple linear regression (again)</p>
 </div>
-</section></section>
+</section>
+
 
     </div>
   </div>

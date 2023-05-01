@@ -1,0 +1,116 @@
+---
+title: "Inference"
+subtitle: "EC 320, Set 06"
+author: "Andrew Dickinson"
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    monobackgroundcolor: #F5F5F5
+    slide-number: true
+    footer: "EC320, Set 06 | Inference"
+    preview-links: auto
+    code-fold: FALSE
+    # code-copy: TRUE
+    highlight-style: a11y-light
+    cache: TRUE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+---
+
+::: {.content-hidden}
+$$
+{{< include ../_macros.tex >}}
+$$
+:::
+
+## Housekeeping
+
+[PS03:]{.hi}
+
+- Due Tuesday at 11:59p
+- Covers remaining a bunch of OLS stuff up to today
+
+. . .
+
+[LA04:]{.hi}
+
+- Due Friday at 5:00p
+
+. . .
+
+[Reading:]{.hi} _(up to this point)_
+
+ItE: R, 1, [2]{.hi}
+MM: 1, [2]{.hi}
+
+# _Prologue_ {.inverse .note}
+
+```{r}
+pacman::p_load(hrbrthemes, fastverse, tidyverse,
+               magrittr, wooldridge, here, kableExtra,
+               ggdag, nord, latex2exp, dagitty, viridis,
+               plotly, ggforce, latex2exp, parallel, broom)
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiyellow = nord_palettes$aurora[3]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+higrey = nord_palettes$snowstorm[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 18),
+       axis.title.y = element_text(size = 18))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+
+
+# simulated earnings data
+# df_earn <- tibble(x = sample(8:20, 100, replace=T),
+#              y = -14 + 2.5*x + rnorm(100, 0, 5)) %>% 
+#   filter(y > 5)
+# lm_earn <- lm(y ~ x, data = df_earn)
+# b0_earn <- lm_earn$coefficients[1]
+# b1_earn <- lm_earn$coefficients[2]
+# # data for R^2 discussion
+# df1 <- tibble(x = rnorm(1000, 5, 5),
+#              y = 100 - 1*x + rnorm(1000, 0, 3))
+# df2 <- tibble(x = rnorm(1000, 5, 5),
+#              y = 100 - 1*x + rnorm(1000, 0, 20))
+# r2_1 <- summary(lm(y~x, df1))$r.squared
+# r2_2 <- summary(lm(y~x, df2))$r.squared
+# # campus crime data
+# data <- get(data(campus)) %>% 
+#   mutate(crime = round(crime/enroll*1000, 2),
+#          police = round(police/enroll*1000, 2)) %>% 
+#   filter(police < 10) %>% # remove outlier
+#   select(crime, police)
+# data2 <- data %>% 
+#   mutate(crime = crime/1000)
+# lm0 <- lm(crime ~ police, data = data)
+# lm1 <- lm(crime ~ police, data = data2)
+
+```
+
+{{< include _051-prologue.qmd >}}
+
+# _Inference_ {.inverse .note}
+
+{{< include _052-inference.qmd >}}
+
+# _Hypothesis testing_ {.inverse .note}
+
+{{< include _053-hypothesis.qmd >}}
+
+# Continued next time {.inverse}

@@ -40,6 +40,7 @@ A [residual]{.hii} tells us how a [worker]{.hi}'s wages compare to the average w
 ```{r}
 #| echo: false
 #| fig.height: 5.5
+#| fig.align: center
 
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 wage %>% 
@@ -60,6 +61,7 @@ A [residual]{.hii} tells us how a [worker]{.hi}'s wages compare to the average w
 ```{r}
 #| echo: false
 #| fig.height: 5.5
+#| fig.align: center
 
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 wage %>% 
@@ -80,6 +82,7 @@ An [error]{.hi-green} tells us how a [worker]{.hi}'s wages compare to the expect
 ```{r}
 #| echo: false
 #| fig.height: 5.5
+#| fig.align: center
 
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 B0 <- b0 + 0.5
@@ -100,11 +103,11 @@ wage %>%
 
 . . .
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is .hi[linear in parameters] with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
 ---
 
-## Linearity (A1.)
+## Linearity ([A1.]{.note})
 
 > The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
@@ -128,7 +131,7 @@ wage %>%
 
 ---
 
-## Linearity (A1.)
+## Linearity ([A1.]{.note})
 
 > The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
@@ -152,16 +155,16 @@ wage %>%
 
 ## Classical Assumptions of OLS {data-visibility="uncounted"}
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
 . . .
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
 
 ---
 
-## Sample Variation (A2.)
+## Sample Variation ([A2.]{.note})
 
 > There is variation in $X$.
 
@@ -181,7 +184,7 @@ wage %>%
 
 ---
 
-## Sample Variation (A2.)
+## Sample Variation ([A2.]{.note})
 
 > There is variation in $X$.
 
@@ -202,20 +205,28 @@ wage %>%
 
 ---
 
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+As we will see later, [sample variation]{.note} matters for inference as well.
+:::
+
+---
+
 ## Classical Assumptions of OLS {data-visibility="uncounted"}
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
 . . .
 
-[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
 
 
 ---
 
-## Exogeniety (A3.)
+## Exogeniety ([A3.]{.note})
 
 Assumption
 
@@ -237,7 +248,7 @@ _Implication:_ no [selection bias]{.hp} or [omitted variable bias]{.hii}
 
 ---
 
-## Exogeniety (A3.) {data-visibility="uncounted"}
+## Exogeniety ([A3.]{.note}) {data-visibility="uncounted"}
 
 Assumption
 
@@ -341,6 +352,7 @@ Valid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) = 0$
 ```{r}
 #| echo: false
 #| fig.height: 6
+#| fig.align: center
 
 cond_good
 ```
@@ -354,6 +366,7 @@ Invalid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) \neq 0$
 ```{r}
 #| echo: false
 #| fig.height: 6
+#| fig.align: center
 
 cond_bad
 ```
@@ -380,6 +393,7 @@ An estimator is [biased]{.hi-red} if its expected value is different from the tr
 ```{r}
 #| echo: false
 #| fig.height: 5.75
+#| fig.align: center
 
 tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
 tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
@@ -405,6 +419,7 @@ mytheme_s
 ```{r}
 #| echo: false
 #| fig.height: 5.75
+#| fig.align: center
 
 tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
 tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
@@ -431,17 +446,117 @@ mytheme_s
 
 ## Required Assumptions
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
-[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
 
 . . .
 
 &#9755; (3) implies [random sampling]{.note}. [Without it, our [external validity]{.note} becomes uncertain.^[[Internal Validity:]{.note} Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> [External Validity:]{.note} Relates to how applicable the findings are to the real world.]]{.fragment}
 
+---
+
+## 
+
+::: {.vertical-center}
+[Let's prove unbiasedness of OLS]{.note}
+:::
+
+---
+
+######
+
+[Proving unbiasedness of simple OLS]{.note}
+
+Suppose we have the following model
+
+$$
+Y_i = \beta_1 + \beta_2 X_i + u_i
+$$
+
 . . .
+
+The slope parameter follows as:
+
+$$
+\hat{\beta}_2 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}
+$$
+
+. . .
+
+(_As shown in section 2.3 in ItE_) that the estimator $\hat{\beta_2}$, can be broken up into a nonrandom and a random component:
+
+---
+
+###### {data-visibility="uncounted"}
+
+[Proving unbiasedness of simple OLS]{.note}
+
+Substitute for $y_i$:
+
+$$
+\hat{\beta}_2 = \frac{\sum((\beta_1 + \beta_2x_i + u_i) - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2}
+$$
+
+. . .
+
+Substitute $\bar{y} = \beta_1 + \beta_2\bar{x}$:
+
+$$
+\hat{\beta}_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2} + \frac{\sum(\beta_2x_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+$$
+
+. . .
+
+The non-random component, $\beta_2$, is factored out:
+
+$$
+\hat{\beta}_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2} + \beta_2\frac{\sum(x_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+$$
+
+---
+
+###### {data-visibility="uncounted"}
+
+[Proving unbiasedness of simple OLS]{.note}
+
+[Observe]{.note} that the second term is equal to 1. Thus, we have:
+
+$$
+\hat{\beta}_2 = \beta_2 + \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+$$
+
+. . .
+
+Taking the expectation, 
+
+$$
+\E[\hat{\beta_2}] = \E[\beta] + \E \left[\frac{\sum \hat{u_i} (x_i - \bar{x})}{\sum(x_i - \bar{x})^2} \right]
+$$
+
+. . .
+
+By [Rules 01]{.hi} and [02]{.hi} of expected value and [A3]{.note}:
+
+$$
+\begin{equation*}
+  \E[\hat{\beta_2}] = \beta + \frac{\sum \E[\hat{u_i}] (x_i - \bar{x})}{\sum(x_i - \bar{x})^2} = \beta
+\end{equation*}
+$$
+
+---
+
+## Required Assumptions {data-visibility="uncounted"}
+
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+&#9755; (3) implies [random sampling]{.note}. Without it, our [external validity]{.note} becomes uncertain.^[[Internal Validity:]{.note} Relates to how well a study is conducted (does it satisfy OLS assumptions?). <br> [External Validity:]{.note} Relates to how applicable the findings are to the real world.]
 
 <br>
 
@@ -451,11 +566,24 @@ mytheme_s
 
 ## Classical Assumptions of OLS {data-visibility="uncounted"}
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
-[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+. . .
+
+<br>
+<br>
+
+::: {.align-center}
+The following 2 assumptions are not required for unbiasedness...
+:::
+
+::: {.align-center}
+[But the are important for an efficient estimator]{.fragment}
+:::
 
 ---
 
@@ -497,24 +625,24 @@ The smaller the variance, the closer OLS gets, _on average_, to the true populat
 
 ## Classical Assumptions of OLS {data-visibility="uncounted"}
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
-[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
 
 . . .
 
-[4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
 
 ---
 
-## Homoskedasticity (A4.)
+## Homoskedasticity ([A4.]{.note})
 
 > The error term has the same variance for each value of the independent variable:
 
 $$
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\Var}(u|X) = \sigma^2.
 $$
 
 [Example:]{.hi}
@@ -542,12 +670,12 @@ theme(
 
 ---
 
-## Homoskedasticity (A4.)
+## Homoskedasticity ([A4.]{.note})
 
 > The error term has the same variance for each value of the independent variable:
 
 $$
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\Var}(u|X) = \sigma^2.
 $$
 
 [Violation:]{.hi} [Heteroskedasticity]{.note}
@@ -575,12 +703,12 @@ theme(
 
 ---
 
-## Homoskedasticity (A4.)
+## Homoskedasticity ([A4.]{.note})
 
 > The error term has the same variance for each value of the independent variable:
 
 $$
-\mathop{\text{Var}}(u|X) = \sigma^2.
+\mathop{\Var}(u|X) = \sigma^2.
 $$
 
 [Violation:]{.hi} [Heteroskedasticity]{.note}
@@ -608,19 +736,93 @@ theme(
 
 ---
 
+## Heteroskedasticity [Ex.]{.ex}
+
+Suppose we study the following relationship:
+
+$$
+\text{Luxury Expenditure}_i = \beta_1 + \beta_2 \text{Income}_i + u_i
+$$
+
+<br>
+
+As income increases, variation in luxury expenditures [increase]{.hii} 
+
+- Variance of $u_i$ is likely larger for higher-income households
+- Plot of the residuals against the household income would likely reveal a funnel-shaped pattern
+
+--- 
+
+## {data-visibility="uncounted"}
+
+[Common test for heteroskedasticity...]{.fragment} [Plot the residuals across $X$]{.fragment}
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig.align: center
+
+set.seed(12345)
+ggplot(data = tibble(
+  x = runif(1e3, 0, 10),
+  e = rnorm(1e3, 0, sd = 4 + 1.5 * x)
+), aes(x = x, y = e)) +
+geom_point(color = hi, size = 2.75, alpha = 0.5) +
+labs(x = "Income", y = "Residuals") +
+scale_x_continuous(breaks = seq(0,10,2)) +
+mytheme_s +
+theme(
+  axis.text.x = element_text(size = 12),
+  axis.title.x = element_text(size = 12),
+  axis.text.y = element_blank()
+)
+
+```
+
+---
+
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+[There is more to be said about homo/heteroskedasticity in EC 421]{.note}
+:::
+
+---
+
 ## Classical Assumptions of OLS {data-visibility="uncounted"}
 
-[1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-[2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
 
-[3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
 
-[4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
 
 . . .
 
-[5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+---
+
+## Non-Autocorrelation 
+
+> The values of error terms have independent distributions^[[Notes:]{.note} $\forall i = \text{for all} \: i$, $\text{s.t.} = \text{such that}$, $i \neq j \: \text{means} \: i \: \text{is not equal to} \: j$]
+
+$$
+E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
+$$
+
+. . .
+
+Or...
+
+$$
+\begin{align*}
+\mathop{\text{Cov}}(u_i, u_j) &= E[(u_i - \mu_u)(u_j - \mu_u)]\\
+                              &= E[u_i u_j] = E[u_i] E[u_j]  = 0, \text{where } i \neq j
+\end{align*}
+$$
 
 ---
 
@@ -632,25 +834,148 @@ $$
 E[u_i u_j]=0, \forall i \text{ s.t. } i \neq j
 $$
 
-. . .
-
-- This implies no systematic association between error term values for any pair of individuals
+- Implies no systematic association between pairs of individual $u_i$
 - Almost always some unobserved correlation across individuals^[(e.g. common correlation in unobservables among individuals within a given US state)]
 - Referred to as [clustering]{.hp} problem.
 - An easy solution exists where we can adjust our standard errors
 
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+Let's take a moment to talk about the [variance]{.note} of the [OLS]{.hi} [estimator]{.note}
+:::
+
 ---
 
-## OLS Variance 
+[Proof of the population variance]{.note}
 
-Variance of the slope estimator:
+By definition
 
 $$
-\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
+Var(\hat{\beta}_2) = E\left[\left(\hat{\beta}_2 - E(\hat{\beta}_2)\right)^2\right] = E\left[\left(\hat{\beta}_2 - \beta_2\right)^2\right]
 $$
 
-- As error variance [increases]{.hii}, variance of the slope estimator [increases]{.hii}
-- As variation in $X$ [increases]{.hii}, variance of the slope estimator [decreases]{.hi-red}
-- Larger sample sizes exhibit more variation in $X \implies \mathop{\text{Var}}(\hat{\beta}_2)$ falls as $n$ rises.
+. . .
+
+[Step 1:]{.note} Derive an expression for $\hat{\beta}_2 - \beta_2$:
+
+$$
+\hat{\beta}_2 - \beta_2 = \frac{\sum(y_i - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2} - \beta_2
+$$
+
+. . .
+
+Substitute for $Y_i$:
+
+$$
+\hat{\beta}_2 - \beta_2 = \frac{\sum((\beta_1 + \beta_2x_i + u_i) - \bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2} - \beta_2
+$$
+
+---
+
+###### {data-visibility="uncounted"}
+
+[Proof of the population variance]{.note}
+
+Substitute $\bar{y} = \beta_1 + \beta_2\bar{x}$:
+
+$$
+\hat{\beta}_2 - \beta_2 = \frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}
+$$
+
+. . .
+
+[Step 1:]{.note} Take variance $\hat{\beta}_2 - \beta_2$:
+
+$$
+Var(\hat{\beta}_2) = E\left[\left(\frac{\sum(u_i(x_i - \bar{x}))}{\sum(x_i - \bar{x})^2}\right)^2\right]
+$$
+
+---
+
+###### {data-visibility="uncounted"}
+
+Square the numerator:
+
+$$
+Var(\hat{\beta}_2) = E\left[\frac{\sum(u_i(x_i - \bar{x}))\sum(\epsilon_j(x_j - \bar{x}))}{\left(\sum(x_i - \bar{x})^2\right)^2}\right]
+$$
+
+. . .
+
+Using [A5]{.note}, we can simplify:
+
+$$
+Var(\hat{\beta}_2) = \frac{1}{\left(\sum(x_i - \bar{x})^2\right)^2}\sum E(u_i^2(x_i - \bar{x})^2)
+$$
+
+---
+
+###### {data-visibility="uncounted"}
+
+Using [A4]{.note}: $Var(u_i) = \sigma^2$.
+
+$$
+Var(\hat{\beta}_2) = \frac{\sigma^2}{\left(\sum(x_i - \bar{x})^2\right)^2}\sum (x_i - \bar{x})^2
+$$
+
+. . .
+
+<br>
+
+Thus we arrive at the variance of the OLS slope parameter:
+
+$$
+Var(\hat{\beta}_2) = \frac{\sigma^2}{\sum(x_i - \bar{x})^2}
+$$
+
+
+---
+
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+If [A4.]{.note} and [A5.]{.note} are satisfied, along with [A1.]{.note}, [A2.]{.note}, and [A3.]{.note}, then we are using the [most efficient]{.hi} linear estimator.
+:::
+
+---
+
+## Classical Assumptions of OLS {data-visibility="uncounted"}
+
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+. . .
+
+[A6.]{.note} [Normality:]{.hi} The population error term in normally distributed with mean zero and variance $\sigma^2$
+
+---
+
+## Nomality ([A6.]{.note})
+
+> The population error term in normally distributed with mean zero and variance $\sigma^2$
+
+Or,
+
+$$
+u \sim N(0,\sigma^2)
+$$
+
+Where $\sim$ stands for [distributed by]{.note} and $N$ stands for [normal distribution]{.note}
+
+. . .
+
+<br>
+
+However, [A6.]{.note} is note required for efficientcy nor unbiasedness
+
+---
 
 

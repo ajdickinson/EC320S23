@@ -14,11 +14,17 @@ format:
     code-fold: FALSE
     # code-copy: TRUE
     highlight-style: a11y-light
-    cache: FALSE
+    cache: TRUE
     html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
 ---
+
+::: {.content-hidden}
+$$
+{{< include ../_macros.tex >}}
+$$
+:::
 
 ## Housekeeping
 
@@ -46,7 +52,7 @@ MM: 1, [2]{.hi}
 pacman::p_load(hrbrthemes, fastverse, tidyverse,
                magrittr, wooldridge, here, kableExtra,
                ggdag, nord, latex2exp, dagitty, viridis,
-               emoGG, plotly, ggforce, latex2exp)
+               plotly, ggforce, latex2exp, parallel, broom)
 
 
 hi = nord_palettes$polarnight[3]
@@ -119,4 +125,27 @@ lm1 <- lm(crime ~ police, data = data2)
 
 {{< include _046-assumptions.qmd >}}
 
-<!-- TODO: Create an "aside" set of slides walking through logs -->
+# _Gauss Markov_ {.inverse .note}
+
+{{< include _047-gaussmarkov.qmd >}}
+
+# _Population vs. sample, revisited_ {.inverse .note}
+
+{{< include _048-sims.qmd >}}
+
+## 
+
+::: {.vertical-center}
+
+We will further this discussion next time to conduct inference.
+
+:::
+
+# Fin {.inverse}
+
+<!-- TODO: Create an aside about the mathematical language symbols -->
+<!-- 
+TODO: Create Gauss-Markov slides
+TODO: Make a note about canvas grades
+TODO: Add why we need variation in $X_i$ for A2
+     -->
