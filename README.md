@@ -93,7 +93,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 ## Resources
 
-[Practice midterm](https://ajdickinson.github.io/resources/practice-midterm.pdf)
+[Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf)
 
 ## Contributors
 
