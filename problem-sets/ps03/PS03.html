@@ -2824,7 +2824,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <p><span class="note">Show:</span></p>
 <p><span class="number">001a.</span> the intercept parameter, <span class="math inline">\(\alpha_0 = 0\)</span> <em>(4 pts)</em></p>
 <p><span class="number">001b.</span> the slope parameter <span class="math inline">\(\alpha_1 = \beta_1\)</span> where <span class="math inline">\(\beta_1\)</span> is the slope parameter of the original model before demeaning. <em>(4 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>Subtract the means from each variable in the original model and simplify:</p>
 <p><span class="math display">\[\begin{align*}
 \tilde{Y_i} &amp;= Y_i - \bar{Y} \\
@@ -2900,7 +2900,7 @@ y_i = \beta_0 + \beta_1x_i + u_i,
 </div>
 <p>Manually calculate the OLS estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p><span class="number">002a.</span> Calculate the residuals (<span class="math inline">\(\hat{u}_i\)</span>). <em>(1 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="math display">\[\begin{align*}
 \hat{u}_1 &amp;= 2 - \hat{\beta}_0 - \hat{\beta}_1 \\
 \hat{u}_2 &amp;= 4 - \hat{\beta}_0 - 2\hat{\beta}_1 \\
@@ -2909,21 +2909,21 @@ y_i = \beta_0 + \beta_1x_i + u_i,
 \end{align*}\]</span></p>
 </div>
 <p><span class="number">002b.</span> Calculate the residual sum of squares (<span class="math inline">\(RSS = \sum_{i=1}^n \hat{u}_i^2\)</span>). <em>(2 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="math display">\[\begin{align*}
 RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 &amp;= (2 - \hat{\beta}_0 - \hat{\beta}_1)^2 + (4 - \hat{\beta}_0 - 2\hat{\beta}_1)^2 + (7 - \hat{\beta}_0 - 3\hat{\beta}_1)^2 + (9 - \hat{\beta}_0 - 4\hat{\beta}_1)^2
 \end{align*}\]</span></p>
 </div>
 <p><span class="number">002c.</span> Take the derivative of <span class="math inline">\(RSS\)</span> with respect to the parameters of interest. <em>(2 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p><span class="math display">\[\begin{align*}
 \frac{\partial RSS}{\partial \hat{\beta}_0} &amp;= -2(2 - \hat{\beta}_0 - \hat{\beta}_1) - 2(4 - \hat{\beta}_0 - 2\hat{\beta}_1) - 2(7 - \hat{\beta}_0 - 3\hat{\beta}_1) - 2(9 - \hat{\beta}_0 - 4\hat{\beta}_1) \\
 \frac{\partial RSS}{\partial \hat{\beta}_1} &amp;= -2(2 - \hat{\beta}_0 - \hat{\beta}_1) - 4(4 - \hat{\beta}_0 - 2\hat{\beta}_1) - 6(7 - \hat{\beta}_0 - 3\hat{\beta}_1) - 8(9 - \hat{\beta}_0 - 4\hat{\beta}_1) \\
 \end{align*}\]</span></p>
 </div>
 <p><span class="number">002d.</span> Find the minimum of <span class="math inline">\(RSS\)</span> by setting your equations from <span class="number">002c.</span> equal to zero and then solving for the two parameters. What are <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>? <em>(2 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>Now, we can solve the system of equations:</p>
 <p><span class="math display">\[\begin{align*}
 -2(2 - \hat{\beta}_0 - \hat{\beta}_1) - 2(4 - \hat{\beta}_0 - 2\hat{\beta}_1) - 2(7 - \hat{\beta}_0 - 3\hat{\beta}_1) - 2(9 - \hat{\beta}_0 - 4\hat{\beta}_1) &amp;= 0 \\
@@ -2965,7 +2965,7 @@ RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 <p>So, the OLS estimates are <span class="math inline">\(\hat{\beta}_0 = -2\)</span> and <span class="math inline">\(\hat{\beta}_1 = \frac{22}{5}\)</span>.</p>
 </div>
 <p><span class="number">002e.</span> Check that the results from <span class="number">002d.</span> give us a minimum for <span class="math inline">\(RSS\)</span> and not a maximum. <em>(1 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>To verify if the solution gives a minimum for <span class="math inline">\(RSS\)</span>, we can check the second-order conditions. The second derivatives of <span class="math inline">\(RSS\)</span> with respect to both <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> should be positive:</p>
 <p><span class="math display">\[\begin{align*}
 \frac{\partial^2 RSS}{\partial \hat{\beta}_0^2} &amp;= 8 &gt; 0 \\
@@ -2976,7 +2976,7 @@ RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 <p><br></p>
 <p><span class="number">003.</span> Prove the following OLS properties.</p>
 <p><span class="number">003a.</span> Prove that the residuals given by OLS estimation of <span class="math inline">\(y_i=\beta_0+\beta_1x_i + u_i\)</span> sum to zero, that is <span class="math inline">\(\sum_{i=1}^n\hat{u}_i = 0\)</span>. <em>(4 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>To prove this, we plug in the definition of a residual, <span class="math inline">\(\hat{u}_i = y_i - \hat{\beta}_0 - \hat{\beta}_1x_i\)</span>, and then plug in the OLS formula for <span class="math inline">\(\hat{\beta}_0 = \bar{y}-\hat{\beta}_1\bar{x}\)</span>. Then, plug in the definition of sample averages and simplify.</p>
 <p><span class="math display">\[\begin{align*}
 \sum_{i=1}^n \hat{u}_i &amp;= \sum_{i=1}^n y_i - \hat{\beta}_0 - \hat{\beta}_1x_i \\
@@ -2989,7 +2989,7 @@ RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 <p>Thus, the sum of the residuals is zero</p>
 </div>
 <p><span class="number">003b.</span> Show that the sample covariance between the residuals of an OLS estimation of <span class="math inline">\(y_i=\beta_0+\beta_1x_i + u_i\)</span> and the explanatory variable, <span class="math inline">\(x_i\)</span>, in a regression is zero. <em>(4 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>We start with the formula for <span class="math inline">\(\mathrm{Cov}(x_i,\hat{u}_i)\)</span>, noting that <span class="math inline">\(\bar{\hat{u}}=\frac{1}{n}\sum_{i=1}^n \hat{u}_i = 0\)</span> from the previous question.</p>
 <p><span class="math display">\[\begin{align*}
 \mathrm{Cov}(x_i,\hat{u}_i) &amp;= \frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(\hat{u}_i-\bar{\hat{u}})\\
@@ -3008,18 +3008,18 @@ RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 mpg_i = \beta_0 + \beta_1 wt_i + u_i
 \]</span> You run a regression, and get estimates <span class="math inline">\(\hat{\beta}_0 = 37.29\)</span> and <span class="math inline">\(\hat{\beta}_1=-5.34\)</span>, where <span class="math inline">\(wt\)</span> is measured in 1000 lbs.</p>
 <p><span class="number">004a.</span> Give the interpretation of the two estimates. <em>(2 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>A 1000 lb increase in weight is associated with a 5.34 mpg decrease in fuel efficiency. Cars that weigh nothing get 37.29 mpg on average.</p>
 </div>
 <!-- [004b.]{.number} Suppose the standard error for $\hat{\beta}_1$ is $SE(\hat{\beta}_1)=0.56$. Is the coefficient estimate for $\beta_1$ statistically distinguishable from zero?  
 
-::: {.answer style="display: none;"}
+::: {.answer style="display: inherit;"}
 
 **Here we are testing the null hypothesis that $\beta_1 = 0$. The t-statistic is $t = \frac{5.34 - 0}{0.56} = 9.53$, which is well above the 95%  critical value, thus we reject the null hypothesis -- the coefficient estimate for $\beta_1$ is statistically distinguishable from zero.**
 
 ::: -->
 <p><span class="number">004b.</span> The regression in <span class="number">004a.</span> produced an R-squared of <span class="math inline">\(0.75\)</span>. What does this value tell us? <em>(2 pts)</em></p>
-<div class="answer" style="display: none;">
+<div class="answer" style="display: inherit;">
 <p>The R-squared tells us that <span class="math inline">\(75\%\)</span> of the variation in miles per gallon is explained by weight.</p>
 </div>
 </section>
