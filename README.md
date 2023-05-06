@@ -83,13 +83,13 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: TBD
 
-## Problem sets
+## Problem sets + solutions (_following due date_)
 
-[PS01](https://ajdickinson.github.io/EC320S23/problem-sets/ps01/ps01.html)
+[PS01 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps01/ps01.html)
 
-[PS02](https://ajdickinson.github.io/EC320S23/problem-sets/ps02/ps02.html)
+[PS02 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps02/ps02.html)
 
-[PS03](https://ajdickinson.github.io/EC320S23/problem-sets/ps03/PS03.html)
+[PS03 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps03/PS03.html)
 
 ## Resources
 
