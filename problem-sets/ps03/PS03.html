@@ -2931,45 +2931,40 @@ RSS &amp;= \sum_{i=1}^n \hat{u}_i^2 \\
 \end{align*}\]</span></p>
 <p>Combine the terms:</p>
 <p><span class="math display">\[\begin{align*}
--22\hat{\beta}_0 - 20\hat{\beta}_1 &amp;= -44 \\
--20\hat{\beta}_0 - 50\hat{\beta}_1 &amp;= -100 \\
+22 - 4\hat{\beta}_0 - 10\hat{\beta}_1 &amp;= 0 \\
+67 - 10\hat{\beta}_0 - 30\hat{\beta}_1 &amp;= 0 \\
 \end{align*}\]</span></p>
-<p>We can solve the system using substitution or elimination method. Let’s use the substitution method. Divide the first equation by -22:</p>
+<p>Now, let’s solve the system of equations. We can use either substitution or elimination method. Let’s use the elimination method. Multiply the first equation by 5 and the second equation by 2:</p>
 <p><span class="math display">\[\begin{align*}
-\hat{\beta}_0 + \frac{10}{11}\hat{\beta}_1 &amp;= 2 \\
+110 - 20\hat{\beta}_0 - 50\hat{\beta}_1 &amp;= 0 \\
+134 - 20\hat{\beta}_0 - 60\hat{\beta}_1 &amp;= 0 \\
 \end{align*}\]</span></p>
-<p>Now, solve for <span class="math inline">\(\hat{\beta}_0\)</span>:</p>
+<p>Subtract the first equation from the second equation:</p>
 <p><span class="math display">\[\begin{align*}
-\hat{\beta}_0 &amp;= 2 - \frac{10}{11}\hat{\beta}_1 \\
+24 - 10\hat{\beta}_1 &amp;= 0 \\
 \end{align*}\]</span></p>
-<p>Substitute this expression into the second equation:</p>
+<p>Solve for <span class="math inline">\(\hat{\beta}_1\)</span>:</p>
 <p><span class="math display">\[\begin{align*}
--20(2 - \frac{10}{11}\hat{\beta}_1) - 50\hat{\beta}_1 &amp;= -100 \\
+\hat{\beta}_1 &amp;= \frac{24}{10} \\
+\hat{\beta}_1 &amp;= 2.4 \\
 \end{align*}\]</span></p>
-<p>Simplify the equation:</p>
+<p>Now, plug the value of <span class="math inline">\(\hat{\beta}_1\)</span> back into the first equation:</p>
 <p><span class="math display">\[\begin{align*}
--40 + \frac{200}{11}\hat{\beta}_1 - 50\hat{\beta}_1 &amp;= -100 \\
+22 - 4\hat{\beta}_0 - 10(2.4) &amp;= 0 \\
 \end{align*}\]</span></p>
-<p>Combine the terms and solve for <span class="math inline">\(\hat{\beta}_1\)</span>:</p>
+<p>Solve for <span class="math inline">\(\hat{\beta}_0\)</span>:</p>
 <p><span class="math display">\[\begin{align*}
-\frac{150}{11}\hat{\beta}_1 &amp;= 60 \\
-\hat{\beta}_1 &amp;= \frac{60}{\frac{150}{11}} \\
-\hat{\beta}_1 &amp;= \frac{22}{5} \\
+\hat{\beta}_0 &amp;= \frac{22 - 10(2.4)}{4} \\
+\hat{\beta}_0 &amp;= -0.5 \\
 \end{align*}\]</span></p>
-<p>Now, plug the value of <span class="math inline">\(\hat{\beta}_1\)</span> back into the expression for <span class="math inline">\(\hat{\beta}_0\)</span>:</p>
-<p><span class="math display">\[\begin{align*}
-\hat{\beta}_0 &amp;= 2 - \frac{10}{11} \times \frac{22}{5} \\
-\hat{\beta}_0 &amp;= 2 - 4 \\
-\hat{\beta}_0 &amp;= -2 \\
-\end{align*}\]</span></p>
-<p>So, the OLS estimates are <span class="math inline">\(\hat{\beta}_0 = -2\)</span> and <span class="math inline">\(\hat{\beta}_1 = \frac{22}{5}\)</span>.</p>
+<p>So, the correct OLS estimates are <span class="math inline">\(\hat{\beta}_0 = -0.5\)</span> and <span class="math inline">\(\hat{\beta}_1 = 2.4\)</span>.</p>
 </div>
 <p><span class="number">002e.</span> Check that the results from <span class="number">002d.</span> give us a minimum for <span class="math inline">\(RSS\)</span> and not a maximum. <em>(1 pts)</em></p>
 <div class="answer" style="display: inherit;">
 <p>To verify if the solution gives a minimum for <span class="math inline">\(RSS\)</span>, we can check the second-order conditions. The second derivatives of <span class="math inline">\(RSS\)</span> with respect to both <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> should be positive:</p>
 <p><span class="math display">\[\begin{align*}
-\frac{\partial^2 RSS}{\partial \hat{\beta}_0^2} &amp;= 8 &gt; 0 \\
-\frac{\partial^2 RSS}{\partial \hat{\beta}_1^2} &amp;= 20 &gt; 0 \\
+\frac{\partial^2 RSS}{\partial \hat{\beta}_0^2} &amp; &gt; 0 \\
+\frac{\partial^2 RSS}{\partial \hat{\beta}_1^2} &amp; &gt; 0 \\
 \end{align*}\]</span></p>
 <p>Since both second derivatives are positive, the solution gives us a minimum for <span class="math inline">\(RSS\)</span> and not a maximum.</p>
 </div>
