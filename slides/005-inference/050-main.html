@@ -571,19 +571,392 @@ Andrew Dickinson
 </div>
 <p>Simulating 10,000 draws</p>
 </section></section>
+<section>
 <section id="inference" class="title-slide slide level1 inverse note center">
 <h1><em>Inference</em></h1>
-<!-- TODO: Define point estimates -->
-<!-- TODO: Grab hypothesis testing slides from review -->
-<!-- TODO: Finish confidence intervals section -->
-<!-- {{< include _052-inference.qmd >}} -->
-</section>
 
+</section>
+<section id="inference-1" class="slide level2">
+<h2>Inference</h2>
+<p>Our current workflow:</p>
+<p><span class="note">1.</span> Get data (points with <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> values).</p>
+<p><span class="note">2.</span> Regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">3.</span> Plot the <span class="note">point estimates</span> (<em>i.e.</em>, <span class="math inline">\(\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1X_i\)</span>) and report.</p>
+<p><br></p>
+<div class="fragment">
+<p>But when do we <span class="note">learn something?</span> <span class="fragment">We are missing a step.</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li><em>For <span class="math inline">\(\hat{\beta}_2\)</span>, can we rule out previously hypothesized values?</em></li>
+<li><em>How confident should we be in the precision of our estimates?</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p>We need to be careful about our sample being atypical. <span class="fragment note">AKA uncertainty.</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="vertical-center">
+<p>However, there is a <span class="hi-red">problem</span>.</p>
+</div>
+</section>
+<section id="section-1" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>Recall the variance of the <span class="note">point estimate</span> <span class="math inline">\(\hat{\beta_1}\)</span> <span class="math display">\[
+\mathop{\text{Var}}(\hat{\beta}_1) = \frac{{\color{#000000} \sigma^2}}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<p><span class="white">The problem is that <span class="math inline">\({\color{#ffffff} \sigma^2}\)</span> is unobserved. So what do we do? <em>Estimate it.</em></span></p>
+</div>
+</section>
+<section id="section-2" class="slide level2" data-visibility="uncounted">
+<h2></h2>
+<div class="vertical-center">
+<p>Recall the variance of the <span class="note">point estimate</span> <span class="math inline">\(\hat{\beta_1}\)</span> <span class="math display">\[
+\mathop{\text{Var}}(\hat{\beta}_1) = \frac{{\color{#BF616A} \sigma^2}}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<p>The problem is that <span class="math inline">\({\color{#BF616A} \sigma^2}\)</span> is unobserved. <span class="note fragment">So what do we do?</span> <span class="fragment note"><em>Estimate it.</em></span></p>
+</div>
+</section>
+<section id="estimating-error-variance" class="slide level2">
+<h2>Estimating error variance</h2>
+<p>We can estimate the variance of <span class="math inline">\(u_i\)</span> (<span class="math inline">\({\color{#BF616A} \sigma^2}\)</span>) using the sum of squared residuals (<span class="hi-orange">RSS</span>):</p>
+<p><span class="math display">\[
+s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k}
+\]</span></p>
+<p>where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(k\)</span> is the number of regression parameters. <span class="fragment">(In a simple linear regression, <span class="math inline">\(k=2\)</span>.)</span></p>
+<div class="fragment">
+<p>If the assumptions from <span class="note">Gauss-Markov</span> hold, then <span class="math inline">\(s^2_u\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<div class="fragment">
+<p>In essence, we are <em>learning from our prediction errors</em></p>
+</div>
+</section>
+<section id="ols-variance" class="slide level2">
+<h2>OLS Variance</h2>
+<p>With <span class="math inline">\(s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k}\)</span>, we can calculate the <span class="note">estimated variance</span> of <span class="math inline">\(\hat{\beta}_2\)</span></p>
+<p><span class="math display">\[
+\mathop{\text{Var}}(\hat{\beta}_2) = \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\]</span></p>
+<div class="fragment">
+<p>Taking the square root, we get the <span class="note">standard error</span> of the OLS estimator:</p>
+<p><span class="math display">\[
+\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) = \sqrt{ \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2} }
+\]</span></p>
+<p>The <span class="note">standard error</span> is the <span class="hi">standard deviation</span> of the <span class="note">sampling distribution.</span></p>
+</div>
+</section>
+<section id="inference-2" class="slide level2">
+<h2>Inference</h2>
+<p>After deriving the distribution of <span class="math inline">\(\hat{\beta}_2\)</span><sup>1</sup>, we have two (related) options for formal statistical inference (learning) about our unknown parameter <span class="math inline">\(\beta_2\)</span>:</p>
+<p><br></p>
+<ul>
+<li><span class="hi">Hypothesis testing:</span> Determine whether there is statistically significant evidence to reject a hypothesized value or range of values.</li>
+<li><span class="hi">Confidence intervals:</span> Use the estimate and its standard error to create an interval that will generally<sup>2</sup> contain the true parameter.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><em>Hint:</em> It’s normal with mean <span class="math inline">\(\beta_2\)</span> and variance <span class="math inline">\(\frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}\)</span>.</p></li><li id="fn4"><p><em>E.g.</em>, similarly constructed 95% confidence intervals will contain the true parameter 95% of the time.</p></li></ol></aside></section></section>
+<section>
 <section id="hypothesis-testing" class="title-slide slide level1 inverse note center">
 <h1><em>Hypothesis testing</em></h1>
-<!-- {{< include _053-hypothesis.qmd >}} -->
-</section>
 
+</section>
+<section id="hypothesis-tests" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p>Systematic procedure that gives us evidence to hang our hat on. Starting with a <span class="hi">Null hypothesis</span> (H<span class="sub">0</span>) and an <span class="hi">Alternative hypothesis</span> (H<span class="sub">A</span>)</p>
+<div class="align-center">
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_2 = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta_2 \neq 0\)</span></p>
+</div>
+<div class="fragment">
+<p>There are four possible outcomes of our test:</p>
+<p><span class="note">1.</span> We <span class="hi">fail to reject</span> the null hypothesis and the null is true.</p>
+<p><span class="note">2.</span> We <span class="hi-red">reject</span> the null hypothesis and the null is false.</p>
+<p><span class="note">3.</span> We <span class="hi-red">reject</span> the null hypothesis, but the null is actually true.<sup>1</sup></p>
+<p><span class="note">4.</span> We <span class="hi">fail to reject</span> the null hypothesis, but the null is actually false.<sup>2</sup></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><span class="note">Type I error</span></p></li><li id="fn6"><p><span class="note">Type II error</span></p></li></ol></aside></section>
+<section class="slide level2">
+
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Type I vs Type II</p></section>
+<section class="slide level2">
+
+<p>Or…</p>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="typeI_vs_typeII-again.png" width="700"></p>
+<p></p><figcaption>How I think of it</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="hypothesis-tests-1" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p><span class="note">Goal:</span> Make a statement about <span class="math inline">\(\beta_2\)</span> using information on <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
+<div class="fragment">
+<p><span class="math inline">\(\hat{\beta}_2\)</span> is random—it could be anything, even if <span class="math inline">\(\beta_2 = 0\)</span> is true.</p>
+<ul>
+<li>But if <span class="math inline">\(\beta_2 = 0\)</span> is true, then <span class="math inline">\(\hat{\beta}_2\)</span> is unlikely to take values far from zero.</li>
+<li>As the standard error shrinks, we are even less likely to observe “extreme” values of <span class="math inline">\(\hat{\beta}_2\)</span> (assuming <span class="math inline">\(\beta_2 = 0\)</span>).</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Hypothesis testing takes <span class="hi-red">extreme values</span> of <span class="math inline">\(\hat{\beta}_2\)</span> as <span class="note"><em>evidence against the null hypothesis</em></span>, <span class="fragment">but it will weight them by information about variance the <span class="note">estimated variance</span> of <span class="math inline">\(\hat{\beta}_2\)</span>.</span></p>
+</div>
+</section>
+<section id="hypothesis-tests-2" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<div class="align-center">
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_2 = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta \neq 0\)</span></p>
+</div>
+<p>To conduct the test, we calculate a <span class="math inline">\(t\)</span>-statistic<sup>1</sup>:</p>
+<p><span class="math display">\[
+t = \frac{\hat{\beta}_2 - \beta_2^0}{\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)}
+\]</span></p>
+<p>Distributed by a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-2\)</span> <em>degrees of freedom</em><sup>2</sup>.</p>
+<aside><ol class="aside-footnotes"><li id="fn7"><p><span class="math inline">\(\beta_2^0\)</span> is the value of <span class="math inline">\(\beta_2\)</span> in our null hypothesis (<em>e.g.,</em> <span class="math inline">\(\beta_2^0 = 0\)</span>).</p></li><li id="fn8"><p>represents the number of independent values in a sample that are free to vary when estimating statistical parameters.</p></li></ol></aside></section>
+<section id="hypothesis-tests-3" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p>Next, we use the <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> to calculate a <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span>.</p>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"><p>Describes the probability of seeing a <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> as extreme as the one we observe <em>if the null hypothesis is actually true</em>.</p>
+<div class="fragment">
+<p>But…we still need some benchmark to compare our <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span> against.</p>
+</div>
+</section>
+<section id="hypothesis-tests-4" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p>We worry mostly about false positives, so we conduct hypothesis tests based on the probability of making a <span class="note">Type I error</span><sup>1</sup>.</p>
+<div class="fragment">
+<p><span class="blue"><em>How?</em></span> <span class="fragment">We select a <span class="note">significance level</span>, <span class="math inline">\(\color{#434C5E}{\alpha}\)</span>, that specifies our tolerance for false positives (i.e., the probability of <span class="note">Type I error</span> we choose to live with).</span></p>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="050-main_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>We <em>reject</em> the null hypothesis, but the null is actually true.</p></li></ol></aside></section>
+<section id="hypothesis-tests-5" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p>We then compare <span class="math inline">\(\color{#434C5E}{\alpha}\)</span> to the <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span> of our test.</p>
+<ul>
+<li><p>If the <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span> is less than <span class="math inline">\(\color{#434C5E}{\alpha}\)</span>, then we <span class="hi-red">reject the null hypothesis</span> at the <span class="math inline">\(\color{#434C5E}{\alpha}\cdot100\)</span> percent level.</p></li>
+<li><p>If the <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span> is greater than <span class="math inline">\(\color{#434C5E}{\alpha}\)</span>, then we <span class="hi">fail to reject the null hypothesis</span> at the <span class="math inline">\(\color{#434C5E}{\alpha}\cdot100\)</span> percent level.<sup>1</sup></p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn10"><p><span class="note">Note:</span> <em>Fail to reject</em> <span class="math inline">\(\neq\)</span> <em>accept</em>.</p></li></ol></aside></section>
+<section id="hypothesis-tests-6" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p><span class="ex">Ex.</span> Are campus police associated with campus crime?</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    18.4       2.38      7.75 1.06e-11
+2 police          1.76      1.30      1.35 1.81e- 1</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="align-center">
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_\text{Police} = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta_\text{Police} \neq 0\)</span></p>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Significance level: <span class="math inline">\(\color{#434C5E}{\alpha} = 0.05\)</span> (<em>i.e.,</em> 5 percent test)</p>
+<p>Test Condition: Reject H<span class="sub">0</span> if <span class="math inline">\(p &lt; \alpha\)</span></p>
+<p><span class="fragment"><em>What is the <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span>?</em></span> <span class="fragment"><span class="math inline">\(p = 0.18\)</span></span></p>
+<p><span class="fragment"><em>Do we reject the null hypothesis?</em></span> <span class="fragment hi">No.</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="hypothesis-tests-7" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p><span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-values</span> are difficult to calculate by hand.</p>
+<p><span class="note">Alternative:</span> Compare <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> to <span class="note">critical values</span> from the <span class="math inline">\({\color{#434C5E} t}\)</span>-distribution.</p>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="hypothesis-tests-8" class="slide level2">
+<h2>Hypothesis Tests</h2>
+<p><span class="note">Notation:</span> <span class="math inline">\(t_{1-\alpha/2, n-2}\)</span> or <span class="math inline">\(t_\text{crit}\)</span>.</p>
+<ul>
+<li>Find in a <span class="math inline">\(t\)</span>-table using <span class="math inline">\(\color{#434C5E}{\alpha}\)</span> and <span class="math inline">\(n-2\)</span> degrees of freedom.</li>
+</ul>
+<p>Compare the the critical value to your <span class="math inline">\(t\)</span>-statistic:</p>
+<ul>
+<li>If <span class="math inline">\(|t| &gt; |t_{1-\alpha/2, n-2}|\)</span>, then <span class="hi-red">reject the null</span>.</li>
+<li>If <span class="math inline">\(|t| &lt; |t_{1-\alpha/2, n-2}|\)</span>, then <span class="hi">fail to reject the null</span>.</li>
+</ul>
+</section>
+<section id="two-sided-tests" class="slide level2">
+<h2>Two-sided tests</h2>
+<p>Based on a critical value of <span class="math inline">\(t_{1-\alpha/2, n-2} = t_{0.975, 100} =\)</span> 1.98, we can identify a <span class="hii">rejection region</span> on the <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-distribution</span>.</p>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>If our <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> is in the rejection region, then we reject the null hypothesis at the 5 percent level.</p>
+</div>
+</section>
+<section id="two-sided-tests-1" class="slide level2">
+<h2>Two-sided tests</h2>
+<p><span class="ex">Ex.</span> <span class="mono">R</span> defaults to testing hypotheses against the null hypothesis of zero.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    2.53     0.422       6.00 3.38e- 8
+2 x              0.567    0.0793      7.15 1.59e-10</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="align-center">
+<p><br></p>
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_2 = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta_2 \neq 0\)</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span></p>
+<p><span class="math display">\[
+\color{#434C5E}{t \text{-stat}} = 7.15
+\]</span></p>
+<p><span class="math display">\[
+{\color{#434C5E}{t_{\text{0.975, 28}}}} = 2.05
+\]</span></p>
+<p><span class="fragment">Which implies that <span class="math inline">\(p &lt; 0.05\)</span>.</span> <span class="fragment">Therefore,</span></p>
+<p><span class="fragment">we <span class="hi-red">reject H<span class="sub">0</span></span> at the 5% level.</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sided-tests-2" class="slide level2">
+<h2>Two-sided tests</h2>
+<p><span class="ex">Ex.</span> Are campus police associated with campus crime?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    18.4       2.38      7.75 1.06e-11
+2 police          1.76      1.30      1.35 1.81e- 1</code></pre>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="align-center">
+<p><br></p>
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_\text{Police} = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta_\text{Police} \neq 0\)</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Significance level: <span class="math inline">\(\alpha = 0.1\)</span></p>
+<p><span class="math display">\[
+\color{#434C5E}{t \text{-stat}} = 1.35
+\]</span></p>
+<p><span class="math display">\[
+{\color{#434C5E}{t_{\text{0.975, 28}}}} = 1.66
+\]</span></p>
+<p><span class="fragment">Which implies that <span class="math inline">\(p &gt; 0.05\)</span>.</span> <span class="fragment">Therefore,</span></p>
+<p><span class="fragment">we <span class="hi-red">reject H<span class="sub">0</span></span> at the 5% level.</span></p>
+</div>
+</div>
+</section>
+<section id="one-sided-tests" class="slide level2">
+<h2>One-sided tests</h2>
+<p>We might be confident in a parameter being <span class="hii">non-negative</span>/<span class="hi-red">non-positive</span>.</p>
+<p><span class="note">One-sided</span> tests assume that the parameter of interest is either <span class="hii">greater than</span>/<span class="hi-red">less than</span> H<span class="sub">0</span>.</p>
+<ul>
+<li><p><span class="note">Option 1</span> H<span class="sub">0</span>: <span class="math inline">\(\beta_2 = 0\)</span> <em>vs.</em> H<span class="sub">a</span>: <span class="math inline">\(\beta_2 &gt; 0\)</span></p></li>
+<li><p><span class="note">Option 2</span> H<span class="sub">0</span>: <span class="math inline">\(\beta_2 = 0\)</span> <em>vs.</em> H<span class="sub">a</span>: <span class="math inline">\(\beta_2 &lt; 0\)</span></p></li>
+</ul>
+<div class="fragment">
+<p>If this assumption is reasonable, then our rejection region changes.</p>
+<ul>
+<li>Same <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="one-sided-tests-1" class="slide level2">
+<h2>One-sided tests</h2>
+<p><span class="note">Left-tailed:</span> Based on a critical value of <span class="math inline">\(t_{1-\alpha, n-2} = t_{0.95, 100} =\)</span> 1.66, we can identify a <span class="hii">rejection region</span> on the <span class="math inline">\(t\)</span>-distribution.</p>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>If our <span class="math inline">\(t\)</span> statistic is in the rejection region, then we reject the null hypothesis at the 5 percent level.</p>
+</div>
+</section>
+<section id="one-sided-tests-2" class="slide level2">
+<h2>One-sided tests</h2>
+<p><span class="note">Right-tailed:</span> Based on a critical value of <span class="math inline">\(t_{1-\alpha, n-2} = t_{0.95, 100} =\)</span> 1.66, we can identify a <span class="hii">rejection region</span> on the <span class="math inline">\(t\)</span>-distribution.</p>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>If our <span class="math inline">\(t\)</span> statistic is in the rejection region, then we reject the null hypothesis at the 5 percent level.</p>
+</div>
+</section>
+<section id="one-sided-tests-3" class="slide level2">
+<h2>One-sided tests</h2>
+<p><strong>Example:</strong> Do campus police deter campus crime?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    18.4       2.38      7.75 1.06e-11
+2 police          1.76      1.30      1.35 1.81e- 1</code></pre>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="align-center">
+<p><br></p>
+<p>H<span class="sub">0</span>: <span class="math inline">\(\beta_\text{Police} = 0\)</span></p>
+</div>
+<div class="align-center">
+<p>H<span class="sub">A</span>: <span class="math inline">\(\beta_\text{Police} &lt; 0\)</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Significance level: <span class="math inline">\(\alpha = 0.1\)</span></p>
+<p><span class="math display">\[
+\color{#434C5E}{t \text{-stat}} = 1.35
+\]</span></p>
+<p><span class="math display">\[
+{\color{#434C5E}{t_{\text{critical}}}} = 1.29
+\]</span></p>
+<p><span class="fragment">Which implies that <span class="math inline">\(p &gt; 0.05\)</span>.</span> <span class="fragment">Therefore,</span></p>
+<p><span class="fragment">we <span class="hi-red">reject H<span class="sub">0</span></span> at the 5% level.</span></p>
+</div>
+</div>
+</section></section>
 <section>
 <section id="confidence-intervals" class="title-slide slide level1 inverse note center">
 <h1><em>Confidence intervals</em></h1>
@@ -678,7 +1051,7 @@ Andrew Dickinson
 <section id="confidence-intervals-ex." class="slide level2">
 <h2>Confidence intervals <span class="ex">Ex.</span></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
@@ -690,10 +1063,10 @@ Andrew Dickinson
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># find degrees of freedom</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>dof <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df))<span class="sc">$</span>df[<span class="dv">2</span>]</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># return critical value</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, dof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># find degrees of freedom</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>dof <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df))<span class="sc">$</span>df[<span class="dv">2</span>]</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># return critical value</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, dof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.984467</code></pre>
 </div>
@@ -731,15 +1104,15 @@ Andrew Dickinson
 </section>
 <section id="confidence-intervals-9" class="slide level2">
 <h2>Confidence intervals</h2>
-<p><em>From our previous simulation</em>, 97.7% of 95% confidence intervals contain the true parameter value of <span class="math inline">\(\beta_2\)</span>.</p>
+<p><em>From our previous simulation</em>, 97.6% of 95% confidence intervals contain the true parameter value of <span class="math inline">\(\beta_2\)</span>.</p>
 
-<img data-src="050-main_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
 <section id="ex.-association-of-police-with-crime" class="slide level2">
 <h2><span class="ex">Ex.</span> Association of police with crime</h2>
 <p>You can instruct <code>tidy</code> to return a 95 percent confidence interval for the association of campus police with campus crime:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic  p.value conf.low conf.high
@@ -752,7 +1125,7 @@ Andrew Dickinson
 <section id="ex.-association-of-police-with-crime-1" class="slide level2">
 <h2><span class="ex">Ex.</span> Association of police with crime</h2>
 
-<img data-src="050-main_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>Four confidence intervals for the same coefficient.</p>
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"><p>Four confidence intervals for the same coefficient.</p>
 <div class="footer footer-default">
 <p>EC320, Set 06 | Inference</p>
 </div>

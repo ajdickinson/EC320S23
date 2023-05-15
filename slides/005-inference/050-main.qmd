@@ -97,16 +97,26 @@ campus <- get(data(campus)) %>%
 
 # _Inference_ {.inverse .note}
 
-<!-- TODO: Define point estimates -->
-<!-- TODO: Grab hypothesis testing slides from review -->
-<!-- TODO: Finish confidence intervals section -->
-
-<!-- {{< include _052-inference.qmd >}} -->
+{{< include _052-inference.qmd >}}
 
 # _Hypothesis testing_ {.inverse .note}
 
-<!-- {{< include _053-hypothesis.qmd >}} -->
+{{< include _053-hypothesis.qmd >}}
 
 # _Confidence intervals_ {.inverse .note}
 
 {{< include _054-ci.qmd >}}
+
+
+```{r}
+#| include: false
+#| echo: false
+#| eval: false
+library(renderthis)
+
+renderthis::to_pdf(
+  from = "./slides/005-inference/050-main.html",
+  to = "./slides/005-inference/050-main.pdf",
+  complex_slides = TRUE
+)
+```

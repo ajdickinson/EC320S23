@@ -143,9 +143,11 @@ We will further this discussion next time to conduct inference.
 
 # Fin {.inverse}
 
-<!-- TODO: Create an aside about the mathematical language symbols -->
-<!-- 
-TODO: Create Gauss-Markov slides
-TODO: Make a note about canvas grades
-TODO: Add why we need variation in $X_i$ for A2
-     -->
+```{r}
+#| include: false
+#| echo: false
+#| eval: false
+library(renderthis)
+
+renderthis::to_pdf(from = "./slides/004-ols-ii/050-main.html", to = "./slides/004-ols-ii/050-main.pdf")
+```
