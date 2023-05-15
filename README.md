@@ -55,33 +55,21 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: *ItE 2*
 
-**006 - Inference** 
-
-- Readings: *ItE 2*
-
-**007 - Mulitple variable regression** 
+**006 - Mulitple variable regression** 
 
 - Readings: *ItE 3, 6.2; MM 2 (appendix)*
 
-**008 - Mulitple variable regression inference** 
-
-- Readings: *ItE 3, 6.2; MM 2 (appendix)*
-
-**009 - Nonlinear relationships** 
+**007 - Nonlinear relationships** 
 
 - Readings: *ItE 4*
 
-**010 - Categorical variables**
+**008 - Categorical variables**
 
 - Readings: *ItE 5*
 
-**011 - Model specification**
+**009 - Model specification**
 
 - Readings: *ItE 6*
-
-**012 - Difference in differences**
-
-- Readings: TBD
 
 ## Problem sets + solutions (_following due date_)
 

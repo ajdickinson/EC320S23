@@ -12,9 +12,9 @@ format:
     footer: "EC320, Set 06 | Inference"
     preview-links: auto
     code-fold: FALSE
-    # code-copy: TRUE
+    code-copy: TRUE
     highlight-style: a11y-light
-    cache: TRUE
+    cache: FALSE
     html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
@@ -28,14 +28,14 @@ $$
 
 ## Housekeeping
 
-[PS03:]{.hi}
+[PS04:]{.hi}
 
-- Due Tuesday at 11:59p
-- Covers remaining a bunch of OLS stuff up to today
+- Will be assigned next week (_enjoy the warm weather_)
+- Due next _next_ Tuesday
 
 . . .
 
-[LA04:]{.hi}
+[LA05:]{.hi}
 
 - Due Friday at 5:00p
 
@@ -45,6 +45,13 @@ $$
 
 ItE: R, 1, [2]{.hi}
 MM: 1, [2]{.hi}
+
+---
+
+## MT scores
+
+![](mt-scores.png)
+
 
 # _Prologue_ {.inverse .note}
 
@@ -75,31 +82,14 @@ mytheme_s = mytheme +
         panel.grid.major.y = element_blank(),
         axis.line = element_line(color = hi))
 
+mytheme_void = theme_void(base_family = "Fira Sans Book", base_size = 20)
 
-# simulated earnings data
-# df_earn <- tibble(x = sample(8:20, 100, replace=T),
-#              y = -14 + 2.5*x + rnorm(100, 0, 5)) %>% 
-#   filter(y > 5)
-# lm_earn <- lm(y ~ x, data = df_earn)
-# b0_earn <- lm_earn$coefficients[1]
-# b1_earn <- lm_earn$coefficients[2]
-# # data for R^2 discussion
-# df1 <- tibble(x = rnorm(1000, 5, 5),
-#              y = 100 - 1*x + rnorm(1000, 0, 3))
-# df2 <- tibble(x = rnorm(1000, 5, 5),
-#              y = 100 - 1*x + rnorm(1000, 0, 20))
-# r2_1 <- summary(lm(y~x, df1))$r.squared
-# r2_2 <- summary(lm(y~x, df2))$r.squared
-# # campus crime data
-# data <- get(data(campus)) %>% 
-#   mutate(crime = round(crime/enroll*1000, 2),
-#          police = round(police/enroll*1000, 2)) %>% 
-#   filter(police < 10) %>% # remove outlier
-#   select(crime, police)
-# data2 <- data %>% 
-#   mutate(crime = crime/1000)
-# lm0 <- lm(crime ~ police, data = data)
-# lm1 <- lm(crime ~ police, data = data2)
+
+campus <- get(data(campus)) %>% 
+  mutate(crime = round(crime/enroll*1000, 2),
+         police = round(police/enroll*1000, 2)) %>% 
+  filter(police < 10) %>% # remove outlier
+  select(crime, police)
 
 ```
 
@@ -107,10 +97,16 @@ mytheme_s = mytheme +
 
 # _Inference_ {.inverse .note}
 
-{{< include _052-inference.qmd >}}
+<!-- TODO: Define point estimates -->
+<!-- TODO: Grab hypothesis testing slides from review -->
+<!-- TODO: Finish confidence intervals section -->
+
+<!-- {{< include _052-inference.qmd >}} -->
 
 # _Hypothesis testing_ {.inverse .note}
 
-{{< include _053-hypothesis.qmd >}}
+<!-- {{< include _053-hypothesis.qmd >}} -->
 
-# Continued next time {.inverse}
+# _Confidence intervals_ {.inverse .note}
+
+{{< include _054-ci.qmd >}}

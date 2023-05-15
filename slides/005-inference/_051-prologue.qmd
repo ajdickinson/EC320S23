@@ -4,38 +4,131 @@ name: prologue
 
 ---
 
+## OLS
+
+Up to this point, we have been focusing on OLS considering:
+
+- how we model regressions with this estimator
+- how the estimator is derived and what properties it demonstrates
+- how the classical assumptions make the estimator [BLUE]{.hii}
+
+. . .
+
+<br>
+
+We have _mostly ignored_ drawing conclusions about the true population parameters from the estimates of the sample data. [AKA [_inference_.]{.note}]{.fragment}
+
+---
+
+## OLS
+
+Thus far in this class we've fit an OLS model the following questions:
+
+<!-- - Does living on campus at the UO increase student welfare?
+- Do school-based de-worming interventions provide a cost-effective way to increase school attendance? -->
+- _How much does an additional year of schooling increase earnings?_
+- _Does the number of police officers affect campus crime rates?_
+- _Are work training programs helpful at increasing earnings?_^[From the midterm.]
+
+<br>
+
+. . .
+
+Though we've not discussed our confidence in our fitted relationship
+
+. . .
+
+Even if all [6]{.hi} assumptions hold, sample selection might generate the [incorrect conclusions]{.hi} in a completely unbiased, [coincidental]{.hi} fashion.
+
+
+---
+
 ## Classical Assumptions
 
-[Last Time]{.hi}
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
 
-1. We used the first 3 assumptions to show that OLS is unbiased: 
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+. . .
+
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+. . .
+
+_[A6.]{.note} [Normality:]{.hi} The population error term in normally distributed with mean zero and variance $\sigma^2$_
+
+---
+
+[_Previously_]{.note} we used the first [3]{.hi} assumptions to show that OLS is unbiased: 
 
 $$
 \mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta
 $$
 
-We used the first 5 assumptions to derive a formula for the __variance__ of the OLS estimator: 
+<br>
+
+We used the first [5]{.hi} assumptions to derive a formula for the [_variance_]{.note} of the OLS estimator: 
 
 $$
 \mathop{\text{Var}}(\hat{\beta}) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
 $$
 
+. . .
+
+By using the [_variance_]{.note} of the OLS estimator, we can infer confidence from the [sampling distribution]{.hi}
 
 ---
 
-## 
+## Sampling distribution
 
-We will use the sampling distribution of $\hat{\beta}$ to conduct hypothesis tests.
+> The probability distribution of the OLS estimators obtained from repeatedly drawing random samples of the same size from a population and fitting [_point estimates_]{.note} each time.
 
-- Can use all 6 classical assumptions to show that OLS is normally distributed:
+Provides information about their variability, accuracy, and precision across different samples.
 
-$$\hat{\beta} \sim \mathop{N}\left( \beta, \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right)$$
-
-- We'll "prove" this using [R]{.mono}.
+. . .
 
 <br>
 
-[Recall]{.note} from last time...
+[_Point estimates_]{.note}
+
+> The fitted values of the OLS estimator (e.g., $\hat{\beta}_0, \hat{\beta}_1$)
+
+
+---
+
+## Sampling distribution properties
+
+[1.]{.note} [Unbiasedness:]{.hi} If the Gauss-Markov assumptions hold, the OLS estimators are unbiased (i.e., $E(\hat{\beta}_0) = \beta_0\) and \(E(\hat{\beta}_1) = \beta_1$)
+
+. . .
+
+[2.]{.note} [Variance:]{.hi} The variance of the OLS estimators describes their dispersion around the true population parameters.
+
+. . .
+
+[3.]{.note} [Normality:]{.hi} If the errors are normally distributed or the sample size is large enough, by the [CLT]{.hi}, the sampling distribution of the OLS estimators will be approximately normal.^[Useful for making inferences, constructing confidence intervals, and performing hypothesis tests using the t-distribution.]
+
+---
+
+## Sampling distribution
+
+The sampling distribution of $\hat{\beta}$ to conduct hypothesis tests.
+
+Use all [6]{.hi} classical assumptions to show that OLS is [normally distributed]{.note}:
+
+$$
+\hat{\beta} \sim \mathop{N}\left( \beta, \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right)
+$$
+
+<br>
+
+. . .
+
+To "prove" this, recall our simulation from last time
 
 ---
 
@@ -70,7 +163,7 @@ lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
 lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 # Simulation
 set.seed(12468)
-sim_df <- mclapply(mc.cores = 1, X = 1:1e3, FUN = function(x, size = n_s) {
+sim_df <- mclapply(mc.cores = 4, X = 1:1e3, FUN = function(x, size = n_s) {
   lm(y ~ x, data = pop_df %>% sample_n(size = size)) %>% tidy()
 }) %>% do.call(rbind, .) %>% as_tibble()
 ```
@@ -104,7 +197,7 @@ theme(
 
 ---
 
-Plotting the distributions of the sample parameters in a histogram
+Plotting the distributions of the [point estimates]{.note} in a histogram
 
 <br>
 <br>
@@ -164,3 +257,104 @@ geom_histogram(data = line_df, aes(slope), fill = hp, alpha = 0.75, bins = 40) +
 :::
 
 ::::
+
+Simulating 1,000 draws
+
+---
+
+Plotting the distributions of the [point estimates]{.note} in a histogram
+
+<br>
+<br>
+
+```{r}
+#| label: gen-dataset-big
+#| include: false
+#| cache: true
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df)
+lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
+# Simulation
+set.seed(12468)
+sim_df <- mclapply(mc.cores = 4, X = 1:1e4, FUN = function(x, size = n_s) {
+  lm(y ~ x, data = pop_df %>% sample_n(size = size)) %>% tidy()
+}) %>% do.call(rbind, .) %>% as_tibble()
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: simulation-hist1-big
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 5.75
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_histogram(data = line_df, aes(intercept), fill = hp, alpha = 0.75, bins = 40) +
+  geom_vline(xintercept = lm0$coefficients[1], size = 2, color = hi) +
+  scale_x_continuous(breaks = lm0$coefficients[1], labels = "beta_1") +
+  theme(axis.text.x = element_text(size = 50),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title = element_blank(),
+      line = element_blank())
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: simulation-hist2-big
+#| echo: false
+#| fig-dpi: 300
+#| cache: true
+#| fig.height: 5.75
+
+# Reshape sim_df
+line_df <- tibble(
+  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
+  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
+)
+ggplot() +
+geom_histogram(data = line_df, aes(slope), fill = hp, alpha = 0.75, bins = 40) +
+  geom_vline(xintercept = lm0$coefficients[2], size = 2, color = "darkslategray") +
+  scale_x_continuous(breaks = lm0$coefficients[2], labels = "beta_2") +
+  theme(axis.text.x = element_text(size = 50),
+      axis.text.y = element_blank(),
+      rect = element_blank(),
+      axis.title.y = element_blank(),
+      axis.title = element_blank(),
+      line = element_blank())
+```
+:::
+
+::::
+
+Simulating 10,000 draws

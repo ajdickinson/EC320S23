@@ -112,6 +112,11 @@ section.has-light-background h1 {
   top: 50%;
   transform: translateY(-50%);
 }
+.hfill {
+  display: flex;
+  flex-grow: 1;
+}
+
 
 /* file: style.css */
 .v-center-container {
@@ -247,7 +252,11 @@ section.has-light-background h1 {
 }
 
 
-
+.sub {
+  font-size: 75%;
+  vertical-align: sub;
+  line-height: 0;
+}
 .small {
   font-size:28px;
 }

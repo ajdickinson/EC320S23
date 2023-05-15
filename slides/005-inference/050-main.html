@@ -403,13 +403,13 @@ Andrew Dickinson
 </section>
 <section id="housekeeping" class="slide level2">
 <h2>Housekeeping</h2>
-<p><span class="hi">PS03:</span></p>
+<p><span class="hi">PS04:</span></p>
 <ul>
-<li>Due Tuesday at 11:59p</li>
-<li>Covers remaining a bunch of OLS stuff up to today</li>
+<li>Will be assigned next week (<em>enjoy the warm weather</em>)</li>
+<li>Due next <em>next</em> Tuesday</li>
 </ul>
 <div class="fragment">
-<p><span class="hi">LA04:</span></p>
+<p><span class="hi">LA05:</span></p>
 <ul>
 <li>Due Friday at 5:00p</li>
 </ul>
@@ -419,286 +419,344 @@ Andrew Dickinson
 <p>ItE: R, 1, <span class="hi">2</span> MM: 1, <span class="hi">2</span></p>
 </div>
 </section>
+<section id="mt-scores" class="slide level2">
+<h2>MT scores</h2>
+
+<img data-src="mt-scores.png" class="r-stretch"></section>
 <section>
 <section id="prologue" class="title-slide slide level1 inverse note center">
 <h1><em>Prologue</em></h1>
-<div class="cell" data-hash="050-main_cache/revealjs/unnamed-chunk-1_a5b4159bbc8548f544c0fc579900a76b">
+<div class="cell">
 
 </div>
 </section>
+<section id="ols" class="slide level2">
+<h2>OLS</h2>
+<p>Up to this point, we have been focusing on OLS considering:</p>
+<ul>
+<li>how we model regressions with this estimator</li>
+<li>how the estimator is derived and what properties it demonstrates</li>
+<li>how the classical assumptions make the estimator <span class="hii">BLUE</span></li>
+</ul>
+<div class="fragment">
+<p><br></p>
+<p>We have <em>mostly ignored</em> drawing conclusions about the true population parameters from the estimates of the sample data. <span class="fragment">AKA <span class="note"><em>inference</em>.</span></span></p>
+</div>
+</section>
+<section id="ols-1" class="slide level2">
+<h2>OLS</h2>
+<p>Thus far in this class we’ve fit an OLS model the following questions:</p>
+<!-- - Does living on campus at the UO increase student welfare?
+- Do school-based de-worming interventions provide a cost-effective way to increase school attendance? -->
+<ul>
+<li><em>How much does an additional year of schooling increase earnings?</em></li>
+<li><em>Does the number of police officers affect campus crime rates?</em></li>
+<li><em>Are work training programs helpful at increasing earnings?</em><sup>1</sup></li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p>Though we’ve not discussed our confidence in our fitted relationship</p>
+</div>
+<div class="fragment">
+<p>Even if all <span class="hi">6</span> assumptions hold, sample selection might generate the <span class="hi">incorrect conclusions</span> in a completely unbiased, <span class="hi">coincidental</span> fashion.</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>From the midterm.</p></li></ol></aside></section>
 <section id="classical-assumptions" class="slide level2">
 <h2>Classical Assumptions</h2>
-<p><span class="hi">Last Time</span></p>
-<ol type="1">
-<li>We used the first 3 assumptions to show that OLS is unbiased:</li>
-</ol>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi">Sample Variation:</span> There is variation in <span class="math inline">\(X\)</span>.</p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<div class="fragment">
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+</div>
+<div class="fragment">
+<p><em><span class="note">A6.</span> <span class="hi">Normality:</span> The population error term in normally distributed with mean zero and variance <span class="math inline">\(\sigma^2\)</span></em></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><span class="note"><em>Previously</em></span> we used the first <span class="hi">3</span> assumptions to show that OLS is unbiased:</p>
 <p><span class="math display">\[
 \mathop{\mathbb{E}}\left[ \hat{\beta} \right] = \beta
 \]</span></p>
-<p>We used the first 5 assumptions to derive a formula for the <strong>variance</strong> of the OLS estimator:</p>
+<p><br></p>
+<p>We used the first <span class="hi">5</span> assumptions to derive a formula for the <span class="note"><em>variance</em></span> of the OLS estimator:</p>
 <p><span class="math display">\[
 \mathop{\text{Var}}(\hat{\beta}) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
 \]</span></p>
+<div class="fragment">
+<p>By using the <span class="note"><em>variance</em></span> of the OLS estimator, we can infer confidence from the <span class="hi">sampling distribution</span></p>
+</div>
+</section>
+<section id="sampling-distribution" class="slide level2">
+<h2>Sampling distribution</h2>
+<blockquote>
+<p>The probability distribution of the OLS estimators obtained from repeatedly drawing random samples of the same size from a population and fitting <span class="note"><em>point estimates</em></span> each time.</p>
+</blockquote>
+<p>Provides information about their variability, accuracy, and precision across different samples.</p>
+<div class="fragment">
+<p><br></p>
+<p><span class="note"><em>Point estimates</em></span></p>
+<blockquote>
+<p>The fitted values of the OLS estimator (e.g., <span class="math inline">\(\hat{\beta}_0, \hat{\beta}_1\)</span>)</p>
+</blockquote>
+</div>
+</section>
+<section id="sampling-distribution-properties" class="slide level2">
+<h2>Sampling distribution properties</h2>
+<p><span class="note">1.</span> <span class="hi">Unbiasedness:</span> If the Gauss-Markov assumptions hold, the OLS estimators are unbiased (i.e., <span class="math inline">\(E(\hat{\beta}_0) = \beta_0\) and \(E(\hat{\beta}_1) = \beta_1\)</span>)</p>
+<div class="fragment">
+<p><span class="note">2.</span> <span class="hi">Variance:</span> The variance of the OLS estimators describes their dispersion around the true population parameters.</p>
+</div>
+<div class="fragment">
+<p><span class="note">3.</span> <span class="hi">Normality:</span> If the errors are normally distributed or the sample size is large enough, by the <span class="hi">CLT</span>, the sampling distribution of the OLS estimators will be approximately normal.<sup>1</sup></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Useful for making inferences, constructing confidence intervals, and performing hypothesis tests using the t-distribution.</p></li></ol></aside></section>
+<section id="sampling-distribution-1" class="slide level2">
+<h2>Sampling distribution</h2>
+<p>The sampling distribution of <span class="math inline">\(\hat{\beta}\)</span> to conduct hypothesis tests.</p>
+<p>Use all <span class="hi">6</span> classical assumptions to show that OLS is <span class="note">normally distributed</span>:</p>
+<p><span class="math display">\[
+\hat{\beta} \sim \mathop{N}\left( \beta, \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right)
+\]</span></p>
+<p><br></p>
+<div class="fragment">
+<p>To “prove” this, recall our simulation from last time</p>
+</div>
 </section>
 <section id="section" class="slide level2">
-<h2></h2>
-<p>We will use the sampling distribution of <span class="math inline">\(\hat{\beta}\)</span> to conduct hypothesis tests.</p>
-<ul>
-<li>Can use all 6 classical assumptions to show that OLS is normally distributed:</li>
-</ul>
-<p><span class="math display">\[\hat{\beta} \sim \mathop{N}\left( \beta, \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right)\]</span></p>
-<ul>
-<li>We’ll “prove” this using <span class="mono">R</span>.</li>
-</ul>
-<p><br></p>
-<p><span class="note">Recall</span> from last time…</p>
-</section>
-<section id="section-1" class="slide level2">
 <h2></h2>
 
 <img data-src="050-main_files/figure-revealjs/sim-scatter-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section class="slide level2">
 
-<p>Plotting the distributions of the sample parameters in a histogram</p>
+<p>Plotting the distributions of the <span class="note">point estimates</span> in a histogram</p>
 <p><br> <br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-fig.dpi="300" data-hash="050-main_cache/revealjs/simulation-hist1_543d0fb7d9ccab931694338b2c8c9ab4">
+<div class="cell" data-fig.dpi="300">
 <div class="cell-output-display">
 <p><img data-src="050-main_files/figure-revealjs/simulation-hist1-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-fig.dpi="300" data-hash="050-main_cache/revealjs/simulation-hist2_aa42242d7495d6715c0ddc433af35772">
+<div class="cell" data-fig.dpi="300">
 <div class="cell-output-display">
 <p><img data-src="050-main_files/figure-revealjs/simulation-hist2-1.png" width="960"></p>
 </div>
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="inference" class="title-slide slide level1 inverse note center">
-<h1><em>Inference</em></h1>
+<p>Simulating 1,000 draws</p>
+</section>
+<section class="slide level2">
 
-</section>
-<section id="motivation" class="slide level2">
-<h2>Motivation</h2>
-<p>What does statistical evidence say about existing theories?</p>
-<p>We want to test hypotheses posed by politicians, economists, scientists, people with foil hats, <em>etc.</em></p>
-<ul>
-<li>Does building a giant wall <span class="hi">reduce crime</span>?</li>
-<li>Does shutting down a government <span class="hi">adversely affect the economy</span>?</li>
-<li>Does legal cannabis <span class="hi">reduce drunk driving</span> or <span class="hi">reduce opioid use</span>?</li>
-<li>Do air quality standards <span class="hi">improve health</span> or <span class="hi">reduce jobs</span>?</li>
-</ul>
-<div class="fragment">
-<p>While uncertainty exists, we can still conduct <em>reliable</em> statistical tests (rejecting or failing to reject a hypothesis).</p>
-</div>
-</section>
-<section id="inference-1" class="slide level2">
-<h2>Inference</h2>
-<p>Our current workflow:</p>
-<ul>
-<li>Get data (points with <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> values).</li>
-<li>Regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X\)</span>.</li>
-<li>Plot the fitted values (<em>i.e.</em>, <span class="math inline">\(\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1X_i\)</span>) and report the estimates.</li>
-</ul>
-<div class="fragment">
-<p>But how do we actually <span class="hi">learn</span> something from this exercise?</p>
-</div>
-<div class="fragment">
-<ul>
-<li><em>For <span class="math inline">\(\hat{\beta}_2\)</span>, can we rule out previously hypothesized values?</em></li>
-<li><em>How confident should we be in the precision of our estimates?</em></li>
-</ul>
-</div>
-<div class="fragment">
-<p>We need to be able to deal with uncertainty. Enter: <span class="hp">Inference</span></p>
-</div>
-</section>
-<section id="inference-2" class="slide level2">
-<h2>Inference</h2>
-<p>To conduct inference, we need information about the <span class="note">variance</span> to learn about how likely <span class="math inline">\(\hat{\beta}_2\)</span> is just a coincidence</p>
-<div class="fragment">
-<p>After deriving the distribution of <span class="math inline">\(\hat{\beta}_2\)</span><sup>1</sup>, we have two (related) options for formal statistical inference (learning) about our unknown parameter <span class="math inline">\(\beta_2\)</span>:</p>
-<ul>
-<li><span class="hi">Hypothesis testing:</span> Determine whether there is statistically significant evidence to reject a hypothesized value or range of values.</li>
-<li><span class="hi">Confidence intervals:</span> Use the estimate and its standard error to create an interval that will generally<sup>2</sup> contain the true parameter.</li>
-</ul>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><em>Hint:</em> It’s normal with mean <span class="math inline">\(\beta_2\)</span> and variance <span class="math inline">\(\frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}\)</span>.</p></li><li id="fn2"><p><em>E.g.</em>, similarly constructed 95% confidence intervals will contain the true parameter 95% of the time.</p></li></ol></aside></section>
-<section id="ols-variance" class="slide level2">
-<h2>OLS Variance</h2>
-<p>Hypothesis tests and confidence intervals require information about the variance of the OLS estimator:</p>
-<p><span class="math display">\[
-\mathop{\text{Var}}(\hat{\beta}_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
-\]</span></p>
-<div class="fragment">
-<p><span class="hi">Problem:</span></p>
-<ul>
-<li>The variance formula has a population parameter: <span class="math inline">\(\sigma^2\)</span></li>
-<li>We can’t observe population parameters.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><span class="hi">Solution:</span> Estimate <span class="math inline">\(\sigma^2\)</span></li>
-</ul>
-</div>
-</section>
-<section id="estimating-error-variance" class="slide level2">
-<h2>Estimating Error Variance</h2>
-<p>We can estimate the variance of <span class="math inline">\(u_i\)</span> (a.k.a. <span class="math inline">\(\sigma^2\)</span>) using the sum of squared residuals:</p>
-<p><span class="math display">\[ s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k} \]</span></p>
-<p>where <span class="math inline">\(k\)</span> gives the number of regression parameters.</p>
-<ul>
-<li>In a simple linear regression, <span class="math inline">\(k=2\)</span>.</li>
-<li><span class="math inline">\(s^2_u\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>.</li>
-</ul>
-<div class="fragment">
-<p>In essence, we are <em>learning from our prediction errors</em></p>
-</div>
-</section>
-<section id="ols-variance-1" class="slide level2">
-<h2>OLS Variance</h2>
-<p>With <span class="math inline">\(s^2_u = \dfrac{\sum_i \hat{u}_i^2}{n - k}\)</span>, we can calculate</p>
-<p><span class="math display">\[\mathop{\text{Var}}(\hat{\beta}_2) = \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2}.\]</span></p>
-<div class="fragment">
-<p>Taking the square root, we get the <span class="note">standard error</span> of the OLS estimator:</p>
-<p><span class="math display">\[
-\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) = \sqrt{ \frac{s^2_u}{\sum_{i=1}^n (X_i - \bar{X})^2} }
-\]</span></p>
-<ul>
-<li>Standard error <span class="mono">=</span> sample standard deviation of an estimator.</li>
-</ul>
-</div>
-</section></section>
-<section>
-<section id="hypothesis-testing" class="title-slide slide level1 inverse note center">
-<h1><em>Hypothesis testing</em></h1>
-
-</section>
-<section id="hypothesis-tests" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p><span class="hi">Null hypothesis:</span> <span class="math inline">\(\beta_2 = 0\)</span></p>
-<p><span class="hi">Alternative hypothesis</span> <span class="math inline">\(\beta_2 \neq 0\)</span></p>
-<div class="fragment">
-<p>There are four possible outcomes of our test:</p>
-<ol type="1">
-<li><p>We <strong>fail to reject</strong> the null hypothesis and the null is true.</p></li>
-<li><p>We <strong>reject</strong> the null hypothesis and the null is false.</p></li>
-<li><p>We <strong>reject</strong> the null hypothesis, but the null is actually true (<strong>Type I error</strong>).</p></li>
-<li><p>We <strong>fail to reject</strong> the null hypothesis, but the null is actually false (<strong>Type II error</strong>).</p></li>
-</ol>
-</div>
-</section>
-<section id="hypothesis-tests-1" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p><strong>Goal:</strong> Make a statement about <span class="math inline">\(\beta_2\)</span> using information on <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
-<div class="fragment">
-<p><span class="math inline">\(\hat{\beta}_2\)</span> is random: it could be anything, even if <span class="math inline">\(\beta_2 = 0\)</span> is true.</p>
-<ul>
-<li>But if <span class="math inline">\(\beta_2 = 0\)</span> is true, then <span class="math inline">\(\hat{\beta}_2\)</span> is unlikely to take values far from zero.</li>
-<li>As the standard error shrinks, we are even less likely to observe “extreme” values of <span class="math inline">\(\hat{\beta}_2\)</span> (assuming <span class="math inline">\(\beta_2 = 0\)</span>).</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Our test should take <span class="hp">extreme values</span> of <span class="math inline">\(\hat{\beta}_2\)</span> as <span class="hp">evidence against the null hypothesis</span>, but it should also weight them by what we know about the variance of <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
-</div>
-</section>
-<section id="hypothesis-tests-2" class="slide level2">
-<h2>Hypothesis Tests</h2>
+<p>Plotting the distributions of the <span class="note">point estimates</span> in a histogram</p>
+<p><br> <br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><span class="hi">Null hypothesis:</span> <span class="math inline">\(\beta_2 = 0\)</span></p>
+<div class="cell" data-fig.dpi="300">
+<div class="cell-output-display">
+<p><img data-src="050-main_files/figure-revealjs/simulation-hist1-big-1.png" width="960"></p>
+</div>
+</div>
 </div><div class="column" style="width:50%;">
-<p><span class="hi">Alternative hypothesis:</span> <span class="math inline">\(\beta_2 \neq 0\)</span></p>
+<div class="cell" data-fig.dpi="300">
+<div class="cell-output-display">
+<p><img data-src="050-main_files/figure-revealjs/simulation-hist2-big-1.png" width="960"></p>
 </div>
 </div>
-<p><br> <br></p>
-<p>To conduct the test, we calculate a <span class="math inline">\(t\)</span>-statistic:</p>
-<p><span class="math display">\[
-t = \frac{\hat{\beta}_2 - \beta_2^0}{\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)}
-\]</span></p>
-<ul>
-<li>Distributed according to a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-2\)</span> <em>degrees of freedom</em>.</li>
-<li><span class="math inline">\(\beta_2^0\)</span> is the value of <span class="math inline">\(\beta_2\)</span> in our null hypothesis (<em>e.g.,</em> <span class="math inline">\(\beta_2^0 = 0\)</span>).</li>
-</ul>
+</div>
+</div>
+<p>Simulating 10,000 draws</p>
+</section></section>
+<section id="inference" class="title-slide slide level1 inverse note center">
+<h1><em>Inference</em></h1>
+<!-- TODO: Define point estimates -->
+<!-- TODO: Grab hypothesis testing slides from review -->
+<!-- TODO: Finish confidence intervals section -->
+<!-- {{< include _052-inference.qmd >}} -->
 </section>
-<section id="hypothesis-tests-3" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p>Next, we use the <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> to calculate a <span class="math inline">\(\color{#B48EAD}{p}\)</span><span class="hp">-value</span>.</p>
 
-<img data-src="050-main_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><p>Describes the probability of seeing a <span class="math inline">\(t\)</span>-statistic as extreme as the one we observe <em>if the null hypothesis is actually true</em>.</p>
+<section id="hypothesis-testing" class="title-slide slide level1 inverse note center">
+<h1><em>Hypothesis testing</em></h1>
+<!-- {{< include _053-hypothesis.qmd >}} -->
+</section>
+
+<section>
+<section id="confidence-intervals" class="title-slide slide level1 inverse note center">
+<h1><em>Confidence intervals</em></h1>
+
+</section>
+<section id="confidence-intervals-1" class="slide level2">
+<h2>Confidence intervals</h2>
+<p>Until now, we have considered <span class="note">point estimates</span> of population parameters.</p>
+<ul>
+<li>Sometimes a range of values is more interesting/honest.</li>
+</ul>
 <div class="fragment">
-<p>But…we still need some benchmark to compare our <span class="math inline">\(p\)</span>-value against.</p>
+<p>We can construct <span class="math inline">\((1-\alpha)\cdot100\)</span>-percent level confidence intervals for <span class="math inline">\(\beta_2\)</span></p>
+<p><span class="math display">\[
+\hat{\beta}_2 \pm t_{1-\alpha/2, n-2} \, \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(t_{1-\alpha/2,n-2}\)</span> denotes the <span class="math inline">\(1-\alpha/2\)</span> quantile of a <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-2\)</span> degrees of freedom.</p>
 </div>
 </section>
-<section id="hypothesis-tests-4" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p>We worry mostly about false positives, so we conduct hypothesis tests based on the probability of making a Type I error.</p>
-<p><strong>How?</strong> We select a <span class="note">significance level</span> <span class="math inline">\(\color{#434C5E}{\alpha}\)</span> that specifies our tolerance for false positives. This is the probability of Type I error we choose to live with.</p>
-
-<img data-src="050-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
-<section id="hypothesis-tests-5" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p>We then compare <span class="math inline">\(\alpha\)</span> to the <span class="math inline">\(p\)</span>-value of our test.</p>
-<ul>
-<li><p>If the <span class="math inline">\(p\)</span>-value is less than <span class="math inline">\(\alpha\)</span>, then we <strong>reject the null hypothesis</strong> at the <span class="math inline">\(\alpha\cdot100\)</span> percent level.</p></li>
-<li><p>If the <span class="math inline">\(p\)</span>-value is greater than <span class="math inline">\(\alpha\)</span>, then we <strong>fail to reject the null hypothesis</strong>.</p></li>
-<li><p><strong>Note:</strong> <em>Fail to reject</em> <span class="math inline">\(\neq\)</span> <em>accept</em>.</p></li>
-</ul>
+<section id="confidence-intervals-2" class="slide level2">
+<h2>Confidence intervals</h2>
+<p><span class="note">Q:</span> <em>Where does the confidence interval formula come from?</em></p>
+<div class="fragment">
+<p><span class="note">A:</span> Formula is a result from the rejection condition of a two-sided test.</p>
+<p><span class="hi-red">Reject</span> H<span class="sub">0</span> if</p>
+<p><span class="math display">\[
+|t| &gt; t_\text{crit}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>The test condition implies that we:</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if</p>
+<p><span class="math display">\[
+|t| \leq t_\text{crit}
+\]</span></p>
+<p>Which is equivalent to:</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if <span class="math display">\[
+-t_\text{crit} \leq t \leq t_\text{crit}
+\]</span></p>
+</div>
 </section>
-<section id="hypothesis-tests-6" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p><strong>Example:</strong> Are campus police associated with campus crime?</p>
-<div class="cell" data-highlight.output="5" data-hash="050-main_cache/revealjs/unnamed-chunk-8_998dbbb35d23b90f263fbad1574a2293">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="confidence-intervals-3" class="slide level2" data-visibility="uncounted">
+<h2>Confidence intervals</h2>
+<p>Replacing <span class="math inline">\(t\)</span> with its formula gives:</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if</p>
+<p><span class="math display">\[-t_\text{crit} \leq \frac{\hat{\beta}_2 - \beta_2^0}{\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)} \leq t_\text{crit}
+\]</span></p>
+<div class="fragment">
+<p>Standard errors are always positive, so the inequalities do not flip when we multiply by <span class="math inline">\(\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)\)</span>:</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if <span class="math display">\[
+-t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) \leq \hat{\beta}_2 - \beta_2^0\leq t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+</div>
+</section>
+<section id="confidence-intervals-4" class="slide level2" data-visibility="uncounted">
+<h2>Confidence intervals</h2>
+<p>Subtracting <span class="math inline">\(\hat{\beta}_2\)</span> yields</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if <span class="math display">\[
+-\hat{\beta}_2 -t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) \leq - \beta_2^0 \leq - \hat{\beta}_2 + t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+<div class="fragment">
+<p>Multiplying by -1 and rearranging gives</p>
+<p><span class="hii">Fail to reject</span> H<span class="sub">0</span> if</p>
+<p><span class="math display">\[
+\hat{\beta}_2 - t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) \leq \beta_2^0 \leq \hat{\beta}_2 + t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+</div>
+</section>
+<section id="confidence-intervals-5" class="slide level2" data-visibility="uncounted">
+<h2>Confidence intervals</h2>
+<p>Replacing <span class="math inline">\(\beta_2^0\)</span> with <span class="math inline">\(\beta_2\)</span> and dropping the test condition yields the interval:</p>
+<p><span class="math display">\[
+\hat{\beta}_2 - t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right) \leq \beta_2 \leq \hat{\beta}_2 + t_\text{crit} \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+<p>which is equivalent to</p>
+<p><span class="math display">\[
+\hat{\beta}_2 \pm t_\text{crit} \, \mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)
+\]</span></p>
+</section>
+<section id="confidence-intervals-6" class="slide level2">
+<h2>Confidence intervals</h2>
+<p><span class="note">Main insight:</span></p>
+<ul>
+<li>If a 95 percent confidence interval contains zero, then we <span class="hii">fail to reject</span> the null hypothesis at the 5 percent level.</li>
+<li>If a 95 percent confidence interval does not contain zero, then we <span class="hi-red">reject</span> the null hypothesis at the 5 percent level.</li>
+</ul>
+<p><br> <br></p>
+<p><em>Generally,</em> a <span class="math inline">\((1- \alpha) \cdot 100\)</span> percent confidence interval embeds a two-sided test at the <span class="math inline">\(\alpha \cdot 100\)</span> level.</p>
+</section>
+<section id="confidence-intervals-ex." class="slide level2">
+<h2>Confidence intervals <span class="ex">Ex.</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)    -42.6     53.7     -0.792 4.30e- 1
-2 police          21.3      2.09    10.2   5.90e-17</code></pre>
+1 (Intercept)    2.53     0.422       6.00 3.38e- 8
+2 x              0.567    0.0793      7.15 1.59e-10</code></pre>
 </div>
 </div>
-<p><span class="hi">Null hypothesis:</span> <span class="math inline">\(\beta_\text{Police} = 0\)</span> <em>v.s.</em> <span class="hi">Alternative hypothesis:</span> <span class="math inline">\(\beta_\text{Police} \neq 0\)</span></p>
+<p><br></p>
 <div class="fragment">
-<p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span> (<em>i.e.,</em> 5 percent test)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># find degrees of freedom</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>dof <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> pop_df))<span class="sc">$</span>df[<span class="dv">2</span>]</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># return critical value</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, dof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.984467</code></pre>
+</div>
+</div>
+<p><br></p>
 </div>
 <div class="fragment">
-<p>Test Condition: Reject H.sub[0] if <span class="math inline">\(p &lt; \alpha\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(p = 0.18\)</span>. <strong>Do we reject the null hypothesis?</strong></p>
+<p><span class="note"><em>95% confidence interval</em></span> for <span class="math inline">\(\beta_2\)</span> is:</p>
+<p><span class="math display">\[
+0.567 \pm 1.98 \times 0.0793 = \left[ 0.410,\, 0.724 \right]
+\]</span></p>
 </div>
 </section>
-<section id="hypothesis-tests-7" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p><span class="math inline">\(p\)</span>-values are difficult to calculate by hand.</p>
-<p><strong>Alternative:</strong> Compare <span class="math inline">\(\color{#434C5E}{t}\)</span><span class="hi">-statistic</span> to <span class="note">critical values</span> from the <span class="math inline">\({\color{#434C5E} t}\)</span>-distribution.</p>
+<section id="confidence-intervals-7" class="slide level2">
+<h2>Confidence intervals</h2>
+<p>We have a confidence interval for <span class="math inline">\(\beta_2\)</span>, <em>i.e.,</em> <span class="math inline">\(\left[ 0.410,\, 0.724 \right]\)</span></p>
+<p><br></p>
+<p><span class="fragment"><em>What does it mean?</em></span></p>
+<p><br></p>
+<div class="fragment">
+<p><span class="note"><em>Informally:</em></span> The confidence interval gives us a region (interval) in which we can place some trust (confidence) for containing the parameter.</p>
+</div>
+<div class="fragment">
+<p><span class="note">More formally:</span> If we repeatedly sample from our population and construct confidence intervals for each of these samples, then <span class="math inline">\((1-\alpha) \cdot100\)</span> percent of our intervals (<em>e.g.,</em> 95%) will contain the population parameter <em>somewhere in the interval</em>.</p>
+</div>
+</section>
+<section id="confidence-intervals-8" class="slide level2">
+<h2>Confidence intervals</h2>
+<p>We drew <em>10,000</em> samples (each of size <span class="math inline">\(n = 30\)</span>) from our population and estimated our regression model for each sample:</p>
+<span class="math display">\[ Y_i = \hat{\beta}_1 + \hat{\beta}_2 X_i + \hat{u}_i \]</span>
+<center>
+<span class="note small"><em>(repeated 10,000 times)</em></span>
+</center>
+<p>Now, let’s estimate 95% confidence intervals for each of these intervals…</p>
+</section>
+<section id="confidence-intervals-9" class="slide level2">
+<h2>Confidence intervals</h2>
+<p><em>From our previous simulation</em>, 97.7% of 95% confidence intervals contain the true parameter value of <span class="math inline">\(\beta_2\)</span>.</p>
 
-<img data-src="050-main_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
-<section id="hypothesis-tests-8" class="slide level2">
-<h2>Hypothesis Tests</h2>
-<p><strong>Notation:</strong> <span class="math inline">\(t_{1-\alpha/2, n-2}\)</span> or <span class="math inline">\(t_\text{crit}\)</span>.</p>
-<ul>
-<li>Find in a <span class="math inline">\(t\)</span> table using the significance level <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(n-2\)</span> degrees of freedom.</li>
-</ul>
-<p>Compare the the critical value to your <span class="math inline">\(t\)</span>-statistic:</p>
-<ul>
-<li>If <span class="math inline">\(|t| &gt; |t_{1-\alpha/2, n-2}|\)</span>, then <strong>reject the null</strong>.</li>
-<li>If <span class="math inline">\(|t| &lt; |t_{1-\alpha/2, n-2}|\)</span>, then <strong>fail to reject the null</strong>.</li>
-</ul>
-</section></section>
-<section id="continued-next-time" class="title-slide slide level1 inverse center">
-<h1>Continued next time</h1>
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="ex.-association-of-police-with-crime" class="slide level2">
+<h2><span class="ex">Ex.</span> Association of police with crime</h2>
+<p>You can instruct <code>tidy</code> to return a 95 percent confidence interval for the association of campus police with campus crime:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lm</span>(crime <span class="sc">~</span> police, <span class="at">data =</span> campus) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    18.4       2.38      7.75 1.06e-11   13.7       23.1 
+2 police          1.76      1.30      1.35 1.81e- 1   -0.830      4.34</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-association-of-police-with-crime-1" class="slide level2">
+<h2><span class="ex">Ex.</span> Association of police with crime</h2>
+
+<img data-src="050-main_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>Four confidence intervals for the same coefficient.</p>
 <div class="footer footer-default">
 <p>EC320, Set 06 | Inference</p>
 </div>
-</section>
-
+</section></section>
 
     </div>
   </div>

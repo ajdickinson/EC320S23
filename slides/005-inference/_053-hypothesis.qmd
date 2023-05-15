@@ -6,66 +6,119 @@ name: hypothesis
 
 ## Hypothesis Tests
 
-[Null hypothesis:]{.hi} $\beta_2 = 0$
+Systematic procedure that gives us evidence to hang our hat on. Starting with a [Null hypothesis]{.hi} (H[0]{.sub}) and an [Alternative hypothesis]{.hi} (H[A]{.sub})
 
-[Alternative hypothesis]{.hi} $\beta_2 \neq 0$
+::: {.align-center}
+H[0]{.sub}: $\beta_2 = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta_2 \neq 0$
+:::
 
 . . .
 
 There are four possible outcomes of our test:
 
-1. We __fail to reject__ the null hypothesis and the null is true.
+[1.]{.note} We [fail to reject]{.hi} the null hypothesis and the null is true.
 
-2. We __reject__ the null hypothesis and the null is false.
+[2.]{.note} We [reject]{.hi-red} the null hypothesis and the null is false.
 
-3. We __reject__ the null hypothesis, but the null is actually true (**Type I error**).
+[3.]{.note} We [reject]{.hi-red} the null hypothesis, but the null is actually true.^[[Type I error]{.note}]
 
-4. We __fail to reject__ the null hypothesis, but the null is actually false (**Type II error**).
+[4.]{.note} We [fail to reject]{.hi} the null hypothesis, but the null is actually false.^[[Type II error]{.note}]
+
+---
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-cap: "Type I vs Type II"
+#| fig-height: 5.75
+
+# Set parameters for the null and alternative hypothesis distributions
+mu_null <- 0
+mu_alt <- 2
+sigma <- 1
+alpha <- 0.05
+
+# Find the critical value (z-score) for the significance level
+critical_value <- qnorm(1 - alpha, mean = mu_null, sd = sigma)
+
+# Generate data for the null and alternative hypothesis distributions
+null_data <- data.frame(x = seq(-4, 4, 0.01), y = dnorm(seq(-4, 4, 0.01), mean = mu_null, sd = sigma))
+alt_data <- data.frame(x = seq(-4, 4, 0.01), y = dnorm(seq(-4, 4, 0.01), mean = mu_alt, sd = sigma))
+
+# Create the ggplot
+ggplot() +
+  geom_line(data = null_data, aes(x, y), color = hii) +
+  geom_line(data = alt_data, aes(x, y), color = hired) +
+  geom_vline(xintercept = mu_null, size = 0.1, color = hii) +
+  geom_vline(xintercept = mu_alt, size = 0.1, color = hired) +
+  geom_vline(aes(xintercept = critical_value), linetype = "dashed", color = hi) +
+  geom_label(aes(x = critical_value - 0.75, y = 0.399, label = "Critical Value"),  angle = 45, size = 4) +
+  xlim(-4, 4) +
+  ylim(0, 0.5) +
+  coord_cartesian(ylim = c(0, 0.4)) +
+  xlab("X") +
+  ylab("Density") +
+  # ggtitle("Type I and Type II Errors") +
+  scale_color_manual(values = c(hii, hired), labels = c("Null Hypothesis", "Alternative Hypothesis")) +
+  labs(color = "Hypothesis") +
+  geom_area(data = null_data %>% filter(x >= critical_value), aes(x, y), fill = hii, alpha = 0.5) +
+  geom_area(data = alt_data %>% filter(x <= critical_value), aes(x, y), fill = hired, alpha = 0.5) +
+  geom_label(aes(x = critical_value + 0.5, y = 0.01, label = "Type I Error"), size = 2.5) +
+  geom_label(aes(x = critical_value - 0.5, y = 0.01, label = "Type II Error"), size = 2.5) +
+  geom_label(aes(x = critical_value - 1.75, y = 0.2, label = "Null hypothesis"), size = 2.5) +
+  geom_label(aes(x = critical_value + .75, y = 0.2, label = "Alt hypothesis"), size = 2.5) +
+  mytheme_void
+
+
+
+```
+
+---
+
+Or...
+
+. . .
+
+![How I think of it](typeI_vs_typeII-again.png){width=700}
 
 ---
 
 ## Hypothesis Tests
 
-**Goal:** Make a statement about $\beta_2$ using information on $\hat{\beta}_2$.
+[Goal:]{.note} Make a statement about $\beta_2$ using information on $\hat{\beta}_2$.
 
 . . .
 
-$\hat{\beta}_2$ is random: it could be anything, even if $\beta_2 = 0$ is true.
+$\hat{\beta}_2$ is random---it could be anything, even if $\beta_2 = 0$ is true.
 
 - But if $\beta_2 = 0$ is true, then $\hat{\beta}_2$ is unlikely to take values far from zero.
 - As the standard error shrinks, we are even less likely to observe "extreme" values of $\hat{\beta}_2$ (assuming $\beta_2 = 0$).
 
 . . .
 
-Our test should take [extreme values]{.hp} of $\hat{\beta}_2$ as [evidence against the null hypothesis]{.hp}, but it should also weight them by what we know about the variance of $\hat{\beta}_2$.
+Hypothesis testing takes [extreme values]{.hi-red} of $\hat{\beta}_2$ as [_evidence against the null hypothesis_]{.note}, [but it will weight them by information about variance the [estimated variance]{.note} of $\hat{\beta}_2$.]{.fragment}
 
 ---
 
 ## Hypothesis Tests
 
-:::: {.columns}
-
-::: {.column width="50%"}
-[Null hypothesis:]{.hi} $\beta_2 = 0$
+::: {.align-center}
+H[0]{.sub}: $\beta_2 = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta \neq 0$
 :::
 
-::: {.column width="50%"}
-[Alternative hypothesis:]{.hi} $\beta_2 \neq 0$
-:::
-
-::::
-
-<br>
-<br>
-
-To conduct the test, we calculate a $t$-statistic:
+To conduct the test, we calculate a $t$-statistic^[$\beta_2^0$ is the value of $\beta_2$ in our null hypothesis (*e.g.,* $\beta_2^0 = 0$).]:
 
 $$
 t = \frac{\hat{\beta}_2 - \beta_2^0}{\mathop{\hat{\text{SE}}} \left( \hat{\beta}_2 \right)}
 $$
 
-- Distributed according to a $t$-distribution with $n-2$ _degrees of freedom_.
-- $\beta_2^0$ is the value of $\beta_2$ in our null hypothesis (*e.g.,* $\beta_2^0 = 0$).
+Distributed by a $t$-distribution with $n-2$ _degrees of freedom_^[represents the number of independent values in a sample that are free to vary when estimating statistical parameters.].
 
 
 ---
@@ -77,6 +130,7 @@ Next, we use the $\color{#434C5E}{t}$[-statistic]{.hi} to calculate a $\color{#B
 ```{r}
 #| echo: false
 #| fig.height: 3.75
+#| fig-align: center
 
 df <- tibble(
     x = seq(-4,4, by = 0.01),
@@ -88,30 +142,35 @@ ggplot() +
   scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
   scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
   geom_polygon(data = df, aes(x, y), fill = "grey85") +
-  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hp) +
   geom_vline(xintercept = qt(0.8, 100), size = 1, linetype = "solid", color = hi) +
   mytheme_s +
   xlab("") + 
   ylab("") + theme(axis.text.y = element_blank(), axis.line.y = element_blank())
 ```
 
-Describes the probability of seeing a $t$-statistic as extreme as the one we observe _if the null hypothesis is actually true_.
+Describes the probability of seeing a $\color{#434C5E}{t}$[-statistic]{.hi} as extreme as the one we observe _if the null hypothesis is actually true_.
 
 . . .
 
-But...we still need some benchmark to compare our $p$-value against.
+But...we still need some benchmark to compare our $\color{#B48EAD}{p}$[-value]{.hp} against.
 
 ---
 
 ## Hypothesis Tests
 
-We worry mostly about false positives, so we conduct hypothesis tests based on the probability of making a Type I error.
+We worry mostly about false positives, so we conduct hypothesis tests based on the probability of making a [Type I error]{.note}^[We _reject_ the null hypothesis, but the null is actually true.].
 
-**How?** We select a [significance level]{.note} $\color{#434C5E}{\alpha}$ that specifies our tolerance for false positives. This is the probability of Type I error we choose to live with.
+. . .
+
+[_How?_]{.blue} [We select a [significance level]{.note}, $\color{#434C5E}{\alpha}$, that specifies our tolerance for false positives (i.e., the probability of [Type I error]{.note} we choose to live with).]{.fragment}
+
+. . .
 
 ```{r}
 #| echo: false
 #| fig.height: 3.75
+#| fig-align: center
 
 df <- tibble(
     x = seq(-4,4, by = 0.01),
@@ -124,8 +183,8 @@ ggplot() +
   scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
   scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
   geom_polygon(data = df, aes(x, y), fill = "grey85") +
-  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hp) +
-  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hp) +
+  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
   geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, 100) & x >= qt(0.975, 100)), aes(x, y), fill = hp) +
   #geom_vline(xintercept = qt(0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
   #geom_vline(xintercept = qt(1 - 0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
@@ -138,45 +197,67 @@ ggplot() +
 
 ## Hypothesis Tests
 
-We then compare $\alpha$ to the $p$-value of our test.
+We then compare $\color{#434C5E}{\alpha}$ to the $\color{#B48EAD}{p}$[-value]{.hp} of our test.
 
-- If the $p$-value is less than $\alpha$, then we __reject the null hypothesis__ at the $\alpha\cdot100$ percent level.
+- If the $\color{#B48EAD}{p}$[-value]{.hp} is less than $\color{#434C5E}{\alpha}$, then we [reject the null hypothesis]{.hi-red} at the $\color{#434C5E}{\alpha}\cdot100$ percent level.
 
-- If the $p$-value is greater than $\alpha$, then we __fail to reject the null hypothesis__.
-
-- **Note:** _Fail to reject_ $\neq$ _accept_.
+- If the $\color{#B48EAD}{p}$[-value]{.hp} is greater than $\color{#434C5E}{\alpha}$, then we [fail to reject the null hypothesis]{.hi} at the $\color{#434C5E}{\alpha}\cdot100$ percent level.^[[Note:]{.note} _Fail to reject_ $\neq$ _accept_.]
 
 ---
 
 ## Hypothesis Tests
 
-**Example:** Are campus police associated with campus crime?
+[Ex.]{.ex} Are campus police associated with campus crime?
 
-```{R echo = T, highlight.output = 5}
+```{r}
+campus <- get(data(campus)) %>% 
+  mutate(crime = round(crime/enroll*1000, 2),
+         police = round(police/enroll*1000, 2)) %>% 
+  filter(police < 10) %>% # remove outlier
+  select(crime, police)
+```
+
+```{r}
+#| echo: true
+
 lm(crime ~ police, data = campus) %>% tidy()
 ```
 
-[Null hypothesis:]{.hi} $\beta_\text{Police} = 0$ *v.s.* [Alternative hypothesis:]{.hi} $\beta_\text{Police} \neq 0$
+<br>
 
 . . .
 
-Significance level: $\alpha = 0.05$ (*i.e.,* 5 percent test)
+:::: {.columns}
 
-. . .
+::: {.column width="30%"}
+::: {.align-center}
+H[0]{.sub}: $\beta_\text{Police} = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta_\text{Police} \neq 0$
+:::
+:::
 
-Test Condition: Reject H.sub[0] if $p < \alpha$
+::: {.column width="70%"}
+Significance level: $\color{#434C5E}{\alpha} = 0.05$ (*i.e.,* 5 percent test)
 
-. . .
+Test Condition: Reject H[0]{.sub} if $p < \alpha$
 
-$p = 0.18$. **Do we reject the null hypothesis?**
+[_What is the $\color{#B48EAD}{p}$[-value]{.hp}?_]{.fragment} [$p = 0.18$]{.fragment}
+
+[_Do we reject the null hypothesis?_]{.fragment} [No.]{.fragment .hi}
+
+:::
+
+::::
 
 ---
 
 ## Hypothesis Tests
 
-$p$-values are difficult to calculate by hand.
+$\color{#B48EAD}{p}$[-values]{.hp} are difficult to calculate by hand.
 
-__Alternative:__ Compare $\color{#434C5E}{t}$[-statistic]{.hi} to [critical values]{.note} from the ${\color{#434C5E} t}$-distribution.
+[Alternative:]{.note} Compare $\color{#434C5E}{t}$[-statistic]{.hi} to [critical values]{.note} from the ${\color{#434C5E} t}$-distribution.
 
 ```{r}
 #| echo: false
@@ -195,7 +276,7 @@ ggplot() +
   geom_polygon(data = df, aes(x, y), fill = "grey85") +
   geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
   geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
-  geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, 100) & x >= qt(0.975, 100)), aes(x, y), fill = hp) +
+  geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, 100) & x >= qt(0.975, 100)), aes(x, y), fill = hii) +
   geom_vline(xintercept = qt(0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
   geom_vline(xintercept = qt(1 - 0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
   geom_vline(xintercept = 1, linetype = "solid", color = hp) +
@@ -208,11 +289,278 @@ ggplot() +
 
 ## Hypothesis Tests
 
-**Notation:** $t_{1-\alpha/2, n-2}$ or $t_\text{crit}$.
+[Notation:]{.note} $t_{1-\alpha/2, n-2}$ or $t_\text{crit}$.
 
-- Find in a $t$ table using the significance level $\alpha$ and $n-2$ degrees of freedom.
+- Find in a $t$-table using $\color{#434C5E}{\alpha}$ and $n-2$ degrees of freedom.
 
 Compare the the critical value to your $t$-statistic:
 
-- If $|t| > |t_{1-\alpha/2, n-2}|$, then __reject the null__.
-- If $|t| < |t_{1-\alpha/2, n-2}|$, then __fail to reject the null__.
+- If $|t| > |t_{1-\alpha/2, n-2}|$, then [reject the null]{.hi-red}.
+- If $|t| < |t_{1-\alpha/2, n-2}|$, then [fail to reject the null]{.hi}.
+
+
+---
+
+## Two-sided tests
+
+Based on a critical value of $t_{1-\alpha/2, n-2} = t_{0.975, 100} =$ `r round(qt(0.975, 100), 2)`, we can identify a [rejection region]{.hii} on the $\color{#434C5E}{t}$[-distribution]{.hi}.
+
+```{r}
+#| echo: false
+#| fig.height: 3.75
+
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), 100)
+)
+crit <- qt(c(.025,.975), 100)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  geom_polygon(data = df %>% filter(x <= qt(1 - 0.975, 100) & x >= qt(0.975, 100)), aes(x, y), fill = hii) +
+  geom_vline(xintercept = qt(0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = qt(1 - 0.975, 100), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s +
+  xlab("") + 
+  ylab("") + theme(axis.text.y = element_blank(), axis.line.y = element_blank())
+```
+
+. . .
+
+If our $\color{#434C5E}{t}$[-statistic]{.hi} is in the rejection region, then we reject the null hypothesis at the 5 percent level. 
+
+---
+
+## Two-sided tests
+
+[Ex.]{.ex} [R]{.mono} defaults to testing hypotheses against the null hypothesis of zero.
+
+```{r}
+#| label: hypothesis test
+#| echo: true
+
+lm(y ~ x, data = pop_df) %>% tidy()
+```
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.align-center}
+<br>
+
+H[0]{.sub}: $\beta_2 = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta_2 \neq 0$
+:::
+:::
+
+::: {.column width="50%"}
+
+Significance level: $\alpha = 0.05$
+
+$$
+\color{#434C5E}{t \text{-stat}} = 7.15
+$$
+
+$$
+{\color{#434C5E}{t_{\text{0.975, 28}}}} = `r qt(0.975, 28) %>% round(2)`
+$$
+
+[Which implies that  $p < 0.05$.]{.fragment} [Therefore, ]{.fragment}
+
+[we [reject H[0]{.sub}]{.hi-red} at the 5% level.]{.fragment}
+
+:::
+
+::::
+
+
+---
+
+## Two-sided tests
+
+[Ex.]{.ex} Are campus police associated with campus crime?
+
+```{r}
+#| echo: true
+
+lm(crime ~ police, data = campus) %>% tidy()
+```
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.align-center}
+
+<br>
+
+H[0]{.sub}: $\beta_\text{Police} = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta_\text{Police} \neq 0$
+:::
+:::
+
+::: {.column width="50%"}
+
+Significance level: $\alpha = 0.1$
+
+$$
+\color{#434C5E}{t \text{-stat}} = 1.35
+$$
+
+$$
+{\color{#434C5E}{t_{\text{0.975, 28}}}} = `r qt(0.95, 94) %>% round(2)`
+$$
+
+[Which implies that  $p > 0.05$.]{.fragment} [Therefore, ]{.fragment}
+
+[we [reject H[0]{.sub}]{.hi-red} at the 5% level.]{.fragment}
+
+:::
+
+::::
+
+
+---
+
+## One-sided tests
+
+We might be confident in a parameter being [non-negative]{.hii}/[non-positive]{.hi-red}.
+
+[One-sided]{.note} tests assume that the parameter of interest is either [greater than]{.hii}/[less than]{.hi-red} H[0]{.sub}.
+
+- [Option 1]{.note} H[0]{.sub}: $\beta_2 = 0$ *vs.* H[a]{.sub}: $\beta_2 > 0$
+
+- [Option 2]{.note} H[0]{.sub}: $\beta_2 = 0$ *vs.* H[a]{.sub}: $\beta_2 < 0$
+
+. . .
+
+If this assumption is reasonable, then our rejection region changes.
+
+- Same $\alpha$.
+
+---
+
+## One-sided tests
+
+[Left-tailed:]{.note} Based on a critical value of $t_{1-\alpha, n-2} = t_{0.95, 100} =$ `r round(qt(0.95, 100), 2)`, we can identify a [rejection region]{.hii} on the $t$-distribution. 
+
+```{r}
+#| echo: false
+#| fig.height: 3.75
+
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), 100)
+)
+crit <- qt(c(.05,.95), 100)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  geom_polygon(data = tail_left, aes(x=x, y=y), fill = hii) +
+  #geom_polygon(data = tail_right, aes(x=x, y=y), fill = hp) +
+  #geom_vline(xintercept = qt(0.95, 100), size = 0.35, linetype = "dashed", color = hi) +
+  geom_vline(xintercept = qt(1 - 0.95, 100), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s +
+  xlab("") + 
+  ylab("") + theme(axis.text.y = element_blank(), axis.line.y = element_blank())
+```
+
+. . .
+
+If our $t$ statistic is in the rejection region, then we reject the null hypothesis at the 5 percent level. 
+
+---
+
+## One-sided tests
+
+[Right-tailed:]{.note} Based on a critical value of $t_{1-\alpha, n-2} = t_{0.95, 100} =$ `r round(qt(0.95, 100), 2)`, we can identify a [rejection region]{.hii} on the $t$-distribution. 
+
+```{r}
+#| echo: false
+#| fig.height: 3.75
+
+df <- tibble(
+    x = seq(-4,4, by = 0.01),
+    y = dt(seq(-4,4, by = 0.01), 100)
+)
+crit <- qt(c(.05,.95), 100)
+tail_left <- rbind(c(crit[1],0), subset(df, x < crit[1]))
+tail_right <- rbind(c(crit[2],0), subset(df, x > crit[2]), c(3,0))
+ggplot() +
+  scale_x_continuous(limits = c(-4, 4), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 0.5), expand=c(0,0), breaks = c(0, 0.5), labels = c(0, 0.5)) +
+  geom_polygon(data = df, aes(x, y), fill = "grey85") +
+  #geom_polygon(data = tail_left, aes(x=x, y=y), fill = hp) +
+  geom_polygon(data = tail_right, aes(x=x, y=y), fill = hii) +
+  geom_vline(xintercept = qt(0.95, 100), size = 0.35, linetype = "dashed", color = hi) +
+  #geom_vline(xintercept = qt(1 - 0.95, 100), size = 0.35, linetype = "dashed", color = hi) +
+  mytheme_s +
+  xlab("") + 
+  ylab("") + theme(axis.text.y = element_blank(), axis.line.y = element_blank())
+```
+
+. . .
+
+If our $t$ statistic is in the rejection region, then we reject the null hypothesis at the 5 percent level. 
+
+---
+
+## One-sided tests
+
+**Example:** Do campus police deter campus crime?
+
+```{r}
+#| echo: true
+
+lm(crime ~ police, data = campus) %>% tidy()
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.align-center}
+
+<br>
+
+H[0]{.sub}: $\beta_\text{Police} = 0$
+:::
+::: {.align-center}
+H[A]{.sub}: $\beta_\text{Police} < 0$
+:::
+:::
+
+::: {.column width="50%"}
+
+Significance level: $\alpha = 0.1$
+
+$$
+\color{#434C5E}{t \text{-stat}} = 1.35
+$$
+
+$$
+{\color{#434C5E}{t_{\text{critical}}}} = `r qt(0.9, 94) %>% round(2)`
+$$
+
+[Which implies that  $p > 0.05$.]{.fragment} [Therefore, ]{.fragment}
+
+[we [reject H[0]{.sub}]{.hi-red} at the 5% level.]{.fragment}
+
+:::
+
+::::
+
+
