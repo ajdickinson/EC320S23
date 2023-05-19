@@ -1,5 +1,6 @@
 #' ---
 #' title: "PS04"
+#' subtitle: "Total points: 30"
 #' author: "YOUR NAME HERE"
 #' date: "Due: 2023-05-23 11:59 PST"
 #' ---
@@ -23,10 +24,10 @@
 #'
 #' ## __Setup__
 #'
-#' __Q01:__ Load the required packages `tidyverse`, `broom`, and `AER`
+#' __Q01:__ Load the required packages `tidyverse`, `broom`, and `AER` _(1 points)_
 #'
 #' 
-#' __Q02:__ Load data with the following code `data("MASchools")`. Now an object named `MASchools` should be loaded into your R environment. _Feel free to rename the object if you wish._
+#' __Q02:__ Load data with the following code `data("MASchools")`. Now an object named `MASchools` should be loaded into your R environment. _Feel free to rename the object if you wish._ _(1 points)_
 #'
 #'
 #' - Print the first 10 observations in the dataset by using the function `head()`. Hint: Type `?head()` in the console.
@@ -41,6 +42,7 @@
 #' - `expereg`
 #' - `income`
 #'
+#' _(1 points)_
 #'
 #' ## __Getting to know your data__
 #'
@@ -54,6 +56,8 @@
 #'
 #' - What observation level is the data at? 
 #' - What type of data is this (recall data types from the review lecture).
+#' 
+#' _(2 points)_
 #'
 #' __Q05:__ Use `dplyr` functions to find the answer the following questions about the data. 
 #'
@@ -66,12 +70,14 @@
 #' - Of the non-missing data, what is the average 4th grade test score? Hint: Read about the argument `na.rm` in the help file for the `mean` function
 # Write code here after un-commenting
 #'
-#'
+#' _(2 points)_
 #'
 #' __Q06:__ Plot the histogram of test scores for 4th graders. Make it look nice by adding a title and labels to your axis. Maybe try to give it some color. If you would like, install the `ggthemes` package (`install.packages("ggthemes")`) and read the documentation. It has a ton of themes choices that will style your plot.
 #+ fig.width=5, fig.height=5 
 # Write code here after un-commenting
 #'
+#' _(2 points)_
+#' 
 #' ## __Inference__
 #'
 #' __Q07:__ Suppose we are interested in the relationship between 4th grade test scores and class room size. We specify the following model:
@@ -85,8 +91,10 @@
 #' - Write down a two tailed hypothesis test for $\beta_1$
 #' 
 #' - Briefly describe the intuition behind the argument of a hypothesis test.
+#' 
+#' _(2 points)_
 #'
-#' __Q08:__ It is always important to plot your data. Make a scatter plot of the variables in this regression. Like before, try to make it look presentable.
+#' __Q08:__ It is always important to plot your data. Make a scatter plot of the variables in this regression. Like before, try to make it look presentable. _(2 points)_
 #+ fig.width=5, fig.height=5 
 # Write code here after un-commenting
 #'
@@ -107,14 +115,15 @@
 #'
 #' - Does class size explain a lot of the variation in test scores?
 #' 
+#' _(4 points)_
 #' 
-#' __Q10:__ Describe in math, and in words, what the exogeniety assumption requires. Explain why this regression may violate this assumption.
+#' __Q10:__ Describe in math, and in words, what the exogeniety assumption requires. Explain why this regression may violate this assumption. _(3 points)_
 #'
 #'
-#' __Q11:__ What is the formula for omitted variable bias? If we were to include a variable on school funding, what would you expect the sign to be? Are we over or under estimating $\beta_1$? Explain.
+#' __Q11:__ What is the formula for omitted variable bias? If we were to include a variable on school funding, what would you expect the sign to be? Are we over or under estimating $\beta_1$? Explain. _(2 points)_
 #'
 #'
-#' __Q12:__ On your old scatter plot, add another `geom` layer using `geom_smooth`. Read the help file (`?geom_smooth`) to plot the `lm` method, which is the same regression in __Q09__. Do your point estimates line up with your fitted line using `geom_smooth`.
+#' __Q12:__ On your old scatter plot, add another `geom` layer using `geom_smooth`. Read the help file (`?geom_smooth`) to plot the `lm` method, which is the same regression in __Q09__. Do your point estimates line up with your fitted line using `geom_smooth`. _(1 points)_
 #' 
 #'
 #' __Q13:__ Suppose we would like to control for school funding using in the following specification:
@@ -128,13 +137,16 @@
 #' 
 #' - Does this regression improve on the $R^2$ found in the SLR above?
 #' 
-#'  __Q13:__ Based on the change in our point estimate of $\beta_2$ when we add $\text{Funding}_i$, what sign is the bias created by omitting this variable? Does this match your expectation from before?
+#' _(3 points)_
+#' 
+#'  __Q13:__ Based on the change in our point estimate of $\beta_2$ when we add $\text{Funding}_i$, what sign is the bias created by omitting this variable? Does this match your expectation from before? _(2 points)_
 #' 
 #'
 #' __Q14:__ Try to find a regression with an $R^2$ above 0.5 by adding additional regressors.
-# Write code here after un-commenting
+# Write code here after un-commenting 
 #'
 #' - Now find the adjusted $R^2$ (using `glance()`). Is it bigger or smaller than the standard $R^2$?
 # Write code here after un-commenting
-#'
+#' 
+#' _(2 points)_
 #' 
