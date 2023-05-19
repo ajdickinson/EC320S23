@@ -42,7 +42,7 @@ However, there is a [problem]{.hi-red}.
 ::: {.vertical-center}
 Recall the variance of the [point estimate]{.note} $\hat{\beta_1}$
 $$
-\mathop{\text{Var}}(\hat{\beta}_1) = \frac{{\color{#000000} \sigma^2}}{\sum_{i=1}^n (X_i - \bar{X})^2}
+\mathop{\text{Var}}(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar{X})^2}
 $$
 
 [The problem is that ${\color{#ffffff} \sigma^2}$ is unobserved. So what do we do? _Estimate it._]{.white}
