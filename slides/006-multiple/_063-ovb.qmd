@@ -1,0 +1,73 @@
+---
+name: ovb
+---
+
+---
+
+## Omitted variable bias
+
+> Bias that occurs in statistical models when a relevant variable is not included in the model.
+
+
+. . .
+
+<br>
+
+[Consequence:]{.hi-red} Leads to the incorrect estimation of the relationships between variables, which may affect the reliability of the model's predictions and inferences.
+
+<br>
+
+. . .
+
+[Solution:]{.hii} [_"Control"_]{.note} for the omitted variable(s).
+
+---
+
+```{r}
+#| fig-cap: Fitting OLS
+#| echo: false
+#| fig.align: center
+#| fig.height: 6.75
+
+ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
+  geom_point(color = hi) +
+  geom_smooth(method = 'lm', se = FALSE, color = hp) +
+  labs(
+    title = "Relationship between test scores and class size",
+    subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
+    y = "Test scores",
+    x = "Class size"
+  ) +
+  mytheme
+
+```
+
+---
+
+```{r}
+#| echo: false
+#| fig.align: center
+#| fig.height: 6.75
+
+ggplot(data = schools_dt, aes(x = stratio, y = score4, group = expgroup, color = expgroup)) +
+  geom_point() +
+  scale_color_manual(values = c(hi, hii), labels = c("Per student expenditure < $6,000", "Per student expenditure > $6,000")) +
+  # scale_x_log10() + scale_y_log10() +
+  labs(
+    title = "Relationship between test scores and class size",
+    subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
+    y = "Test scores",
+    x = "Class size",
+    color = NULL
+  ) +
+  mytheme +
+  theme(
+    legend.position = c(0.8, 0.9),
+    legend.text = element_text(size = 12),
+    legend.background = element_rect(color = hi, size = 0.5)
+  )
+
+```
+
+---
+

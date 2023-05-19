@@ -1,0 +1,678 @@
+---
+name: ex
+---
+
+---
+
+::: {.vertical-center}
+[Empirical question:]{.note}
+
+: What improvement do smaller class sizes have on student test scores, if any?
+:::
+
+---
+
+## [Ex.]{.ex} [Effect of class sizes on test scores]{.hi}
+
+Estimate effect of class size on test scores with the following:
+
+$$
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + u_i
+$$
+
+<br>
+
+. . .
+
+[Data:]{.hi} Test performance and class across school districts in MA
+
+- Scores: 4th grade test scores agg. across reading, math, and science
+- Class size: Ratio of number of students to teachers
+
+<br>
+
+. . .
+
+Always plot your data first
+
+---
+
+```{r}
+#| fig-cap: Raw data
+#| echo: false
+#| fig.align: center
+#| fig.height: 6.75
+
+ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
+  geom_point(color = hi) +
+  labs(
+    title = "Relationship between test scores and class size",
+    subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
+    y = "Test scores",
+    x = "Class size"
+  ) +
+  mytheme
+
+```
+
+---
+
+```{r}
+#| fig-cap: Fitting OLS
+#| echo: false
+#| fig.align: center
+#| fig.height: 6.75
+
+ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
+  geom_point(color = hi) +
+  geom_smooth(method = 'lm', se = FALSE, color = hp) +
+  labs(
+    title = "Relationship between test scores and class size",
+    subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
+    y = "Test scores",
+    x = "Class size"
+  ) +
+  mytheme
+
+```
+
+---
+
+## [Ex.]{.ex} [Effect of class sizes on test scores]{.hi}
+
+Estimate effect of class size on test scores with the following:
+
+$$
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + u_i
+$$
+
+<br>
+
+[Q.]{.note} _How might smaller class sizes influence test scores?_
+
+. . .
+
+[A.]{.note} More personalized teaching, less classroom disruptions etc.
+
+. . .
+
+<br>
+
+[Q.]{.note} _What sign would we expect on $\beta_1$?_
+
+. . .
+
+[A.]{.note}  
+
+$$
+\beta_1 < 0
+$$
+
+---
+
+## 
+
+Smaller class sizes ([X]{.hi}) increases test scores ([Y]{.hi}) 
+<br>
+<br>
+
+```{r}
+#| label: dag-ex-setup
+#| echo: false
+#| include: false
+
+
+
+# The full DAG
+dag_full = dagify(
+  Y ~ X,
+  Y ~ U,
+  X ~ U,
+  coords = tibble(
+    name = c("Y", "X", "U"),
+    x = c(1, 3, 2),
+    y = c(2, 2, 1)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "X" & to == "Y") | (name == "Y"),
+  path2 = (name == "X" & to == "U") | (name == "U" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r}
+#| label: dag-ex-ovb-00
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Filter data to include only D and Y nodes and the edge between them
+dag_dt_filtered <- dag_dt[((name == "X" & to == "Y") | (name %in% c("X", "Y"))),]
+
+# Plot the filtered DAG
+ggplot(
+  data = dag_dt_filtered,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_filtered[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+```
+
+<br>
+<br>
+
+---
+
+## [Ex.]{.ex} [Effect of class sizes on test scores]{.hi} {data-visibility="uncounted"}
+
+Estimate effect of class size on test scores with the following:
+
+$$
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + u_i
+$$
+
+<br>
+
+[Q.]{.note} _Do we think $\beta_1$ will be a good guess of the underlying population parameter?_
+
+. . .
+
+[A.]{.note} In $u_i$, several variables are correlated with class size and test scores
+
+[Such as...]{.fragment} [school funding]{.fragment .hi}[, which might affect:]{.fragment}
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Textbooks
+- Computers
+:::
+
+::: {.column width="50%"}
+- Teacher salary
+- Attract high income parents
+:::
+
+::::
+
+---
+
+## {data-visibility="uncounted"}
+
+Smaller class sizes ([X]{.hi}) increases test scores ([Y]{.hi}) 
+<br>
+<br>
+
+```{r}
+#| label: dag-ex-ovb-00-again
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Filter data to include only D and Y nodes and the edge between them
+dag_dt_filtered <- dag_dt[((name == "X" & to == "Y") | (name %in% c("X", "Y"))),]
+
+# Plot the filtered DAG
+ggplot(
+  data = dag_dt_filtered,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_filtered[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+```
+
+<br>
+<br>
+
+---
+
+## {data-visibility="uncounted"}
+
+Smaller class sizes ([X]{.hi}) increases test scores ([Y]{.hi}) along with greater school funding ([U]{.hi})
+
+```{r}
+#| label: dag-ex-ovb-01
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Modify data to include only the desired edges
+dag_dt_modified <- dag_dt[2:4]
+
+# Plot the modified DAG
+ggplot(
+  data = dag_dt_modified,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt_modified[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+
+
+```
+
+<br>
+<br>
+
+---
+
+## {data-visibility="uncounted"}
+
+Smaller class sizes ([X]{.hi}) increases test scores ([Y]{.hi}) along with greater school funding ([U]{.hi}). And, school funding ([U]{.hi}) is correlated with test scores ([X]{.hi}).
+
+
+<!-- DAG SLIDE -->
+
+```{r}
+#| label: dag-ex-ovb-02
+#| echo: FALSE
+#| fig.height: 3
+#| fig.width: 6
+#| fig-align: center
+
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = hi,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = hi,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[, .(name, x, y, xend = x, yend = y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = hi,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[, min(x)] * 0.95, dag_dt[, max(x)] * 1.05),
+  ylim = c(dag_dt[, min(y)] * 0.8, dag_dt[, max(y)] * 1.1)
+)
+```
+
+. . .
+
+_Any unobserved variable_ that connects a [backdoor path]{.note} between class size ([X]{.hi}) and test scores ([Y]{.hi}) will [bias]{.hi} our [point estimate]{.note} of $\beta_1$.
+
+
+---
+
+## {data-visibility="uncounted"}
+
+::: {.vertical-center}
+_Any unobserved variable_ that connects a [backdoor path]{.note} between class size ([X]{.hi}) and test scores ([Y]{.hi}) will [bias]{.hi} our [point estimate]{.note} of $\beta_1$. [Why?]{.fragment .note}
+:::
+
+---
+
+###### {data-visibility="uncounted"}
+
+_Any unobserved variable_ that connects a [backdoor path]{.note} between class size ([X]{.hi}) and test scores ([Y]{.hi}) will [bias]{.hi} our [point estimate]{.note} of $\beta_1$. [Why?]{.note}
+
+<br>
+
+[A1.]{.note} Linearity
+
+[A2.]{.note} Sample Variation
+
+[A3.]{.note} Exogeniety
+
+[A4.]{.note} Homoskedasticity
+
+[A5.]{.note} Non-autocorrelation
+
+[A6.]{.note} Normality
+
+
+---
+
+###### {data-visibility="uncounted"}
+
+_Any unobserved variable_ that connects a [backdoor path]{.note} between class size ([X]{.hi}) and test scores ([Y]{.hi}) will [bias]{.hi} our [point estimate]{.note} of $\beta_1$. [Why?]{.note}
+
+<br>
+
+[A1.]{.note} Linearity
+
+[A2.]{.note} Sample Variation
+
+[A3.]{.note} [Exogeniety: The $X$ variable is exogenous]{.hi-red}
+
+[A4.]{.note} Homoskedasticity
+
+[A5.]{.note} Non-autocorrelation
+
+[A6.]{.note} Normality
+
+---
+
+###### {data-visibility="uncounted"}
+
+
+::: {.vertical-center}
+_Any unobserved variable_ that connects a [backdoor path]{.note} between class size ([X]{.hi}) and test scores ([Y]{.hi}) will [bias]{.hi} our [point estimate]{.note} of $\beta_1$. [Why?]{.note}
+
+<br>
+
+[A.]{.note} Because is [violates the exogeniety assumption]{.hi-red}
+
+$$
+\mathop{\mathbb{E}}\left( u|\text{Class Size} \right) \neq 0
+$$
+
+Correlation between class size and school funding ($u_i$) is not zero.
+
+:::
+
+---
+
+## {data-visibility="uncounted"}
+
+:::{.vertical-center}
+Graphically...
+:::
+
+---
+
+## 
+
+```{r}
+#| include: false
+#| cache: true
+
+# Setup ----------------------------------------------------------------------------------
+  # Packages
+  library(pacman)
+  p_load(ggridges)
+# Data work ------------------------------------------------------------------------------
+  # Set seed
+  set.seed(12345)
+  # Sample size
+  n <- 1e5
+  # Exogenous
+  e_good <- tibble(
+    x = runif(n = n, min = 11, max = 24),
+    e = 6000 + rnorm(n, sd = 400)
+  ) %>% mutate(x = round(x))
+  # Endogenous
+  e_bad <- tibble(
+    x = runif(n = n, min = 11, max = 24),
+    e = 10000 + rnorm(n, sd = 400) - 100 * (x + 13.5),
+  ) %>% mutate(x = round(x))
+# Figures: Joint densities ---------------------------------------------------------------
+  # The joint plot: good
+  joint_good <- ggplot(data = e_good, aes(x = e)) +
+    geom_density() +
+    mytheme
+  # The joint plot: bad
+  joint_bad <- ggplot(data = e_bad, aes(x = e)) +
+    geom_density() +
+    mytheme
+# Figures: Conditional densities ---------------------------------------------------------
+  cond_good <- ggplot(data = e_good, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = ..x..),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("School funding") +
+    ylab("Class size") +
+    mytheme +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(vjust = 0.5, size = 22, color = hi),
+      axis.title.x = element_text(size = 22, color = hi)
+    )
+  cond_bad <- ggplot(data = e_bad, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = ..x..),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("School funding") +
+    ylab("Class size") +
+    mytheme +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(vjust = 0.5, size = 22, color = hi),
+      axis.title.x = element_text(size = 22, color = hi)
+    )
+```
+
+Valid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) = 0$
+
+```{r}
+#| echo: false
+#| fig.height: 6
+#| fig.align: center
+#| fig-cap: "Note: This is simulated data"
+
+cond_good
+```
+
+---
+
+##
+
+Invalid exogeniety, _i.e._, $\mathop{\mathbb{E}}\left( u \mid X \right) \neq 0$
+
+```{r}
+#| echo: false
+#| fig.height: 6
+#| fig.align: center
+#| fig-cap: "Note: This is simulated data"
+
+cond_bad
+```
+
+
+---
+
+###### 
+
+What the actual data look like:
+
+. . .
+
+```{r}
+#| echo: false
+#| fig.height: 6
+#| fig.align: center
+#| fig-cap: "True data"
+
+
+ggplot(data = schools_dt, aes(x = exptot, y = as.factor(cut(stratio, breaks = seq(11,24,1))))) +
+    geom_density_ridges_gradient(
+      aes(fill = ..x..),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_y_discrete(labels = seq(11, 23, 1)) +
+    scale_fill_viridis(option = "magma") +
+    xlab("School funding") +
+    ylab("Class size") +
+    mytheme +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(vjust = 0.5, size = 22, color = hi),
+      axis.title.x = element_text(size = 22, color = hi)
+    )
+```
+
+---
+
+###### {data-visibility="uncounted"}
+
+What the actual data look like, as a scatter plot:
+
+. . .
+
+```{r}
+#| echo: false
+#| fig.align: center
+#| fig.height: 6.75
+
+ggplot(data = schools_dt, aes(x = stratio, y = exptot)) +
+  geom_point(color = hi) + 
+  geom_smooth(method = 'lm', se = FALSE, color = hp) +
+  labs(
+    y = "Expenditure per student",
+    x = "Class size"
+  ) + mytheme
+
+```
+
+---
+
+::: {.vertical-center}
+This violation has a name. [We call it [omitted variable bias]{.note}]{.fragment}
+:::
+
+---
+
+## Omitted variable bias
+
+> Bias that occurs in statistical models when a relevant variable is not included in the model.
+
+
+. . .
+
+<br>
+
+[Consequence:]{.hi-red} Leads to the incorrect estimation of the relationships between variables, which may affect the reliability of the model's predictions and inferences.
+
+<br>
+
+. . .
+
+[Solution:]{.hii} [_"Control"_]{.note} for the omitted variable(s).

@@ -1,0 +1,118 @@
+---
+title: "Multiple linear regression"
+subtitle: "EC 320, Set 07"
+author: "Andrew Dickinson"
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    monobackgroundcolor: #F5F5F5
+    slide-number: true
+    footer: "EC320, Set 06 | Inference"
+    preview-links: auto
+    code-fold: FALSE
+    code-copy: TRUE
+    highlight-style: a11y-light
+    cache: FALSE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+---
+
+::: {.content-hidden}
+$$
+{{< include ../_macros.tex >}}
+$$
+:::
+
+## Housekeeping
+
+[PS04:]{.hi}
+
+- Will be assigned _later today_
+- Due next Tuesday night
+
+. . .
+
+<!-- [LA05:]{.hi}
+
+- Due Friday at 5:00p -->
+
+. . .
+
+[Reading:]{.hi} _(up to this point)_
+
+ItE: R, 1, 2, [3]{.hi}
+MM: 1, 2
+
+# _Prologue_ {.inverse .note}
+
+```{r}
+pacman::p_load(
+  hrbrthemes, fastverse, tidyverse, AER,
+  magrittr, wooldridge, here, kableExtra,
+  ggdag, nord, latex2exp, dagitty, viridis, gganimate,
+  plotly, ggforce, latex2exp, parallel, broom, furrr
+  )
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiyellow = nord_palettes$aurora[3]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+higrey = nord_palettes$snowstorm[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 18),
+       axis.title.y = element_text(size = 18))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+
+mytheme_void = theme_void(base_family = "Fira Sans Book", base_size = 20)
+
+
+data("MASchools")
+
+schools_dt = as.data.table(MASchools)
+
+# Create group variable by student expenditure
+schools_dt[exptot >= 6000, expgroup := TRUE]
+schools_dt[exptot < 6000, expgroup := FALSE]
+schools_dt[expgroup == TRUE, score4 := score4 + 30]
+schools_dt = schools_dt[!(expgroup == TRUE & score4 < 722)]
+
+```
+
+{{< include _061-prologue.qmd >}}
+
+# [Ex.]{.ex} [Effect of class sizes on test scores]{.hi-white} {.inverse .tiny}
+
+{{< include _062-ex.qmd >}}
+
+{{< include _063-multi.qmd >}}
+
+<!-- {{< include _052-i.qmd >}} -->
+
+<!-- TODO: This lecture kind of sucked. I think a major revamp is necessary. -->
+
+```{r}
+#| include: false
+#| echo: false
+#| eval: false
+library(renderthis)
+
+renderthis::to_pdf(
+  from = "./slides/005-inference/050-main.html",
+  to = "./slides/005-inference/050-main.pdf",
+  complex_slides = TRUE
+)
+```

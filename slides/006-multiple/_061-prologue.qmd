@@ -1,0 +1,116 @@
+---
+name: prologue
+---
+
+---
+
+::: {.vertical-center}
+_First, a quick recap of what we've done thus far._
+:::
+
+---
+
+## The regression model
+
+We can estimate the effect of $X$ on $Y$ by estimating a [regression model:]{.hi}
+
+$$Y_i = \beta_0 + \beta_1 X_i + u_i$$
+
+- $Y_i$ is the outcome variable.
+
+
+
+- $X_i$ is the treatment variable (continuous).
+
+
+
+- $\beta_0$ is the [intercept]{.hi} parameter. $\mathop{\mathbb{E}}\left[ {Y_i | X_i=0} \right] = \beta_0$
+
+
+
+- $\beta_1$ is the [slope]{.hi} parameter, which under the correct causal setting represents marginal change in $X_i$'s effect on $Y_i$. $\frac{\partial Y_i}{\partial X_i} = \beta_1$
+
+
+
+
+- $u_i$ is an error term including all other (omitted) factors affecting $Y_i$.
+
+---
+
+## The error term
+
+$u_i$ is quite special 
+
+<br>
+
+ 
+
+Consider the [data generating process]{.note} of variable $Y_i$,
+
+
+
+- $u_i$ captures [_all unobserved relationships_]{.note} that explain variation in $Y_i$.
+
+<br>
+
+
+
+Some error will exist in all models, [our aim is to [_minimize error_]{.hi} under a set of constraints.]{.fragment} [This error is the price we are willing to accept for simplified model]{.fragment}
+
+---
+
+## The error term {data-visibility="uncounted"}
+
+[Five]{.hi} items contribute to the existence of the disturbance term:
+
+[1.]{.hi} Omission of explanatory variables
+
+[2.]{.hi} Aggregation of Variables
+
+[3.]{.hi} Model misspecificiation
+
+[4.]{.hi} Functional misspecificiation
+
+[5.]{.hi} Measurement error
+
+---
+
+## Running regressions
+
+Using an estimator with data on $X_i$ and $Y_i$, we can estimate a [fitted regression line:]{.hi}
+
+$$
+\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i
+$$
+
+- $\hat{Y_i}$ is the [fitted value]{.hi} of $Y_i$.
+- $\hat{\beta}_0$ is the [estimated intercept]{.hi}.
+- $\hat{\beta}_1$ is the [estimated slope]{.hi}.
+
+. . .
+
+This procedure produces misses, known as [residuals]{.hi}, $Y_i - \hat{Y_i}$
+
+---
+
+## Gauss-Markov Theorem
+
+> OLS is the [Best Linear Unbiased Estimator]{.hi} ([BLUE]{.hii}) when the following assumptions hold:
+
+[A1.]{.note} [Linearity:]{.hi} The population relationship is [_linear in parameters_]{.note} with an additive error term.
+
+[A2.]{.note} [Sample Variation:]{.hi} There is variation in $X$.
+
+[A3.]{.note} [Exogeniety:]{.hi} The $X$ variable is [exogenous]{.note} 
+
+[A4.]{.note} [Homoskedasticity:]{.hi} The error term has the same variance for each value of the independent variable 
+
+[A5.]{.note} [Non-autocorrelation:]{.hi} The values of error terms have independent distributions 
+
+---
+
+##
+
+::: {.vertical-center}
+_Consider the following example._
+:::

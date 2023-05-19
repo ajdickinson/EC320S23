@@ -107,6 +107,7 @@ campus <- get(data(campus)) %>%
 
 {{< include _054-ci.qmd >}}
 
+<!-- TODO: This lecture kind of sucked. I think a major revamp is necessary. -->
 
 ```{r}
 #| include: false
