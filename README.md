@@ -79,6 +79,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 [PS03 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps03/PS03.html)
 
+[PS04](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/PS04.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/PS04.R)a
 ## Resources
 
 [Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf)
