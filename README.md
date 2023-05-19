@@ -55,7 +55,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: *ItE 2*
 
-**006 - Mulitple variable regression** [html](https://ajdickinson.github.io/EC320S23/slides/006-multiple/006-main.html) 
+**006 - Mulitple variable regression** [html](https://ajdickinson.github.io/EC320S23/slides/006-multiple/060-main.html) 
 
 - Readings: *ItE 3, 6.2; MM 2 (appendix)*
 
