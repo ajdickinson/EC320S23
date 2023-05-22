@@ -26,8 +26,8 @@ $code-color: #5E81AC !default;
 
 /*-- scss:rules --*/
 
-/*-- scss:rules --*/
 
+/*-- Title slide --*/
 #title-slide {
   text-align: left;
 
@@ -43,23 +43,17 @@ $code-color: #5E81AC !default;
     }
   }
 }
-
 #title-slide .title {
   font-weight: 400;
   font-size: 50px;
 }
-
 #title-slide .subtitle {
   color: #81A1C1;
    text-align: left;
    font-size: 40px;
 }
 
-
-// #title-slide .reveal-slide-number {
-//   display: none;
-// }
-
+/*-- Reveal slides --*/
 .reveal h1 {
   color: #4c566a;
   font-weight: 400;
@@ -76,7 +70,6 @@ $code-color: #5E81AC !default;
 .reveal p, .reveal li {
   font-weight: 200;
 }
-
 .inverse {
   // padding-bottom: 30px;
   background-color: #4c566a !important;
@@ -90,10 +83,9 @@ section.has-light-background h1 {
 .inverse p {
   color: #fff;
 }
-// /* Removes colored bar from top of the slide resulting in a clear slide */
-// .clear{
-//   border-top: 0px solid #FAFAFA;
-// }
+
+
+/*-- Divs --*/
 .middle h3 {
   vertical-align: middle !important;
 }
@@ -103,29 +95,17 @@ section.has-light-background h1 {
   align-items: center;
   text-align: center;
 }
-
-.align-left {
-  text-align: left;
-}
 .vertical-center {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-.hfill {
-  display: flex;
-  flex-grow: 1;
-}
-
-
-/* file: style.css */
 .v-center-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90%;
 }
-
 .reveal dd {
   display: block;
   position: relative;
@@ -162,6 +142,8 @@ section.has-light-background h1 {
   display: inline;
 }
 
+
+/*-- Types --*/
 .note {
   font-family: 'Zilla Slab' !important;
   font-weight: 300;
@@ -169,7 +151,6 @@ section.has-light-background h1 {
   color: #314f4f !important;
   // font-size: 32px;
 }
-
 .note h1 {
   font-family: 'Zilla Slab' !important;
 }
@@ -178,80 +159,15 @@ section.has-light-background h1 {
   font-style: italic;
   font-weight: 500;
 }
-
-
-.h {
-  font-weight: 600;
-  color: #2e3440;
+.pseudocode, .pseudocode-small {
+  font-family: 'Fira Code';
+  background: #f8f8f8;
+  border-radius: 3px;
+  padding: 10px;
 }
-.hi {
-  font-weight: 600;
-  color: #4c566a
+.pseudocode-small {
+  font-size: 20px;
 }
-.hii {
-  font-weight: 600;
-  color: #81A1C1;
-}
-.hi-teal {
-  font-weight: 600;
-  color: #8FBCBB;
-}
-.hi-bb {
-  font-weight: 600;
-  color: #88C0D0;
-}
-
-.hp {
-  font-weight: 600;
-  color: #b48ead !important;
-}
-.hi-green {
-  font-weight: 600;
-  color: #A3BE8C;
-}
-.hi-red {
-  font-weight: 600;
-  color: #BF616A;
-}
-.hi-orange {
-  font-weight: 600;
-  color: #D08770;
-}
-.hi-yellow {
-  font-weight: 600;
-  color: #EBCB8B;
-}
-
-.hi-white {
-  font-weight: 600;
-  color: #ffffff !important;
-}
-.hi-grey {
-  font-weight: 600;
-  color : #7f7f7f !important;
-}
-
-
-.blue {
-  color: #81A1C1;
-}
-.purple {
-  color: #b48ead !important;
-}
-.green {
-  color: #A3BE8C;
-}
-.red {
-  color: #BF616A;
-}
-.teal {
-  color: #8FBCBB;
-}
-.white {
-  color: #ffffff !important;
-}
-
-
 .sub {
   font-size: 75%;
   vertical-align: sub;
@@ -278,3 +194,76 @@ section.has-light-background h1 {
 .mono {
   font-family: monospace;
 }
+
+
+/*-- Highlight colors --*/
+.h {
+  font-weight: 600;
+  color: #2e3440;
+}
+.hi {
+  font-weight: 600;
+  color: #4c566a
+}
+.hii {
+  font-weight: 600;
+  color: #81A1C1;
+}
+.hi-teal {
+  font-weight: 600;
+  color: #8FBCBB;
+}
+.hi-bb {
+  font-weight: 600;
+  color: #88C0D0;
+}
+.hp {
+  font-weight: 600;
+  color: #b48ead !important;
+}
+.hi-green {
+  font-weight: 600;
+  color: #A3BE8C;
+}
+.hi-red {
+  font-weight: 600;
+  color: #BF616A;
+}
+.hi-orange {
+  font-weight: 600;
+  color: #D08770;
+}
+.hi-yellow {
+  font-weight: 600;
+  color: #EBCB8B;
+}
+.hi-white {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+.hi-grey {
+  font-weight: 600;
+  color : #7f7f7f !important;
+}
+
+/*-- Colors --*/
+.blue {
+  color: #81A1C1;
+}
+.purple {
+  color: #b48ead !important;
+}
+.green {
+  color: #A3BE8C;
+}
+.red {
+  color: #BF616A;
+}
+.teal {
+  color: #8FBCBB;
+}
+.white {
+  color: #ffffff !important;
+}
+
+

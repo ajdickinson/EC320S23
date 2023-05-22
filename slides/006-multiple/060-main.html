@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="060-main_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="060-main_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -318,6 +382,9 @@
       margin-right: 0; 
     }
   </style>
+  
+  <script src="060-main_files/libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="060-main_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -357,7 +424,7 @@ Andrew Dickinson
 <section>
 <section id="prologue" class="title-slide slide level1 inverse note center">
 <h1><em>Prologue</em></h1>
-<div class="cell">
+<div class="cell" data-hash="060-main_cache/revealjs/unnamed-chunk-1_5bb428507fd7e9362b8d85636057da87">
 
 </div>
 </section>
@@ -615,7 +682,7 @@ Andrew Dickinson
 <h6 id="section-12"></h6>
 <p>What the actual data look like:</p>
 <div class="fragment">
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="060-main_cache/revealjs/unnamed-chunk-12_20f70be2236230c06588910774c912f4">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -632,7 +699,7 @@ Andrew Dickinson
 <h6 data-visibility="uncounted" id="section-13"></h6>
 <p>What the actual data look like, as a scatter plot:</p>
 <div class="fragment">
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="060-main_cache/revealjs/unnamed-chunk-13_fb3ea8b86034f74162f66543b4e896eb">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -685,6 +752,116 @@ Andrew Dickinson
 <p>This serves more than one purpose. Multiple <span class="hii">explanatory variables</span> improves predictions, avoids <span class="hi-red">OVB</span>, and better explains variation in <span class="math inline">\(Y\)</span>.</p>
 </div>
 </section>
+<section id="multiple-linear-regression-ex." class="slide level2">
+<h2>Multiple linear regression <span class="ex">Ex.</span></h2>
+<p>Controlling for <span class="hi">school funding</span></p>
+<p><span class="math display">\[
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Expenditure}_i+ u_i
+\]</span></p>
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-16_a75bd09097171b94a6c21cf1dc4148ec">
+<div class="cell-output-display">
+
+<table>
+<caption></caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Explanatory variable </th>
+   <th style="text-align:center;"> 1 </th>
+   <th style="text-align:center;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 781.196 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 674.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (16.46) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (16.46) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -3.768 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.61) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.64) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Expenditure </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;">  </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 0.013 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.002) </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="multiple-linear-regression-ex.-1" class="slide level2" data-visibility="uncounted">
+<h2>Multiple linear regression <span class="ex">Ex.</span></h2>
+<p>Controlling for <span class="hi">school funding</span></p>
+<p><span class="math display">\[
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Expenditure}_i+ u_i
+\]</span></p>
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-17_b98a9cd73d78884409d821316e2294ee">
+<div class="cell-output-display">
+
+<table>
+<caption></caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Explanatory variable </th>
+   <th style="text-align:center;"> 1 </th>
+   <th style="text-align:center;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 781.196 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 674.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (16.46) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (16.46) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -3.768 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.61) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.64) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Expenditure </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;">  </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 0.013 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.002) </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
 <section id="section-14" class="slide level2" data-visibility="uncounted">
 <h2></h2>
 <p>Class funding (<span class="hi">U</span>) <span class="note">confounds</span> our estimates of smaller class sizes (<span class="hi">X</span>) on test scores (<span class="hi">Y</span>). <br> <br></p>
@@ -710,12 +887,12 @@ Andrew Dickinson
 
 <h6 data-visibility="uncounted" id="section-16"></h6>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section class="slide level2">
 
 <h6 data-visibility="uncounted" id="section-17"></h6>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section class="slide level2">
 
 <h6 data-visibility="uncounted" id="section-18"></h6>
@@ -723,18 +900,40 @@ Andrew Dickinson
 <img data-src="./control.gif" class="r-stretch"></section>
 <section id="ols-estimation" class="slide level2">
 <h2>OLS Estimation</h2>
-<p>As was the case with simple linear regressions, OLS minimizes the sum of squared residuals (RSS).</p>
-<p>However, residuals are now defined as</p>
+<p><span class="note">Residuals</span> are now defined as:</p>
+<div class="fragment">
 <p><span class="math display">\[
 \hat{u}_i = Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_{1i} - \hat{\beta}_2 X_{2i} - \cdots - \hat{\beta}_{k} X_{ki}
 \]</span></p>
+</div>
 <div class="fragment">
-<p>To obtain estimates, take partial derivatives of RSS with respect to each <span class="math inline">\(\hat{\beta}\)</span>, set each derivative equal to zero, and solve the system of <span class="math inline">\(k+1\)</span> equations.</p>
-<ul>
-<li>Without matrices, the algebra is difficult. For the remainder of this course, we will let <span class="mono">R</span> do the work for us.</li>
-</ul>
+<p>As with SLR, OLS minimizes the sum of squared residuals (<span class="hi-orange">RSS</span>).</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{align*}
+  {\color{#D08770} RSS} &amp;= \sum_{i = 1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_{1i} - \hat{\beta}_2 X_{2i} - \cdots - \hat{\beta}_{k} X_{ki})^2 \\
+                        &amp;= \color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}
+\end{align*}
+\]</span></p>
+<p>which is a familiar expression.</p>
 </div>
 </section>
+<section id="ols-estimation-1" class="slide level2">
+<h2>OLS Estimation</h2>
+<p>To obtain <span class="note">point estimates</span>:</p>
+<p><span class="math display">\[
+\min_{\hat{\beta}_0,\, \hat{\beta}_1,\, \dots \, \hat{\beta}_k} \quad \color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}
+\]</span></p>
+<ul>
+<li>Take partial derivatives of RSS with respect to each <span class="math inline">\(\hat{\beta}\)</span></li>
+<li>Set each derivative equal to zero</li>
+<li>Solve the system of <span class="math inline">\(k+1\)</span> equations<sup>1</sup>.</li>
+</ul>
+<div class="fragment">
+<p>The algebra is cumbersome. We let <span class="mono">R</span> do the heavy lifting.</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><span class="math inline">\(k+1\)</span> due to the intercept.</p></li></ol></aside></section>
 <section id="coefficient-interpretation" class="slide level2">
 <h2>Coefficient Interpretation</h2>
 <p><span class="hi">Model</span></p>
@@ -750,11 +949,10 @@ Andrew Dickinson
 <section id="algebraic-properties-of-ols" class="slide level2">
 <h2>Algebraic properties of OLS</h2>
 <p>The OLS first-order conditions yield the same properties as before.</p>
-<ol type="1">
-<li><p>Residuals sum to zero: <span class="math inline">\(\sum_{i=1}^n \hat{u_i} = 0\)</span>.</p></li>
-<li><p>The sample covariance between the independent variables and the residuals is zero.</p></li>
-<li><p>The point <span class="math inline">\((\bar{X_1}, \bar{X_2}, \dots, \bar{X_k}, \bar{Y})\)</span> is always on the fitted regression “line.”</p></li>
-</ol>
+<p><br></p>
+<p><span class="note">1.</span> Residuals sum to zero: <span class="math inline">\(\sum_{i=1}^n \hat{u_i} = 0\)</span>.</p>
+<p><span class="note">2.</span> The sample covariance <span class="math inline">\(X_i\)</span> and the <span class="math inline">\(\hat{u_i}\)</span> is zero.</p>
+<p><span class="note">3.</span> The point <span class="math inline">\((\bar{X_1}, \bar{X_2}, \dots, \bar{X_k}, \bar{Y})\)</span> is on the fitted regression “line.”</p>
 </section>
 <section id="goodness-of-fit" class="slide level2">
 <h2>Goodness of fit</h2>
@@ -769,83 +967,635 @@ R^2 =\frac{\sum(\hat{Y_i}-\bar{Y})^2}{\sum(Y_i-\bar{Y})^2}
 </section>
 <section id="goodness-of-fit-1" class="slide level2">
 <h2>Goodness of fit</h2>
-<p><span class="hi">Model 1</span> <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + u_i\)</span>.</p>
-<p><span class="hi">Model 2:</span> <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + v_i\)</span></p>
-<div class="fragment">
-<p><span class="note">T/F?</span></p>
-<p>Model 2 will yield a lower <span class="math inline">\(R^2\)</span> than Model 1.</p>
-<ul>
-<li>Hint: Think of <span class="math inline">\(R^2\)</span> as <span class="math inline">\(R^2 = 1 - \frac{\text{RSS}}{\text{TSS}}\)</span>.</li>
-</ul>
-</div>
-</section>
-<section id="goodness-of-fit-2" class="slide level2">
-<h2>Goodness of fit</h2>
 <p>We can describe the variation explain in <span class="math inline">\(Y\)</span> with venn diagrams</p>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"></section>
+<section id="goodness-of-fit-2" class="slide level2">
+<h2>Goodness of fit</h2>
+<p>Suppose we have <span class="hi">two</span> models:</p>
+<p><br></p>
+<p><span class="hi">Model 1</span> <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + u_i\)</span>.</p>
+<p><span class="hi">Model 2:</span> <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + v_i\)</span></p>
+<p><br></p>
+<div class="fragment">
+<p><span class="note">T/F?</span> Model 2 will yield a lower <span class="math inline">\(R^2\)</span> than Model 1.</p>
+</div>
+<div class="fragment">
+<p><br> <br></p>
+<p>(<em>Hint: Think of <span class="math inline">\(R^2\)</span> as <span class="math inline">\(R^2 = 1 - \frac{\text{RSS}}{\text{TSS}}\)</span>.</em>)</p>
+</div>
+</section>
 <section id="goodness-of-fit-3" class="slide level2">
 <h2>Goodness of fit</h2>
 <p>We can describe the variation explain in <span class="math inline">\(Y\)</span> with venn diagrams</p>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
 <section id="goodness-of-fit-4" class="slide level2">
 <h2>Goodness of fit</h2>
 <p>We can describe the variation explain in <span class="math inline">\(Y\)</span> with venn diagrams</p>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"></section>
-<section id="goodness-of-fit-5" class="slide level2">
-<h2>Goodness of fit</h2>
-<p><span class="hi">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
-<div class="fragment">
-<p>To see this problem, we can simulate a dataset of 10,000 observations on <span class="math inline">\(y\)</span> and 1,000 random <span class="math inline">\(x_k\)</span> variables. <strong>No relations between <span class="math inline">\(y\)</span> and the <span class="math inline">\(x_k\)</span>!</strong></p>
-<p>Pseudo-code outline of the simulation: . . .</p>
-<p>[</p>
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch"></section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
+<p><br></p>
+<p><span class="fragment">Let me show you this <span class="hi-red">problem</span> with a <span class="hii">simulation</span></span></p>
+</div>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<div class="vertical-center">
+<p>Simulate a dataset of 10,000 observations on <span class="math inline">\(y\)</span> and 1,000 random <span class="math inline">\(x_k\)</span> variables, where</p>
+<p><span class="math display">\[
+y \perp x_k \quad \forall x_k \; \text{s.t.} \; k = 1, 2, \dots, 1000
+\]</span></p>
+<p><br></p>
+<p><span class="fragment">We have 1,000 independent variables that are <span class="note">independent</span> to the dependent variable.</span> <span class="fragment">Each <span class="math inline">\(x_k\)</span> has no relationship to <span class="math inline">\(y\)</span> whatsoever.</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(\color{#314f4f}{R^2}\)</span> <em>mechanically</em> increases.</p>
+<p><span class="mono">Pseudo-code:</span></p>
+<div class="pseudocode">
+<p>Generate 10,000 obs. on <span class="math inline">\(y\)</span></p>
+<p>Generate 10,000 obs. on variables <span class="math inline">\(x_1\)</span> through <span class="math inline">\(x_{1000}\)</span></p>
+<p><br></p>
+<p>Regressions:</p>
 <ul>
-<li>Generate 10,000 observations on <span class="math inline">\(y\)</span></li>
-<li>Generate 10,000 observations on variables <span class="math inline">\(x_1\)</span> through <span class="math inline">\(x_{1000}\)</span></li>
-<li>Regressions
-<ul>
-<li>LM<sub>1</sub>: Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_1\)</span>; record R<sup>2</sup></li>
-<li>LM<sub>2</sub>: Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>; record R<sup>2</sup></li>
+<li>LM<sub>1</sub>: Regress <span class="math inline">\(y\)</span> of <span class="math inline">\(x_1\)</span>; record <span class="math inline">\(R^2\)</span></li>
+<li>LM<sub>2</sub>: Regress <span class="math inline">\(y\)</span> of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>; record <span class="math inline">\(R^2\)</span></li>
 <li>…</li>
-<li>LM<sub>1000</sub>: Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, …, <span class="math inline">\(x_{1000}\)</span>; record R<sup>2</sup> ]{.mono .small}</li>
-</ul></li>
+<li>LM<sub>1000</sub>: Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, …, <span class="math inline">\(x_{1000}\)</span>; record <span class="math inline">\(R^2\)</span></li>
 </ul>
 </div>
 </section>
-<section id="goodness-of-fit-6" class="slide level2">
-<h2>Goodness of fit</h2>
-<p><span class="hi">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
-<p><span class="mono">R</span> code for the simulation:</p>
-<div class="cell">
+<section class="slide level2">
 
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(\color{#314f4f}{R^2}\)</span> <em>mechanically</em> increases.</p>
+<p><span class="mono">R</span> code for the simulation:</p>
+<div class="cell" data-hash="060-main_cache/revealjs/unnamed-chunk-26_8e430c8fb5662dbe561bb0d882e08651">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Generate data --------------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="co"># Set random seed</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="co"># Generate data</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="fl">1e7</span>), <span class="at">nrow =</span> <span class="fl">1e4</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  x <span class="sc">%&lt;&gt;%</span> <span class="fu">cbind</span>(<span class="fu">matrix</span>(<span class="at">data =</span> <span class="dv">1</span>, <span class="at">nrow =</span> <span class="fl">1e4</span>, <span class="at">ncol =</span> <span class="dv">1</span>), x)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Simulation -----------------------------------------------------------------</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="co"># Loop across regressions</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  r_df <span class="ot">&lt;-</span> <span class="fu">mclapply</span>(<span class="at">X =</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fl">1e3</span><span class="dv">-1</span>), <span class="at">mc.cores =</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>, <span class="at">FUN =</span> <span class="cf">function</span>(i) {</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="co"># Add one additional regressor every iteration</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    tmp_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x[,<span class="dv">1</span><span class="sc">:</span>(i<span class="sc">+</span><span class="dv">1</span>)]) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="co"># Export R2</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb1-16"><a href="#cb1-16"></a>      <span class="at">k =</span> i <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>      <span class="at">r2 =</span> tmp_reg <span class="sc">%$%</span> r.squared,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      <span class="at">r2_adj =</span> tmp_reg <span class="sc">%$%</span> adj.r.squared</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    )</span>
+<span id="cb1-20"><a href="#cb1-20"></a>  }) <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="goodness-of-fit-7" class="slide level2">
-<h2>Goodness of fit</h2>
-<p><strong>Problem:</strong> As we add variables to our model, <span class="math inline">\(\color{#314f4f}{R^2}\)</span> <em>mechanically</em> increases.</p>
+<section class="slide level2">
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
-<section id="goodness-of-fit-8" class="slide level2">
-<h2>Goodness of fit</h2>
-<p><span class="hi">One solution:</span> <span class="hp">Adjusted</span> <span class="math inline">\(\color{#B48EAD}{R^2}\)</span></p>
+<h6 id="section-21"></h6>
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
+<p><br></p>
 
-<img data-src="060-main_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
-<section id="goodness-of-fit-9" class="slide level2">
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<h6 data-visibility="uncounted" id="section-22"></h6>
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
+<p><span class="hii">One solution:</span> Penalize for the number of variables, <em>e.g.</em>, adjusted <span class="math inline">\(R^2\)</span>:</p>
+
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="goodness-of-fit-5" class="slide level2">
 <h2>Goodness of fit</h2>
-<p><span class="hi">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
-<p><span class="hi">One solution:</span> Penalize for the number of variables, <em>e.g.</em>, adjusted <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="hi-red">Problem:</span> As we add variables to our model, <span class="math inline">\(R^2\)</span> <em>mechanically</em> increases.</p>
+<p><span class="hii">One solution:</span> Penalize for the number of variables, <em>e.g.</em>, adjusted <span class="math inline">\(R^2\)</span>:</p>
 <p><span class="math display">\[
 \bar{R}^2 = 1 - \dfrac{\sum_i \left( Y_i - \hat{Y}_i \right)^2/(n-k-1)}{\sum_i \left( Y_i - \bar{Y} \right)^2/(n-1)}
 \]</span></p>
 <p><em>Note:</em> Adjusted <span class="math inline">\(R^2\)</span> need not be between 0 and 1.</p>
-<!-- {{< include _052-i.qmd >}} -->
-<!-- TODO: This lecture kind of sucked. I think a major revamp is necessary. -->
-<div class="footer footer-default">
-<p>EC320, Set 06 | Inference</p>
+</section>
+<section id="goodness-of-fit-6" class="slide level2">
+<h2>Goodness of fit</h2>
+<p>So how do you find <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\bar{R^2}\)</span> in <span class="mono big">R</span>? <span class="fragment"><code>broom::glance()</code></span></p>
+<div class="fragment">
+<div class="cell" data-hash="060-main_cache/revealjs/unnamed-chunk-30_cb196fb2bd9e2dc33fbd4ba76187a411">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Run model</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>model <span class="ot">=</span> <span class="fu">lm</span>(score4 <span class="sc">~</span> stratio <span class="sc">+</span> expreg, schools_dt)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Print results as tibble</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept) 675.      16.5         41.0  2.65e-103
+2 stratio      -0.960    0.644       -1.49 1.37e-  1
+3 expreg        0.0126   0.00160      7.83 2.19e- 13</code></pre>
+</div>
+</div>
+<p><br></p>
+</div>
+<div class="fragment">
+<div class="cell" data-hash="060-main_cache/revealjs/unnamed-chunk-31_5778375a40230fe7c6b6e8e57be92c06">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Print R2 info as tibble</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>broom<span class="sc">::</span><span class="fu">glance</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.341         0.335  17.2      55.5 3.92e-20     2  -924. 1856. 1870.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-regression" class="slide level2">
+<h2>Multiple regression</h2>
+<p>There are <span class="hi">tradeoffs</span> to remember as we add/remove variables:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="hi-red">Fewer variables</span></p>
+<ul>
+<li>Explains less variation in <span class="math inline">\(y\)</span></li>
+<li>Provide simple interpretations and visualizations</li>
+<li>More worried about omitted-variable bias</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="hii">More variables</span></p>
+<ul>
+<li>More likely to find <em>spurious</em> relationships<sup>1</sup></li>
+<li>More difficult interpretation</li>
+<li>The <span class="note">variance</span> of our <span class="note">point estimates</span> will be bigger</li>
+<li>We still might have omitted-variable bias</li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Spurious meaning <em>statistically significant</em> by coincidence—not reflective of true, population-level relationship</p></li></ol></aside></section>
+<section id="multiple-regression-1" class="slide level2" data-visibility="uncounted">
+<h2>Multiple regression</h2>
+<p>There are <span class="hi">tradeoffs</span> to remember as we add/remove variables:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="hi-red">Fewer variables</span></p>
+<ul>
+<li>Explains less variation in <span class="math inline">\(y\)</span></li>
+<li>Provide simple interpretations and visualizations</li>
+<li>More worried about omitted-variable bias</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="hii">More variables</span></p>
+<ul>
+<li>More likely to find <em>spurious</em> relationships<sup>1</sup></li>
+<li>More difficult interpretation</li>
+<li><span class="hi">The variance of our point estimates will be bigger</span></li>
+<li>We still might have omitted-variable bias</li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>Spurious meaning <em>statistically significant</em> by coincidence—not reflective of true, population-level relationship</p></li></ol></aside></section></section>
+<section>
+<section id="multicollinearity" class="title-slide slide level1 inverse note center">
+<h1><em>Multicollinearity</em></h1>
+
+</section>
+<section id="ols-variances" class="slide level2">
+<h2>OLS variances</h2>
+<p>Multiple regression model:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_{k} X_{ki} + u_i
+\]</span></p>
+<p>It can be shown that the estimator <span class="math inline">\(\hat{\beta}_j\)</span> on independent variable <span class="math inline">\(X_j\)</span> is:</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta_j} \right) = \dfrac{\sigma^2}{\left( 1 - R^2_j \right)\sum_{i=1}^n \left( X_{ji} - \bar{X}_j \right)^2},
+\]</span></p>
+<p>where <span class="math inline">\(R^2_j\)</span> is the <span class="math inline">\(R^2\)</span> from a regression of <span class="math inline">\(X_j\)</span> on the other independent variables and the intercept</p>
+</section>
+<section id="ols-variances-1" class="slide level2">
+<h2>OLS variances</h2>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta_j} \right) = \dfrac{{\color{#81A1C1}\sigma^2}}{\left( 1 - {\color{#81A1C1}R_j^2} \right){\color{#BF616A}\sum_{i=1}^n \left( X_{ji} - \bar{X}_j \right)^2}},
+\]</span></p>
+<p><span class="hi">Moving parts:</span></p>
+<div class="small">
+<p><span class="fragment"><span class="note">1.</span> <span class="hi">Error variance:</span> As <span class="math inline">\({\color{#81A1C1}\sigma^2}\)</span> increases, <span class="math inline">\(\mathrm{Var}(\hat{\beta}_j)\)</span> increases</span></p>
+<p><span class="fragment"><span class="note">2.</span> <span class="hi">Total variation in <span class="math inline">\(X_j\)</span>:</span> As <span class="math inline">\({\color{#BF616A}\sum_{i=1}^n \left( X_{ji} - \bar{X}_j \right)^2}\)</span> increases, <span class="math inline">\(\mathrm{Var}(\hat{\beta}_j)\)</span> decreases</span></p>
+<p><span class="fragment"><span class="note">3.</span> <span class="hi">Relationship across <span class="math inline">\(X_i\)</span>:</span> As <span class="math inline">\({\color{#81A1C1}R_j^2}\)</span> increases, <span class="math inline">\(\mathrm{Var}(\hat{\beta}_j)\)</span> increases</span></p>
+</div>
+<p><br></p>
+<div class="fragment">
+<p><span class="note">3.</span> is better known as <span class="note">Multicollinearity</span></p>
+</div>
+</section>
+<section id="multicollinearity-1" class="slide level2">
+<h2>Multicollinearity</h2>
+<blockquote>
+<p>Case in which two or more independent variables in a regression model are highly correlated.</p>
+</blockquote>
+<div class="fragment">
+<p><br></p>
+<p>One independent variable can phiredict most of the variation in another independent variable.</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><span class="note">Multicollinearity</span> leads to <span class="hi">imprecise</span> estimates. <span class="fragment">Becomes difficult to distinguish between individual effects from of independent variables.</span></p>
+</div>
+</section>
+<section id="ols-assumptions" class="slide level2">
+<h2>OLS Assumptions</h2>
+<p>Classical assumptions for OLS change slightly for multiple OLS</p>
+<p><span class="note">A1.</span> <span class="hi">Linearity:</span> The population relationship is <span class="note"><em>linear in parameters</em></span> with an additive error term.</p>
+<p><span class="note">A2.</span> <span class="hi"><span class="hi">Sample Variation:</span> No <span class="math inline">\(X\)</span> variable is a perfect linear combination of the others</span></p>
+<p><span class="note">A3.</span> <span class="hi">Exogeniety:</span> The <span class="math inline">\(X\)</span> variable is <span class="note">exogenous</span></p>
+<p><span class="note">A4.</span> <span class="hi">Homoskedasticity:</span> The error term has the same variance for each value of the independent variable</p>
+<p><span class="note">A5.</span> <span class="hi">Non-autocorrelation:</span> The values of error terms have independent distributions</p>
+</section>
+<section id="perfect-collinearity" class="slide level2">
+<h2>Perfect Collinearity</h2>
+<blockquote>
+<p>Case in which two or more independent variables in a regression model are perfectly correlated.</p>
+</blockquote>
+<p><span class="ex">Ex.</span> 2016 Election</p>
+<p>OLS simultaneously cannot estimate parameters for <span class="mono">white</span> and <span class="mono">nonwhite</span>.</p>
+<div class="fragment">
+<div class="cell" data-hash="060-main_cache/revealjs/unnamed-chunk-32_a1e0e9698fd39136c3668889c5b6b84d">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">lm</span>(trump_margin <span class="sc">~</span> white <span class="sc">+</span> nonwhite, <span class="at">data =</span> election) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic    p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 (Intercept)  -40.7      1.95       -20.9  6.82e- 91
+2 white          0.910    0.0238      38.2  1.51e-262
+3 nonwhite      NA       NA           NA   NA        </code></pre>
+</div>
+</div>
+<p><span class="mono">R</span> drops perfectly collinear variables for you.</p>
+</div>
+</section>
+<section id="multicollinearity-ex." class="slide level2">
+<h2>Multicollinearity <span class="ex">Ex.</span></h2>
+<p>Suppose that we want to understand the relationship between crime rates and poverty rates in US cities. We could estimate the model</p>
+<p><span class="math display">\[
+\text{Crime}_i = \beta_0 + \beta_1 \text{Poverty}_i + \beta_2 \text{Income}_i + u_i
+\]</span></p>
+<div class="fragment">
+<p>Before obtaining standard errors, we need:</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta}_1 \right) = \dfrac{\sigma^2}{\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Poverty}_{i} - \overline{\text{Poverty}} \right)^2}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(R^2_1\)</span> is the <span class="math inline">\(R^2\)</span> from a regression of poverty on median income:</p>
+<p><span class="math display">\[
+\text{Poverty}_i = \gamma_0 + \gamma_1 \text{Income}_i + v_i
+\]</span></p>
+</div>
+</section>
+<section id="multicollinearity-2" class="slide level2">
+<h2>Multicollinearity</h2>
+<p><span class="hi">Scenario 1:</span> <span class="math inline">\(\text{Income}_i\)</span> explains most variation in <span class="math inline">\(\text{Poverty}_i\)</span>, then <span class="math inline">\(R^2_1 \rightarrow 1\)</span></p>
+<ul>
+<li>Violates the <span class="note"><em>no perfect collinearity</em></span> assumption</li>
+</ul>
+<div class="fragment">
+<p><span class="hi">Scenario 2:</span> If <span class="math inline">\(\text{Income}_i\)</span> explains no variation in <span class="math inline">\(\text{Poverty}_i\)</span>, then <span class="math inline">\(R^2_1 = 0\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">Q.</span> <em>In which scenario is the variance of the poverty coefficient smaller?</em></p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta}_1 \right) = \dfrac{\sigma^2}{\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Poverty}_{i} - \overline{\text{Poverty}} \right)^2}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">A.</span> <span class="hi">Scenario 2.</span></p>
+</div>
+</section>
+<section id="multicollinearity-3" class="slide level2">
+<h2>Multicollinearity</h2>
+
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" class="r-stretch"></section>
+<section id="multicollinearity-4" class="slide level2">
+<h2>Multicollinearity</h2>
+
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-34-1.svg" width="960" class="r-stretch"></section>
+<section id="multicollinearity-5" class="slide level2">
+<h2>Multicollinearity</h2>
+<p>As the relationships between the variables increase, <span class="math inline">\(R^2_j\)</span> increases.</p>
+<p>For high <span class="math inline">\(R^2_j\)</span>, <span class="math inline">\(\mathop{\text{Var}} \left( \hat{\beta_j} \right)\)</span> is large:</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta_j} \right) = \dfrac{\sigma^2}{\left( 1 - R^2_j \right)\sum_{i=1}^n \left( X_{ji} - \bar{X}_j \right)^2}
+\]</span></p>
+<div class="fragment">
+<ul>
+<li>Some view multicollinearity as a “problem” to be solved.</li>
+<li>Either increase power (<span class="math inline">\(n\)</span>) or drop correlated variables</li>
+<li><span class="note">Warning:</span> Dropping variables can generate omitted variable bias.</li>
+</ul>
+</div>
+</section>
+<section id="irrelevant-variables" class="slide level2">
+<h2>Irrelevant Variables</h2>
+<p>Suppose that the true relationship between birth weight and <em>in utero</em> exposure to toxic air pollution is</p>
+<p><span class="math display">\[
+(\text{Birth Weight})_i = \beta_0 + \beta_1 \text{Pollution}_i + u_i
+\]</span></p>
+<div class="fragment">
+<p>Suppose that an “analyst” estimates</p>
+<p><span class="math display">\[
+(\text{Birth Weight})_i = \tilde{\beta_0} + \tilde{\beta_1} \text{Pollution}_i + \tilde{\beta_2}\text{NBA}_i + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p>One can show that <span class="math inline">\(\mathop{\mathbb{E}} \left( \hat{\tilde{\beta_1}} \right) = \beta_1\)</span> (<em>i.e.</em>, <span class="math inline">\(\hat{\tilde{\beta_1}}\)</span> is unbiased).</p>
+<p>However, the variances of <span class="math inline">\(\hat{\tilde{\beta_1}}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> differ.</p>
+</div>
+</section>
+<section id="irrelevant-variables-1" class="slide level2">
+<h2>Irrelevant Variables</h2>
+
+<img data-src="060-main_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" class="r-stretch"></section>
+<section id="irrelevant-variables-2" class="slide level2">
+<h2>Irrelevant Variables</h2>
+<p>The variance of <span class="math inline">\(\hat{\beta}_1\)</span> from estimating the “true model” is</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta_1} \right) = \dfrac{\sigma^2}{\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
+\]</span></p>
+<p>The variance of <span class="math inline">\(\hat{\tilde\beta}_1\)</span> from estimating the model with the irrelevant variable is</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right) = \dfrac{\sigma^2}{\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
+\]</span></p>
+</section>
+<section id="irrelevant-variables-3" class="slide level2">
+<h2>Irrelevant Variables</h2>
+<p>Notice that <span class="math inline">\(\mathop{\text{Var}} \left( \hat{\beta_1} \right) \leq \mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right)\)</span>.</p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\beta_1} \right) = \dfrac{\sigma^2}{\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
+\]</span></p>
+<p><span class="math display">\[
+\mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right) = \dfrac{\sigma^2}{\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
+\]</span></p>
+<p>Including irrelevant control variables can <span class="hii">increase</span> OLS variances!</p>
+</section>
+<section id="estimating-error-variance" class="slide level2">
+<h2>Estimating Error Variance</h2>
+<p>We cannot observe <span class="math inline">\(\sigma^2\)</span>, so we must estimate it using the residuals from an estimated regression:</p>
+<p><span class="math display">\[
+s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(k+1\)</span> is the number of parameters (one “slope” for each <span class="math inline">\(X\)</span> variable and an intercept).</li>
+<li><span class="math inline">\(n - k - 1\)</span> <span class="mono">=</span> degrees of freedom.</li>
+<li>Using the first 5 OLS assumptions, one can prove that <span class="math inline">\(s_u^2\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>.</li>
+</ul>
+</section>
+<section id="standard-errors" class="slide level2">
+<h2>Standard Errors</h2>
+<p>The formula for the standard error is the square root of <span class="math inline">\(\mathop{\text{Var}} \left( \hat{\beta_j} \right)\)</span>:</p>
+<p><span class="math display">\[
+\mathop{\text{SE}}(\hat{\beta_j}) = \sqrt{ \frac{s^2_u}{(  1 - R^2_j ) \sum_{i=1}^n ( X_{ji} - \bar{X}_j )^2} }
+\]</span></p>
+</section>
+<section id="multicollinearity-ex.-1" class="slide level2">
+<h2>Multicollinearity <span class="ex">Ex.</span></h2>
+<p>Suppose I run the following model:</p>
+<p><span class="math display">\[
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Lunch}_i+ u_i
+\]</span></p>
+<p>with the following results:</p>
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-36_52b2106d41ebe6feb11f73dec33d6696">
+<div class="cell-output-display">
+
+<table>
+<caption></caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Explanatory variable </th>
+   <th style="text-align:center;"> 1 </th>
+   <th style="text-align:center;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 783 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 743 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (8.53) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (18.57) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -3.14 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -2.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.493) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (2.18) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Lunch </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -0.85 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -0.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.08) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.09) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-style: italic;color: black !important;"> Income </td>
+   <td style="text-align:center;font-weight: bold;">  </td>
+   <td style="text-align:center;"> 1.51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;font-weight: bold;">  </td>
+   <td style="text-align:center;"> (0.20) </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="multicollinearity-ex.-2" class="slide level2" data-visibility="uncounted">
+<h2>Multicollinearity <span class="ex">Ex.</span></h2>
+<p>Suppose I run the following model:</p>
+<p><span class="math display">\[
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Lunch}_i+ u_i
+\]</span></p>
+<p>with the following results:</p>
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-37_10409768816588829ec1a5fced5086d2">
+<div class="cell-output-display">
+
+<table>
+<caption></caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Explanatory variable </th>
+   <th style="text-align:center;"> 1 </th>
+   <th style="text-align:center;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 783 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 743 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (8.53) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (18.57) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -3.14 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -2.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.493) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (2.18) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Lunch </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> -0.85 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> -0.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.08) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.09) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-style: italic;color: black !important;"> Income </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;font-weight: bold;"> 1.51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-style: italic;color: black !important;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;font-weight: bold;"> (0.20) </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </section></section>
+<section>
+<section id="f-tests" class="title-slide slide level1 inverse note center">
+<h1><em>F Tests</em></h1>
+
+</section>
+<section id="f-tests-1" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p><span class="hi">t tests</span> allow us to test simple hypotheses involving a <span class="hii">single parameter</span>.</p>
+<ul>
+<li><em>e.g.</em>, <span class="math inline">\(\beta_1 = 0\)</span> or <span class="math inline">\(\beta_2 = 1\)</span>.</li>
+</ul>
+<div class="fragment">
+<p><span class="hi"><em>F</em> tests</span> allow us to test hypotheses that involve <span class="hp">multiple parameters</span>.</p>
+<ul>
+<li><em>e.g.</em>, <span class="math inline">\(\beta_1 = \beta_2\)</span> or <span class="math inline">\(\beta_3 + \beta_4 = 1\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="f-tests-2" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p><span class="ex">Ex.</span> Is money “fungible”?</p>
+<p>Economists often say that “money is fungible.”</p>
+<p>We might want to test whether money received as income actually has the same effect on consumption as money received from tax credits.</p>
+<p><span class="math display">\[
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_2 \text{Credit}_i + u_i
+\]</span></p>
+</section>
+<section id="f-tests-3" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p><span class="ex">Ex.</span> Is money “fungible”?</p>
+<p>We can write our null hypothesis as</p>
+<p><span class="math display">\[
+H_0:\: \beta_1 = \beta_2 \iff H_0 :\: \beta_1 - \beta_2 = 0
+\]</span></p>
+<p>Imposing the null hypothesis gives us a <span class="hi">restricted model</span></p>
+<p><span class="math display">\[
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_1 \text{Credit}_i + u_i
+\]</span></p>
+<p><span class="math display">\[
+\text{Consumption}_i = \beta_0 + \beta_1 \left( \text{Income}_{i} + \text{Credit}_i \right) + u_i
+\]</span></p>
+</section>
+<section id="f-tests-4" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p><span class="ex">Ex.</span> Is money “fungible”?</p>
+<p>To test the null hypothesis <span class="math inline">\(H_o :\: \beta_1 = \beta_2\)</span> against <span class="math inline">\(H_a :\: \beta_1 \neq \beta_2\)</span>, <br>we use the <span class="math inline">\(F\)</span> statistic:</p>
+<p><span class="math display">\[
+\begin{align}
+  F_{q,\,n-k-1} = \dfrac{\left(\text{RSS}_r - \text{RSS}_u\right)/q}{\text{RSS}_u/(n-k-1)}
+\end{align}
+\]</span></p>
+<p>which (as its name suggests) follows the <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(q\)</span> numerator degrees of freedom and <span class="math inline">\(n-k-1\)</span> denominator degrees of freedom.</p>
+<p>Here, <span class="math inline">\(q\)</span> is the number of restrictions we impose via <span class="math inline">\(H_0\)</span>.</p>
+</section>
+<section id="f-tests-5" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p><span class="ex">Ex.</span> Is money “fungible”?</p>
+<p>The term <span class="math inline">\(\text{RSS}_r\)</span> is the sum of squared residuals (RSS) from our <span class="hi">restricted model</span></p>
+<p><span class="math display">\[
+\text{Consumption}_i = \beta_0 + \beta_1 \left( \text{Income}_{i} + \text{Credit}_i \right) + u_i
+\]</span></p>
+<p>and <span class="math inline">\(\text{RSS}_u\)</span> is the sum of squared residuals (RSS) from our <span class="hi">unrestricted model</span></p>
+<p><span class="math display">\[
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_2 \text{Credit}_i + u_i
+\]</span></p>
+</section>
+<section id="f-tests-6" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p>Finally, we compare our <span class="math inline">\(F\)</span>-statistic to a critical value of <span class="math inline">\(F\)</span> to test the null hypothesis.</p>
+<p>If <span class="math inline">\(F\)</span> &gt; <span class="math inline">\(F_\text{crit}\)</span>, then reject the null hypothesis at the <span class="math inline">\(\alpha \times 100\)</span> percent level.</p>
+<ul>
+<li>Find <span class="math inline">\(F_\text{crit}\)</span> in a table using the desired significance level, numerator degrees of freedom, and denominator degrees of freedom.</li>
+</ul>
+<div class="fragment">
+<p><span class="note">Aside:</span> Why are <span class="math inline">\(F\)</span>-statistics always positive?</p>
+</div>
+</section>
+<section id="f-tests-7" class="slide level2">
+<h2><em>F</em> Tests</h2>
+<p>RSS is usually a large cumbersome number.</p>
+<p><span class="hii">Alternative:</span> Calculate the <span class="math inline">\(F\)</span>-statistic using <span class="math inline">\(R^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+  F = \dfrac{\left(R^2_u - R^2_r\right)/q}{ (1 - R^2_u)/(n-k-1)}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<p>Where does this come from?</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><span class="math inline">\(\text{TSS} = \text{RSS} + \text{ESS}\)</span></p>
+<p><span class="math inline">\(R^2 = \text{ESS}/\text{TSS}\)</span></p>
+</div><div class="column" style="width:60%;">
+<p><span class="math inline">\(\text{RSS}_r = \text{TSS}(1-R^2_r)\)</span></p>
+<p><span class="math inline">\(\text{RSS}_u = \text{TSS}(1-R^2_u)\)</span></p>
+</div>
+</div>
+<div class="footer footer-default">
+<p>EC320, Set 07 | Multiple linear regression</p>
+</div>
+</div>
+</section></section>
+
     </div>
   </div>
 

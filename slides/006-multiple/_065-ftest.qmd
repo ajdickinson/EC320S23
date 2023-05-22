@@ -1,0 +1,142 @@
+---
+name: ftest
+---
+
+---
+
+## *F* Tests
+
+[t tests]{.hi} allow us to test simple hypotheses involving a [single parameter]{.hii}.
+
+- _e.g._, $\beta_1 = 0$ or $\beta_2 = 1$.
+
+. . .
+
+[*F* tests]{.hi} allow us to test hypotheses that involve [multiple parameters]{.hp}.
+
+- _e.g._, $\beta_1 = \beta_2$ or $\beta_3 + \beta_4 = 1$.
+
+---
+
+## *F* Tests
+
+[Ex.]{.ex} Is money "fungible"?
+
+Economists often say that "money is fungible."
+
+We might want to test whether money received as income actually has the same effect on consumption as money received from tax credits.
+
+$$
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_2 \text{Credit}_i + u_i
+$$
+
+---
+
+## *F* Tests
+
+[Ex.]{.ex} Is money "fungible"?
+
+We can write our null hypothesis as
+
+$$
+H_0:\: \beta_1 = \beta_2 \iff H_0 :\: \beta_1 - \beta_2 = 0
+$$
+
+Imposing the null hypothesis gives us a [restricted model]{.hi}
+
+$$
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_1 \text{Credit}_i + u_i
+$$
+
+$$
+\text{Consumption}_i = \beta_0 + \beta_1 \left( \text{Income}_{i} + \text{Credit}_i \right) + u_i
+$$
+
+---
+
+## *F* Tests
+
+[Ex.]{.ex} Is money "fungible"?
+
+To test the null hypothesis $H_o :\: \beta_1 = \beta_2$ against $H_a :\: \beta_1 \neq \beta_2$,
+<br>we use the $F$ statistic:
+
+$$
+\begin{align}
+  F_{q,\,n-k-1} = \dfrac{\left(\text{RSS}_r - \text{RSS}_u\right)/q}{\text{RSS}_u/(n-k-1)}
+\end{align}
+$$
+
+which (as its name suggests) follows the $F$ distribution with $q$ numerator degrees of freedom and $n-k-1$ denominator degrees of freedom.
+
+Here, $q$ is the number of restrictions we impose via $H_0$.
+
+
+---
+
+## *F* Tests
+
+[Ex.]{.ex} Is money "fungible"?
+
+The term $\text{RSS}_r$ is the sum of squared residuals (RSS) from our [restricted model]{.hi}
+
+$$
+\text{Consumption}_i = \beta_0 + \beta_1 \left( \text{Income}_{i} + \text{Credit}_i \right) + u_i
+$$
+
+and $\text{RSS}_u$ is the sum of squared residuals (RSS) from our [unrestricted model]{.hi}
+
+$$
+\text{Consumption}_i = \beta_0 + \beta_1 \text{Income}_{i} + \beta_2 \text{Credit}_i + u_i
+$$
+
+---
+
+## *F* Tests
+
+Finally, we compare our $F$-statistic to a critical value of $F$ to test the null hypothesis.
+
+If $F$ > $F_\text{crit}$, then reject the null hypothesis at the $\alpha \times 100$ percent level.
+
+- Find $F_\text{crit}$ in a table using the desired significance level, numerator degrees of freedom, and denominator degrees of freedom.
+
+. . .
+
+[Aside:]{.note} Why are $F$-statistics always positive?
+
+---
+
+## *F* Tests
+
+RSS is usually a large cumbersome number.
+
+[Alternative:]{.hii} Calculate the $F$-statistic using $R^2$.
+
+$$
+\begin{align}
+  F = \dfrac{\left(R^2_u - R^2_r\right)/q}{ (1 - R^2_u)/(n-k-1)}
+\end{align}
+$$
+
+. . .
+
+Where does this come from?
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+$\text{TSS} = \text{RSS} + \text{ESS}$
+
+$R^2 = \text{ESS}/\text{TSS}$
+
+:::
+
+::: {.column width="60%"}
+$\text{RSS}_r = \text{TSS}(1-R^2_r)$
+
+$\text{RSS}_u = \text{TSS}(1-R^2_u)$
+
+:::
+
+::::

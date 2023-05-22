@@ -10,7 +10,7 @@ name: multi
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
-  geom_point(color = hi) +
+  geom_point(color = hi, size = 3) +
   labs(
     title = "Relationship between test scores and class size",
     subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
@@ -29,7 +29,7 @@ ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4, group = expgroup, color = expgroup)) +
-  geom_point() +
+  geom_point(size = 3) +
   scale_color_manual(values = c(hi, hii), labels = c("Per student expenditure < $6,000", "Per student expenditure > $6,000")) +
   # scale_x_log10() + scale_y_log10() +
   labs(
@@ -67,6 +67,88 @@ $$
 . . .
 
 This serves more than one purpose. Multiple [explanatory variables]{.hii} improves predictions, avoids [OVB]{.hi-red}, and better explains variation in $Y$.
+
+---
+
+## Multiple linear regression [Ex.]{.ex}
+
+Controlling for [school funding]{.hi}
+
+$$
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Expenditure}_i+ u_i
+$$
+
+```{r}
+#| echo: false
+#| escape: false
+
+m00 = fixest::feols(score4 ~ stratio, schools_dt)
+m01 = fixest::feols(score4 ~ stratio + expreg, schools_dt)
+
+tab <- data.frame(
+  v1 = c("Intercept", "", "Class size", "", "Expenditure", ""),
+  v2 = rbind(
+    c(781.196, -3.768, ""),
+    c("(16.46)", "(0.61)", "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(674.930, -0.960, "0.013"),
+    c("(16.46)", "(0.64)", "(0.002)")
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Explanatory variable", "1", "2"),
+  align = c("l", rep("c", 3)),
+  caption = ""
+) %>%
+row_spec(1:6, color = hi) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:6, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(2, bold = T)
+
+```
+
+---
+
+## Multiple linear regression [Ex.]{.ex} {data-visibility="uncounted"}
+
+Controlling for [school funding]{.hi}
+
+$$
+\text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Expenditure}_i+ u_i
+$$
+
+```{r}
+#| echo: false
+#| escape: false
+
+m00 = fixest::feols(score4 ~ stratio, schools_dt)
+m01 = fixest::feols(score4 ~ stratio + expreg, schools_dt)
+
+tab <- data.frame(
+  v1 = c("Intercept", "", "Class size", "", "Expenditure", ""),
+  v2 = rbind(
+    c(781.196, -3.768, ""),
+    c("(16.46)", "(0.61)", "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(674.930, -0.960, "0.013"),
+    c("(16.46)", "(0.64)", "(0.002)")
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Explanatory variable", "1", "2"),
+  align = c("l", rep("c", 3)),
+  caption = ""
+) %>%
+row_spec(1:6, color = hi) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:6, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(3, bold = T)
+
+```
 
 ---
 
@@ -211,7 +293,7 @@ _How does it work?_ [We can think of it almost like demeaning.]{.fragment}
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
-  geom_point(color = hi) +
+  geom_point(color = hi, size = 3) +
   labs(
     title = "Relationship between test scores and class size",
     subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
@@ -232,7 +314,7 @@ ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4, group = expgroup, color = expgroup)) +
-  geom_point() +
+  geom_point(size = 3) +
   scale_color_manual(values = c(hi, hii), labels = c("Per student expenditure < $6,000", "Per student expenditure > $6,000")) +
   # scale_x_log10() + scale_y_log10() +
   labs(
@@ -266,6 +348,7 @@ ggplot(data = schools_dt, aes(x = stratio, y = score4, group = expgroup, color =
 # Create the group means for each W
 schools_dt[, `:=`(mean_stratio = mean(stratio), mean_score4 = mean(score4)), by = expgroup]
 
+
 # Create six different data tables for the animation steps
 dt_list <- list(
   #Step 1: Raw data only
@@ -296,7 +379,7 @@ schools_dt_full <- rbindlist(dt_list)
 
 # Create the animation
 p <- ggplot(schools_dt_full, aes(x = stratio, y = score4, , group = expgroup, color = expgroup)) +
-  geom_point() +
+  geom_point(size = 2) +
   scale_color_manual(values = c(hi, hii), labels = c("Per student expenditure < $6,000", "Per student expenditure > $6,000")) +
   geom_vline(aes(xintercept = mean_stratio, color = as.factor(expgroup))) +
   geom_hline(aes(yintercept = mean_score4, color = as.factor(expgroup))) +
@@ -335,9 +418,9 @@ anim_save(
 
 ## OLS Estimation
 
-As was the case with simple linear regressions, OLS minimizes the sum of squared residuals (RSS).
+[Residuals]{.note} are now defined as:
 
-However, residuals are now defined as
+. . .
 
 $$
 \hat{u}_i = Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_{1i} - \hat{\beta}_2 X_{2i} - \cdots - \hat{\beta}_{k} X_{ki}
@@ -345,9 +428,36 @@ $$
 
 . . .
 
-To obtain estimates, take partial derivatives of RSS with respect to each $\hat{\beta}$, set each derivative equal to zero, and solve the system of $k+1$ equations.
+As with SLR, OLS minimizes the sum of squared residuals ([RSS]{.hi-orange}).
 
-- Without matrices, the algebra is difficult. For the remainder of this course, we will let [R]{.mono} do the work for us.
+. . .
+
+$$
+\begin{align*}
+  {\color{#D08770} RSS} &= \sum_{i = 1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_{1i} - \hat{\beta}_2 X_{2i} - \cdots - \hat{\beta}_{k} X_{ki})^2 \\
+                        &= \color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}
+\end{align*}
+$$
+
+which is a familiar expression.
+
+---
+
+## OLS Estimation
+
+To obtain [point estimates]{.note}: 
+
+$$
+\min_{\hat{\beta}_0,\, \hat{\beta}_1,\, \dots \, \hat{\beta}_k} \quad \color{#D08770}{\sum_{i=1}^n \hat{u}_i^2}
+$$
+
+- Take partial derivatives of RSS with respect to each $\hat{\beta}$
+- Set each derivative equal to zero
+- Solve the system of $k+1$ equations^[$k+1$ due to the intercept.].
+
+. . .
+
+The algebra is cumbersome. We let [R]{.mono} do the heavy lifting.
 
 ---
 
@@ -370,11 +480,13 @@ $$
 
 The OLS first-order conditions yield the same properties as before.
 
-1. Residuals sum to zero: $\sum_{i=1}^n \hat{u_i} = 0$.
+<br>
 
-2. The sample covariance between the independent variables and the residuals is zero.
+[1.]{.note} Residuals sum to zero: $\sum_{i=1}^n \hat{u_i} = 0$.
 
-3. The point $(\bar{X_1}, \bar{X_2}, \dots, \bar{X_k}, \bar{Y})$ is always on the fitted regression "line."
+[2.]{.note} The sample covariance $X_i$ and the $\hat{u_i}$ is zero.
+
+[3.]{.note} The point $(\bar{X_1}, \bar{X_2}, \dots, \bar{X_k}, \bar{Y})$ is on the fitted regression "line."
 
 ---
 
@@ -392,21 +504,6 @@ $$
 R^2 =\frac{\sum(\hat{Y_i}-\bar{Y})^2}{\sum(Y_i-\bar{Y})^2}
 $$
 
----
-
-## Goodness of fit
-
-[Model 1]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + u_i$.
-
-[Model 2:]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + v_i$
-
-. . .
-
-[T/F?]{.note}
-
-Model 2 will yield a lower $R^2$ than Model 1.
-
-- Hint: Think of $R^2$ as $R^2 = 1 - \frac{\text{RSS}}{\text{TSS}}$.
 
 ---
 
@@ -441,6 +538,32 @@ ylim(-4, 3.4) +
 coord_equal()
 ```
 
+
+---
+
+## Goodness of fit
+
+Suppose we have [two]{.hi} models:
+
+<br>
+
+[Model 1]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + u_i$.
+
+[Model 2:]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + v_i$
+
+<br>
+
+. . .
+
+[T/F?]{.note} Model 2 will yield a lower $R^2$ than Model 1.
+
+. . .
+
+<br>
+<br>
+
+(_Hint: Think of $R^2$ as $R^2 = 1 - \frac{\text{RSS}}{\text{TSS}}$._)
+
 ---
 
 ## Goodness of fit
@@ -450,7 +573,7 @@ We can describe the variation explain in $Y$ with venn diagrams
 ```{r}
 #| echo: false
 # Colors (order: x1, x2, x3, y)
-venn_colors <- c(hp, hii)
+venn_colors <- c(hp, hi)
 # Locations of circles
 venn_df <- tibble(
   x  = c( 0.0,   -0.5),
@@ -487,7 +610,7 @@ We can describe the variation explain in $Y$ with venn diagrams
 #| echo: false
 #| 
 # Colors (order: x1, x2, x3, y)
-venn_colors <- c(hp, hired, hii)
+venn_colors <- c(hp, hii, hi)
 # Locations of circles
 venn_df <- tibble(
   x  = c( 0.0,   -0.5, -1.0),
@@ -516,113 +639,174 @@ coord_equal()
 
 ---
 
-## Goodness of fit
+##
 
-[Problem:]{.hi} As we add variables to our model, $R^2$ *mechanically* increases.
+::: {.vertical-center}
+[Problem:]{.hi-red} As we add variables to our model, $R^2$ *mechanically* increases.
 
-. . .
+<br>
 
-To see this problem, we can simulate a dataset of 10,000 observations on $y$ and 1,000 random $x_k$ variables. **No relations between $y$ and the $x_k$!**
+[Let me show you this [problem]{.hi-red} with a [simulation]{.hii}]{.fragment}
 
-Pseudo-code outline of the simulation:
-. . .
-
-[
-
-- Generate 10,000 observations on $y$
-- Generate 10,000 observations on variables $x_1$ through $x_{1000}$
-- Regressions
-  - LM<sub>1</sub>: Regress $y$ on $x_1$; record R<sup>2</sup>
-  - LM<sub>2</sub>: Regress $y$ on $x_1$ and $x_2$; record R<sup>2</sup>
-  - ...
-  - LM<sub>1000</sub>: Regress $y$ on $x_1$, $x_2$, ..., $x_{1000}$; record R<sup>2</sup>
-]{.mono .small}
+:::
 
 ---
 
-## Goodness of fit
+##
 
-[Problem:]{.hi} As we add variables to our model, $R^2$ *mechanically* increases.
+::: {.vertical-center}
+Simulate a dataset of 10,000 observations on $y$ and 1,000 random $x_k$ variables, where 
+
+$$
+y \perp x_k \quad \forall x_k \; \text{s.t.} \; k = 1, 2, \dots, 1000
+$$
+
+<br>
+
+[We have 1,000 independent variables that are [independent]{.note} to the dependent variable.]{.fragment} [Each $x_k$ has no relationship to $y$ whatsoever.]{.fragment}
+
+:::
+
+
+---
+
+[Problem:]{.hi-red} As we add variables to our model, $\color{#314f4f}{R^2}$ *mechanically* increases.
+
+[Pseudo-code:]{.mono}
+
+::: {.pseudocode}
+Generate 10,000 obs. on $y$
+
+Generate 10,000 obs. on variables $x_1$ through $x_{1000}$
+
+<br>
+
+Regressions:
+
+- LM<sub>1</sub>: Regress $y$ of $x_1$; record $R^2$
+- LM<sub>2</sub>: Regress $y$ of $x_1$ and $x_2$; record $R^2$
+- ...
+- LM<sub>1000</sub>: Regress $y$ on $x_1$, $x_2$, ..., $x_{1000}$; record $R^2$
+:::
+
+---
+
+[Problem:]{.hi-red} As we add variables to our model, $\color{#314f4f}{R^2}$ *mechanically* increases.
 
 [R]{.mono} code for the simulation:
 
 ```{r}
 #| eval: false
-#| cache: true
+#| echo: true
 
-set.seed(1234)
+# Generate data --------------------------------------------------------------
+  # Set random seed
+  set.seed(1234)
+  # Generate data
+  y <- rnorm(1e4)
+  x <- matrix(data = rnorm(1e7), nrow = 1e4)
+  x %<>% cbind(matrix(data = 1, nrow = 1e4, ncol = 1), x)
 
-y <- rnorm(1e4)
-x <- matrix(data = rnorm(1e7), nrow = 1e4)
-x %<>% cbind(matrix(data = 1, nrow = 1e4, ncol = 1), x)
-r_fun <- function(i) {
- tmp_reg <- lm(y ~ x[,1:(i + 1)]) %>% summary()
-                    data.frame(
-                    k = i + 1,
-                    r2 = tmp_reg$r.squared,
-                    r2_adj = tmp_reg$adj.r.squared)
-}
-r_df <- parallel::mclapply(1:(1e3-1), r_fun, mc.cores = 6) %>% bind_rows()
+# Simulation -----------------------------------------------------------------
+  # Loop across regressions
+  r_df <- mclapply(X = 1:(1e3-1), mc.cores = detectCores() - 1, FUN = function(i) {
+    # Add one additional regressor every iteration
+    tmp_reg <- lm(y ~ x[,1:(i+1)]) %>% summary()
+    # Export R2
+    data.frame(
+      k = i + 1,
+      r2 = tmp_reg %$% r.squared,
+      r2_adj = tmp_reg %$% adj.r.squared
+    )
+  }) %>% bind_rows()
 ```
 
 ---
 
-## Goodness of fit
+######
 
-**Problem:** As we add variables to our model, $\color{#314f4f}{R^2}$ *mechanically* increases.
+[Problem:]{.hi-red} As we add variables to our model, $R^2$ *mechanically* increases.
+
+<br>
 
 ```{r}
 #| include: false
+#| eval: true
 #| cache: true
 
+# Set random seed
 set.seed(1234)
-plan()
-y <- rnorm(1e4)
-x <- matrix(data = rnorm(1e7), nrow = 1e4)
-x %<>% cbind(matrix(data = 1, nrow = 1e4, ncol = 1), x)
+# Generate data
+  # Generate number of rows
+  n = 1e4
+  # Generate number of regressors
+  k = 1e3
+  # Create data set
+  y = rnorm(n)
+  x = matrix(data = rnorm(1e7), nrow = n)
+  x %<>% cbind(matrix(data = 1, nrow = n, ncol = 1), x)
 
-r_fun <- function(i) {
-  tmp_reg <- lm(y ~ x[,1:(i + 1)]) %>% summary()
-                     data.frame(
-                     k = i + 1,
-                     r2 = tmp_reg$r.squared,
-                     r2_adj = tmp_reg$adj.r.squared)
-}
+# Run simulation
+  # Fit k models, adding 1 regressor each iteration
+  fit = parallel::mclapply(
+    1:1000,
+    function(i) {
+      # Print progress
+      print(i)
+      # Fit model
+      fit = coef(.lm.fit(x[, 1:(i + 1)], y))
+      # Calculate residuals
+      residuals = y - x[, 1:(i + 1)] %*% fit
+      # Calculate total sum of squares
+      tss = sum((y - mean(y))^2)
+      # Calculate R-squared + adjusted R-squared
+      rsq = 1 - sum(residuals^2) / tss
+      adj = 1 - ((1 - rsq) * (n - 1)) / (n - i - 1)
+      dt = data.table(
+        k = i,
+        rsq = rsq,
+        adj_rsq = adj
+      )
+      return(dt)
+    }, mc.cores = parallelly::availableCores()
+  ) %>% rbindlist()
 
-r_fun <- function(i) {
-  fit = coef(.lm.fit(x[, 1:(i + 1)], y))
-  }
-
-rsq_fun = function(i) {
-  # calculate residuals
-  residuals = y - x[, 1:(i + 1)] %*% fit[[i]]
-
-  # calculate total sum of squares
-  tss = sum((y - mean(y))^2)
-
-  # calculate R-squared
-  rsq = 1 - sum(residuals^2) / tss
-  adj_r_squared = 1 - ((1 - r_squared) * (n - 1)) / (n - p - 1)
-
-  out = c(rsq, adj_rsq)
-
-  return(out)
-}
-  
-
-fit = parallel::mclapply(1:(1e5), r_fun, mc.cores = 6)
-rsq_mt = lapply(1:(1e5), rsq_fun) %>% unlist() %>% as.data.table()
 ```
 
 ```{r}
 #| echo: false
 #| fig.height: 6.25
+#| fig-align: center
+#| eval: true
 
-ggplot(data = r_df, aes(x = k, y = r2)) +
+ggplot(data = fit, aes(x = k, y = rsq)) +
 geom_hline(yintercept = 0) +
 geom_vline(xintercept = 0) +
-geom_line(size = 2, alpha = 0.75, color = hi) +
-geom_line(aes(y = r2_adj), size = 0.2, alpha = 0, color = hp) +
+geom_line(size = 2, alpha = 0.75, color = hired) +
+geom_line(aes(y = adj_rsq), size = 0.2, alpha = 0, color = hp) +
+ylab(TeX("R^2")) +
+xlab("Number of explanatory variables (k)") +
+mytheme
+```
+
+---
+
+###### {data-visibility="uncounted"}
+
+[Problem:]{.hi-red} As we add variables to our model, $R^2$ *mechanically* increases.
+
+[One solution:]{.hii} Penalize for the number of variables, _e.g._, adjusted $R^2$:
+
+```{r}
+#| echo: false
+#| fig.height: 6.25
+#| fig-align: center
+#| eval: true
+ggplot(data = fit, aes(x = k, y = rsq)) +
+geom_hline(yintercept = 0) +
+geom_vline(xintercept = 0) +
+geom_line(size = 2, alpha = 0.15, color = hired) +
+geom_line(aes(y = adj_rsq), size = 2, alpha = 0.85, color = hii) +
 ylab(TeX("R^2")) +
 xlab("Number of explanatory variables (k)") +
 mytheme
@@ -632,28 +816,9 @@ mytheme
 
 ## Goodness of fit
 
-[One solution:]{.hi} [Adjusted]{.hp} $\color{#B48EAD}{R^2}$
+[Problem:]{.hi-red} As we add variables to our model, $R^2$ *mechanically* increases.
 
-```{r}
-#| echo: false
-#| fig.height: 6.25
-ggplot(data = r_df, aes(x = k, y = r2)) +
-geom_hline(yintercept = 0) +
-geom_vline(xintercept = 0) +
-geom_line(size = 2, alpha = 0.15, color = hi) +
-geom_line(aes(y = r2_adj), size = 2, alpha = 0.85, color = hp) +
-ylab(TeX("R^2")) +
-xlab("Number of explanatory variables (k)") +
-mytheme
-```
-
----
-
-## Goodness of fit
-
-[Problem:]{.hi} As we add variables to our model, $R^2$ *mechanically* increases.
-
-[One solution:]{.hi} Penalize for the number of variables, _e.g._, adjusted $R^2$:
+[One solution:]{.hii} Penalize for the number of variables, _e.g._, adjusted $R^2$:
 
 $$
 \bar{R}^2 = 1 - \dfrac{\sum_i \left( Y_i - \hat{Y}_i \right)^2/(n-k-1)}{\sum_i \left( Y_i - \bar{Y} \right)^2/(n-1)}
@@ -661,3 +826,86 @@ $$
 
 *Note:* Adjusted $R^2$ need not be between 0 and 1.
 
+---
+
+## Goodness of fit
+
+So how do you find $R^2$ and $\bar{R^2}$ in [R]{.mono .big}? [`broom::glance()`]{.fragment}
+
+. . .
+
+```{r}
+#| echo: true
+
+# Run model
+model = lm(score4 ~ stratio + expreg, schools_dt)
+
+# Print results as tibble
+broom::tidy(model)
+```
+
+<br>
+
+. . . 
+
+
+```{r}
+#| echo: true
+# Print R2 info as tibble
+broom::glance(model)
+```
+
+---
+
+## Multiple regression
+
+There are [tradeoffs]{.hi} to remember as we add/remove variables:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[Fewer variables]{.hi-red}
+
+- Explains less variation in $y$
+- Provide simple interpretations and visualizations
+- More worried about omitted-variable bias
+:::
+
+::: {.column width="50%"}
+[More variables]{.hii}
+
+- More likely to find _spurious_ relationships^[Spurious meaning _statistically significant_ by coincidence---not reflective of true, population-level relationship]
+- More difficult interpretation
+- The [variance]{.note} of our [point estimates]{.note} will be bigger
+- We still might have omitted-variable bias
+:::
+
+::::
+
+
+---
+
+## Multiple regression {data-visibility="uncounted"}
+
+There are [tradeoffs]{.hi} to remember as we add/remove variables:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[Fewer variables]{.hi-red}
+
+- Explains less variation in $y$
+- Provide simple interpretations and visualizations
+- More worried about omitted-variable bias
+:::
+
+::: {.column width="50%"}
+[More variables]{.hii}
+
+- More likely to find _spurious_ relationships^[Spurious meaning _statistically significant_ by coincidence---not reflective of true, population-level relationship]
+- More difficult interpretation
+- [The variance of our point estimates will be bigger]{.hi}
+- We still might have omitted-variable bias
+:::
+
+::::

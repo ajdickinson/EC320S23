@@ -9,12 +9,12 @@ format:
     theme: [default, ../styles.scss]
     monobackgroundcolor: #F5F5F5
     slide-number: true
-    footer: "EC320, Set 06 | Inference"
+    footer: "EC320, Set 07 | Multiple linear regression"
     preview-links: auto
     code-fold: FALSE
     code-copy: TRUE
     highlight-style: a11y-light
-    cache: FALSE
+    cache: TRUE
     html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
@@ -49,6 +49,7 @@ MM: 1, 2
 # _Prologue_ {.inverse .note}
 
 ```{r}
+# Load packages
 pacman::p_load(
   hrbrthemes, fastverse, tidyverse, AER,
   magrittr, wooldridge, here, kableExtra,
@@ -90,6 +91,11 @@ schools_dt[exptot < 6000, expgroup := FALSE]
 schools_dt[expgroup == TRUE, score4 := score4 + 30]
 schools_dt = schools_dt[!(expgroup == TRUE & score4 < 722)]
 
+election <- read_csv("election_2016.csv") %>% 
+  mutate(trump_pct = trump/totalvotes*100,
+         clinton_pct = clinton/totalvotes*100,
+         trump_margin = trump_pct - clinton_pct,
+         nonwhite = 100 - white)
 ```
 
 {{< include _061-prologue.qmd >}}
@@ -100,9 +106,13 @@ schools_dt = schools_dt[!(expgroup == TRUE & score4 < 722)]
 
 {{< include _063-multi.qmd >}}
 
-<!-- {{< include _052-i.qmd >}} -->
+# _Multicollinearity_ {.inverse .note}
 
-<!-- TODO: This lecture kind of sucked. I think a major revamp is necessary. -->
+{{< include _064-colinear.qmd >}}
+
+# _F Tests_ {.inverse .note}
+
+{{< include _065-ftest.qmd >}}
 
 ```{r}
 #| include: false

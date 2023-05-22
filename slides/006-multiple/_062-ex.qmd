@@ -44,7 +44,7 @@ Always plot your data first
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
-  geom_point(color = hi) +
+  geom_point(color = hi, size = 3) +
   labs(
     title = "Relationship between test scores and class size",
     subtitle = "Test scores are aggregated math, reading, and science scores among 4th graders",
@@ -64,7 +64,7 @@ ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = score4)) +
-  geom_point(color = hi) +
+  geom_point(color = hi, size = 3) +
   geom_smooth(method = 'lm', se = FALSE, color = hp) +
   labs(
     title = "Relationship between test scores and class size",
@@ -643,7 +643,7 @@ What the actual data look like, as a scatter plot:
 #| fig.height: 6.75
 
 ggplot(data = schools_dt, aes(x = stratio, y = exptot)) +
-  geom_point(color = hi) + 
+  geom_point(color = hi, size = 3) + 
   geom_smooth(method = 'lm', se = FALSE, color = hp) +
   labs(
     y = "Expenditure per student",
