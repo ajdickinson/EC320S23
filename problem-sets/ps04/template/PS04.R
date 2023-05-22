@@ -1,8 +1,8 @@
 #' ---
 #' title: "PS04"
 #' subtitle: "Total points: 30"
-#' author: "YOUR NAME HERE"
-#' date: "Due: 2023-05-29 11:59 PST"
+#' author: "Andrew"
+#' date: "Due: 2023-05-30 11:59 PST"
 #' ---
 #' ## __README__
 #'
@@ -25,6 +25,8 @@
 #' ## __Setup__
 #'
 #' __Q01:__ Load the required packages `tidyverse`, `broom`, and `AER` _(1 points)_
+#' 
+pacman::p_load(AER, tidyverse, broom)
 #'
 #' 
 #' __Q02:__ Load data with the following code `data("MASchools")`. Now an object named `MASchools` should be loaded into your R environment. _Feel free to rename the object if you wish._ _(1 points)_
@@ -41,6 +43,8 @@
 #' - `score4`
 #' - `expereg`
 #' - `income`
+#' 
+#' My answer goes here
 #'
 #' _(1 points)_
 #'

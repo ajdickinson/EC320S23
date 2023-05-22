@@ -2629,7 +2629,7 @@ vertical-align: -.125em;
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title"><span class="hi">PS04</span></h1>
-<p class="subtitle lead"><code>Due: 2023-05-29 11:59 PST</code></p>
+<p class="subtitle lead"><code>Due: 2023-05-30 11:59 PST</code></p>
 </div>
 
 
@@ -3004,7 +3004,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var questions = document.getElementsByClassName("question");
     for(var i = 0; i < questions.length; i++) {
         var element = questions[i];
-        var questionNumber = i < 9 ? "Q0" + (i+1) + "." : "Q" + (i+1) + ".";
+        var questionNumber = i < 9 ? "Q0" + (i+1) + " --------------------------------------------------------------------------------------------------------------------------" : "Q" + (i+1) + " --------------------------------------------------------------------------------------------------------------------------";
         var styledQuestionNumber = '<span style="font-weight: 600; color: #4c566a;">' + questionNumber + '</span>';
         element.innerHTML = styledQuestionNumber + element.innerHTML;
     }
