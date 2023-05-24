@@ -1,0 +1,224 @@
+---
+name: quadratic
+---
+
+---
+
+## Quadratic data
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 6.75
+
+# Set seed
+set.seed(1234)
+# Sample size
+n <- 1e3
+# Generate data
+quad_df <- tibble(
+  x = runif(n, 0, 10),
+  y = 12 + 16*x - 2.5*x^2 + rnorm(n, sd = 25)
+)
+# regression
+quad_reg <- lm(y ~ x + I(x^2), data = quad_df) 
+b1 <- quad_reg$coefficients[2]
+b2 <- quad_reg$coefficients[3]
+# Plot
+ggplot(data = quad_df, aes(x = x, y = y)) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+xlab("X") +
+ylab("Y") +
+mytheme
+```
+
+---
+
+## Quadratic regression
+
+[Regression Model]{.hi}
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
+$$
+
+. . .
+
+[Interpretation]{.note}
+
+Sign of $\beta_2$ indicates whether the relationship is convex ([+]{.mono}) or concave ([-]{.mono})
+
+. . .
+
+Sign of $\beta_1$? [🤷]{.fragment}
+
+. . .
+
+Partial derivative of $Y$ wrt. $X$ is the [marginal effect]{.hp} of $X$ on $Y$:
+
+$$
+\color{#B48EAD}{\dfrac{\partial Y}{\partial X} = \beta_1 + 2 \beta_2 X}
+$$
+
+- Effect of $X$ depends on the level of $X$
+
+---
+
+## Quadratic regression
+
+```{r}
+lm(y ~ x + I(x^2), data = quad_df) %>% tidy()
+```
+
+[What is the marginal effect of]{.purple} $\color{#B48EAD}{X}$ [on]{.purple} $\color{#B48EAD}{Y}$[?]{.purple}
+. . .
+<br>
+$\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} } = \hat{\beta}_1 + 2\hat{\beta}_2 X = `r round(b1, 2)` + `r round(b2*2, 2)`X$
+
+---
+
+## Quadratic regression
+
+```{r}
+lm(y ~ x + I(x^2), data = quad_df) %>% tidy()
+```
+
+[What is the marginal effect of]{.purple} $\color{#B48EAD}{X}$ [on]{.purple} $\color{#B48EAD}{Y}$ [when]{.purple} $\color{#B48EAD}{X=0}$[?]{.purple}
+
+. . .
+
+<br>
+
+$\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=0} = \hat{\beta}_1 = `r round(b1, 2)`$
+
+---
+
+## Quadratic regression
+
+```{r}
+lm(y ~ x + I(x^2), data = quad_df) %>% tidy()
+```
+
+[What is the marginal effect of]{.purple} $\color{#B48EAD}{X}$ [on]{.purple} $\color{#B48EAD}{Y}$ [when]{.purple} $\color{#B48EAD}{X=2}$[?]{.purple}
+
+. . .
+
+<br>
+
+$\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=2} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (2) = `r round(b1, 2)` `r round(b2*2*2, 2)` = `r round(b1 + b2*2*2, 2)`$
+
+---
+
+## Quadratic regression
+
+```{r}
+lm(y ~ x + I(x^2), data = quad_df) %>% tidy()
+```
+
+[What is the marginal effect of]{.purple} $\color{#B48EAD}{X}$ [on]{.purple} $\color{#B48EAD}{Y}$ [when]{.purple} $\color{#B48EAD}{X=7}$[?]{.purple}
+. . .
+<br>
+$\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=7} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (7) = `r round(b1, 2)` `r round(b2*2*7, 2)` = `r round(b1 + b2*2*7, 2)`$
+
+---
+
+```{r}
+#| include: false
+
+reg <- lm(y ~ x + I(x^2), data = quad_df)
+margs <- margins::cplot(reg, x = "x", dx = "x", 
+               what = "effect", draw = FALSE)
+```
+
+[Fitted regression line]{.hi}
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 7
+
+quad_df %>%  
+  ggplot(aes(x = x, y = y)) + 
+  geom_point(color = hi, alpha = 0.5, size = 3) +
+  stat_smooth(method = 'lm', formula = y ~ poly(x,2), se = F, linetype = 1, color = hp, size = 1) +
+  xlab("X") + 
+  ylab("Y") + 
+  mytheme
+```
+
+---
+
+[Marginal effect of $X$ on $Y$]{.hi}
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 7
+
+margs %>%  
+  ggplot(aes(x = xvals)) + 
+  geom_line(aes(y = yvals), color = hp, size = 1) +
+  geom_line(aes(y = upper), linetype = 2, color = hp, size = 1) +
+  geom_line(aes(y = lower), linetype = 2, color = hp, size = 1) +
+  geom_hline(yintercept = 0, linetype = 1, color = hi) +
+  xlab("X") + 
+  ylab("Marginal Effect") + 
+  mytheme
+```
+
+---
+
+## Quadratic regression
+
+Where does the regression $\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{\beta}_2 X_i^2$ [turn?]{.hi}
+
+- In other words, where is the peak (valley) of the fitted relationship?
+
+. . .
+
+[Step 1:]{.note} Take the derivative and set equal to zero.
+
+$$
+\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} } = \hat{\beta}_1 + 2\hat{\beta}_2 X = 0
+$$
+
+. . .
+
+[Step 1:]{.note} Solve for $X$.
+
+$$
+X = -\dfrac{\hat{\beta}_1}{2\hat{\beta}_2}
+$$
+
+. . .
+
+[Ex.]{.ex} Peak of previous regression occurs at $X = `r round(-b1/(2*b2), 2)`$.
+
+---
+
+
+## Anscombe's Quartet
+
+[Four *"identical"* regressions:]{.hi} Intercept [=]{.mono} 3, Slope [=]{.mono} 0.5, R.super[2] [=]{.mono} 0.67]
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5.75
+
+anscombe_m <- data.frame()
+
+for(i in 1:4)
+  anscombe_m <- rbind(anscombe_m, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
+
+anscombe_m %>% 
+  ggplot(aes(x, y)) + geom_point(size=3, alpha = 0.8, color = hi) + 
+  geom_smooth(method="lm", fill=NA, fullrange=TRUE, color = hp) + facet_wrap(~set, ncol=2) + 
+  xlab("X") + 
+  ylab("Y") + 
+  mytheme
+```

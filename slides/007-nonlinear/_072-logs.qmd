@@ -1,0 +1,748 @@
+---
+name: logs
+---
+
+---
+
+## We're going to take logs
+
+The natural log is the inverse function for the exponential function:
+
+$$
+\quad \log(e^x) = x \quad \text{for} \quad x>0
+$$
+
+. . .
+
+[(_Natural_) Log rules:]{.hi}
+
+[1.]{.note} [Product rule:]{.note} $\log(AB) = \log(A) + \log(B)$.
+
+. . .
+
+[2.]{.note} [Quotient rule:]{.note} $\log(A/B) = \log(A) - \log(B)$.
+
+. . .
+
+[3.]{.note} [Power rule:]{.note} $\log(A^B) = B \cdot \log(A)$.
+
+. . .
+
+[4.]{.note} [Derivative:]{.note} $f(x) = \log(x)$ [=>]{.mono} $f'(x) = \dfrac{1}{x}$.
+
+. . .
+
+[Note:]{.note} $\log(e) = 1$, $\log(1) = 0$, and $\log(x)$ is undefined for $x \leq 0$.
+
+---
+
+## Log-Linear model
+
+[Nonlinear Model]{.hi}
+
+$$
+Y_i = \alpha e^{\beta_1 X_i}v_i
+$$
+
+- $Y > 0$, $X$ is continuous, and $v_i$ is a multiplicative error term.
+- Cannot estimate parameters with OLS directly.
+
+. . .
+
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="60%"}
+[Logarithmic Transformation]{.hi} 
+
+$$
+\log(Y_i) = \log(\alpha) + \beta_1 X_i + \log(v_i)
+$$
+
+[Redefine]{.note} $\log(\alpha) \equiv \beta_0$, $\log(v_i) \equiv u_i$.
+:::
+
+::: {.column width="40%"}
+[Transformed (Linear) Model]{.hi}
+
+$$
+\log(Y_i) = \beta_0 + \beta_1 X_i + u_i
+$$
+
+*Can* estimate with OLS, but interpretation changes.
+:::
+
+
+::::
+
+
+---
+
+## Log-Linear model
+
+[Regression Model]{.hi}
+
+$$
+\log(Y_i) = \beta_0 + \beta_1 X_i + u_i
+$$
+
+[Interpretation]{.note}
+
+- A one-unit increase in the explanatory variable increases the outcome variable by approximately $\beta_1\times 100$ percent, on average.
+
+[Ex.]{.ex}
+
+: If $\log(\hat{\text{Pay}_i}) = 2.9 + 0.03 \cdot \text{School}_i$, then an additional year of schooling increases pay by approximately 3 percent, on average.
+
+---
+
+## Log-Linear model
+
+[Derivation]{.note} Consider the log-linear model
+
+$$
+\log(Y) = \beta_0 + \beta_1 \, X + u
+$$
+
+and differentiate
+
+$$
+\dfrac{dY}{Y} = \beta_1 dX
+$$
+
+. . .
+
+Marginal change in $X$ ($dX$) leads to a $\beta_1 dX$ [proportionate change]{.note} in $Y$.
+
+- Multiply by 100 to get the [percentage change]{.hi} in $Y$.
+
+---
+
+## Log-Linear [Ex.]{.ex}
+
+```{r}
+#| include: false
+
+# Set seed
+set.seed(1234)
+# Sample size
+n <- 1e3
+# Generate data
+df1 <- tibble(
+  x = runif(n, 0, 3),
+  y = exp(10 + 0.75 * x + rnorm(n, sd = 0.5))
+)
+reg1 <- lm(log(y) ~ x, df1)
+a1 <- reg1$coefficients[1]
+b1 <- reg1$coefficients[2]
+```
+
+##### $\log(\hat{Y_i}) = `r round(a1, 2)` + `r round(b1, 2)` \cdot \text{X}_i$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = df1, aes(x = x, y = y)) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+geom_smooth(color = hp, se = F, linewidth = 2) +
+scale_y_continuous(labels = comma) +
+xlab("X") +
+ylab("Y") +
+mytheme
+```
+
+---
+
+## Log-Linear [Ex.]{.ex} {data-visibility="uncounted"}
+
+##### $\log(\hat{Y_i}) = `r round(a1, 2)` + `r round(b1, 2)` \cdot \text{X}_i$ 
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = df1, aes(x = x, y = log(y))) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+geom_smooth(color = hp, se = F, method = "lm", linewidth = 2) +
+scale_y_continuous(labels = comma) +
+xlab("X") +
+ylab("log(Y)") +
+mytheme
+```
+
+---
+
+## Log-Linear model 
+
+[Note:]{.note} If you have a log-linear model with a binary indicator variable, the interpretation of the coefficient on that variable changes. [Consider]{.fragment}
+
+. . .
+
+$$ 
+\log(Y_i) = \beta_0 + \beta_1 X_i + u_i 
+$$
+
+for binary variable $X$.
+
+. . .
+
+Interpretation of $\beta_1$:
+
+- When $X$ changes from 0 to 1, $Y$ will increase by $100 \times \left( e^{\beta_1} -1 \right)$%
+- When $X$ changes from 1 to 0, $Y$ will decrease by $100 \times \left( e^{-\beta_1} -1 \right)$%
+
+---
+
+## Log-Linear [Ex.]{.ex}
+
+```{r}
+#| include: false
+
+# Set seed
+set.seed(1234)
+# Sample size
+n <- 1e3
+# Generate data
+df2 <- tibble(
+  trained = rep(c(1, 0), each = n/2),
+  productivity = exp(10 + 0.5 * trained + rnorm(n, sd = 1))
+)
+reg2 <- lm(log(productivity) ~ trained, df2)
+b2 <- reg2$coefficients[2]
+```
+
+Binary explanatory variable: `trained`
+
+- `trained == 1` if employee received training.
+- `trained == 0` if employee did not receive training.
+
+```{r}
+lm(log(productivity) ~ trained, data = df2) %>% tidy()
+```
+
+[Q.]{.note} How do we interpret the coefficient on `trained`?
+
+. . .
+
+[A[1]{.sub}:]{.note} Trained workers `r round((exp(b2)-1)*100, 2)` percent more productive than untrained workers.
+
+. . .
+
+[A[2]{.sub}:]{.note} Untrained workers `r abs(round((exp(-b2)-1)*100, 2))` percent less productive than trained workers.
+
+
+---
+
+## Log-Log model
+
+[Nonlinear Model]{.hi}
+
+$$
+Y_i = \alpha  X_i^{\beta_1}v_i
+$$
+
+- $Y > 0$, $X > 0$, and $v_i$ is a multiplicative error term.
+- Cannot estimate parameters with OLS directly.
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="60%"}
+[Logarithmic Transformation]{.hi}
+
+$$
+\begin{align*}
+\log(Y_i) = \log(\alpha) +& \beta_1 \log(X_i) \\
+                         +& \log(v_i)
+\end{align*}
+$$
+
+- Redefine $\log(\alpha) \equiv \beta_0$, $\log(v_i) \equiv u_i$.
+:::
+
+::: {.column width="40%"}
+
+[Transformed (Linear) Model]{.hi}
+
+$$
+\log(Y_i) = \beta_0 + \beta_1 \log(X_i) + u_i
+$$
+
+*Can* estimate with OLS, but interpretation changes.
+
+:::
+
+::::
+
+---
+
+## Log-Log regression model
+
+$$
+\log(Y_i) = \beta_0 + \beta_1 \log(X_i) + u_i
+$$
+
+[Interpretation]{.note}
+
+- A one-percent increase in the explanatory variable leads to a $\beta_1$-percent change in the outcome variable, on average.
+- Often interpreted as an elasticity.
+
+
+[Ex.]{.ex} 
+
+: If $\log(\widehat{\text{Quantity Demanded}}_i) = 0.45 - 0.31 \cdot \log(\text{Income}_i)$, then each one-percent increase in income decreases quantity demanded by 0.31 percent.
+
+---
+
+## Log-Log derivation
+
+Consider the log-log model
+
+$$
+\log(Y_i) = \beta_0 + \beta_1 \log(X_i) + u
+$$
+
+and differentiate
+
+$$
+\dfrac{dY}{Y} = \beta_1 \dfrac{dX}{X}
+$$
+
+A one-percent increase in $X$ leads to a $\beta_1$-percent increase in $Y$. 
+
+- Rearrange to show elasticity interpretation:
+
+$$
+\dfrac{dY}{dX} \dfrac{X}{Y} = \beta_1
+$$
+
+---
+
+## Log-Log Example
+
+```{r}
+#| include: false
+
+# Set seed
+set.seed(1234)
+# Sample size
+n <- 1e3
+# Generate data
+log_df <- tibble(
+  x = runif(n, 0, 10),
+  y = exp(3 * log(x) + rnorm(n, sd = 0.5))
+)
+reg3 <- lm(log(y) ~ log(x), log_df)
+a3 <- reg3$coefficients[1]
+b3 <- reg3$coefficients[2]
+```
+
+$$
+\log(\hat{Y_i}) = `r round(a3, 2)` + `r round(b3, 2)` \cdot \log(\text{X}_i)
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = log_df, aes(x = x, y = y)) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+geom_smooth(color = hp, se = F) +
+scale_y_continuous(labels = comma) +
+xlab("X") +
+ylab("Y") +
+mytheme
+```
+
+---
+
+## Log-Log Example {data-visibility="uncounted"}
+
+$$
+\log(\hat{Y_i}) = `r round(a3, 2)` + `r round(b3, 2)` \cdot \log(\text{X}_i)
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = log_df, aes(x = log(x), y = log(y))) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+geom_smooth(color = hp, se = F, method = "lm") +
+scale_y_continuous(labels = comma) +
+xlab("log(X)") +
+ylab("log(Y)") +
+mytheme
+```
+
+---
+
+## Linear-Log Model
+
+[Nonlinear Model]{.hi}
+
+$$
+e^{Y_i} = \alpha  X_i^{\beta_1}v_i
+$$
+
+- $X > 0$ and $v_i$ is a multiplicative error term.
+- Cannot estimate parameters with OLS directly.
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="60%"}
+[Logarithmic Transformation]{.hi}
+
+$$
+Y_i = \log(\alpha) + \beta_1 \log(X_i) + \log(v_i)
+$$
+
+Redefine $\log(\alpha) \equiv \beta_0$, $\log(v_i) \equiv u_i$.
+
+:::
+
+::: {.column width="40%"}
+[Transformed (Linear) Model]{.hi}
+
+$$
+Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
+$$
+
+*Can* estimate with OLS, but interpretation changes.
+
+:::
+
+::::
+
+---
+
+## Linear-Log Model
+
+[Regression Model]{.hi}
+
+$$
+Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
+$$
+
+[Interpretation]{.note}
+
+- A one-percent increase in the explanatory variable increases the outcome variable by approximately $\beta_1 \div 100$, on average.
+
+[Ex.]{.ex} 
+
+: If $\hat{(\text{Blood Pressure})_i} = 150 - 9.1 \log(\text{Income}_i)$, then a one-percent increase in income decrease blood pressure by 0.091 points.
+
+---
+
+## Linear-Log derivation
+
+Consider the log-linear model
+
+$$
+Y = \beta_0 + \beta_1 \log(X) + u
+$$
+
+and differentiate
+
+$$
+dY = \beta_1 \dfrac{dX}{X}
+$$
+
+. . .
+
+A one-percent increase in $X$ leads to a $\beta_1 \div 100$ **change** in $Y$.
+
+---
+
+## Linear-Log Example
+
+```{r}
+#| include: false
+
+# Set seed
+set.seed(1234)
+# Sample size
+n <- 1e3
+# Generate data
+lin_log_df <- tibble(
+  x = runif(n, 0, 3),
+  y = log(x) + rnorm(n, sd = 0.25)
+)
+reg4 <- lm(y ~ log(x), lin_log_df)
+a4 <- reg4$coefficients[1]
+b4 <- reg4$coefficients[2]
+```
+
+$$
+\hat{Y_i} = `r round(a4, 2)` + `r round(b4, 2)` \cdot \log(\text{X}_i)
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = lin_log_df, aes(x = x, y = y)) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+scale_y_continuous(labels = comma) +
+xlab("X") +
+ylab("Y") +
+mytheme
+```
+
+---
+
+## Linear-Log Example quncoutned
+
+$$
+\hat{Y_i} = `r round(a4, 2)` + `r round(b4, 2)` \cdot \log(\text{X}_i)
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.width: 10
+
+# Plot
+ggplot(data = lin_log_df, aes(x = log(x), y = y)) +
+geom_point(size = 3, color = hi, alpha = 0.5) +
+geom_smooth(color = hp, se = F, method = "lm") +
+scale_y_continuous(labels = comma) +
+xlab("log(X)") +
+ylab("Y") +
+mytheme
+```
+
+---
+
+**(Approximate) Coefficient Interpretation**
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+cont_interp <- tibble(
+  model = c("Level-level <br> \\(Y_i = \\beta_0 + \\beta_1 X_i + u_i\\)",
+             "Log-level <br> \\(\\log(Y_i) = \\beta_0 + \\beta_1 X_i + u_i\\)",
+             "Log-log <br> \\(\\log(Y_i) = \\beta_0 + \\beta_1 \\log(X_i) + u_i\\)",
+             "Level-log <br> \\(Y_i = \\beta_0 + \\beta_1 \\log(X_i) + u_i\\)"),
+  interp = c("\\(\\Delta Y = \\beta_1 \\cdot \\Delta X\\) <br> A one-unit increase in \\(X\\) leads to a <br> \\(\\beta_1\\)-unit increase in \\(Y\\)",
+             "\\(\\%\\Delta Y = 100 \\cdot \\beta_1 \\cdot \\Delta X\\) <br> A one-unit increase in \\(X\\) leads to a <br> \\(\\beta_1 \\cdot 100\\)-percent increase in \\(Y\\)",
+             "\\(\\%\\Delta Y = \\beta_1 \\cdot \\%\\Delta X\\) <br> A one-percent increase in \\(X\\) leads to a <br> \\(\\beta_1\\)-percent increase in \\(Y\\)",
+             "\\(\\Delta Y = (\\beta_1 \\div 100) \\cdot \\%\\Delta X\\) <br> A one-percent increase in \\(X\\) leads to a <br> \\(\\beta_1 \\div 100\\)-unit increase in \\(Y\\)")
+) %>% 
+  kable(
+  escape = F,
+  col.names = c("Model", "\\(\\beta_1\\) Interpretation"),
+  align = c("l", "l")
+) %>% 
+  kable_styling(font_size = 30) %>%
+  column_spec(1, color = "black", bold = T, italic = T, extra_css = "vertical-align:top;") %>% 
+  column_spec(2, color = "black", italic = T)
+
+cont_interp
+```
+
+---
+
+## Can We Do Better?
+
+```{r}
+#| include: false
+
+reg_lin <- lm(lifeExp ~ gdpPercap, gapminder)
+a_lin <- reg_lin$coefficients[1]
+b_lin <- reg_lin$coefficients[2]
+r2_lin <- summary(reg_lin)$r.squared
+```
+
+$$
+(\widehat{\text{Life Expectancy})_i} = `r round(a_lin, 2)` + `r round(b_lin, 4)` \cdot \text{GDP}_i \quad\quad R^2 = `r round(r2_lin, 2)`
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5.75
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("GDP per capita", label = scales::comma) +
+ylab("Life Expectancy") +
+stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+scale_y_continuous(labels = comma) +
+mytheme
+```
+
+---
+
+## Can We Do Better?
+
+```{r}
+#| include: false
+
+reg_log_lin <- lm(log(lifeExp) ~ gdpPercap, gapminder)
+a_log_lin <- reg_log_lin$coefficients[1]
+b_log_lin <- reg_log_lin$coefficients[2]
+r2_log_lin <- summary(reg_log_lin)$r.squared
+```
+
+$$
+\log( \widehat{\text{Life Expectancy}_i}) = `r round(a_log_lin, 2)` + `r round(b_log_lin, 6)` \cdot \text{GDP}_i \quad\quad R^2 = `r round(r2_log_lin, 2)`
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5.75
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = log(lifeExp))) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("GDP per capita", label = scales::comma) +
+ylab("log(Life Expectancy)") +
+stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+scale_y_continuous(labels = comma) +
+mytheme
+```
+
+---
+
+## Can We Do Better?
+
+```{r}
+#| include: false
+
+reg_log <- lm(log(lifeExp) ~ log(gdpPercap), gapminder)
+a_log <- reg_log$coefficients[1]
+b_log <- reg_log$coefficients[2]
+r2_log <- summary(reg_log)$r.squared
+```
+
+$$
+\log ( \widehat{\text{Life Expectancy}_i} ) = `r round(a_log, 2)` + `r round(b_log, 2)` \cdot \log \left( \text{GDP}_i \right) \quad\quad R^2 = `r round(r2_log, 2)`
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5.75
+
+ggplot(data = gapminder, aes(x = log(gdpPercap), y = log(lifeExp))) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("log(GDP per capita)", label = scales::comma) +
+ylab("log(Life Expectancy)") +
+stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+scale_y_continuous(labels = comma) +
+mytheme
+```
+
+---
+
+## Can We Do Better?
+
+```{r}
+#| include: false
+
+reg_lin_log <- lm(lifeExp ~ log(gdpPercap), gapminder)
+a_lin_log <- reg_lin_log$coefficients[1]
+b_lin_log <- reg_lin_log$coefficients[2]
+r2_lin_log <- summary(reg_lin_log)$r.squared
+```
+
+$$
+( \widehat{\text{Life Expectancy}})_i = `r round(a_lin_log, 2)` + `r round(b_lin_log, 2)` \cdot \log \left( \text{GDP}_i \right) \quad\quad R^2 = `r round(r2_lin_log, 2)`
+$$
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5.75
+
+ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp)) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("log(GDP per capita)", label = scales::comma) +
+ylab("Life Expectancy") +
+stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+scale_y_continuous(labels = comma) +
+mytheme
+```
+
+---
+
+## Practical Considerations
+
+[Consideration 1]{.note} Do your data take negative numbers or zeros as values?
+
+```{r}
+#| echo: true
+log(0)
+```
+
+. . .
+
+[Consideration 2]{.note} What coefficient interpretation do you want? Unit change? Unit-free percent change?
+
+. . .
+
+[Consideration 3]{.note} Are your data skewed?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5
+
+# Plot
+ggplot(data = df1, aes(x = y)) +
+geom_histogram(color = hp, fill = hp, alpha = 0.5) +
+xlab("Y") +
+ylab("Count") +
+mytheme
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| cache: true
+#| fig-align: center
+#| fig.height: 5
+
+# Plot
+ggplot(data = df1, aes(x = log(y))) +
+geom_histogram(color = hp, fill = hp, alpha = 0.5) +
+xlab("log(Y)") +
+ylab("Count") +
+mytheme
+```
+:::
+
+::::

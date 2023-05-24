@@ -408,7 +408,6 @@ Andrew Dickinson
 <h2>Housekeeping</h2>
 <p><span class="hi">PS04:</span></p>
 <ul>
-<li>Will be assigned <em>later today</em></li>
 <li>Due next Tuesday night</li>
 </ul>
 <div class="fragment">
@@ -418,7 +417,8 @@ Andrew Dickinson
 </div>
 <div class="fragment">
 <p><span class="hi">Reading:</span> <em>(up to this point)</em></p>
-<p>ItE: R, 1, 2, <span class="hi">3</span> MM: 1, 2</p>
+<p>ItE: R, 1, 2, <span class="hi">3</span></p>
+<p>MM: 1, 2</p>
 </div>
 </section>
 <section>
@@ -1333,14 +1333,16 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_{k} X_{ki} + u_
 </section>
 <section id="irrelevant-variables-3" class="slide level2">
 <h2>Irrelevant Variables</h2>
-<p>Notice that <span class="math inline">\(\mathop{\text{Var}} \left( \hat{\beta_1} \right) \leq \mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right)\)</span>.</p>
+<p>Notice that <span class="math inline">\(\mathop{\text{Var}} \left( \hat{\beta_1} \right) \leq \mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right)\)</span> since,</p>
 <p><span class="math display">\[
-\mathop{\text{Var}} \left( \hat{\beta_1} \right) = \dfrac{\sigma^2}{\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
+\sum_{i=1}^n \left( \text{Poll.}_{i} - \overline{\text{Poll.}} \right)^2
+\geq
+\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Poll.}_{i} - \overline{\text{Poll.}} \right)^2
 \]</span></p>
-<p><span class="math display">\[
-\mathop{\text{Var}} \left( \hat{\tilde{\beta_1}} \right) = \dfrac{\sigma^2}{\left( 1 - R^2_1 \right)\sum_{i=1}^n \left( \text{Pollution}_{i} - \overline{\text{Pollution}} \right)^2}
-\]</span></p>
-<p>Including irrelevant control variables can <span class="hii">increase</span> OLS variances!</p>
+<div class="fragment">
+<p><br></p>
+<p>A tradeoff exists when including more control variables. <span class="fragment">Make sure you have good reason for your controls because including irrelevant control variables <span class="hii">increase</span> variances</span></p>
+</div>
 </section>
 <section id="estimating-error-variance" class="slide level2">
 <h2>Estimating Error Variance</h2>
@@ -1368,11 +1370,11 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
 \text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Lunch}_i+ u_i
 \]</span></p>
 <p>with the following results:</p>
-<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-36_52b2106d41ebe6feb11f73dec33d6696">
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-36_de631c889515facf2f7307299a4464d8">
 <div class="cell-output-display">
 
-<table>
-<caption></caption>
+<table class="table" style="font-size: 24px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;"></caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Explanatory variable </th>
@@ -1383,13 +1385,13 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
 <tbody>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
-   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 783 </td>
-   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 743 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 782.72 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 743.03 </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
    <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (8.53) </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (18.57) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (9.3) </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
@@ -1398,8 +1400,8 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.493) </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (2.18) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.49) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.44) </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Lunch </td>
@@ -1419,7 +1421,7 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
   <tr>
    <td style="text-align:left;font-style: italic;color: black !important;">  </td>
    <td style="text-align:center;font-weight: bold;">  </td>
-   <td style="text-align:center;"> (0.20) </td>
+   <td style="text-align:center;"> (0.2) </td>
   </tr>
 </tbody>
 </table>
@@ -1434,11 +1436,11 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
 \text{Scores}_i = \beta_0 + \beta_1 \text{Class Size}_i + \text{Lunch}_i+ u_i
 \]</span></p>
 <p>with the following results:</p>
-<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-37_10409768816588829ec1a5fced5086d2">
+<div class="cell" data-escape="false" data-hash="060-main_cache/revealjs/unnamed-chunk-37_76f02c991f613340aadbee30207cdb9e">
 <div class="cell-output-display">
 
-<table>
-<caption></caption>
+<table class="table" style="font-size: 24px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;"></caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Explanatory variable </th>
@@ -1449,13 +1451,13 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
 <tbody>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Intercept </td>
-   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 783 </td>
-   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 743 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;"> 782.72 </td>
+   <td style="text-align:center;color: #434C5E !important;line-height: 110%;font-weight: bold;"> 743.03 </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
    <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (8.53) </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (18.57) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (9.3) </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Class size </td>
@@ -1464,8 +1466,8 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-style: italic;color: black !important;">  </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.493) </td>
-   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (2.18) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;"> (0.49) </td>
+   <td style="text-align:center;color: #434C5E !important;color: #c2bebe !important;line-height: 110%;font-weight: bold;"> (0.44) </td>
   </tr>
   <tr>
    <td style="text-align:left;color: #434C5E !important;line-height: 110%;font-style: italic;color: black !important;"> Lunch </td>
@@ -1485,7 +1487,7 @@ s_u^2 = \dfrac{\sum_{i=1}^n \hat{u}_i^2}{n - k - 1}
   <tr>
    <td style="text-align:left;font-style: italic;color: black !important;">  </td>
    <td style="text-align:center;">  </td>
-   <td style="text-align:center;font-weight: bold;"> (0.20) </td>
+   <td style="text-align:center;font-weight: bold;"> (0.2) </td>
   </tr>
 </tbody>
 </table>
@@ -1590,11 +1592,15 @@ H_0:\: \beta_1 = \beta_2 \iff H_0 :\: \beta_1 - \beta_2 = 0
 <p><span class="math inline">\(\text{RSS}_u = \text{TSS}(1-R^2_u)\)</span></p>
 </div>
 </div>
+</div>
+</section></section>
+<section id="fin" class="title-slide slide level1 inverse note center">
+<h1><em>Fin</em></h1>
 <div class="footer footer-default">
 <p>EC320, Set 07 | Multiple linear regression</p>
 </div>
-</div>
-</section></section>
+</section>
+
 
     </div>
   </div>

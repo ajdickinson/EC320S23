@@ -1,0 +1,205 @@
+---
+name: prologue
+---
+
+---
+
+## Linear regression
+
+Suppose we would like to estimate the degree to which an increase in [GDP]{.hi} correlates with [Life expectancy]{.hii}. We set up our model as follows:
+
+$$
+{\text{Life Expectancy}_i} = \beta_0 + \beta_1 \text{GDP}_i + u_i
+$$
+
+. . .
+
+Using the `gapminder`, we could quickly generate estimates to get at the [correlation]{.note} [But first, as always, let's plot it before running the regression]{.fragment}
+
+
+---
+
+[Visualize the OLS fit? Is $\beta_1$ positive or negeative?]{.fragment}
+
+```{r}
+#| echo: false
+#| fig.height: 6.5
+#| fig-align: center
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("GDP per capita", label = scales::comma) +
+ylab("Life Expectancy") +
+# stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+mytheme
+```
+
+---
+
+## Linear regression
+
+Using the `gapminder`, we could quickly generate estimates for
+
+$$
+\widehat{\text{Life Expectancy}_i} = \hat{\beta_0} + \hat{\beta_1} \cdot \text{GDP}_i
+$$
+
+. . .
+
+<br>
+
+```{r}
+#| echo: true
+library(gapminder)
+library(broom)
+
+m1 = lm(lifeExp ~ gdpPercap, data = gapminder) 
+
+tidy(m1)
+```
+---
+
+Fitting [OLS]{.hi}. [_But are you satisfied?_]{.fragment} [_Can we do better?_]{.fragment}
+
+```{r}
+#| echo: false
+#| fig.height: 6.5
+#| fig-align: center
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+geom_point(alpha = 0.75) +
+scale_x_continuous("GDP per capita", label = scales::comma) +
+ylab("Life Expectancy") +
+stat_smooth(method = "lm", size = 1, color = hp, se = F) +
+mytheme
+```
+
+---
+
+## Linearity in OLS
+
+Up to this point, we've acknowledged [OLS]{.hi} as a ["linear"]{.note} estimator. 
+
+. . .
+
+<br>
+
+Many economic relationships are [nonlinear]{.note}.
+
+- *e.g.*, most production functions, profit, diminishing marginal utility, tax revenue as a function of the tax rate, *etc.*
+
+. . .
+
+<br>
+
+The _"linear"_ in [simple linear regression]{.note} refers to the linearity of the parameters or coefficients, not the predictors themselves.
+
+
+---
+
+## Linearity in OLS
+
+OLS is [flexible]{.hi} and can accommodate a subset of nonlinear relationships.
+
+- Underlying model must be linear-in-parameters.
+- Nonlinear transformations of variables are okay.
+- Modeling some nonlinear relationships requires advanced estimation techniques, such as *maximum likelihood*^[Beyond the scope of this class.]
+
+. . .
+
+<br>
+
+Put different, independent variables can be a linear combination of the parameters, regardless of any nonlinear transformations
+
+
+---
+
+## Linearity
+
+[Linear-in-parameters:]{.hi-green} [Parameters]{.green} enter model as a weighted sum, where the weights are functions of the variables.
+
+- One of the assumptions required for the unbiasedness of OLS.
+
+[Linear-in-variables:]{.hp} [Variables]{.purple} enter the model as a weighted sum, where the weights are functions of the parameters.
+
+- Not required for the unbiasedness of OLS.
+
+. . .
+
+The standard linear regression model satisfies both properties:
+
+$$Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \dots + \beta_kX_{ki} + u_i$$
+
+---
+
+## Linearity
+
+Which of the following are an example of [linear-in-parameters]{.hi-green}, [linear-in-variables]{.hp}, or [neither]{.hi}?
+
+<br>
+
+[1.]{.note} $Y_i = \beta_0 + \beta_1X_{i} + \beta_2X_{i}^2 + \dots + \beta_kX_{i}^k + u_i$
+
+[2.]{.note} $Y_i = \beta_0X_i^{\beta_1}v_i$
+
+[3.]{.note} $Y_i = \beta_0 + \beta_1\beta_2X_{i} + u_i$
+
+---
+
+## Linearity {data-visibility="uncounted"}
+
+Which of the following are an example of [linear-in-parameters]{.hi-green}, [linear-in-variables]{.hp}, or [neither]{.hi}?
+
+<br>
+
+[1.]{.note} $\color{#A3BE8C}{Y_i = \beta_0 + \beta_1X_{i} + \beta_2X_{i}^2 + \dots + \beta_kX_{i}^k + u_i}$
+
+[2.]{.note} $Y_i = \beta_0X_i^{\beta_1}v_i$
+
+[3.]{.note} $Y_i = \beta_0 + \beta_1\beta_2X_{i} + u_i$
+
+<br>
+
+Model 1 is [linear-in-parameters]{.green}, but not [linear-in-variables]{.purple}. 
+
+---
+
+## Linearity {data-visibility="uncounted"}
+
+Which of the following are an example of [linear-in-parameters]{.hi-green}, [linear-in-variables]{.hp}, or [neither]{.hi}?
+
+<br>
+
+[1.]{.note} $\color{#A3BE8C}{Y_i = \beta_0 + \beta_1X_{i} + \beta_2X_{i}^2 + \dots + \beta_kX_{i}^k + u_i}$
+
+[2.]{.note} $\color{#434C5E}{Y_i = \beta_0X_i^{\beta_1}v_i}$
+
+[3.]{.note} $Y_i = \beta_0 + \beta_1\beta_2X_{i} + u_i$
+
+<br>
+
+Model 1 is [linear-in-parameters]{.green}, but not [linear-in-variables]{.purple}. 
+
+Model 2 is [neither]{.hi}. 
+
+---
+
+## Linearity {data-visibility="uncounted"}
+
+Which of the following are an example of [linear-in-parameters]{.hi-green}, [linear-in-variables]{.hp}, or [neither]{.hi}?
+
+<br>
+
+[1.]{.note} $\color{#A3BE8C}{Y_i = \beta_0 + \beta_1X_{i} + \beta_2X_{i}^2 + \dots + \beta_kX_{i}^k + u_i}$
+
+[2.]{.note} $\color{#434C5E}{Y_i = \beta_0X_i^{\beta_1}v_i}$
+
+[3.]{.note} $\color{#B48EAD}{Y_i = \beta_0 + \beta_1\beta_2X_{i} + u_i}$
+
+<br>
+
+Model 1 is [linear-in-parameters]{.green}, but not [linear-in-variables]{.purple}. 
+
+Model 2 is [neither]{.hi}. 
+
+Model 3 is [linear-in-variables]{.purple}, but not linear-in-parameters.

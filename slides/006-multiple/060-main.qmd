@@ -30,7 +30,6 @@ $$
 
 [PS04:]{.hi}
 
-- Will be assigned _later today_
 - Due next Tuesday night
 
 . . .
@@ -44,6 +43,7 @@ $$
 [Reading:]{.hi} _(up to this point)_
 
 ItE: R, 1, 2, [3]{.hi}
+
 MM: 1, 2
 
 # _Prologue_ {.inverse .note}
@@ -113,6 +113,8 @@ election <- read_csv("election_2016.csv") %>%
 # _F Tests_ {.inverse .note}
 
 {{< include _065-ftest.qmd >}}
+
+# _Fin_ {.inverse .note}
 
 ```{r}
 #| include: false
