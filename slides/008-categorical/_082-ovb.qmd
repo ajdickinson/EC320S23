@@ -1,0 +1,429 @@
+---
+name: ovb
+---
+
+---
+
+## Omitted Variables
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5, -1.0),
+  y  = c( 0.0,   -2.5, 2.0),
+  r  = c( 1.9,    1.5, 1.3),
+  l  = c( "Y", "X[1]", "X[2]"),
+  xl = c( 0.0,   -0.5, -1.0),
+  yl = c( 0.0,   -2.5, 2.2)
+)
+
+# Line types (order: x1, x2, x3, y)
+venn_colors <- c(hii, hired, hi)
+venn_lines <- c("solid", "dotted", "solid")
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, family = "Fira Sans", parse = T) +
+annotate(
+  x = 1, y = 3,
+  geom = "text", label = "No Bias", color = hp, size = 9, family = "Fira Sans", hjust = 0
+) +
+xlim(-3, 3) +
+ylim(-4, 3.4) +
+coord_equal()
+```
+
+---
+
+## Omitted Variables
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+
+# Colors (order: x1, x2, x3, y)
+venn_lines <- c("solid", "dotted", "solid")
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5, 1.5),
+  y  = c( 0.0,   -2.5, -1.8),
+  r  = c( 1.9,    1.5, 1.5),
+  l  = c( "Y", "X[1]", "X[2]"),
+  xl = c( 0.0,   -0.5, 1.6),
+  yl = c( 0.0,   -2.5, -1.9)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, family = "Fira Sans", parse = T) +
+annotate(
+  x = 1, y = 3,
+  geom = "text", label = "Bias", color = hp, size = 9, family = "Fira Sans", hjust = 0
+) +
+xlim(-3, 3) +
+ylim(-4, 3.4) +
+coord_equal()
+```
+
+---
+
+## Omitted Variables
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+#| escape: false
+
+tab <- data.frame(
+  v1 = c("Intercept", "", "log(Spend)", "", "Lunch", ""),
+  v2 = rbind(
+    c(-84.84, -1.52, ""),
+    c("(18.57)", "(2.18)", "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(-6.34, 11.34, -0.47),
+    c("(15.00)", "(1.77)", "(0.01)")
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Explanatory variable", "1", "2"),
+  align = c("l", rep("c", 3)),
+  caption = "Math Score"
+) %>%
+row_spec(1:6, color = hp) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:6, extra_css = "line-height: 110%;") %>%
+kable_styling(font_size = 24) %>%  
+column_spec(1, color = hi, italic = T)
+tab %>% column_spec(2, bold = T)
+```
+
+Data from 1823 elementary schools in Michigan
+
+- *Math Score*: average fourth grade state math test scores.
+- *log(Spend)*: the natural logarithm of spending per pupil.
+- *Lunch*: percentage of student eligible for free or reduced-price lunch.
+
+---
+
+## Omitted Variables
+
+```{r}
+#| echo: false
+#| escape: false
+
+tab %>% column_spec(3, bold = T)
+```
+
+Data from 1823 elementary schools in Michigan
+
+- *Math Score*: average fourth grade state math test scores.
+- *log(Spend)*: the natural logarithm of spending per pupil.
+- *Lunch*: percentage of student eligible for free or reduced-price lunch.
+
+---
+
+## Omitted-Variable Bias
+
+[Model 01:]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + u_i$.
+
+[Model 02]{.hii} $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + v_i$
+
+. . .
+
+Estimating [Model 01]{.hi} (without $X_2$) yields [omitted-variable bias:]{.hp}
+
+$$
+\color{#B48EAD}{\text{Bias} = \beta_2 \frac{\mathop{\text{Cov}}(X_{1i}, X_{2i})}{\mathop{\text{Var}}(X_{1i})}}
+$$
+
+. . .
+
+The sign of the bias depends on
+
+1. The correlation between $X_2$ and $Y$, _i.e._, $\beta_2$.
+
+2. The correlation between $X_1$ and $X_2$, _i.e._, $\mathop{\text{Cov}}(X_{1i}, X_{2i})$.
+
+
+---
+
+## Omitted variable bias
+
+[OVB]{.hp} arises when we omit a variable, $X_k$ that
+
+1. Affects the outcome variable $Y$, $\beta_k \neq 0$
+
+2. Correlates with an explanatory variable $X_j$, $Cov(X_j, X_k) \neq 0$, 
+
+Biases OLS estimator of $\beta_j$.
+
+. . .
+
+If we omit $X_k$, then the formula for the bias it creates in $\hat{\beta}_j$ is...
+
+$$
+\color{#B48EAD}{\text{Bias} = \beta_2 \frac{\mathop{\text{Cov}}(X_{1i}, X_{2i})}{\mathop{\text{Var}}(X_{1i})}}
+$$
+
+
+---
+
+## Omitted variable bias
+
+[Ex.]{.ex} Imagine a population model for the amount individual $i$ gets paid
+
+$$
+\text{Pay}_i = \beta_0 + \beta_1 \text{School}_i + \beta_2 \text{Male}_i + u_i
+$$
+
+where $\text{School}_i$ gives $i$'s years of schooling and $\text{Male}_i$ denotes an indicator variable for whether individual $i$ is male.
+
+[Interpretation]{.note}
+
+- $\beta_1$: returns to an additional year of schooling (*ceteris paribus*)
+- $\beta_2$: premium for being male (*ceteris paribus*)
+
+. . .
+
+<br>
+
+If $\beta_2 > 0$, then there is discrimination against women.
+
+---
+
+## Omitted variable bias
+
+[Ex.]{.ex} From the population model
+
+$$
+\text{Pay}_i = \beta_0 + \beta_1 \text{School}_i + \beta_2 \text{Male}_i + u_i
+$$
+
+An analyst focuses on the relationship between pay and schooling, _i.e._,
+
+$$
+\text{Pay}_i = \beta_0 + \beta_1 \text{School}_i + \left(\beta_2 \text{Male}_i + u_i\right)
+$$
+$$
+\text{Pay}_i = \beta_0 + \beta_1 \text{School}_i + \varepsilon_i
+$$
+
+where $\varepsilon_i = \beta_2 \text{Male}_i + u_i$.
+
+---
+
+## Omitted variable bias {data-visibility="uncounted"}
+
+We assumed exogeniety to show that OLS is unbiased. 
+
+[Even if $\mathop{\mathbb{E}}\left[ u | X \right] = 0$, it is not necessarily true that $\mathop{\mathbb{E}}\left[ \varepsilon | X \right] = 0$]{.fragment} 
+
+. . .
+
+- If $\beta_2 \neq 0$, then it is false
+
+. . .
+
+Specifically, if
+
+$$
+\mathop{\mathbb{E}}\left[ \varepsilon | \text{Male} = 1 \right] = \beta_2 + \mathop{\mathbb{E}}\left[ u | \text{Male} = 1 \right] \neq 0
+$$
+
+. . .
+
+Then, OLS is [biased]{.hi}
+
+---
+
+## Omitted variable bias
+
+Let's try to see this result graphically.
+
+```{r}
+#| include: false
+#| cache: true
+
+# Set seed
+set.seed(12345)
+# Sample size
+n <- 1e3
+# Parameters
+beta0 <- 20; beta1 <- 0.5; beta2 <- 10
+# Dataset
+omit_df <- tibble(
+  male = sample(x = c(F, T), size = n, replace = T),
+  school = runif(n, 3, 9) - 3 * male,
+  pay = beta0 + beta1 * school + beta2 * male + rnorm(n, sd = 7)
+)
+lm_bias <- lm(pay ~ school, data = omit_df)
+bb0 <- lm_bias$coefficients[1] %>% round(1)
+bb1 <- lm_bias$coefficients[2] %>% round(1)
+lm_unbias <- lm(pay ~ school + male, data = omit_df)
+bu0 <- lm_unbias$coefficients[1] %>% round(1)
+bu1 <- lm_unbias$coefficients[2] %>% round(1)
+bu2 <- lm_unbias$coefficients[3] %>% round(1)
+```
+
+The true population model:
+
+$$
+\text{Pay}_i = `r beta0` + `r beta1` \times \text{School}_i + `r beta2` \times \text{Male}_i + u_i
+$$
+
+The regression model that suffers from omitted-variable bias:
+
+$$
+\text{Pay}_i = \hat{\beta}_0 + \hat{\beta}_1 \times \text{School}_i + e_i
+$$
+
+Suppose that women, on average, receive more schooling than men.
+
+---
+
+## Omitted variable bias
+
+True model: $\text{Pay}_i = `r beta0` + `r beta1` \times \text{School}_i + `r beta2` \times \text{Male}_i + u_i$
+
+```{r}
+#| echo: false
+#| fig.height: 6
+#| fig-align: center
+#| escape: false
+
+ggplot(data = omit_df, aes(x = school, y = pay)) +
+geom_point(size = 2.5, color = hi, alpha = 0.4, shape = 16) +
+xlab("Schooling") +
+ylab("Pay") +
+mytheme_s
+```
+---
+
+## Omitted variable bias
+
+Biased regression: $\widehat{\text{Pay}}_i = `r bb0` + `r bb1` \times \text{School}_i$
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+#| escape: false
+
+ggplot(data = omit_df, aes(x = school, y = pay)) +
+geom_point(size = 2.5, color = hi, alpha = 0.4, shape = 16) +
+geom_smooth(se = F, color = hii, method = lm) +
+xlab("Schooling") +
+ylab("Pay") +
+mytheme_s
+```
+
+---
+
+## Omitted variable bias
+
+Recalling the omitted variable: Gender ([female]{.hp} and [male]{.hi})
+
+```{r}
+#| echo: false
+#| fig.height: 6
+#| fig-align: center
+#| escape: false
+
+ggplot(data = omit_df, aes(x = school, y = pay)) +
+geom_point(size = 2.5, alpha = 0.8, aes(color = male, shape = male)) +
+geom_line(stat = "smooth", color = hii, method = lm, alpha = 0.5, size = 1) +
+xlab("Schooling") +
+ylab("Pay") +
+mytheme_s +
+theme(
+ legend.position = "none"
+) +
+scale_color_manual("", values = c(hp, hi), labels = c("Female", "Male")) +
+scale_shape_manual("", values = c(16, 1), labels = c("Female", "Male"))
+```
+
+---
+
+## Omitted variable bias
+
+Recalling the omitted variable: Gender ([female]{.hp} and [male]{.hi})
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+#| escape: false
+
+ggplot(data = omit_df, aes(x = school, y = pay)) +
+geom_point(size = 2.5, alpha = 0.8, aes(color = male, shape = male)) +
+geom_line(stat = "smooth", color = hii, method = lm, alpha = 0.2, size = 1) +
+geom_abline(
+  intercept = lm_unbias$coefficients[1],
+  slope = lm_unbias$coefficients[2],
+  color = hp, size = 1
+) +
+geom_abline(
+  intercept = lm_unbias$coefficients[1] + lm_unbias$coefficients[3],
+  slope = lm_unbias$coefficients[2],
+  color = hi, size = 1
+) +
+xlab("Schooling") +
+ylab("Pay") +
+mytheme_s +
+theme(
+ legend.position = "none"
+) +
+scale_color_manual("", values = c(hp, hi), labels = c("Female", "Male")) +
+scale_shape_manual("", values = c(16, 1), labels = c("Female", "Male"))
+```
+
+---
+
+## Omitted variable bias
+
+Unbiased regression: $\widehat{\text{Pay}}_i = `r bu0` + `r bu1` \times \text{School}_i + `r bu2` \times \text{Male}_i$
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+#| escape: false
+
+ggplot(data = omit_df, aes(x = school, y = pay)) +
+geom_point(size = 2.5, alpha = 0.8, aes(color = male, shape = male)) +
+geom_line(stat = "smooth", color = hii, method = lm, alpha = 0.2, size = 1) +
+geom_abline(
+  intercept = lm_unbias$coefficients[1],
+  slope = lm_unbias$coefficients[2],
+  color = hp, size = 1
+) +
+geom_abline(
+  intercept = lm_unbias$coefficients[1] + lm_unbias$coefficients[3],
+  slope = lm_unbias$coefficients[2],
+  color = hi, size = 1
+) +
+xlab("Schooling") +
+ylab("Pay") +
+mytheme_s +
+theme(
+ legend.position = "none"
+) +
+scale_color_manual("", values = c(hp, hi), labels = c("Female", "Male")) +
+scale_shape_manual("", values = c(16, 1), labels = c("Female", "Male"))
+```

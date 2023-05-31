@@ -1,0 +1,55 @@
+---
+name: categorical-ex
+---
+
+
+---
+
+## Categorical Variables
+
+[Ex.]{.ex} Weekly Wages
+
+```{r}
+lm(wage ~ south, data = wage_data) %>% tidy()
+```
+
+. . .
+
+[Q~1~:]{.note} What is the reference category?
+
+[Q~2~:]{.note} Interpret the coefficients.
+
+[Q~3~:]{.note} Suppose you ran `lm(wage ~ nonsouth, data = wage_data)` instead. What is the coefficient estimate on `nonsouth`? What is the intercept estimate?
+
+
+---
+
+## Categorical Variables
+
+[Ex.]{.ex} Weekly Wages
+
+```{r}
+lm(wage ~ south + black, data = wage_data) %>% tidy()
+```
+
+. . .
+
+[Q~1~:]{.note} What is the reference category?
+
+[Q~2~:]{.note} Interpret the coefficients.
+
+[Q~3~:]{.note} Suppose you ran `lm(wage ~ south + nonblack, data = wage_data)` instead. What is the coefficient estimate on `nonblack`? What is the coefficient estimate on `south`? What is the intercept estimate?
+
+
+---
+
+## Categorical Variables
+
+[Ex.]{.ex} Weekly Wages
+
+[Answer to Q~3~:]{.note}
+
+```{r}
+lm(wage ~ south + nonblack, data = wage_data) %>% tidy()
+```
+

@@ -512,7 +512,7 @@ mytheme
 
 ---
 
-## Linear-Log Example quncoutned
+## Linear-Log Example {data-visibility="uncounted"}
 
 $$
 \hat{Y_i} = `r round(a4, 2)` + `r round(b4, 2)` \cdot \log(\text{X}_i)

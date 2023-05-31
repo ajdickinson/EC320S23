@@ -2,6 +2,50 @@
 name: quadratic
 ---
 
+--- 
+
+## Quadratic variables
+
+Let's talk about a wage regression again. [Suppose we would like to estimate the effect of age on earnings. We estimate the following SLR:]{.fragment}
+
+. . .
+
+$$
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + u_i
+$$
+
+. . .
+
+However, maybe we believe that $\text{Wage}_i$ and $\text{Age}_i$ have some nonlinear relationship[---the effect of an additional year of experience, when age is 27 vs age is 67, might be [different]{.hi}.]{.fragment} [So instead, we might estimate:]{.fragment}
+
+. . .
+
+$$
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + \beta_2 \text{Age}^2_i + u_i
+$$
+
+--- 
+
+## Quadratic variables
+
+In this model:
+
+$$
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + \beta_2 \text{Age}^2_i + u_i
+$$
+
+the effect of $\text{Age}_i$ on $\text{Wage}_i$ would be:
+
+. . .
+
+$$
+\frac{\partial \text{Wage}_i}{\partial \text{Age}_i} = \beta_1 + 2\beta_2 \text{Age}_i
+$$
+
+. . .
+
+
+
 ---
 
 ## Quadratic data
@@ -10,6 +54,7 @@ name: quadratic
 #| echo: false
 #| cache: true
 #| fig-align: center
+#| fig.width: 12
 #| fig.height: 6.75
 
 # Set seed
@@ -18,8 +63,8 @@ set.seed(1234)
 n <- 1e3
 # Generate data
 quad_df <- tibble(
-  x = runif(n, 0, 10),
-  y = 12 + 16*x - 2.5*x^2 + rnorm(n, sd = 25)
+  x = runif(n, 21, 80),
+  y = 30000 + 160*x - 1.5*x^2 + rnorm(n, sd = 500)
 )
 # regression
 quad_reg <- lm(y ~ x + I(x^2), data = quad_df) 
@@ -28,8 +73,12 @@ b2 <- quad_reg$coefficients[3]
 # Plot
 ggplot(data = quad_df, aes(x = x, y = y)) +
 geom_point(size = 3, color = hi, alpha = 0.5) +
-xlab("X") +
-ylab("Y") +
+labs(
+  title = "Relationship between age and income",
+  subtitle = "Simulated data",
+  x = "Age",
+  y = "Earnings"
+) +
 mytheme
 ```
 
@@ -67,7 +116,7 @@ $$
 
 ## Quadratic regression
 
-```{r}
+```{r} 
 lm(y ~ x + I(x^2), data = quad_df) %>% tidy()
 ```
 
@@ -135,7 +184,7 @@ margs <- margins::cplot(reg, x = "x", dx = "x",
 
 ```{r}
 #| echo: false
-#| cache: true
+#| cache: false
 #| fig-align: center
 #| fig.height: 7
 
@@ -154,7 +203,7 @@ quad_df %>%
 
 ```{r}
 #| echo: false
-#| cache: true
+#| cache: false
 #| fig-align: center
 #| fig.height: 7
 
@@ -175,7 +224,7 @@ margs %>%
 
 Where does the regression $\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{\beta}_2 X_i^2$ [turn?]{.hi}
 
-- In other words, where is the peak (valley) of the fitted relationship?
+<!-- - In other words, where is the peak (valley) of the fitted relationship? -->
 
 . . .
 
@@ -197,12 +246,13 @@ $$
 
 [Ex.]{.ex} Peak of previous regression occurs at $X = `r round(-b1/(2*b2), 2)`$.
 
----
+# [Extra:]{.ex} Anscombe's Quartet {.inverse}
 
+---
 
 ## Anscombe's Quartet
 
-[Four *"identical"* regressions:]{.hi} Intercept [=]{.mono} 3, Slope [=]{.mono} 0.5, R.super[2] [=]{.mono} 0.67]
+[Four *"identical"* regressions:]{.hi} Intercept [=]{.mono} 3, Slope [=]{.mono} 0.5, R^2^ [=]{.mono} 0.67
 
 ```{r}
 #| echo: false

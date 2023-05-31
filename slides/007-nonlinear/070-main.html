@@ -425,7 +425,7 @@ Andrew Dickinson
 <p><span class="hi">Reading:</span> <em>(up to this point)</em></p>
 <p>ItE: R, 1, 2, 3, <span class="hi">4</span></p>
 <p>MM: 1, 2</p>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-1_4da8957d81a2a127bfd2e660980a1ec0">
+<div class="cell">
 
 </div>
 </div>
@@ -453,7 +453,7 @@ Andrew Dickinson
 \]</span></p>
 <div class="fragment">
 <p><br></p>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-3_044e93a6e589ea6adc190afa1a690268">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(gapminder)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(broom)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -683,7 +683,7 @@ Y_i = \alpha e^{\beta_1 X_i}v_i
 <li><code>trained == 1</code> if employee received training.</li>
 <li><code>trained == 0</code> if employee did not receive training.</li>
 </ul>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-9_373f145086bcf97b38952a3b0f4bee92">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
@@ -848,8 +848,8 @@ dY = \beta_1 \dfrac{dX}{X}
 \]</span></p>
 
 <img data-src="070-main_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="linear-log-example-quncoutned" class="slide level2">
-<h2>Linear-Log Example quncoutned</h2>
+<section id="linear-log-example-1" class="slide level2" data-visibility="uncounted">
+<h2>Linear-Log Example</h2>
 <p><span class="math display">\[
 \hat{Y_i} = 0 + 0.99 \cdot \log(\text{X}_i)
 \]</span></p>
@@ -858,7 +858,7 @@ dY = \beta_1 \dfrac{dX}{X}
 <section class="slide level2">
 
 <p><strong>(Approximate) Coefficient Interpretation</strong></p>
-<div class="cell" data-layout-align="center" data-hash="070-main_cache/revealjs/unnamed-chunk-16_8e5120d54b017e093d841c3b3a077cb1">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
 <table class="table" style="font-size: 30px; margin-left: auto; margin-right: auto;">
@@ -922,7 +922,7 @@ dY = \beta_1 \dfrac{dX}{X}
 <section id="practical-considerations" class="slide level2">
 <h2>Practical Considerations</h2>
 <p><span class="note">Consideration 1</span> Do your data take negative numbers or zeros as values?</p>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-25_6ca41e8dcca4bf3de502725e0b3f0885">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -Inf</code></pre>
@@ -935,7 +935,7 @@ dY = \beta_1 \dfrac{dX}{X}
 <p><span class="note">Consideration 3</span> Are your data skewed?</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center" data-hash="070-main_cache/revealjs/unnamed-chunk-26_f5c3b94dfc950d420a06e597e1755c79">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -945,7 +945,7 @@ dY = \beta_1 \dfrac{dX}{X}
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center" data-hash="070-main_cache/revealjs/unnamed-chunk-27_cbd0acec5eb723b2375c27524af2f56d">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -963,10 +963,40 @@ dY = \beta_1 \dfrac{dX}{X}
 <h1><em>Quadratic terms</em></h1>
 
 </section>
+<section id="quadratic-variables" class="slide level2">
+<h2>Quadratic variables</h2>
+<p>Let’s talk about a wage regression again. <span class="fragment">Suppose we would like to estimate the effect of age on earnings. We estimate the following SLR:</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p>However, maybe we believe that <span class="math inline">\(\text{Wage}_i\)</span> and <span class="math inline">\(\text{Age}_i\)</span> have some nonlinear relationship<span class="fragment">—the effect of an additional year of experience, when age is 27 vs age is 67, might be <span class="hi">different</span>.</span> <span class="fragment">So instead, we might estimate:</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + \beta_2 \text{Age}^2_i + u_i
+\]</span></p>
+</div>
+</section>
+<section id="quadratic-variables-1" class="slide level2">
+<h2>Quadratic variables</h2>
+<p>In this model:</p>
+<p><span class="math display">\[
+\text{Wage}_i = \beta_0 + \beta_1 \text{Age}_i + \beta_2 \text{Age}^2_i + u_i
+\]</span></p>
+<p>the effect of <span class="math inline">\(\text{Age}_i\)</span> on <span class="math inline">\(\text{Wage}_i\)</span> would be:</p>
+<div class="fragment">
+<p><span class="math display">\[
+\frac{\partial \text{Wage}_i}{\partial \text{Age}_i} = \beta_1 + 2\beta_2 \text{Age}_i
+\]</span></p>
+</div>
+</section>
 <section id="quadratic-data" class="slide level2">
 <h2>Quadratic data</h2>
 
-<img data-src="070-main_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="070-main_files/figure-revealjs/unnamed-chunk-28-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="quadratic-regression" class="slide level2">
 <h2>Quadratic regression</h2>
 <p><span class="hi">Regression Model</span></p>
@@ -992,67 +1022,67 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
 </section>
 <section id="quadratic-regression-1" class="slide level2">
 <h2>Quadratic regression</h2>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-29_071db6b2cee8ff49a4dff75c57c942fa">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    13.2     2.26        5.81 8.30e-  9
-2 x              15.7     1.03       15.3  1.99e- 47
-3 I(x^2)         -2.50    0.0982    -25.4  2.46e-110</code></pre>
+1 (Intercept) 30046.    138.         218.  0        
+2 x             159.      5.81        27.3 2.58e-123
+3 I(x^2)         -1.50    0.0564     -26.6 6.19e-118</code></pre>
 </div>
 </div>
-<p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span><span class="purple">?</span> . . . <br> <span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} } = \hat{\beta}_1 + 2\hat{\beta}_2 X = 15.69 + -4.99X\)</span></p>
+<p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span><span class="purple">?</span> . . . <br> <span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} } = \hat{\beta}_1 + 2\hat{\beta}_2 X = 158.89 + -3X\)</span></p>
 </section>
 <section id="quadratic-regression-2" class="slide level2">
 <h2>Quadratic regression</h2>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-30_30e195fd6d957d6d72767fbd3def753e">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    13.2     2.26        5.81 8.30e-  9
-2 x              15.7     1.03       15.3  1.99e- 47
-3 I(x^2)         -2.50    0.0982    -25.4  2.46e-110</code></pre>
+1 (Intercept) 30046.    138.         218.  0        
+2 x             159.      5.81        27.3 2.58e-123
+3 I(x^2)         -1.50    0.0564     -26.6 6.19e-118</code></pre>
 </div>
 </div>
 <p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span> <span class="purple">when</span> <span class="math inline">\(\color{#B48EAD}{X=0}\)</span><span class="purple">?</span></p>
 <div class="fragment">
 <p><br></p>
-<p><span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=0} = \hat{\beta}_1 = 15.69\)</span></p>
+<p><span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=0} = \hat{\beta}_1 = 158.89\)</span></p>
 </div>
 </section>
 <section id="quadratic-regression-3" class="slide level2">
 <h2>Quadratic regression</h2>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-31_0637aa7b56c2e57effbda20ecef0ce10">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    13.2     2.26        5.81 8.30e-  9
-2 x              15.7     1.03       15.3  1.99e- 47
-3 I(x^2)         -2.50    0.0982    -25.4  2.46e-110</code></pre>
+1 (Intercept) 30046.    138.         218.  0        
+2 x             159.      5.81        27.3 2.58e-123
+3 I(x^2)         -1.50    0.0564     -26.6 6.19e-118</code></pre>
 </div>
 </div>
 <p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span> <span class="purple">when</span> <span class="math inline">\(\color{#B48EAD}{X=2}\)</span><span class="purple">?</span></p>
 <div class="fragment">
 <p><br></p>
-<p><span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=2} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (2) = 15.69 -9.99 = 5.71\)</span></p>
+<p><span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=2} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (2) = 158.89 -5.99 = 152.9\)</span></p>
 </div>
 </section>
 <section id="quadratic-regression-4" class="slide level2">
 <h2>Quadratic regression</h2>
-<div class="cell" data-hash="070-main_cache/revealjs/unnamed-chunk-32_84b534c7fcc41df8ae81ec8bb9aca8e0">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    13.2     2.26        5.81 8.30e-  9
-2 x              15.7     1.03       15.3  1.99e- 47
-3 I(x^2)         -2.50    0.0982    -25.4  2.46e-110</code></pre>
+1 (Intercept) 30046.    138.         218.  0        
+2 x             159.      5.81        27.3 2.58e-123
+3 I(x^2)         -1.50    0.0564     -26.6 6.19e-118</code></pre>
 </div>
 </div>
-<p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span> <span class="purple">when</span> <span class="math inline">\(\color{#B48EAD}{X=7}\)</span><span class="purple">?</span> . . . <br> <span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=7} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (7) = 15.69 -34.96 = -19.27\)</span></p>
+<p><span class="purple">What is the marginal effect of</span> <span class="math inline">\(\color{#B48EAD}{X}\)</span> <span class="purple">on</span> <span class="math inline">\(\color{#B48EAD}{Y}\)</span> <span class="purple">when</span> <span class="math inline">\(\color{#B48EAD}{X=7}\)</span><span class="purple">?</span> . . . <br> <span class="math inline">\(\widehat{\dfrac{\partial \text{Y}}{\partial \text{X}} }\Bigg|_{\small \text{X}=7} = \hat{\beta}_1 + 2\hat{\beta}_2 \cdot (7) = 158.89 -20.98 = 137.91\)</span></p>
 </section>
 <section class="slide level2">
 
@@ -1067,9 +1097,7 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
 <section id="quadratic-regression-5" class="slide level2">
 <h2>Quadratic regression</h2>
 <p>Where does the regression <span class="math inline">\(\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{\beta}_2 X_i^2\)</span> <span class="hi">turn?</span></p>
-<ul>
-<li>In other words, where is the peak (valley) of the fitted relationship?</li>
-</ul>
+<!-- - In other words, where is the peak (valley) of the fitted relationship? -->
 <div class="fragment">
 <p><span class="note">Step 1:</span> Take the derivative and set equal to zero.</p>
 <p><span class="math display">\[
@@ -1083,12 +1111,17 @@ X = -\dfrac{\hat{\beta}_1}{2\hat{\beta}_2}
 \]</span></p>
 </div>
 <div class="fragment">
-<p><span class="ex">Ex.</span> Peak of previous regression occurs at <span class="math inline">\(X = 3.14\)</span>.</p>
+<p><span class="ex">Ex.</span> Peak of previous regression occurs at <span class="math inline">\(X = 53.02\)</span>.</p>
 </div>
+</section></section>
+<section>
+<section id="extra-anscombes-quartet" class="title-slide slide level1 inverse center">
+<h1><span class="ex">Extra:</span> Anscombe’s Quartet</h1>
+
 </section>
 <section id="anscombes-quartet" class="slide level2">
 <h2>Anscombe’s Quartet</h2>
-<p><span class="hi">Four <em>“identical”</em> regressions:</span> Intercept <span class="mono">=</span> 3, Slope <span class="mono">=</span> 0.5, R.super[2] <span class="mono">=</span> 0.67]</p>
+<p><span class="hi">Four <em>“identical”</em> regressions:</span> Intercept <span class="mono">=</span> 3, Slope <span class="mono">=</span> 0.5, R<sup>2</sup> <span class="mono">=</span> 0.67</p>
 
 <img data-src="070-main_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 <p>EC320, Set 08 | Nonlinear models</p>

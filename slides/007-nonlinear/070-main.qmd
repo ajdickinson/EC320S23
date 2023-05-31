@@ -14,7 +14,7 @@ format:
     code-fold: FALSE
     code-copy: TRUE
     highlight-style: a11y-light
-    cache: TRUE
+    cache: FALSE
     html-math-method: mathjax 
 title-slide-attributes: 
   data-background-position: left
@@ -86,6 +86,8 @@ wage2 <- get('wage2')
 # MI school funding and test scores data
 meap01 <- get('meap01') %>% 
   mutate(exppp = exppp/1000)
+
+
 
 ```
 

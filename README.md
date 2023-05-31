@@ -63,7 +63,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: *ItE 4*
 
-**008 - Categorical variables**
+**008 - Categorical variables** [html](https://ajdickinson.github.io/EC320S23/slides/008-categorical/080-main.html)
 
 - Readings: *ItE 5*
 

@@ -1,0 +1,110 @@
+---
+title: "Categorical variables"
+subtitle: "EC 320, Set 09"
+author: "Andrew Dickinson"
+date: last-modified
+date-format: "Spring YYYY"
+format: 
+  revealjs:
+    theme: [default, ../styles.scss]
+    monobackgroundcolor: #F5F5F5
+    slide-number: true
+    footer: "EC320, Set 09 | Categorical variables"
+    preview-links: auto
+    code-fold: FALSE
+    code-copy: TRUE
+    highlight-style: a11y-light
+    cache: FALSE
+    html-math-method: mathjax 
+title-slide-attributes: 
+  data-background-position: left
+---
+
+::: {.content-hidden}
+$$
+{{< include ../_macros.tex >}}
+$$
+:::
+
+# _Prologue_ {.inverse .note}
+
+## Housekeeping
+
+[PS04:]{.hi}
+
+- Due ~~Tuesday~~ Wednesday night
+
+. . .
+
+[LA??:]{.hi}
+
+- Due Friday at 5:00p
+
+. . .
+
+[Reading:]{.hi} _(up to this point)_
+
+ItE: R, 1, 2, 3, [4]{.hi}
+
+MM: 1, 2
+
+```{r}
+# Load packages
+pacman::p_load(
+  hrbrthemes, fastverse, tidyverse, AER,
+  magrittr, wooldridge, here, kableExtra,
+  ggdag, nord, latex2exp, dagitty, viridis, scales, cplot,
+  plotly, ggforce, parallel, broom, gapminder
+  )
+
+
+hi = nord_palettes$polarnight[3]
+hii = nord_palettes$frost[3] 
+hp = nord_palettes$aurora[5]
+higreen = nord_palettes$aurora[4]
+hiyellow = nord_palettes$aurora[3]
+hiorange = nord_palettes$aurora[2]
+hired = nord_palettes$aurora[1]
+higrey = nord_palettes$snowstorm[1]
+
+mytheme = theme_ipsum(base_family = "Fira Sans Book", base_size = 20) +
+ theme(panel.grid.minor.x = element_blank(),
+       axis.title.x = element_text(size = 18),
+       axis.title.y = element_text(size = 18))
+
+mytheme_s = mytheme + 
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line = element_line(color = hi))
+
+mytheme_void = theme_void(base_family = "Fira Sans Book", base_size = 20)
+
+
+# Returns education data
+wage2 <- get('wage2')
+# MI school funding and test scores data
+meap01 <- get('meap01') %>% 
+  mutate(exppp = exppp/1000)
+
+
+# Card data
+data('card')
+wage_data <- card %>% 
+  mutate(nonblack = ifelse(black == 0, 1, 0))
+
+# MI school funding and test scores data
+data('meap01')
+```
+
+{{< include _081-slr.qmd >}}
+
+# Omitted variables
+
+{{< include _082-ovb.qmd >}}
+
+
+
+# [Ex.]{.ex} {.inverse}
+
+{{< include _083-categorical-ex.qmd >}}
