@@ -83,20 +83,16 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 [PS05](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05.R)
 
-## Exams
+## Resources
 
-Midterm: 
+__Midterm:__
 
 [Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf) |
 [MT solutions](https://ajdickinson.github.io/EC320S23/resources/mt-solutions.pdf)
 
-Final:
+_Final:__
 
 [Practice final](https://ajdickinson.github.io/EC320S23/resources/practice-final.pdf)
-
-## Resources
-
-[Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf)
 
 ## Contributors
 
