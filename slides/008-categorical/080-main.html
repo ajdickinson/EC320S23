@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Andrew Dickinson">
-  <title>Categorical variables</title>
+  <title>Categorical variables and interactions</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="080-main_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="080-main_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -327,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-position="left" class="quarto-title-block center">
-  <h1 class="title">Categorical variables</h1>
+  <h1 class="title">Categorical variables and interactions</h1>
   <p class="subtitle">EC 320, Set 09</p>
 
 <div class="quarto-title-authors">
@@ -345,22 +409,22 @@ Andrew Dickinson
 <h1><em>Prologue</em></h1>
 
 </section>
-<section id="housekeeping" class="slide level2">
-<h2>Housekeeping</h2>
-<p><span class="hi">PS04:</span></p>
-<ul>
-<li>Due <del>Tuesday</del> Wednesday night</li>
-</ul>
+<section id="housekeeping-0605" class="slide level2">
+<h2>Housekeeping (<span class="ex">06/05</span>)</h2>
+<p><span class="hi">Apologies</span> for the late penalty on <span class="hi">PS04</span>. It has been fixed.</p>
 <div class="fragment">
-<p><span class="hi">LA??:</span></p>
+<p><span class="hi">PS05:</span></p>
 <ul>
-<li>Due Friday at 5:00p</li>
+<li>Due Friday, June 9th at 11:59p</li>
 </ul>
 </div>
 <div class="fragment">
 <p><span class="hi">Reading:</span> <em>(up to this point)</em></p>
-<p>ItE: R, 1, 2, 3, <span class="hi">4</span></p>
+<p>ItE: R, 1, 2, 3, 4, <span class="hi">5</span></p>
 <p>MM: 1, 2</p>
+</div>
+<div class="fragment">
+<p>Final exam: 06/13 14:45</p>
 <div class="cell">
 
 </div>
@@ -560,49 +624,54 @@ Andrew Dickinson
 <p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span> for binary variable <span class="math inline">\(X_i = \{\color{#434C5E}{0}, \, {\color{#B48EAD}{1}}\}\)</span></p>
 
 <img data-src="080-main_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="categorical-variables-7" class="slide level2">
+<section id="categorical-variables-7" class="slide level2" data-visibility="uncounted">
 <h2>Categorical Variables</h2>
 <p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span> for binary variable <span class="math inline">\(X_i = \{\color{#434C5E}{0}, \, {\color{#B48EAD}{1}}\}\)</span></p>
 
 <img data-src="080-main_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="categorical-variables-8" class="slide level2">
+<h2>Categorical Variables</h2>
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span> for binary variable <span class="math inline">\(X_i = \{\color{#434C5E}{0}, \, {\color{#B48EAD}{1}}\}\)</span></p>
+
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="multiple-regression" class="slide level2">
 <h2>Multiple Regression</h2>
 <p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i \quad\)</span> <span class="math inline">\(X_1\)</span> is continuous <span class="math inline">\(\quad X_2\)</span> is categorical</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="multiple-regression-1" class="slide level2">
 <h2>Multiple Regression</h2>
 <p>The intercept and categorical variable <span class="math inline">\(X_2\)</span> control for the groups’ means.</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="multiple-regression-2" class="slide level2">
 <h2>Multiple Regression</h2>
 <p>With groups’ means removed:</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="multiple-regression-3" class="slide level2">
 <h2>Multiple Regression</h2>
 <p><span class="math inline">\(\hat{\beta}_1\)</span> estimates the relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_1\)</span> after controlling for <span class="math inline">\(X_2\)</span>.</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="multiple-regression-4" class="slide level2">
 <h2>Multiple Regression</h2>
 <p>Another way to think about it:</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
 <section>
-<section id="omitted-variables" class="title-slide slide level1 center">
+<section id="omitted-variables" class="title-slide slide level1 inverse note center">
 <h1>Omitted variables</h1>
 
 </section>
 <section id="omitted-variables-1" class="slide level2">
 <h2>Omitted Variables</h2>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variables-2" class="slide level2">
 <h2>Omitted Variables</h2>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variables-3" class="slide level2">
 <h2>Omitted Variables</h2>
 <div class="cell" data-layout-align="center" data-escape="false">
@@ -817,87 +886,380 @@ Andrew Dickinson
 <h2>Omitted variable bias</h2>
 <p>True model: <span class="math inline">\(\text{Pay}_i = 20 + 0.5 \times \text{School}_i + 10 \times \text{Male}_i + u_i\)</span></p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variable-bias-7" class="slide level2">
 <h2>Omitted variable bias</h2>
 <p>Biased regression: <span class="math inline">\(\widehat{\text{Pay}}_i = 31.3 + -0.9 \times \text{School}_i\)</span></p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variable-bias-8" class="slide level2">
 <h2>Omitted variable bias</h2>
 <p>Recalling the omitted variable: Gender (<span class="hp">female</span> and <span class="hi">male</span>)</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variable-bias-9" class="slide level2">
 <h2>Omitted variable bias</h2>
 <p>Recalling the omitted variable: Gender (<span class="hp">female</span> and <span class="hi">male</span>)</p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="omitted-variable-bias-10" class="slide level2">
 <h2>Omitted variable bias</h2>
 <p>Unbiased regression: <span class="math inline">\(\widehat{\text{Pay}}_i = 20.9 + 0.4 \times \text{School}_i + 9.1 \times \text{Male}_i\)</span></p>
 
-<img data-src="080-main_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
 <section>
-<section id="ex." class="title-slide slide level1 inverse center">
-<h1><span class="ex">Ex.</span></h1>
+<section id="examples." class="title-slide slide level1 inverse center">
+<h1><span class="ex">Examples.</span></h1>
 
 </section>
-<section id="categorical-variables-8" class="slide level2">
-<h2>Categorical Variables</h2>
-<p><span class="ex">Ex.</span> Weekly Wages</p>
+<section id="ex.-card-1995" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995)</h2>
+<p>Education is not randomly assigned across the population, it is a choice. <span class="fragment"><em>“Depending on how these choices are made, measured earnings differences between workers with different levels of schooling may over-state or under-state the true return to education.”</em></span></p>
+<p><br></p>
+<div class="fragment">
+<p><span class="hii">Card (1995)</span> uses geographic information to causally identify the impact of education earnings by comparing young men who grew up near higher education institutions:</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>Find effect suggesting that the greatest earnings increases are among poor men<span class="fragment">, suggesting that the presence of a local college lowers the costs/raises the perceived benefits of education.</span></p>
+</div>
+</section>
+<section id="ex.-card-1995-abstract" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995) Abstract</h2>
+<div class="vertical-center">
+<blockquote>
+<p>Although schooling and earnings are highly correlated, social scientists have argued for decades over the causal effect of education. <span class="hii">This paper explores the use of college proximity as an exogenous determinant of schooling.</span> An examination… reveals that <span class="hii">men who grew up in local labor markets with a nearby college have significantly higher education and significantly higher earnings than other men</span>. The education and earnings gains are concentrated among men with poorly- educated parents – men who would otherwise stop schooling at relatively low levels.</p>
+</blockquote>
+</div>
+</section>
+<section id="ex.-card-1995-data" class="slide level2" data-visibility="uncounted">
+<h2><span class="ex">Ex.</span> Card (1995) Data</h2>
+<div class="tiny">
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>id</td>
+<td>Person identifier</td>
+</tr>
+<tr class="even">
+<td>nearc4</td>
+<td>=1 if near 4 yr college, 1966</td>
+</tr>
+<tr class="odd">
+<td>educ</td>
+<td>Years of schooling, 1976</td>
+</tr>
+<tr class="even">
+<td>age</td>
+<td>Age in years</td>
+</tr>
+<tr class="odd">
+<td>fatheduc</td>
+<td>Father’s schooling</td>
+</tr>
+<tr class="even">
+<td>motheduc</td>
+<td>Mother’s schooling</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>NLS sampling weight, 1976</td>
+</tr>
+<tr class="even">
+<td>black</td>
+<td>=1 if black</td>
+</tr>
+<tr class="odd">
+<td>south</td>
+<td>=1 if in south, 1976</td>
+</tr>
+<tr class="even">
+<td>wage</td>
+<td>Hourly wage in cents, 1976</td>
+</tr>
+<tr class="odd">
+<td>IQ</td>
+<td>IQ score</td>
+</tr>
+<tr class="even">
+<td>libcrd14</td>
+<td>=1 if lib. card in home at 14</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ex.-card-1995-1" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995)</h2>
+<p>Regress wages on an indicator for proximity to a four year institution</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)     632.      6.00     105.  0       
-2 south          -137.      9.45     -14.5 6.21e-46</code></pre>
+1 (Intercept)    516.       8.39     61.5  0       
+2 nearc4          89.2     10.2       8.77 2.85e-18</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p><span class="note">Q<sub>1</sub>:</span> What is the reference category?</p>
 <p><span class="note">Q<sub>2</sub>:</span> Interpret the coefficients.</p>
-<p><span class="note">Q<sub>3</sub>:</span> Suppose you ran <code>lm(wage ~ nonsouth, data = wage_data)</code> instead. What is the coefficient estimate on <code>nonsouth</code>? What is the intercept estimate?</p>
+<p><span class="note">Q<sub>3</sub>:</span> Suppose we had an indicator that was equal to one for individual who lived far from 4 year institutions, <code>farc4</code>, and ran <code>lm(wage ~ farc4, data = wage_data)</code> instead. What is the coefficient estimate on <code>farc4</code>? What is the intercept estimate?</p>
 </div>
 </section>
-<section id="categorical-variables-9" class="slide level2">
-<h2>Categorical Variables</h2>
-<p><span class="ex">Ex.</span> Weekly Wages</p>
+<section id="ex.-card-1995-2" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995)</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)    647.       6.02     107.  0       
-2 south          -98.6      9.84     -10.0 2.89e-23
-3 black         -129.      11.4      -11.3 3.43e-29</code></pre>
+1 (Intercept)    562.       8.65     65.0  0       
+2 nearc4          78.1      9.84      7.94 2.73e-15
+3 black         -162.      10.8     -15.0  7.16e-49</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p><span class="note">Q<sub>1</sub>:</span> What is the reference category?</p>
 <p><span class="note">Q<sub>2</sub>:</span> Interpret the coefficients.</p>
-<p><span class="note">Q<sub>3</sub>:</span> Suppose you ran <code>lm(wage ~ south + nonblack, data = wage_data)</code> instead. What is the coefficient estimate on <code>nonblack</code>? What is the coefficient estimate on <code>south</code>? What is the intercept estimate?</p>
+<p><span class="note">Q<sub>3</sub>:</span> Suppose you ran <code>lm(wage ~ nearc4 + nonblack, data = wage_data)</code> instead. What is the coefficient estimate on <code>nonblack</code>? What is the coefficient estimate on <code>nearc4</code>? What is the intercept estimate?</p>
 </div>
 </section>
-<section id="categorical-variables-10" class="slide level2">
-<h2>Categorical Variables</h2>
-<p><span class="ex">Ex.</span> Weekly Wages</p>
+<section id="ex.-card-1995-3" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995)</h2>
 <p><span class="note">Answer to Q<sub>3</sub>:</span></p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">lm</span>(wage <span class="sc">~</span> nearc4 <span class="sc">+</span> nonblack, <span class="at">data =</span> wage_data) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    400.      11.2      35.6  1.30e-231
+2 nearc4          78.1      9.84      7.94 2.73e- 15
+3 nonblack       162.      10.8      15.0  7.16e- 49</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-card-1995-4" class="slide level2">
+<h2><span class="ex">Ex.</span> Card (1995)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> nearc4 <span class="sc">+</span> south <span class="sc">+</span> black, <span class="at">data =</span> wage_data) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)    518.      11.7       44.3 0       
-2 south          -98.6      9.84     -10.0 2.89e-23
-3 nonblack       129.      11.4       11.3 3.43e-29</code></pre>
+1 (Intercept)    312.      25.1      12.5  8.47e-35
+2 educ            21.5      1.73     12.4  1.02e-34
+3 nearc4          47.3      9.75      4.85 1.31e- 6
+4 south          -74.1      9.81     -7.56 5.52e-14
+5 black          -98.5     11.3      -8.68 6.27e-18</code></pre>
 </div>
 </div>
-<div class="footer footer-default">
-<p>EC320, Set 09 | Categorical variables</p>
+<p><span class="note">Q<sub>1</sub>:</span> What is the reference category?</p>
+<p><span class="note">Q<sub>2</sub>:</span> Interpret the coefficients.</p>
+</section>
+<section class="slide level2">
+
+<p>We considered a model where schooling has the same effect for everyone (<span class="hp">F</span> and <span class="hi">M</span>)</p>
+
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-26-1.svg" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>We will consider models that allow effects to differ by another variable (<em>e.g.,</em> by gender: (<span class="hp">F</span> and <span class="hi">M</span>)):</p>
+
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-27-1.svg" width="960" class="r-stretch"></section></section>
+<section>
+<section id="interactive-relationships" class="title-slide slide level1 inverse note center">
+<h1>Interactive relationships</h1>
+
+</section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<p>Regression coefficients describe average effects. <span class="fragment">But for whom does <em>on average</em> mean?</span></p>
+<p><br></p>
+<div class="fragment">
+<p>Averages can mask <span class="hp">heterogeneous effects</span> that differ by group or by the level of another variable.</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>We can use <span class="note">interaction terms</span> to model <span class="hp">heterogeneous effects</span><span class="fragment">, accommodating complexity and nuance by going beyond <em>“the effect of</em> <span class="math inline">\(X\)</span> <em>on</em> <span class="math inline">\(Y\)</span> <em>is</em> <span class="math inline">\(\beta_1\)</span><em>.”</em></span></p>
+</div>
+</section>
+<section id="interaction-terms" class="slide level2">
+<h2>Interaction Terms</h2>
+<p><span class="hi">Starting point:</span> <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i\)</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(X_{1i}\)</span> is the variable of interest</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(X_{2i}\)</span> is a control variable</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p><span class="note">A richer model:</span> Interactions test whether <span class="math inline">\(X_{2i}\)</span> <span class="purple"><em>moderates</em></span> the effect of <span class="math inline">\(X_{1i}\)</span></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \cdot X_{2i} + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">Interpretation:</span> The partial derivative of <span class="math inline">\(Y_i\)</span> with respect to <span class="math inline">\(X_{1i}\)</span> is the <span class="note">marginal effect</span> of <span class="math inline">\(X_1\)</span> on <span class="math inline">\(Y_i\)</span>:</p>
+<p><span class="math display">\[
+\color{#81A1C1}{\dfrac{\partial Y}{\partial X_1} = \beta_1 + \beta_3 X_{2i}}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>The effect of <span class="math inline">\(X_1\)</span> depends on the level of <span class="math inline">\(X_2\)</span> 🤯</p>
 </div>
 </section></section>
+<section>
+<section id="ex.-differential-returns-to-education" class="title-slide slide level1 inverse center">
+<h1><span class="ex">Ex.</span> Differential returns to education</h1>
+
+</section>
+<section id="ex.-differential-returns-to-education-1" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p><span class="note">Research question:</span> Do the returns to education vary by race?</p>
+<div class="fragment">
+<p>Consider the interactive regression model:</p>
+<p><span class="math display">\[\begin{align*}
+  \text{Wage}_i = \beta_0 &amp;+ \beta_1 \text{Education}_i + \beta_2 \text{Black}_i \\
+                          &amp;+ \beta_3 \text{Education}_i \times \text{Black}_i  + u_i
+\end{align*}\]</span></p>
+</div>
+<div class="fragment">
+<p><em>What is the marginal effect of an additional year of education?</em></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\dfrac{\partial \text{Wage}}{\partial \text{Education}} = \beta_1 + \beta_3 \text{Black}_i  
+\]</span></p>
+</div>
+</section>
+<section id="ex.-differential-returns-to-education-2" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p><em>What is the return to education for black workers?</em></p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> black <span class="sc">+</span> educ<span class="sc">:</span>black, <span class="at">data =</span> wage2) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    196.      82.2       2.38 1.75e- 2
+2 educ            58.4      5.96      9.80 1.19e-21
+3 black          321.     263.        1.22 2.23e- 1
+4 educ:black     -40.7     20.7      -1.96 4.99e- 2</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\widehat{\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)}\Bigg|_{\small \text{Black}=1} = \hat{\beta}_1 + \hat{\beta}_3 = 17.65
+\]</span></p>
+</div>
+</section>
+<section id="ex.-differential-returns-to-education-3" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p><em>What is the return to education for non-black workers?</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> black <span class="sc">+</span> educ<span class="sc">:</span>black, <span class="at">data =</span> wage2) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    196.      82.2       2.38 1.75e- 2
+2 educ            58.4      5.96      9.80 1.19e-21
+3 black          321.     263.        1.22 2.23e- 1
+4 educ:black     -40.7     20.7      -1.96 4.99e- 2</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\widehat{\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)}\Bigg|_{\small \text{Black}=0} = \hat{\beta}_1  = 58.38
+\]</span></p>
+</div>
+</section>
+<section id="ex.-differential-returns-to-education-4" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p><span class="note">Q:</span> <em>Does the return to education differ by race?</em></p>
+<div class="fragment">
+<p>Conduct a <span class="hi">two-sided</span> <span class="math inline">\(t\)</span>-test of the <span class="note">null hypothesis</span> that the interaction coefficient equals 0 at the 5% level.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> black <span class="sc">+</span> educ<span class="sc">:</span>black, <span class="at">data =</span> wage2) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    196.      82.2       2.38 1.75e- 2
+2 educ            58.4      5.96      9.80 1.19e-21
+3 black          321.     263.        1.22 2.23e- 1
+4 educ:black     -40.7     20.7      -1.96 4.99e- 2</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>p</em>-value <span class="mono">=</span> 0.0499 &lt; 0.05 <span class="fragment"><span class="math inline">\(\implies\)</span> <span class="hi-red">reject null hypothesis</span>.</span></p>
+</div>
+<div class="fragment">
+<p><span class="note">A:</span> The return to education is significantly lower for black workers.</p>
+</div>
+</section>
+<section id="ex.-differential-returns-to-education-5" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p>We can also test hypotheses about specific marginal effects.</p>
+<ul>
+<li><em>e.g.,</em> H<sub>0</sub>: <span class="math inline">\(\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)\Bigg|_{\small \text{Black}=1} = 0\)</span>.</li>
+<li>Conduct a <span class="math inline">\(t\)</span> test or construct confidence intervals.</li>
+</ul>
+<div class="fragment">
+<p><span class="note">Problem 1:</span> <code>lm()</code> output does not include <span class="math inline">\(\hat{\text{SE}}\)</span> for the marginal effects.</p>
+</div>
+<div class="fragment">
+<p><span class="note">Problem 2:</span> The formula for marginal effect standard errors includes covariances between coefficient estimates. The math is messy.<sup>1</sup></p>
+</div>
+<div class="fragment">
+<p><span class="note">Solution:</span> Construct confidence intervals using the <code>margins</code> package.</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Stay tuned</p></li></ol></aside></section>
+<section id="ex.-differential-returns-to-education-6" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p>The <code>margins</code> function provides standard errors and 95% confidence intervals for each marginal effect.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(margins)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>reg <span class="ot">=</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> black <span class="sc">+</span> educ<span class="sc">:</span>black, <span class="at">data =</span> wage2)</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="fu">margins</span>(reg, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">black =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(factor <span class="sc">==</span> <span class="st">"educ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> factor  black     AME      SE      z      p    lower   upper
+   educ 0.0000 58.3773  5.9527 9.8068 0.0000  46.7101 70.0444
+   educ 1.0000 17.6544 19.8954 0.8874 0.3749 -21.3399 56.6488</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-differential-returns-to-education-7" class="slide level2">
+<h2><span class="ex">Ex.</span> Differential returns to education</h2>
+<p>We can use the <code>geom_pointrange()</code> option in <code>ggplot2</code> to plot the marginal effects with 95% confidence intervals.</p>
+
+<img data-src="080-main_files/figure-revealjs/unnamed-chunk-33-1.svg" width="864" class="r-stretch"><div class="footer footer-default">
+<p>EC320, Set 09 | Categorical variables and interactions</p>
+</div>
+</section></section>
+
     </div>
   </div>
 

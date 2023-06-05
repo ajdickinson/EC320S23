@@ -1,5 +1,5 @@
 ---
-title: "Categorical variables"
+title: "Categorical variables and interactions"
 subtitle: "EC 320, Set 09"
 author: "Andrew Dickinson"
 date: last-modified
@@ -9,7 +9,7 @@ format:
     theme: [default, ../styles.scss]
     monobackgroundcolor: #F5F5F5
     slide-number: true
-    footer: "EC320, Set 09 | Categorical variables"
+    footer: "EC320, Set 09 | Categorical variables and interactions"
     preview-links: auto
     code-fold: FALSE
     code-copy: TRUE
@@ -28,32 +28,34 @@ $$
 
 # _Prologue_ {.inverse .note}
 
-## Housekeeping
+## Housekeeping ([06/05]{.ex})
 
-[PS04:]{.hi}
-
-- Due ~~Tuesday~~ Wednesday night
+[Apologies]{.hi} for the late penalty on [PS04]{.hi}. It has been fixed. 
 
 . . .
 
-[LA??:]{.hi}
+[PS05:]{.hi}
 
-- Due Friday at 5:00p
+- Due Friday, June 9th at 11:59p
 
 . . .
 
 [Reading:]{.hi} _(up to this point)_
 
-ItE: R, 1, 2, 3, [4]{.hi}
+ItE: R, 1, 2, 3, 4, [5]{.hi}
 
 MM: 1, 2
+
+. . .
+
+Final exam: 06/13 14:45
 
 ```{r}
 # Load packages
 pacman::p_load(
   hrbrthemes, fastverse, tidyverse, AER,
   magrittr, wooldridge, here, kableExtra,
-  ggdag, nord, latex2exp, dagitty, viridis, scales, cplot,
+  ggdag, nord, latex2exp, dagitty, viridis, scales, 
   plotly, ggforce, parallel, broom, gapminder
   )
 
@@ -94,17 +96,21 @@ wage_data <- card %>%
   mutate(nonblack = ifelse(black == 0, 1, 0))
 
 # MI school funding and test scores data
-data('meap01')
+meap01 <- get('meap01') %>% 
+  mutate(spend = exppp/1000)
 ```
 
 {{< include _081-slr.qmd >}}
 
-# Omitted variables
+# Omitted variables {.inverse .note}
 
 {{< include _082-ovb.qmd >}}
 
-
-
-# [Ex.]{.ex} {.inverse}
+# [Examples.]{.ex} {.inverse}
 
 {{< include _083-categorical-ex.qmd >}}
+
+# Interactive relationships {.inverse .note}
+
+{{< include _084-interaction.qmd >}}
+

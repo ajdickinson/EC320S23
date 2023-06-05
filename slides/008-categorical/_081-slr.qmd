@@ -304,11 +304,40 @@ cat_reg <- lm(y ~ x, data = cat_df)
 
 set.seed(12345)
 ggplot(data = cat_df, aes(x = x, y = y, color = as.factor(x))) +
-geom_jitter(width = 0.3, size = 1.5, alpha = 0.5) +
+geom_point(width = 0.3, size = 1.5, alpha = 0.5) +
 scale_color_manual(values = c(hi, hp)) +
-theme_void()
+scale_x_continuous(breaks = c(0,1)) +
+mytheme_s +
+theme(
+  legend.position = "none",
+  axis.line.y = element_blank(),
+  axis.text.y = element_blank()
+)
 ```
 
+---
+
+## Categorical Variables {data-visibility="uncounted"}
+
+$Y_i = \beta_0 + \beta_1 X_i + u_i$ for binary variable $X_i = \{\color{#434C5E}{0}, \, {\color{#B48EAD}{1}}\}$
+
+```{r}
+#| echo: false
+#| fig.height: 5.75
+#| fig-align: center
+
+set.seed(12345)
+ggplot(data = cat_df, aes(x = x, y = y, color = as.factor(x))) +
+geom_jitter(width = 0.3, size = 1.5, alpha = 0.5) +
+scale_color_manual(values = c(hi, hp)) +
+scale_x_continuous(breaks = c(0,1)) +
+mytheme_s +
+theme(
+  legend.position = "none",
+  axis.line.y = element_blank(),
+  axis.text.y = element_blank()
+)
+```
 
 ---
 
@@ -325,24 +354,30 @@ set.seed(12345)
 ggplot(data = cat_df, aes(x = x, y = y, color = as.factor(x))) +
 geom_jitter(width = 0.3, size = 1.5, alpha = 0.5) +
 scale_color_manual(values = c(hi, hp)) +
+scale_x_continuous(breaks = c(0,1)) +
 geom_hline(yintercept = cat_reg$coefficients[1], size = 1, color = hi) +
 geom_hline(yintercept = cat_reg$coefficients[1] + cat_reg$coefficients[2], size = 1, color = hp) +
 annotate(
   geom = "text",
   x = 0.5,
-  y = -1 + cat_reg$coefficients[1],
+  y = -1.5 + cat_reg$coefficients[1],
   label = latex2exp::TeX("$\\hat{\\beta}_0 = \\bar{Group_0}$"),
   size = 7
 ) +
 annotate(
   geom = "text",
   x = 0.5,
-  y = 1 + cat_reg$coefficients[1] + cat_reg$coefficients[2],
+  y = 1.5 + cat_reg$coefficients[1] + cat_reg$coefficients[2],
   label = latex2exp::TeX("$\\hat{\\beta}_0 + \\hat{\\beta}_1 = \\bar{Group_1}$"),
   size = 7,
   color = hp
 ) +
-theme_void()
+mytheme_s +
+theme(
+  legend.position = "none",
+  axis.line.y = element_blank(),
+  axis.text.y = element_blank()
+)
 ```
 
 ---

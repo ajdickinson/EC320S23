@@ -303,7 +303,7 @@ True model: $\text{Pay}_i = `r beta0` + `r beta1` \times \text{School}_i + `r be
 
 ```{r}
 #| echo: false
-#| fig.height: 6
+#| fig.height: 5.75
 #| fig-align: center
 #| escape: false
 
@@ -341,7 +341,7 @@ Recalling the omitted variable: Gender ([female]{.hp} and [male]{.hi})
 
 ```{r}
 #| echo: false
-#| fig.height: 6
+#| fig.height: 5.75
 #| fig-align: center
 #| escape: false
 

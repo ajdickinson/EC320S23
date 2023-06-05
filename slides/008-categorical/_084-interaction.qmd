@@ -1,0 +1,234 @@
+---
+name: interaction
+---
+
+---
+
+## Motivation
+
+Regression coefficients describe average effects. [But for whom does _on average_ mean?]{.fragment}
+
+<br>
+
+. . .
+
+Averages can mask [heterogeneous effects]{.hp} that differ by group or by the level of another variable.
+
+<br>
+
+. . .
+
+We can use [interaction terms]{.note} to model [heterogeneous effects]{.hp}[, accommodating complexity and nuance by going beyond *"the effect of* $X$ *on* $Y$ *is* $\beta_1$*."*]{.fragment}
+
+---
+
+## Interaction Terms
+
+[Starting point:]{.hi} $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i$
+
+:::: {.columns}
+::: {.column width="50%"}
+- $X_{1i}$ is the variable of interest
+:::
+
+::: {.column width="50%"}
+- $X_{2i}$ is a control variable
+:::
+
+::::
+
+. . .
+
+[A richer model:]{.note} Interactions test whether $X_{2i}$ [*moderates*]{.purple} the effect of $X_{1i}$
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \cdot X_{2i} + u_i
+$$
+
+. . .
+
+[Interpretation:]{.note} The partial derivative of $Y_i$ with respect to $X_{1i}$ is the [marginal effect]{.note} of $X_1$ on $Y_i$:
+
+$$
+\color{#81A1C1}{\dfrac{\partial Y}{\partial X_1} = \beta_1 + \beta_3 X_{2i}}
+$$
+
+. . .
+
+The effect of $X_1$ depends on the level of $X_2$ 🤯
+
+
+# [Ex.]{.ex} Differential returns to education {.inverse}
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+[Research question:]{.note} Do the returns to education vary by race?
+
+. . .
+
+Consider the interactive regression model:
+
+
+\begin{align*}
+  \text{Wage}_i = \beta_0 &+ \beta_1 \text{Education}_i + \beta_2 \text{Black}_i \\ 
+                          &+ \beta_3 \text{Education}_i \times \text{Black}_i  + u_i
+\end{align*}
+
+. . .
+
+_What is the marginal effect of an additional year of education?_
+
+. . .
+
+$$
+\dfrac{\partial \text{Wage}}{\partial \text{Education}} = \beta_1 + \beta_3 \text{Black}_i  
+$$
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+_What is the return to education for black workers?_
+
+```{r}
+#| echo: false
+#| cache: true
+
+reg = lm(wage ~ educ + black + educ:black, data = wage2)
+# regression coefficients
+a = reg$coefficients[2]
+b = reg$coefficients[4]
+```
+
+```{r}
+#| echo: true
+#| cache: true
+
+lm(wage ~ educ + black + educ:black, data = wage2) %>% tidy()
+```
+
+. . .
+
+$$
+\widehat{\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)}\Bigg|_{\small \text{Black}=1} = \hat{\beta}_1 + \hat{\beta}_3 = `r round(a + b, 2)`
+$$
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+_What is the return to education for non-black workers?_
+
+```{r}
+#| echo: true
+#| cache: true
+
+lm(wage ~ educ + black + educ:black, data = wage2) %>% tidy()
+```
+
+. . .
+
+$$
+\widehat{\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)}\Bigg|_{\small \text{Black}=0} = \hat{\beta}_1  = `r round(a, 2)`
+$$
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+[Q:]{.note} _Does the return to education differ by race?_
+
+. . .
+
+Conduct a [two-sided]{.hi} $t$-test of the [null hypothesis]{.note} that the interaction coefficient equals 0 at the 5% level.
+
+. . .
+
+<br>
+
+```{r}
+#| echo: true
+#| cache: true
+
+lm(wage ~ educ + black + educ:black, data = wage2) %>% tidy()
+```
+
+. . .
+
+*p*-value [=]{.mono} 0.0499 < 0.05 [$\implies$ [reject null hypothesis]{.hi-red}.]{.fragment}
+
+. . .
+
+[A:]{.note} The return to education is significantly lower for black workers.
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+We can also test hypotheses about specific marginal effects.
+
+- *e.g.,* H~0~: $\left(\dfrac{\partial \text{Wage}}{\partial \text{Education}} \right)\Bigg|_{\small \text{Black}=1} = 0$.
+- Conduct a $t$ test or construct confidence intervals.
+
+. . .
+
+[Problem 1:]{.note} `lm()` output does not include $\hat{\text{SE}}$ for the marginal effects.
+
+. . .
+
+[Problem 2:]{.note} The formula for marginal effect standard errors includes covariances between coefficient estimates. The math is messy.^[Stay tuned]
+
+. . .
+
+[Solution:]{.note} Construct confidence intervals using the `margins` package.
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+The `margins` function provides standard errors and 95% confidence intervals for each marginal effect.
+
+```{r}
+#| echo: true
+#| cache: true
+
+pacman::p_load(margins)
+
+reg = lm(wage ~ educ + black + educ:black, data = wage2)
+
+margins(reg, at = list(black = 0:1)) %>% summary() %>% filter(factor == "educ")
+```
+
+---
+
+## [Ex.]{.ex} Differential returns to education
+
+We can use the `geom_pointrange()` option in `ggplot2` to plot the marginal effects with 95% confidence intervals.
+
+```{r}
+#| echo: false
+#| cache: true
+#| fig.width: 9
+#| dev: svg
+
+margs = summary(margins(reg, at = list(black = 0:1, south = 0:1))) %>% 
+  filter(factor == "educ") %>% 
+  mutate(Term = case_when(black == 1 ~ "Black Workers",
+                          black == 0 ~ "Non-black Workers") %>% as.factor,
+         Race = case_when(black == 1 ~ "Black", 
+                          black == 0 ~ "Non-black") %>% as.factor)
+
+margs %>% 
+  ggplot() + 
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_pointrange(aes(x = Term, y = AME, ymin = lower, ymax = upper, color = Race), size = 1) +
+  coord_flip() + mytheme_s + xlab("") + ylab("Marginal Effect of Education on Wages") +
+  scale_color_manual("", values = c(hp, hi)) + 
+  theme(
+    legend.position = "none"
+  ) 
+```
+
+
