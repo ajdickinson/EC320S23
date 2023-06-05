@@ -90,7 +90,7 @@ __Midterm:__
 [Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf) |
 [MT solutions](https://ajdickinson.github.io/EC320S23/resources/mt-solutions.pdf)
 
-_Final:__
+__Final:__
 
 [Practice final](https://ajdickinson.github.io/EC320S23/resources/practice-final.pdf)
 
