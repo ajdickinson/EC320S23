@@ -2663,7 +2663,7 @@ vertical-align: -.125em;
 <div class="question" data-points="10">
 <p>Load the required packages <code>tidyverse</code>, <code>broom</code>, and AER</p>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, broom, AER)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2675,7 +2675,7 @@ vertical-align: -.125em;
 <li>Print the first 10 observations in the dataset by using the function <code>head()</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;MASchools&quot;</span>)</span>
@@ -2720,7 +2720,7 @@ vertical-align: -.125em;
 <li><code>income</code></li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <ul>
 <li><span class="proof-title"><em>Solution</em>. </span></li>
 <li><code>district</code>: The district number</li>
@@ -2746,7 +2746,7 @@ vertical-align: -.125em;
 <li>What type of data is this (recall data types from the review lecture).</li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <p><span class="proof-title"><em>Solution</em>. </span>The data are at the district level. Meaning that each row describes a single district.</p>
 <p>This is cross sectional data since each <span class="math inline">\(i\)</span> only has one observation</p>
 </div>
@@ -2758,7 +2758,7 @@ vertical-align: -.125em;
 <li>Of the non-missing data, what is the average 4th grade test score? <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many different school districts are there?</span></span>
@@ -2770,8 +2770,8 @@ vertical-align: -.125em;
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Which municipality spends the most money on each child?</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>top_exp <span class="ot">=</span> school_df <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">max =</span> <span class="fu">max</span>(exptot)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(exptot <span class="sc">==</span> max) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">max =</span> <span class="fu">max</span>(expreg)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(expreg <span class="sc">==</span> max) <span class="sc">%&gt;%</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(municipality) <span class="sc">%&gt;%</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  as.character</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -2780,23 +2780,23 @@ vertical-align: -.125em;
 <pre><code>[1] &quot;Cambridge is the biggest spender on their students&quot;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the average test score aggregated 8th grade test score?</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mean_score8 <span class="ot">=</span> school_df <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(score8) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(score8, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mean_score4 <span class="ot">=</span> school_df <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(score4) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(score4, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;The mean, aggregated test score for 8th graders is &quot;</span>, mean_score8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;The mean, aggregated test score for 4th graders is &quot;</span>, mean_score4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;The mean, aggregated test score for 8th graders is  698.41&quot;</code></pre>
+<pre><code>[1] &quot;The mean, aggregated test score for 4th graders is  709.83&quot;</code></pre>
 </div>
 </div>
 </div>
 <div class="question" data-points="10">
 <p>Plot the histogram of test scores for 4th graders. Make it look nice by adding a title and labels to your axis. Maybe try to give it some color. If you would like, install the <code>ggthemes</code> package (<code>install.packages(&quot;ggthemes&quot;)</code>) and read the documentation. It has a ton of themes choices that will style your plot.</p>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(school_df, <span class="fu">aes</span>(<span class="at">x =</span> score4)) <span class="sc">+</span></span>
@@ -2827,7 +2827,7 @@ vertical-align: -.125em;
 <li>Briefly describe the intuition behind the argument of a hypothesis test.</li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="align-center">
 <span class="proof-title"><em>Solution</em>. </span>
 <p>H<span class="sub">0</span>: <span class="math inline">\(\beta_1 = 0\)</span></p>
@@ -2835,11 +2835,18 @@ vertical-align: -.125em;
 <div class="align-center">
 <p>H<span class="sub">A</span>: <span class="math inline">\(\beta_1 \neq 0\)</span></p>
 </div>
+<p>A hypothesis test is a statistical method where an initial claim (null hypothesis) is tested based on sample data, to see if there’s enough evidence to reject this claim in favor of an alternative hypothesis. It’s essentially deciding whether the observed differences in your sample data are due to random chance or if they reflect a meaningful, statistical difference in the broader population. In this way, the outcome space is spanned by four potential possibilities:</p>
+<ul>
+<li>Reject the null and the null is false</li>
+<li>Fail to reject the null and the null is true</li>
+<li>Type I error</li>
+<li>Type II error</li>
+</ul>
 </div>
 <div class="question" data-points="10">
 <p>It is always important to plot your data. Make a scatter plot of the variables in this regression. Like before, try to make it look presentable.</p>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(school_df, <span class="fu">aes</span>(<span class="at">x =</span> stratio, <span class="at">y =</span> score4)) <span class="sc">+</span></span>
@@ -2870,7 +2877,7 @@ vertical-align: -.125em;
 <li>Does class size explain a lot of the variation in test scores?</li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> stratio, school_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2903,7 +2910,7 @@ vertical-align: -.125em;
 <div class="question" data-points="10">
 <p>Describe in math, and in words, what the <span class="note">exogeniety assumption</span> requires. Explain why this regression may violate this assumption.</p>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <p><span class="proof-title"><em>Solution</em>. </span>The <span class="note">exogeniety assumption</span> can be written as:</p>
 <p><span class="math display">\[
 \mathrm{E}[u_i | X_i] = 0
@@ -2912,12 +2919,46 @@ vertical-align: -.125em;
 <p>This regression violates the exogeniety assumption because class size is correlated with the error term <span class="math inline">\(u_i\)</span>. For example, school funding is both correlated with test scores and with class size.</p>
 </div>
 <div class="question" data-points="10">
-<p>What is the formula for omitted variable bias? If we were to include a variable on school funding, what would you expect the sign to be? Are we over or under estimating <span class="math inline">\(\beta_1\)</span> ? Explain.</p>
+<p>What is the formula for omitted variable bias? If we were to include a variable on school funding, what would you expect the sign to be? Are we over or under estimating <span class="math inline">\(\beta_1\)</span>? Explain.</p>
+</div>
+<div class="solution proof">
+<p><span class="proof-title"><em>Solution</em>. </span>Go easy on this question. I made a mistake in class by not managing to cover the formula for omitted variable bias before this due date super explicitly. However, they should understand some of the intuition behind whether we are over or under estimating <span class="math inline">\(\beta_1\)</span></p>
+<p>The OVB formula is the following:</p>
+<p><span class="math display">\[
+\text{Bias} = \beta_2 \cdot \frac{\mathrm{Cov}(X_1, X_2)}{Var(X_1)}
+\]</span></p>
+<p>Following this formula, the bias depends on the correlation between the two <span class="math inline">\(X\)</span> variables, and the correlation of the omitted variable, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(Y\)</span>. The <span class="math inline">\(\mathrm{Cov}(X_1, X_2) &lt; 0\)</span>, since school funding is negatively correlated with class size (i.e., as schools spend more money, they higher more teachers, on average). Or look at the sign of funding in the following regression:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(stratio <span class="sc">~</span> expreg, <span class="at">data =</span> school_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept) 23.5      0.703        33.4  8.54e-88
+2 expreg      -0.00134  0.000150     -8.93 1.86e-16</code></pre>
+</div>
+</div>
+<p>Also, the correlation between school funding and test scores is <span class="hi">positive</span> (i.e., schools with more funding have higher test scores). Or see the sign of funding in the following regression</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> expreg, <span class="at">data =</span> school_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term         estimate std.error statistic   p.value
+  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept) 696.        5.37       130.   3.02e-208
+2 expreg        0.00308   0.00114      2.69 7.61e-  3</code></pre>
+</div>
+</div>
+<p>Thus, plugging in for our OVB formula, we find</p>
+<p><span class="math display">\[
+{\color{#BF616A} \text{Bias}} = {\color{#BF616A}\beta_2} \cdot \frac{{\color{#81A1C1} \mathrm{Cov}(X_1, X_2)}}{{\color{#81A1C1} Var(X_1)}}
+\]</span></p>
+<p>where the sign of each term is colored. Overall the result is a negative bias, which overestimates our estimates of class size if we omit the school funding from our model.</p>
 </div>
 <div class="question" data-points="10">
 <p>On your old scatter plot, add another <code>geom</code> layer using <code>geom_smooth</code>. Read the help file (<code>?geom_smooth</code>) to plot the <code>lm</code> method, which is the same regression in question <span class="hi">Q09</span>. Do you point estimates line up with your fitted line using <code>geom_smooth</code>.</p>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <p><span class="proof-title"><em>Solution</em>. </span>see above for the solution</p>
 </div>
 <div class="question" data-points="10">
@@ -2930,10 +2971,10 @@ vertical-align: -.125em;
 <li>Does this regression improve on the <span class="math inline">\(R^2\)</span> found in the SLR above?</li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> stratio <span class="sc">+</span> expreg, school_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> stratio <span class="sc">+</span> expreg, school_df) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term         estimate std.error statistic   p.value
@@ -2942,7 +2983,7 @@ vertical-align: -.125em;
 2 stratio      -1.50      0.508      -2.96  3.45e-  3
 3 expreg        0.00107   0.00131     0.816 4.15e-  1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> stratio <span class="sc">+</span> expreg, school_df) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score4 <span class="sc">~</span> stratio <span class="sc">+</span> expreg, school_df) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
@@ -2955,21 +2996,24 @@ vertical-align: -.125em;
 <div class="question" data-points="10">
 <p>Based on the change in our point estimate of <span class="math inline">\(\beta_2\)</span> when we add <span class="math inline">\(Funding_i\)</span>, what sign is the bias created by omitting this variable? Does this match your expectation from before?</p>
 </div>
+<div class="solution proof">
+<p><span class="proof-title"><em>Solution</em>. </span>Yes, this does match our intuition from before. The sign of the bias was negative. When including a control for funding, the size of the estimate is reduced.</p>
+</div>
 <div class="question" data-points="10">
 <p>Try to find a regression with an <span class="math inline">\(R^2\)</span> above 0.5 by adding additional regressors.</p>
 <ul>
 <li>Now find the adjusted <span class="math inline">\(R^2\)</span> (using <code>glance()</code>). Is it bigger or smaller than the standard <span class="math inline">\(R^2\)</span>?</li>
 </ul>
 </div>
-<div class="solution proof" style="display: none;">
+<div class="solution proof" style="display: inherit;">
 <div class="cell">
 <span class="proof-title"><em>Solution</em>. </span>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>big_model <span class="ot">=</span> <span class="fu">lm</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  score4 <span class="sc">~</span> expreg <span class="sc">+</span> expspecial <span class="sc">+</span> expbil <span class="sc">+</span> expocc <span class="sc">+</span> scratio <span class="sc">+</span> stratio <span class="sc">+</span> special <span class="sc">+</span> lunch <span class="sc">+</span> income <span class="sc">+</span> salary <span class="sc">+</span> english,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  school_df</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(big_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>big_model <span class="ot">=</span> <span class="fu">lm</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  score4 <span class="sc">~</span> expreg <span class="sc">+</span> expspecial <span class="sc">+</span> expbil <span class="sc">+</span> expocc <span class="sc">+</span> scratio <span class="sc">+</span> stratio <span class="sc">+</span> special <span class="sc">+</span> lunch <span class="sc">+</span> income <span class="sc">+</span> salary <span class="sc">+</span> english,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  school_df</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(big_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 5
    term           estimate  std.error statistic   p.value
@@ -2987,7 +3031,7 @@ vertical-align: -.125em;
 11 salary        0.213      0.276        0.773  4.40e-  1
 12 english      -0.344      0.291       -1.18   2.39e-  1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(big_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(big_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
