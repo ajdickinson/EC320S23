@@ -1,4 +1,4 @@
-# EC 320, Spring 2023:  
+# EC 320, Spring 2023:   
 
 Welcome to Economics 320: Introduction to Econometrics taught by [Andrew Dickinson](https://economics.uoregon.edu/profile/adickin3/) and [Colleen O'Briant](https://economics.uoregon.edu/profile/cobriant/).
 
@@ -81,7 +81,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 [PS04 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/PS04.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/template/PS04.R)
 
-[PS05 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05_solutions.html)
+[PS05 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05_solutions.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05.R)
 
 ## Resources
 
