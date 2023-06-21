@@ -71,29 +71,6 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 - Readings: *ItE 6*
 
-## Problem sets + solutions (_following due date_)
-
-[PS01 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps01/ps01.html)
-
-[PS02 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps02/ps02.html)
-
-[PS03 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps03/PS03.html)
-
-[PS04 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/PS04.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps04/template/PS04.R)
-
-[PS05 (_solutions_)](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05_solutions.html) | [R script](https://ajdickinson.github.io/EC320S23/problem-sets/ps05/template/PS05.R)
-
-## Resources
-
-__Midterm:__
-
-[Practice midterm](https://ajdickinson.github.io/EC320S23/resources/practice-midterm.pdf) |
-[MT solutions](https://ajdickinson.github.io/EC320S23/resources/mt-solutions.pdf)
-
-__Final:__
-
-[Practice final](https://ajdickinson.github.io/EC320S23/resources/practice-final.pdf)
-
 ## Contributors
 
 Material for this course has contributions from [Ed Rubin](http://edrub.in/) ([@edrubin](https://github.com/edrubin)), [Kyle Raze](https://kyleraze.com/) ([@kyleraze](https://github.com/kyleraze)), [Philip Economides](https://philip-economides.com/)([@peconomi](https://github.com/peconomi)), and [Emmett Saulnier](https://www.emmettsaulnier.com/), who have taught the class prior to me and graciously made their work public. I also source some material from [Nick Huntington-Klein](https://nickchk.com/) ([@NickCH-K](https://github.com/NickCH-K)), who maintains a [trove of resources](https://nickchk.com/causalgraphs.html) for learning causal inference.
